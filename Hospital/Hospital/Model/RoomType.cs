@@ -10,13 +10,7 @@ namespace Hospital.Model
 {
    public class RoomType
    {
-        public RoomTypes Type { get; set; }
-
-
-        public RoomType(RoomTypes types)
-        {
-            Type = types;
-        }
+        
         public enum RoomTypes
         {
             OperationRoom,
@@ -24,18 +18,6 @@ namespace Hospital.Model
             MeetingRoom
         }
 
-        internal static RoomType Parse(string v)
-        {
-            if (v.Equals("MeetingRoom"))
-            {
-                return new RoomType(RoomTypes.MeetingRoom);
-            }else if (v.Equals("ExaminatingRoom"))
-            {
-                return new RoomType(RoomTypes.ExaminationRoom);
-            }
-          
-          return new RoomType(RoomTypes.OperationRoom);
-          
-        }
+        
     }
 }

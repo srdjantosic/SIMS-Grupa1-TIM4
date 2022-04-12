@@ -9,6 +9,6 @@ RoomService roomService = new RoomService(roomRepository);
 RoomController roomController = new RoomController(roomService);
 
 foreach(Room room in roomController.ShowRooms()){
-    Console.WriteLine($"Name:{ room.Name} Room Type: {room.Type.Type} Is deleted: {room.IsDeleted}");
+    Console.WriteLine($"Name:{ room.Name} Room Type: {room.Type} Is deleted: {room.IsDeleted}");
 }
     

@@ -12,9 +12,9 @@ namespace Hospital.Contoller
 {
    public class RoomController
    {
-        public RoomService roomService;
+        private RoomService roomService;
 
-        public RoomController() { }
+       
 
         public RoomController (RoomService roomService)
         {
