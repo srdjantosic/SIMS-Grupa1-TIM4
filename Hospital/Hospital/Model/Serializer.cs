@@ -3,33 +3,28 @@
 // Created: Friday, April 1, 2022 5:55:49 PM
 // Purpose: Definition of Class Serializer
 
-using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Text;
-
 namespace Hospital.Model
 {
-  /* public class Serializer
-   {
-      public void ToCSV(string fileName, List<T:Serializable> objects)
-      {
-         // TODO: implement
-      }
-      
-      public List<T:Serializable> FromCSV(string filename)
-      {
-         // TODO: implement
-         return null;
-      }
-   
-      private char DELIMITER = '|';
-   
-   }
+    /* public class Serializer
+     {
+        public void ToCSV(string fileName, List<T:Serializable> objects)
+        {
+           // TODO: implement
+        }
 
-    public class List<T1, T2>
-    {
-    }*/
+        public List<T:Serializable> FromCSV(string filename)
+        {
+           // TODO: implement
+           return null;
+        }
+
+        private char DELIMITER = '|';
+
+     }
+
+      public class List<T1, T2>
+      {
+      }*/
     class Serializer<T> where T : Serializable, new()
     {
         private static char DELIMITER = '|';

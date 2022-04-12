@@ -4,12 +4,10 @@
  * Purpose: Definition of the Class Model.MedicineArea
  ***********************************************************************/
 
-using System;
-
 namespace Hospital.Model
 {
-   public class MedicineArea
-   {
+    public class MedicineArea
+    {
         enum MedicineAreas
         {
             Generalist,
@@ -21,6 +19,6 @@ namespace Hospital.Model
 
         }
 
-   
-   }
+
+    }
 }
