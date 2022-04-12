@@ -11,7 +11,9 @@ namespace Hospital.Repository
 {
    public class AppointmentRepository
    {
-        /* public Boolean CreateAppointment(System.DateTime dateTime, String lks, String lbo)
+
+        public AppointmentRepository() { }
+        /* public Boolean CreateAppointment(System.DateTime dateTime, int lks, int lbo)
          {
             // TODO: implement
             return null;

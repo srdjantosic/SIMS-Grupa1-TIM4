@@ -12,7 +12,7 @@ namespace Hospital.Model
     {
         public int Id { get; set; }
         public String Lks { get; set; }
-        public System.DateTime DateTime { get; set; } // Month/Day/Year H[:M:S] [AM|PM]
+        public System.DateTime DateTime { get; set; } // Month/Day/Year H[:M:S] [AM|PM] H->8-12 AM|PM
         public String Lbo { get; set; }
         
 
