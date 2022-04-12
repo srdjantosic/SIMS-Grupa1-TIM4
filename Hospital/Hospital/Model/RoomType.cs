@@ -1,8 +1,3 @@
-/***********************************************************************
- * Module:  TipProstorije.cs
- * Author:  Bogdan
- * Purpose: Definition of the Class TipProstorije
- ***********************************************************************/
 
 using System;
 

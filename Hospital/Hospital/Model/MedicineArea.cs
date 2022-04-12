@@ -1,8 +1,3 @@
-/***********************************************************************
- * Module:  MedicineArea.cs
- * Author:  Bogdan
- * Purpose: Definition of the Class Model.MedicineArea
- ***********************************************************************/
 
 using System;
 

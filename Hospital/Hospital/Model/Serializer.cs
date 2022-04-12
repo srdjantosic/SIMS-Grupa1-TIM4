@@ -1,7 +1,4 @@
-// File:    Serializer.cs
-// Author:  Windows 10
-// Created: Friday, April 1, 2022 5:55:49 PM
-// Purpose: Definition of Class Serializer
+
 
 using System;
 using System.Collections.Generic;

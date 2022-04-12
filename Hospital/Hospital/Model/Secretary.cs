@@ -1,8 +1,3 @@
-/***********************************************************************
- * Module:  Patient.cs
- * Author:  Bogdan
- * Purpose: Definition of the Class Model.Patient
- ***********************************************************************/
 
 using System;
 
