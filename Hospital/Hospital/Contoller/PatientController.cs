@@ -17,12 +17,20 @@ namespace Hospital.Contoller
             this.patientService = patientService;
         }
 
-        /* public Boolean CreatePatient(String firstName, String lastName, Gender gender, String email, int phoneNumber, int jmbg, int lbo, System.DateTime birthday, String country, String city, String adress)
+         public Patient CreatePatient(String firstName, String lastName, Gender.Genders gender, String email, String phoneNumber, String jmbg, String lbo, System.DateTime birthday, String country, String city, String adress)
          {
-            // TODO: implement
-            return null;
-         }
+            Patient patient = patientService.CreatePatient(firstName, lastName, gender, email, phoneNumber, jmbg, lbo, birthday, country, city, adress);
 
+            if(patient!=null) 
+            {
+                return patient;
+            }
+            else
+            {
+                return null;
+            }
+         }
+         /*
          public Boolean UpdatePatient(int lbo, String firstName, String lastName, String email, int phoneNumber, String country, String city, String adress)
          {
             // TODO: implement
@@ -39,12 +47,12 @@ namespace Hospital.Contoller
             // TODO: implement
             return null;
          }
+        */
 
-         public Patient GetPatient(int lbo)
+         public Patient GetPatient(String lbo)
          {
-            // TODO: implement
-            return null;
-         }*/
+            return patientService.GetPatient(lbo);
+         }
 
     }
 }
