@@ -4,10 +4,15 @@
  * Purpose: Definition of the Class Controller
  ***********************************************************************/
 
+using Hospital.Model;
+using System;
+
 namespace Hospital.Repository
 {
-    public class AppointmentRepository
-    {
+   public class AppointmentRepository
+   {
+
+        public AppointmentRepository() { }
         /* public Boolean CreateAppointment(System.DateTime dateTime, int lks, int lbo)
          {
             // TODO: implement
@@ -18,14 +23,17 @@ namespace Hospital.Repository
          {
             // TODO: implement
             return null;
-         }
+         }*/
 
-         public List<Appintment> ShowAppointments()
+         public List<Appointment> ShowAppointments()
          {
-            // TODO: implement
-            return null;
-         }
+            List<Appointment> appointments = new List<Appointment>();
+            Serializer<Appointment> appointmentSerializer = new Serializer<Appointment>();
+            appointments = appointmentSerializer.fromCSV("appointment.txt");
+            return appointments;
+        }
 
+        /*
          public Boolean DeleteAppointment(int id)
          {
             // TODO: implement
