@@ -4,48 +4,6 @@ using Hospital.Model;
 using Hospital.Repository;
 using Hospital.Service;
 
-RoomRepository roomRepository = new RoomRepository();
-RoomService roomService = new RoomService(roomRepository);
-RoomController roomController = new RoomController(roomService);
-
-foreach (Room room in roomController.ShowRooms())
-{
-    Console.WriteLine($"Name:{ room.Name} Room Type: {room.Type} Is deleted: {room.IsDeleted}");
-}
-<<<<<<< HEAD
-
-/*
-=======
-/*
-Console.WriteLine("Unesite sobu za azuriranje");
-string n = Console.ReadLine();
-Console.WriteLine("Unesite novu oznaku");
-string v = Console.ReadLine();
-Console.WriteLine("Unesite namenu prostorije");
-string w = Console.ReadLine();
-RoomType.RoomTypes cast = (RoomType.RoomTypes)Enum.Parse(typeof(RoomType.RoomTypes), w);
-roomController.UpdateRoom(n,v,cast);
-
-*/
-    
-
-
-
->>>>>>> 1fc084777d51dc0c7b5bf2cf98dd23bd903512f6
-
-//showAppointment
-
-AppointmentRepository appointmentRepository = new AppointmentRepository();
-AppointmentService appointmentService = new AppointmentService(appointmentRepository);
-AppointmentController appointmentController = new AppointmentController(appointmentService);
-/*
-foreach(Appointment appointment in appointmentController.ShowAppointments())
-{
-    Console.WriteLine($"Id: { appointment.Id} Lks: {appointment.Lks} DateTime: {appointment._DateTime} Lbo: {appointment.Lbo} isDeleted: {appointment.IsDeleted}");
-}
-*/
-
-<<<<<<< HEAD
 bool endApp = false;
 while (!endApp)
 {
@@ -54,15 +12,6 @@ while (!endApp)
     Console.WriteLine("\t2 - Doctor");
     Console.WriteLine("\t3 - Secretary");
     Console.Write("Your option? ");
-=======
-//getAppointment
-Appointment appointment1 = appointmentController.GetAppintment(3);
-
-Boolean x =  appointmentController.DeleteAppointment(4);
-*/
-//SECRETARY
->>>>>>> 1fc084777d51dc0c7b5bf2cf98dd23bd903512f6
-
 
     switch (Console.ReadLine())
     {
@@ -73,7 +22,7 @@ Boolean x =  appointmentController.DeleteAppointment(4);
         case "3":
             Secretary();
             break;
-            
+
     }
 
     Console.Write("Press 'n' and Enter to close the app, or press any other key and Enter to continue: ");
@@ -193,6 +142,18 @@ static void Secretary()
                 {
                     Console.WriteLine("Patient already exists");
                 }
+                break;
+            case "4":
+                break;
+            case "5":
+                Console.WriteLine("### DELETE PATIENT ###");
+                Console.WriteLine("LBO* : ");
+                String lbo3 = Console.ReadLine();
+                if (patientController.DeletePatient(lbo3))
+                {
+                    Console.WriteLine("Patient successfully deleted!");
+                }
+
                 break;
 
 

@@ -14,8 +14,8 @@ namespace Hospital.Repository
             return null;
          }
         */
-         public Boolean UpdateRoom(String name, String newName, RoomType.RoomTypes newType)
-         {
+        public Boolean UpdateRoom(String name, String newName, RoomType.RoomTypes newType)
+        {
             List<Room> rooms = new List<Room>();
             rooms = ShowRooms();
             foreach (Room room in rooms)
@@ -27,7 +27,7 @@ namespace Hospital.Repository
                     Serializer<Room> roomSerializer = new Serializer<Room>();
                     roomSerializer.toCSV("rooms.txt", rooms);
                 }
-                
+
             }
             return true;
 
@@ -47,16 +47,17 @@ namespace Hospital.Repository
             return null;
          }
         */
-         public Room GetRoom(String name)
+        public Room GetRoom(String name)
         {
             List<Room> rooms = ShowRooms();
-            foreach (Room room in rooms) {
-                if (room.Name.Equals(name))  
-                    return room;     
+            foreach (Room room in rooms)
+            {
+                if (room.Name.Equals(name))
+                    return room;
             }
-            return null;   
+            return null;
         }
-        
+
     }
 
 }

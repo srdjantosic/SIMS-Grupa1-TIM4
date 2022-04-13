@@ -25,9 +25,9 @@ namespace Hospital.Contoller
             return null;
          }
         */
-         public Boolean UpdateRoom(String name, String newName, RoomType.RoomTypes newType)
-         {
-            return roomService.UpdateRoom(name,newName,newType);
+        public Boolean UpdateRoom(String name, String newName, RoomType.RoomTypes newType)
+        {
+            return roomService.UpdateRoom(name, newName, newType);
         }
 
         public List<Room> ShowRooms()
@@ -41,8 +41,8 @@ namespace Hospital.Contoller
             return null;
          }
         */
-         public Room GetRoom(String name)
-         {
+        public Room GetRoom(String name)
+        {
             return roomService.GetRoom(name);
 
         }

@@ -19,8 +19,8 @@ namespace Hospital.Service
         }
         public Patient CreatePatient(String firstName, String lastName, Gender.Genders gender, String email, String phoneNumber, String jmbg, String lbo, System.DateTime birthday, String country, String city, String adress)
         {
-            
-            if(firstName.Length==0 || lastName.Length==0 || jmbg.Length==0 || lbo.Length == 0)
+
+            if (firstName.Length == 0 || lastName.Length == 0 || jmbg.Length == 0 || lbo.Length == 0)
             {
                 throw new System.Exception(" ", null);
             }
@@ -35,7 +35,7 @@ namespace Hospital.Service
                     throw new System.Exception(" ", null);
                 }
             }
-            
+
         }
 
         /*
@@ -50,16 +50,15 @@ namespace Hospital.Service
             return patientRepository.ShowPatients();
         }
 
-        /*
-        public Boolean DeletePatient(int lbo)
+
+        public Boolean DeletePatient(String lbo)
         {
-           // TODO: implement
-           return null;
+            return patientRepository.DeletePatient(lbo);
         }
-        */
+
         public Patient GetPatient(String lbo)
         {
-           return patientRepository.GetPatient(lbo);
+            return patientRepository.GetPatient(lbo);
         }
 
     }

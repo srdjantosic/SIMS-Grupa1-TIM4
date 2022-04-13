@@ -1,6 +1,6 @@
 namespace Hospital.Model
 {
-    
+
     class Serializer<T> where T : Serializable, new()
     {
         private static char DELIMITER = '|';
@@ -33,7 +33,7 @@ namespace Hospital.Model
         public void oneToCSV(string fileName, T obj)
         {
             string line = string.Join(DELIMITER, obj.toCSV());
-            File.AppendAllText("patients.txt", line+Environment.NewLine);
+            File.AppendAllText("patients.txt", line + Environment.NewLine);
         }
     }
 }

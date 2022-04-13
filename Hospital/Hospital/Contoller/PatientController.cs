@@ -17,11 +17,11 @@ namespace Hospital.Contoller
             this.patientService = patientService;
         }
 
-         public Patient CreatePatient(String firstName, String lastName, Gender.Genders gender, String email, String phoneNumber, String jmbg, String lbo, System.DateTime birthday, String country, String city, String adress)
-         {
+        public Patient CreatePatient(String firstName, String lastName, Gender.Genders gender, String email, String phoneNumber, String jmbg, String lbo, System.DateTime birthday, String country, String city, String adress)
+        {
             Patient patient = patientService.CreatePatient(firstName, lastName, gender, email, phoneNumber, jmbg, lbo, birthday, country, city, adress);
 
-            if(patient!=null) 
+            if (patient != null)
             {
                 return patient;
             }
@@ -29,30 +29,27 @@ namespace Hospital.Contoller
             {
                 return null;
             }
-         }
-         /*
-         public Boolean UpdatePatient(int lbo, String firstName, String lastName, String email, int phoneNumber, String country, String city, String adress)
-         {
-            // TODO: implement
-            return null;
-         }
-        */
+        }
+        /*
+        public Boolean UpdatePatient(int lbo, String firstName, String lastName, String email, int phoneNumber, String country, String city, String adress)
+        {
+           // TODO: implement
+           return null;
+        }
+       */
         public List<Patient> ShowPatients()
         {
             return patientService.ShowPatients();
         }
-        /*
-         public Boolean DeletePatient(int lbo)
-         {
-            // TODO: implement
-            return null;
-         }
-        */
+        public Boolean DeletePatient(String lbo)
+        {
+            return patientService.DeletePatient(lbo);
+        }
 
-         public Patient GetPatient(String lbo)
-         {
+        public Patient GetPatient(String lbo)
+        {
             return patientService.GetPatient(lbo);
-         }
+        }
 
     }
 }

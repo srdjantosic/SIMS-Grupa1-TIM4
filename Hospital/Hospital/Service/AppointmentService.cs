@@ -1,11 +1,10 @@
 using Hospital.Model;
 using Hospital.Repository;
-using System;
 
 namespace Hospital.Service
 {
-   public class AppointmentService
-   {
+    public class AppointmentService
+    {
 
         private AppointmentRepository appointmentRepository;
 
@@ -13,31 +12,31 @@ namespace Hospital.Service
         {
             this.appointmentRepository = appointmentRepository;
         }
-     /* public Boolean CreateAppointment(System.DateTime dateTime, int lks, int lbo)
-      {
-         // TODO: implement
-         return null;
-      }
-      
-      public Boolean UpdateAppointment(System.DateTime adress, int id)
-      {
-         // TODO: implement
-         return null;
-      }*/
-      
-      public List<Appointment> ShowAppointments()
-      {
+        /* public Boolean CreateAppointment(System.DateTime dateTime, int lks, int lbo)
+         {
+            // TODO: implement
+            return null;
+         }
+
+         public Boolean UpdateAppointment(System.DateTime adress, int id)
+         {
+            // TODO: implement
+            return null;
+         }*/
+
+        public List<Appointment> ShowAppointments()
+        {
             return appointmentRepository.ShowAppointments();
-      }
-      public Boolean DeleteAppointment(int id)
-      {
-         return appointmentRepository.DeleteAppointment(id);
-      }
-      
-      public Appointment GetAppointment(int id)
-      {
-         return appointmentRepository.GetAppointment(id);
-      }
-   
-   }
+        }
+        public Boolean DeleteAppointment(int id)
+        {
+            return appointmentRepository.DeleteAppointment(id);
+        }
+
+        public Appointment GetAppointment(int id)
+        {
+            return appointmentRepository.GetAppointment(id);
+        }
+
+    }
 }

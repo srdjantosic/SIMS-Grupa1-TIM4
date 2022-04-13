@@ -1,11 +1,10 @@
-using Hospital.Model;
-using System;
 using Hospital.Hospital.Exception;
+using Hospital.Model;
 
 namespace Hospital.Repository
 {
-   public class AppointmentRepository
-   {
+    public class AppointmentRepository
+    {
         private const string NOT_FOUND_ERROR = "Account with {0}:{1} can not be found!";
         /* public Boolean CreateAppointment(System.DateTime dateTime, String lks, String lbo)
          {
@@ -20,19 +19,19 @@ namespace Hospital.Repository
          }*/
 
         public List<Appointment> ShowAppointments()
-         {
+        {
             List<Appointment> appointments = new List<Appointment>();
             Serializer<Appointment> appointmentSerializer = new Serializer<Appointment>();
             appointments = appointmentSerializer.fromCSV("appointment.txt");
             return appointments;
         }
-         public Boolean DeleteAppointment(int id)
-         {
-             List<Appointment> appointments = new List<Appointment>();
-             appointments = ShowAppointments();
-             Appointment appointmentToDelete = GetAppointment(id);
-             if (appointmentToDelete != null && appointmentToDelete.IsDeleted == false)
-             {
+        public Boolean DeleteAppointment(int id)
+        {
+            List<Appointment> appointments = new List<Appointment>();
+            appointments = ShowAppointments();
+            Appointment appointmentToDelete = GetAppointment(id);
+            if (appointmentToDelete != null && appointmentToDelete.IsDeleted == false)
+            {
                 appointments.RemoveAt(id);
                 appointmentToDelete.IsDeleted = true;
                 appointments.Insert(id, appointmentToDelete);
@@ -46,8 +45,8 @@ namespace Hospital.Repository
             return true;
         }
 
-         public Appointment GetAppointment(int id)
-         {
+        public Appointment GetAppointment(int id)
+        {
             try
             {
                 {

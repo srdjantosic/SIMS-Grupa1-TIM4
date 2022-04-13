@@ -18,7 +18,7 @@ namespace Hospital.Service
             this.roomRepository = roomRepository;
         }
 
-    
+
 
         /*public Boolean CreateRoom(String newName, RoomType newType)
 {
@@ -29,9 +29,9 @@ namespace Hospital.Service
         public Boolean UpdateRoom(String name, String newName, RoomType.RoomTypes newType)
         {
             return roomRepository.UpdateRoom(name, newName, newType);
-            
+
         }
-        
+
         public List<Room> ShowRooms()
         {
             return roomRepository.ShowRooms();
@@ -45,9 +45,9 @@ namespace Hospital.Service
         */
         public Room GetRoom(String name)
         {
-             return roomRepository.GetRoom(name);
+            return roomRepository.GetRoom(name);
         }
-        
+
     }
-        
+
 }
