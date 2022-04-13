@@ -1,9 +1,3 @@
-/***********************************************************************
- * Module:  Appointment.cs
- * Author:  Bogdan
- * Purpose: Definition of the Class Model.Appointment
- ***********************************************************************/
-
 using System;
 
 namespace Hospital.Model

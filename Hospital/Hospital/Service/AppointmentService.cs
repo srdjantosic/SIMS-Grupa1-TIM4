@@ -1,9 +1,3 @@
-/***********************************************************************
- * Module:  Controller.cs
- * Author:  Bogdan
- * Purpose: Definition of the Class Controller
- ***********************************************************************/
-
 using Hospital.Model;
 using Hospital.Repository;
 using System;
