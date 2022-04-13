@@ -12,17 +12,21 @@ foreach (Room room in roomController.ShowRooms())
 {
     Console.WriteLine($"Name:{ room.Name} Room Type: {room.Type} Is deleted: {room.IsDeleted}");
 }
-
-//showAppointment
+    
+//showAppointments
 
 AppointmentRepository appointmentRepository = new AppointmentRepository();
 AppointmentService appointmentService = new AppointmentService(appointmentRepository);
 AppointmentController appointmentController = new AppointmentController(appointmentService);
 
-foreach (Appointment appointment in appointmentController.ShowAppointments())
+foreach(Appointment appointment in appointmentController.ShowAppointments())
 {
-    Console.WriteLine($"Id: { appointment.Id} Lks: {appointment.Lks} DateTime: {appointment.DateTime} Lbo: {appointment.Lbo}");
+    Console.WriteLine($"Id: { appointment.Id} Lks: {appointment.Lks} DateTime: {appointment._DateTime} Lbo: {appointment.Lbo} isDeleted: {appointment.IsDeleted}");
 }
+
+//getAppointment
+Appointment appointment1 = appointmentController.GetAppintment(3);
+Boolean x =  appointmentController.DeleteAppointment(4);
 
 //SECRETARY
 
@@ -47,5 +51,3 @@ PatientController patientController = new PatientController(patientService);
         
         Console.WriteLine(text);
     }
-
-

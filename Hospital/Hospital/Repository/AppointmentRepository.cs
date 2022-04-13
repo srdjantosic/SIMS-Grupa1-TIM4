@@ -1,19 +1,13 @@
-/***********************************************************************
- * Module:  Controller.cs
- * Author:  Bogdan
- * Purpose: Definition of the Class Controller
- ***********************************************************************/
-
 using Hospital.Model;
 using System;
+using Hospital.Hospital.Exception;
 
 namespace Hospital.Repository
 {
    public class AppointmentRepository
    {
-
-        public AppointmentRepository() { }
-        /* public Boolean CreateAppointment(System.DateTime dateTime, int lks, int lbo)
+        private const string NOT_FOUND_ERROR = "Account with {0}:{1} can not be found!";
+        /* public Boolean CreateAppointment(System.DateTime dateTime, String lks, String lbo)
          {
             // TODO: implement
             return null;
@@ -25,26 +19,48 @@ namespace Hospital.Repository
             return null;
          }*/
 
-         public List<Appointment> ShowAppointments()
+        public List<Appointment> ShowAppointments()
          {
             List<Appointment> appointments = new List<Appointment>();
             Serializer<Appointment> appointmentSerializer = new Serializer<Appointment>();
             appointments = appointmentSerializer.fromCSV("appointment.txt");
             return appointments;
         }
-
-        /*
          public Boolean DeleteAppointment(int id)
          {
-            // TODO: implement
-            return null;
-         }
+             List<Appointment> appointments = new List<Appointment>();
+             appointments = ShowAppointments();
+             Appointment appointmentToDelete = GetAppointment(id);
+             if (appointmentToDelete != null && appointmentToDelete.IsDeleted == false)
+             {
+                appointments.RemoveAt(id);
+                appointmentToDelete.IsDeleted = true;
+                appointments.Insert(id, appointmentToDelete);
+                Serializer<Appointment> appointmentSerializer = new Serializer<Appointment>();
+                appointmentSerializer.toCSV("appointment.txt", appointments);
+            }
+            else
+            {
+                throw new NotFoundException(string.Format(NOT_FOUND_ERROR, "id", id));
+            }
+            return true;
+        }
 
          public Appointment GetAppointment(int id)
          {
-            // TODO: implement
-            return null;
-         }*/
+            try
+            {
+                {
+                    return ShowAppointments().SingleOrDefault(appointment => appointment.Id == id);
+                }
+            }
+            catch (ArgumentException)
+            {
+                {
+                    throw new NotFoundException(string.Format(NOT_FOUND_ERROR, "id", id));
+                }
+            }
+        }
 
     }
 }
