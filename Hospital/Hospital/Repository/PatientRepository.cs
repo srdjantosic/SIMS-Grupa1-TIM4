@@ -45,7 +45,18 @@ namespace Hospital.Repository
 
         public Patient GetPatient(String lbo)
         {
-            return ShowPatients().SingleOrDefault(patient => patient.Lbo == lbo);
+            try
+            {
+                {
+                    return ShowPatients().SingleOrDefault(patient => patient.Lbo == lbo);
+                }
+            }
+            catch(ArgumentException)
+            {
+                {
+                    throw new System.Exception("Patient with lbo can not be found!", null);
+                }
+            }
         }
              
     }
