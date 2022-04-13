@@ -20,13 +20,20 @@ namespace Hospital.Service
         public Patient CreatePatient(String firstName, String lastName, Gender.Genders gender, String email, String phoneNumber, String jmbg, String lbo, System.DateTime birthday, String country, String city, String adress)
         {
             
-            if (GetPatient(lbo) == null)
+            if(firstName.Length==0 || lastName.Length==0 || jmbg.Length==0 || lbo.Length == 0)
             {
-                return patientRepository.CreatePatient(firstName, lastName, gender, email, phoneNumber, jmbg, lbo, birthday, country, city, adress);
+                throw new System.Exception(" ", null);
             }
             else
             {
-                return null;
+                if (GetPatient(lbo) == null)
+                {
+                    return patientRepository.CreatePatient(firstName, lastName, gender, email, phoneNumber, jmbg, lbo, birthday, country, city, adress);
+                }
+                else
+                {
+                    throw new System.Exception(" ", null);
+                }
             }
             
         }

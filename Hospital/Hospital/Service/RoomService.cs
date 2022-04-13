@@ -22,15 +22,21 @@ namespace Hospital.Service
 
         public Room  CreateRoom(String newName, RoomType.RoomTypes newType)
         {
-            if (GetRoom(newName) == null)
+            if (newName.Length == 0 )
             {
-                return roomRepository.CreateRoom(newName, newType);
+                throw new System.Exception(" ", null);
             }
             else
             {
+                if (GetRoom(newName) == null)
+                {
+                    return roomRepository.CreateRoom(newName, newType);
+                }
+                else
+                {
                 return null;
-            }
-
+                }
+        }
         }
 
         public Boolean UpdateRoom(String name, String newName, RoomType.RoomTypes newType)

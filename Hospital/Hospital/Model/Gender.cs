@@ -11,7 +11,8 @@ namespace Hospital.Model
         public enum Genders
         {
             Male,
-            Female
+            Female,
+            No_Gender
         }
     }
 }

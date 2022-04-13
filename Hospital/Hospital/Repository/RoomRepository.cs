@@ -15,7 +15,7 @@ namespace Hospital.Repository
             Serializer<Room> roomSerializer = new Serializer<Room>();
             Room room = new Room(newName, newType);
             roomSerializer.oneToCSV("rooms.txt", room);
-            return GetRoom(room.Name);
+            return room;
         }
 
         public Boolean UpdateRoom(String name, String newName, RoomType.RoomTypes newType)
