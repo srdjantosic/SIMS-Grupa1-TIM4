@@ -6,8 +6,10 @@ namespace Hospital.Model
     {
         public int Id { get; set; }
         public String Lks { get; set; }
-        public System.DateTime DateTime { get; set; } // Month/Day/Year H[:M:S] [AM|PM] H->8-12 AM|PM
+        public DateTime _DateTime { get; set; } // Month/Day/Year H[:M:S] [AM|PM] H->8-12 AM|PM
         public String Lbo { get; set; }
+
+        public Boolean IsDeleted { get; set; } = false;
         
 
         public Appointment () {}
@@ -16,7 +18,7 @@ namespace Hospital.Model
         {
             Id = id;
             Lks = lks;
-            DateTime = dateTime;
+            _DateTime = dateTime;
             Lbo = lbo;
         }
 
@@ -24,9 +26,10 @@ namespace Hospital.Model
         {
              Id = int.Parse(values[0]);
              Lks = values[1];
-             DateTime = System.DateTime.Parse(values[2]);
+            _DateTime = DateTime.Parse(values[2]);
              Lbo = values[3];
-    }
+             IsDeleted = Boolean.Parse(values[4]);
+        }
 
         public string[] toCSV()
         {
@@ -34,8 +37,9 @@ namespace Hospital.Model
             {
                 Id.ToString(),
                 Lks,
-                DateTime.ToString(),
-                Lbo
+                _DateTime.ToString(),
+                Lbo,
+                IsDeleted.ToString()
             };
             return csvValues;
         }

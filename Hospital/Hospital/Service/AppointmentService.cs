@@ -29,19 +29,15 @@ namespace Hospital.Service
       {
             return appointmentRepository.ShowAppointments();
       }
-
-      /*
       public Boolean DeleteAppointment(int id)
       {
-         // TODO: implement
-         return null;
+         return appointmentRepository.DeleteAppointment(id);
       }
       
       public Appointment GetAppointment(int id)
       {
-         // TODO: implement
-         return null;
-      }*/
+         return appointmentRepository.GetAppointment(id);
+      }
    
    }
 }

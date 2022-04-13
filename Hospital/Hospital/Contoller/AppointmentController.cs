@@ -28,19 +28,15 @@ namespace Hospital.Contoller
       {
          return appointmentService.ShowAppointments();
       }
-
-      /*
       public Boolean DeleteAppointment(int id)
       {
-         // TODO: implement
-         return false;
+         return appointmentService.DeleteAppointment(id);
       }
       
       public Appointment GetAppintment(int id)
       {
-         // TODO: implement
-         return null;
-      }*/
+         return appointmentService.GetAppointment(id);
+      }
    
    }
 }
