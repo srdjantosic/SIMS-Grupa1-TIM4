@@ -4,84 +4,38 @@ using Hospital.Model;
 using Hospital.Repository;
 using Hospital.Service;
 
-RoomRepository roomRepository = new RoomRepository();
-RoomService roomService = new RoomService(roomRepository);
-RoomController roomController = new RoomController(roomService);
+Manu();
 
-foreach (Room room in roomController.ShowRooms())
+static void Manu()
 {
-    Console.WriteLine($"Name:{ room.Name} Room Type: {room.Type} Is deleted: {room.IsDeleted}");
-}
-<<<<<<< HEAD
-
-/*
-=======
-/*
-Console.WriteLine("Unesite sobu za azuriranje");
-string n = Console.ReadLine();
-Console.WriteLine("Unesite novu oznaku");
-string v = Console.ReadLine();
-Console.WriteLine("Unesite namenu prostorije");
-string w = Console.ReadLine();
-RoomType.RoomTypes cast = (RoomType.RoomTypes)Enum.Parse(typeof(RoomType.RoomTypes), w);
-roomController.UpdateRoom(n,v,cast);
-
-*/
-    
-
-
-
->>>>>>> 1fc084777d51dc0c7b5bf2cf98dd23bd903512f6
-
-//showAppointment
-
-AppointmentRepository appointmentRepository = new AppointmentRepository();
-AppointmentService appointmentService = new AppointmentService(appointmentRepository);
-AppointmentController appointmentController = new AppointmentController(appointmentService);
-/*
-foreach(Appointment appointment in appointmentController.ShowAppointments())
-{
-    Console.WriteLine($"Id: { appointment.Id} Lks: {appointment.Lks} DateTime: {appointment._DateTime} Lbo: {appointment.Lbo} isDeleted: {appointment.IsDeleted}");
-}
-*/
-
-<<<<<<< HEAD
-bool endApp = false;
-while (!endApp)
-{
-    Console.WriteLine("Choose role from the following list:");
-    Console.WriteLine("\t1 - Manager");
-    Console.WriteLine("\t2 - Doctor");
-    Console.WriteLine("\t3 - Secretary");
-    Console.Write("Your option? ");
-=======
-//getAppointment
-Appointment appointment1 = appointmentController.GetAppintment(3);
-
-Boolean x =  appointmentController.DeleteAppointment(4);
-*/
-//SECRETARY
->>>>>>> 1fc084777d51dc0c7b5bf2cf98dd23bd903512f6
-
-
-    switch (Console.ReadLine())
+    bool endApp = false;
+    while (!endApp)
     {
-        case "1":
-            break;
-        case "2":
-            break;
-        case "3":
-            Secretary();
-            break;
-            
-    }
+        Console.WriteLine("Choose role from the following list:");
+        Console.WriteLine("\t1 - Manager");
+        Console.WriteLine("\t2 - Doctor");
+        Console.WriteLine("\t3 - Secretary");
+        Console.Write("Your option? ");
 
-    Console.Write("Press 'n' and Enter to close the app, or press any other key and Enter to continue: ");
-    if (Console.ReadLine() == "n")
-    {
-        endApp = true;
+        switch (Console.ReadLine())
+        {
+            case "1":
+                break;
+            case "2":
+                Doctor();
+                break;
+            case "3":
+                Secretary();
+                break;
+        }
+
+        Console.Write("Press 'n' and Enter to close the app, or press any other key and Enter to continue: ");
+        if (Console.ReadLine() == "n")
+        {
+            endApp = true;
+        }
+        Console.WriteLine("\n");
     }
-    Console.WriteLine("\n");
 }
 
 static void Secretary()
@@ -196,6 +150,87 @@ static void Secretary()
                 break;
 
 
+        }
+    }
+}
+
+static void Doctor()
+{
+    AppointmentRepository appointmentRepository = new AppointmentRepository();
+    AppointmentService appointmentService = new AppointmentService(appointmentRepository);
+    AppointmentController appointmentController = new AppointmentController(appointmentService);
+
+    bool endApp = false;
+    while (!endApp)
+    {
+        Console.WriteLine("Choose function from the following list:");
+        Console.WriteLine("\t1 - Get All");
+        Console.WriteLine("\t2 - Get One");
+        Console.WriteLine("\t3 - Create");
+        Console.WriteLine("\t4 - Update");
+        Console.WriteLine("\t5 - Delete");
+        Console.WriteLine("\t6 - Back");
+        Console.Write("Your option? ");
+
+        switch (Console.ReadLine())
+        {
+            case "1":
+                Console.WriteLine("### Appointments ###");
+                foreach (Appointment appointment in appointmentController.ShowAppointments())
+                {
+                    if(appointment.IsDeleted == false)
+                    {
+                        string appointmentsToShow = "Id: " + appointment.Id + ", " + "Lks: " + appointment.Lks + ", " + "DateTime: " + appointment._DateTime +
+                            ", " + "Lbo: " + appointment.Lbo + ", " + "idDeleted: " + appointment.IsDeleted + "\n";
+                        Console.WriteLine(appointmentsToShow);
+                    }
+                }
+                break;
+            case "2":
+                Console.WriteLine("Enter id of appointment");
+                int appointmentId = int.Parse(Console.ReadLine());
+                Console.WriteLine("### Appointment ###");
+                Appointment appointment2 = appointmentController.GetAppintment(appointmentId);
+                if (appointment2.IsDeleted == false)
+                {
+                    string appointmentToShow = "Id: " + appointment2.Id + ", " + "Lks: " + appointment2.Lks + ", " + "DateTime: " + appointment2._DateTime +
+                         ", " + "Lbo: " + appointment2.Lbo + ", " + "idDeleted: " + appointment2.IsDeleted + "\n";
+                    Console.WriteLine(appointmentToShow);
+                }
+                break;
+            case "3":
+                String lbo;
+                String lks;
+                DateTime dateTime;
+
+                Console.WriteLine("### CREATE NEW Appointment ###");
+                Console.Write("LBO* : ");
+                lbo = Console.ReadLine();
+                Console.Write("LKS* : ");
+                lks = Console.ReadLine();
+                Console.Write("DateTime* (DD/MM/YYYY) : ");
+                dateTime = DateTime.Parse(Console.ReadLine());
+
+                if (appointmentController.CreateAppointment(dateTime, lks, lbo) != null)
+                {
+                    Console.WriteLine("Appointment: " + dateTime + " " + lks + " " + lbo + " successfully created");
+                }
+                else
+                {
+                    Console.WriteLine("Appointment already exists");
+                }
+                break;
+            case "4":
+                break;
+            case "5":
+                Console.WriteLine("Enter id of appointment");
+                appointmentId = int.Parse(Console.ReadLine());
+                Boolean deleted = appointmentController.DeleteAppointment(appointmentId);
+                if (deleted) Console.WriteLine("### Appointment is success deleted ###"); else Console.WriteLine("### Appointment IS NOT DELETED ###");
+                break;
+            case "6":
+                Manu();
+                break;
         }
     }
 }
