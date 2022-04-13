@@ -5,26 +5,7 @@
 
 namespace Hospital.Model
 {
-    /* public class Serializer
-     {
-        public void ToCSV(string fileName, List<T:Serializable> objects)
-        {
-           // TODO: implement
-        }
-
-        public List<T:Serializable> FromCSV(string filename)
-        {
-           // TODO: implement
-           return null;
-        }
-
-        private char DELIMITER = '|';
-
-     }
-
-      public class List<T1, T2>
-      {
-      }*/
+    
     class Serializer<T> where T : Serializable, new()
     {
         private static char DELIMITER = '|';
@@ -52,6 +33,12 @@ namespace Hospital.Model
             }
 
             return objects;
+        }
+        public void oneToCSV(string fileName,T obj)
+        {
+            string line=string.Join(DELIMITER,obj.toCSV());
+            File.AppendAllText("rooms.txt", line + Environment.NewLine);
+
         }
     }
 }

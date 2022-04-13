@@ -24,12 +24,11 @@ namespace Hospital.Contoller
             // TODO: implement
             return null;
          }
-
-         public Boolean UpdateRoom(String name, String newName, RoomType newType)
+        */
+         public Boolean UpdateRoom(String name, String newName, RoomType.RoomTypes newType)
          {
-            // TODO: implement
-            return null;
-         }*/
+            return roomService.UpdateRoom(name,newName,newType);
+        }
 
         public List<Room> ShowRooms()
         {
@@ -41,12 +40,12 @@ namespace Hospital.Contoller
             // TODO: implement
             return null;
          }
-
+        */
          public Room GetRoom(String name)
          {
-            // TODO: implement
-            return null;
-         }*/
+            return roomService.GetRoom(name);
+
+        }
 
     }
 }

@@ -17,18 +17,21 @@ namespace Hospital.Service
         {
             this.roomRepository = roomRepository;
         }
+
+    
+
         /*public Boolean CreateRoom(String newName, RoomType newType)
+{
+  // TODO: implement
+  return null;
+}
+*/
+        public Boolean UpdateRoom(String name, String newName, RoomType.RoomTypes newType)
         {
-           // TODO: implement
-           return null;
+            return roomRepository.UpdateRoom(name, newName, newType);
+            
         }
-
-        public Boolean UpdateRoom(String name, String newName, RoomType newType)
-        {
-           // TODO: implement
-           return null;
-        }*/
-
+        
         public List<Room> ShowRooms()
         {
             return roomRepository.ShowRooms();
@@ -39,12 +42,12 @@ namespace Hospital.Service
            // TODO: implement
            return null;
         }
-
+        */
         public Room GetRoom(String name)
         {
-           // TODO: implement
-           return null;
-        }*/
-
+             return roomRepository.GetRoom(name);
+        }
+        
     }
+        
 }
