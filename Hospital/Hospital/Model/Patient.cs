@@ -12,7 +12,7 @@ namespace Hospital.Model
         public String LastName { get; set; }
         public Gender.Genders _Gender { get; set; }
         public String Email { get; set; }
-        public int PhoneNumber { get; set; }
+        public String PhoneNumber { get; set; }
         public String Jmbg { get; set; }
         public String Lbo { get; set; }
         public System.DateTime Birthday { get; set; }
@@ -22,7 +22,7 @@ namespace Hospital.Model
 
         public Patient() { }
 
-        public Patient(String firstName, String lastName, Gender.Genders gender, String email, int phone, String jmbg, String lbo, DateTime birthday, String country, String city, String adress)
+        public Patient(String firstName, String lastName, Gender.Genders gender, String email, String phone, String jmbg, String lbo, DateTime birthday, String country, String city, String adress)
         {
             this.FirstName = firstName;
             this.LastName = lastName;
@@ -43,7 +43,7 @@ namespace Hospital.Model
             LastName = values[1];
             _Gender = (Gender.Genders)Enum.Parse(typeof(Gender.Genders), values[2]);
             Email = values[3];
-            PhoneNumber = int.Parse(values[4]);
+            PhoneNumber = values[4];
             Jmbg = values[5];
             Lbo = values[6];
             Birthday = System.DateTime.Parse(values[7]);
@@ -60,9 +60,9 @@ namespace Hospital.Model
             LastName,
             _Gender.ToString(),
             Email,
-            PhoneNumber.ToString(),
-            Jmbg.ToString(),
-            Lbo.ToString(),
+            PhoneNumber,
+            Jmbg,
+            Lbo,
             Birthday.ToString(),
             Country,
             City,

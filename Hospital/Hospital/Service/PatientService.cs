@@ -17,12 +17,21 @@ namespace Hospital.Service
         {
             this.patientRepository = patientRepository;
         }
-        /*public Boolean CreatePatient(String firstName, String lastName, Gender gender, String email, int phoneNumber, int jmbg, int lbo, System.DateTime birthday, String country, String city, String adress)
+        public Patient CreatePatient(String firstName, String lastName, Gender.Genders gender, String email, String phoneNumber, String jmbg, String lbo, System.DateTime birthday, String country, String city, String adress)
         {
-           // TODO: implement
-           return null;
+            
+            if (GetPatient(lbo) == null)
+            {
+                return patientRepository.CreatePatient(firstName, lastName, gender, email, phoneNumber, jmbg, lbo, birthday, country, city, adress);
+            }
+            else
+            {
+                return null;
+            }
+            
         }
 
+        /*
         public Boolean UpdatePatient(int lbo, String firstName, String lastName, String email, int phoneNumber, String country, String city, String adress)
         {
            // TODO: implement
@@ -40,12 +49,11 @@ namespace Hospital.Service
            // TODO: implement
            return null;
         }
-
-        public Patient GetPatient(int lbo)
+        */
+        public Patient GetPatient(String lbo)
         {
-           // TODO: implement
-           return null;
-        }*/
+           return patientRepository.GetPatient(lbo);
+        }
 
     }
 }

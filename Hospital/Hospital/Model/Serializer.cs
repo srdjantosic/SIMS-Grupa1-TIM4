@@ -1,8 +1,3 @@
-// File:    Serializer.cs
-// Author:  Windows 10
-// Created: Friday, April 1, 2022 5:55:49 PM
-// Purpose: Definition of Class Serializer
-
 namespace Hospital.Model
 {
     
@@ -34,11 +29,11 @@ namespace Hospital.Model
 
             return objects;
         }
-        public void oneToCSV(string fileName,T obj)
-        {
-            string line=string.Join(DELIMITER,obj.toCSV());
-            File.AppendAllText("rooms.txt", line + Environment.NewLine);
 
+        public void oneToCSV(string fileName, T obj)
+        {
+            string line = string.Join(DELIMITER, obj.toCSV());
+            File.AppendAllText("patients.txt", line+Environment.NewLine);
         }
     }
 }
