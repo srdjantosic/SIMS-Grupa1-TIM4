@@ -1,6 +1,5 @@
-using Hospital.Model;
-using System;
 using Hospital.Hospital.Exception;
+using Hospital.Model;
 
 namespace Hospital.Repository
 {
@@ -33,6 +32,9 @@ namespace Hospital.Repository
             appointments = appointmentSerializer.fromCSV("appointment.txt");
             return appointments;
         }
+
+        
+
          public Boolean DeleteAppointment(int id)
          { 
              List<Appointment> appointments = new List<Appointment>();
@@ -40,6 +42,7 @@ namespace Hospital.Repository
              Appointment appointmentToDelete = GetAppointment(id);
              if (appointmentToDelete != null && appointmentToDelete.IsDeleted == false)
              {
+
                 appointments.RemoveAt(id);
                 appointmentToDelete.IsDeleted = true;
                 appointments.Insert(id, appointmentToDelete);
@@ -53,8 +56,8 @@ namespace Hospital.Repository
              return true;
          }
 
-         public Appointment GetAppointment(int id)
-         {
+        public Appointment GetAppointment(int id)
+        {
             try
             {
                 {

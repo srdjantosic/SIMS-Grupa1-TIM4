@@ -1,6 +1,6 @@
 namespace Hospital.Model
 {
-    
+
     class Serializer<T> where T : Serializable, new()
     {
         private static char DELIMITER = '|';

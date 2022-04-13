@@ -1,11 +1,10 @@
 using Hospital.Model;
 using Hospital.Service;
-using System;
 
 namespace Hospital.Contoller
 {
-   public class AppointmentController
-   {
+    public class AppointmentController
+    {
         private AppointmentService appointmentService;
 
         public AppointmentController(AppointmentService appointmentService)

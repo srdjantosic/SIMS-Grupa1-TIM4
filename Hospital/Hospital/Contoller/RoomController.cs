@@ -48,8 +48,8 @@ namespace Hospital.Contoller
             return null;
          }
         */
-         public Room GetRoom(String name)
-         {
+        public Room GetRoom(String name)
+        {
             return roomService.GetRoom(name);
 
         }

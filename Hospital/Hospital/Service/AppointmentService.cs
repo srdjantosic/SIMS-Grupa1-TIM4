@@ -1,12 +1,11 @@
 using Hospital.Hospital.Exception;
 using Hospital.Model;
 using Hospital.Repository;
-using System;
 
 namespace Hospital.Service
 {
-   public class AppointmentService
-   {
+    public class AppointmentService
+    {
 
         private AppointmentRepository appointmentRepository;
         private const string NOT_FOUND_ERROR = "Appointment with {0}:{1} can not be found!";
@@ -48,4 +47,5 @@ namespace Hospital.Service
         }
    
    }
+
 }

@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace Hospital.Hospital.Exception
+﻿namespace Hospital.Hospital.Exception
 {
     class NotFoundException : System.Exception
     {

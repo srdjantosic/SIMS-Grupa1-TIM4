@@ -35,7 +35,7 @@ namespace Hospital.Service
                     throw new System.Exception(" ", null);
                 }
             }
-            
+
         }
 
         /*
@@ -50,16 +50,15 @@ namespace Hospital.Service
             return patientRepository.ShowPatients();
         }
 
-        /*
-        public Boolean DeletePatient(int lbo)
+
+        public Boolean DeletePatient(String lbo)
         {
-           // TODO: implement
-           return null;
+            return patientRepository.DeletePatient(lbo);
         }
-        */
+
         public Patient GetPatient(String lbo)
         {
-           return patientRepository.GetPatient(lbo);
+            return patientRepository.GetPatient(lbo);
         }
 
     }
