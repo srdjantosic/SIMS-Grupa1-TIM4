@@ -69,6 +69,24 @@ foreach (Patient patient in patientController.ShowPatients())
         Console.WriteLine(text);
 }
 
+String Name;
+RoomType.RoomTypes Type;
+Console.WriteLine("Create new room");
+Console.WriteLine("Name:");
+Name = Console.ReadLine();
+Console.Write("GENDER: ");
+Type = (RoomType.RoomTypes)Enum.Parse(typeof(RoomType.RoomTypes), Console.ReadLine());
+if (roomController.CreateRoom(Name, Type) != null)
+{
+    Console.WriteLine("Room " + Name + " " + Type + " successfully created");
+}
+else
+{
+    Console.WriteLine("Room already exists");
+}
+
+/*
+
 String firstName;
 String lastName;
 Gender.Genders gender;
@@ -113,6 +131,6 @@ else
 {
     Console.WriteLine("Patient already exists");
 }
-
+*/
 
 

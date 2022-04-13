@@ -20,12 +20,19 @@ namespace Hospital.Service
 
     
 
-        /*public Boolean CreateRoom(String newName, RoomType newType)
-{
-  // TODO: implement
-  return null;
-}
-*/
+        public Room  CreateRoom(String newName, RoomType.RoomTypes newType)
+        {
+            if (GetRoom(newName) == null)
+            {
+                return roomRepository.CreateRoom(newName, newType);
+            }
+            else
+            {
+                return null;
+            }
+
+        }
+
         public Boolean UpdateRoom(String name, String newName, RoomType.RoomTypes newType)
         {
             return roomRepository.UpdateRoom(name, newName, newType);
