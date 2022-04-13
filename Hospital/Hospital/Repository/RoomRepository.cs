@@ -1,8 +1,4 @@
-/***********************************************************************
- * Module:  Controller.cs
- * Author:  Bogdan
- * Purpose: Definition of the Class Controller
- ***********************************************************************/
+
 
 using Hospital.Model;
 
@@ -17,12 +13,25 @@ namespace Hospital.Repository
             // TODO: implement
             return null;
          }
-
-         public Boolean UpdateRoom(String name, String newName, RoomType newType)
+        */
+         public Boolean UpdateRoom(String name, String newName, RoomType.RoomTypes newType)
          {
-            // TODO: implement
-            return null;
-         }*/
+            List<Room> rooms = new List<Room>();
+            rooms = ShowRooms();
+            foreach (Room room in rooms)
+            {
+                if (room.Name.Equals(name))
+                {
+                    room.Name = newName;
+                    room.Type = newType;
+                    Serializer<Room> roomSerializer = new Serializer<Room>();
+                    roomSerializer.toCSV("rooms.txt", rooms);
+                }
+                
+            }
+            return true;
+
+        }
 
         public List<Room> ShowRooms()
         {
@@ -37,12 +46,17 @@ namespace Hospital.Repository
             // TODO: implement
             return null;
          }
-
+        */
          public Room GetRoom(String name)
-         {
-            // TODO: implement
-            return null;
-         }*/
-
+        {
+            List<Room> rooms = ShowRooms();
+            foreach (Room room in rooms) {
+                if (room.Name.Equals(name))  
+                    return room;     
+            }
+            return null;   
+        }
+        
     }
+
 }
