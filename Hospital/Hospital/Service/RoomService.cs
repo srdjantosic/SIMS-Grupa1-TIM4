@@ -49,13 +49,12 @@ namespace Hospital.Service
         {
             return roomRepository.ShowRooms();
         }
-        /*
+        
         public Boolean DeleteRoom(String name)
         {
-           // TODO: implement
-           return null;
+            return roomRepository.DeleteRoom(name);
         }
-        */
+        
         public Room GetRoom(String name)
         {
             return roomRepository.GetRoom(name);

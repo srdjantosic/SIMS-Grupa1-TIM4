@@ -42,12 +42,11 @@ namespace Hospital.Contoller
             return roomService.ShowRooms();
         }
 
-        /* public Boolean DeleteRoom(String name)
+         public Boolean DeleteRoom(String name)
          {
-            // TODO: implement
-            return null;
-         }
-        */
+            return roomService.DeleteRoom(name);
+        }
+        
         public Room GetRoom(String name)
         {
             return roomService.GetRoom(name);

@@ -45,12 +45,31 @@ namespace Hospital.Repository
             return rooms;
         }
 
-        /* public Boolean DeleteRoom(String name)
+         public Boolean DeleteRoom(String name)
          {
-            // TODO: implement
-            return null;
-         }
-        */
+            List<Room> rooms = new List<Room>();
+            rooms = ShowRooms();
+
+            foreach (Room room in rooms)
+            {
+                if (room.Name == name)
+                {
+                    if (rooms.Remove(room))
+                    {
+                        Serializer<Room> roomSerializer = new Serializer<Room>();
+                        roomSerializer.toCSV("rooms.txt", rooms);
+                        return true;
+                    }
+                    else
+                    {
+                        throw new System.Exception(" ");
+                    }
+                }
+            }
+            throw new NotFoundException(string.Format(NOT_FOUND_ERROR, "name", name));
+
+        }
+        
         public Room GetRoom(String name)
         {
             try

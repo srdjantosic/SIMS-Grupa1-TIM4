@@ -250,6 +250,8 @@ static void Manager()
         Console.WriteLine("\t3 - Create");
         Console.WriteLine("\t4 - Update");
         Console.WriteLine("\t5 - Delete");
+        Console.WriteLine("\t6 - Back");
+
         Console.Write("Your option? ");
 
 
@@ -259,7 +261,7 @@ static void Manager()
                 Console.WriteLine("### Rooms###");
                 foreach (Room room in roomController.ShowRooms())
                 {
-                    Console.WriteLine($"Name:{ room.Name} Room Type: {room.Type} Is deleted: {room.IsDeleted}");
+                    Console.WriteLine($"Name:{ room.Name} Room Type: {room.Type} ");
                 }
                 break;
             case "2":
@@ -301,9 +303,15 @@ static void Manager()
                 string w = Console.ReadLine();
                 RoomType.RoomTypes cast = (RoomType.RoomTypes)Enum.Parse(typeof(RoomType.RoomTypes), w);
                 roomController.UpdateRoom(n, v, cast);
-
-
-
+                break;
+            case "5":
+                Console.WriteLine("Enter id of room");
+                string roomid = Console.ReadLine();
+                Boolean deleted = roomController.DeleteRoom(roomid);
+                if (deleted) Console.WriteLine("### Room is success deleted ###"); else Console.WriteLine("### Room IS NOT DELETED ###");
+                break;
+            case "6":
+                Manu();
                 break;
 
         }
