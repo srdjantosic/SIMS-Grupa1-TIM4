@@ -1,5 +1,3 @@
-using System;
-
 namespace Hospital.Model
 {
     public class Appointment : Serializable
@@ -10,9 +8,9 @@ namespace Hospital.Model
         public String Lbo { get; set; }
 
         public Boolean IsDeleted { get; set; } = false;
-        
 
-        public Appointment () {}
+
+        public Appointment() { }
 
         public Appointment(int id, string lks, DateTime dateTime, string lbo)
         {
@@ -24,11 +22,11 @@ namespace Hospital.Model
 
         public void fromCSV(string[] values)
         {
-             Id = int.Parse(values[0]);
-             Lks = values[1];
+            Id = int.Parse(values[0]);
+            Lks = values[1];
             _DateTime = DateTime.Parse(values[2]);
-             Lbo = values[3];
-             IsDeleted = Boolean.Parse(values[4]);
+            Lbo = values[3];
+            IsDeleted = Boolean.Parse(values[4]);
         }
 
         public string[] toCSV()

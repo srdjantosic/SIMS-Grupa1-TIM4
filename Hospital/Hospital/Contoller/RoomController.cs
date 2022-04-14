@@ -19,12 +19,19 @@ namespace Hospital.Contoller
         {
             this.roomService = roomService;
         }
-        /* public Boolean CreateRoom(String name, RoomType type)
+         public Room  CreateRoom(String name, RoomType.RoomTypes type)
          {
-            // TODO: implement
-            return null;
-         }
-        */
+            Room room= roomService.CreateRoom(name,type);
+            if (room != null)
+            {
+                return room;
+            }
+            else
+            {
+                return null;
+            }
+        }
+        
          public Boolean UpdateRoom(String name, String newName, RoomType.RoomTypes newType)
          {
             return roomService.UpdateRoom(name,newName,newType);
@@ -35,14 +42,13 @@ namespace Hospital.Contoller
             return roomService.ShowRooms();
         }
 
-        /* public Boolean DeleteRoom(String name)
+         public Boolean DeleteRoom(String name)
          {
-            // TODO: implement
-            return null;
-         }
-        */
-         public Room GetRoom(String name)
-         {
+            return roomService.DeleteRoom(name);
+        }
+        
+        public Room GetRoom(String name)
+        {
             return roomService.GetRoom(name);
 
         }

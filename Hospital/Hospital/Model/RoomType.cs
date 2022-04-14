@@ -8,7 +8,7 @@ namespace Hospital.Model
 {
     public class RoomType
     {
-        
+
 
         public enum RoomTypes
         {

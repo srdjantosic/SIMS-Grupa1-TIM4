@@ -1,6 +1,5 @@
-using Hospital.Model;
-using System;
 using Hospital.Hospital.Exception;
+using Hospital.Model;
 
 namespace Hospital.Repository
 {
@@ -47,6 +46,7 @@ namespace Hospital.Repository
              Appointment appointmentToDelete = GetAppointment(id);
              if (appointmentToDelete != null && appointmentToDelete.IsDeleted == false)
              {
+
                 appointments.RemoveAt(id);
                 appointmentToDelete.IsDeleted = true;
                 appointments.Insert(id, appointmentToDelete);

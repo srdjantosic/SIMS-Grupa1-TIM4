@@ -1,21 +1,25 @@
 
 
 using Hospital.Model;
+using Hospital.Hospital.Exception;
 
 namespace Hospital.Repository
 {
     public class RoomRepository
     {
+        private const string NOT_FOUND_ERROR = "Room with {0}:{1} can not be found!";
         public RoomRepository() { }
 
-        /* public Boolean CreateRoom(String newName, RoomType newType)
-         {
-            // TODO: implement
-            return null;
-         }
-        */
-         public Boolean UpdateRoom(String name, String newName, RoomType.RoomTypes newType)
-         {
+        public Room CreateRoom(String newName, RoomType.RoomTypes newType)
+        {
+            Serializer<Room> roomSerializer = new Serializer<Room>();
+            Room room = new Room(newName, newType);
+            roomSerializer.oneToCSV("rooms.txt", room);
+            return room;
+        }
+
+        public Boolean UpdateRoom(String name, String newName, RoomType.RoomTypes newType)
+        {
             List<Room> rooms = new List<Room>();
             rooms = ShowRooms();
             foreach (Room room in rooms)
@@ -27,7 +31,7 @@ namespace Hospital.Repository
                     Serializer<Room> roomSerializer = new Serializer<Room>();
                     roomSerializer.toCSV("rooms.txt", rooms);
                 }
-                
+
             }
             return true;
 
@@ -41,22 +45,46 @@ namespace Hospital.Repository
             return rooms;
         }
 
-        /* public Boolean DeleteRoom(String name)
+         public Boolean DeleteRoom(String name)
          {
-            // TODO: implement
-            return null;
-         }
-        */
-         public Room GetRoom(String name)
-        {
-            List<Room> rooms = ShowRooms();
-            foreach (Room room in rooms) {
-                if (room.Name.Equals(name))  
-                    return room;     
+            List<Room> rooms = new List<Room>();
+            rooms = ShowRooms();
+
+            foreach (Room room in rooms)
+            {
+                if (room.Name == name)
+                {
+                    if (rooms.Remove(room))
+                    {
+                        Serializer<Room> roomSerializer = new Serializer<Room>();
+                        roomSerializer.toCSV("rooms.txt", rooms);
+                        return true;
+                    }
+                    else
+                    {
+                        throw new System.Exception(" ");
+                    }
+                }
             }
-            return null;   
+            throw new NotFoundException(string.Format(NOT_FOUND_ERROR, "name", name));
+
         }
         
-    }
+        public Room GetRoom(String name)
+        {
+            try
+            {
+                {
+                    return ShowRooms().SingleOrDefault(room => room.Name == name);
+                }
+            }
+            catch (ArgumentException)
+            {
+                {
+                    throw new NotFoundException(string.Format(NOT_FOUND_ERROR, "name", name));
+                }
+            }
 
+        }
+    }
 }

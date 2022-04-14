@@ -20,6 +20,7 @@ static void Manu()
         switch (Console.ReadLine())
         {
             case "1":
+                Manager();
                 break;
             case "2":
                 Doctor();
@@ -297,6 +298,89 @@ static void Doctor()
                 break;
         }
     }
+}
+static void Manager()
+{
+    RoomRepository roomRepository = new RoomRepository();
+    RoomService roomService = new RoomService(roomRepository);
+    RoomController roomController = new RoomController(roomService);
+
+    bool endApp = false;
+    while (!endApp)
+    {
+        Console.WriteLine("Choose function from the following list:");
+        Console.WriteLine("\t1 - Get All");
+        Console.WriteLine("\t2 - Get One");
+        Console.WriteLine("\t3 - Create");
+        Console.WriteLine("\t4 - Update");
+        Console.WriteLine("\t5 - Delete");
+        Console.WriteLine("\t6 - Back");
+
+        Console.Write("Your option? ");
+
+
+        switch (Console.ReadLine())
+        {
+            case "1":
+                Console.WriteLine("### Rooms###");
+                foreach (Room room in roomController.ShowRooms())
+                {
+                    Console.WriteLine($"Name:{ room.Name} Room Type: {room.Type} ");
+                }
+                break;
+            case "2":
+                Console.WriteLine("### Room ###");
+                Console.Write("Name  : ");
+                String name = Console.ReadLine();
+
+                Room room2 = roomController.GetRoom(name);
+
+                if (room2 != null)
+                {
+                 Console.WriteLine($"Name:{ room2.Name} Room Type: {room2.Type} Is deleted: {room2.IsDeleted}");
+
+                }
+                break;
+            case "3":
+                String nam;
+                RoomType.RoomTypes typ;
+                Console.WriteLine("### CREATE NEW ROOM ###");
+                Console.Write(" Name* : ");
+                nam = Console.ReadLine();
+                Console.Write("Type: ");
+                typ = (RoomType.RoomTypes)Enum.Parse(typeof(RoomType.RoomTypes), Console.ReadLine());
+                if (roomController.CreateRoom(nam, typ) != null)
+                {
+                    Console.WriteLine("Room " + nam + " " + typ + " successfully created");
+                }
+                else
+                {
+                    Console.WriteLine("Room already exists");
+                }
+                break;
+            case "4":
+                Console.WriteLine("Enter room for update");
+                string n = Console.ReadLine();
+                Console.WriteLine("Enter new name");
+                string v = Console.ReadLine();
+                Console.WriteLine("Enter new type");
+                string w = Console.ReadLine();
+                RoomType.RoomTypes cast = (RoomType.RoomTypes)Enum.Parse(typeof(RoomType.RoomTypes), w);
+                roomController.UpdateRoom(n, v, cast);
+                break;
+            case "5":
+                Console.WriteLine("Enter id of room");
+                string roomid = Console.ReadLine();
+                Boolean deleted = roomController.DeleteRoom(roomid);
+                if (deleted) Console.WriteLine("### Room is success deleted ###"); else Console.WriteLine("### Room IS NOT DELETED ###");
+                break;
+            case "6":
+                Manu();
+                break;
+
+        }
+    }
+
 }
 
 
