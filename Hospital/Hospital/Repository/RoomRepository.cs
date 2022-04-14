@@ -30,12 +30,14 @@ namespace Hospital.Repository
                     room.Type = newType;
                     Serializer<Room> roomSerializer = new Serializer<Room>();
                     roomSerializer.toCSV("rooms.txt", rooms);
+                    return true;
                 }
-
+                    
             }
-            return true;
+            return false;
 
         }
+
 
         public List<Room> ShowRooms()
         {
@@ -62,11 +64,15 @@ namespace Hospital.Repository
                     }
                     else
                     {
-                        throw new System.Exception(" ");
+                       
+                        return false;
+                     
                     }
                 }
             }
-            throw new NotFoundException(string.Format(NOT_FOUND_ERROR, "name", name));
+            
+            return false;
+            
 
         }
         
