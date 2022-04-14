@@ -33,11 +33,8 @@ namespace Hospital.Model
         public void oneToCSV(string fileName, T obj)
         {
             string line = string.Join(DELIMITER, obj.toCSV());
-<<<<<<< HEAD
-            File.AppendAllText("patients.txt", line + Environment.NewLine);
-=======
             File.AppendAllText(fileName, line+Environment.NewLine);
->>>>>>> 83b63519c934bf444af32a84c6c7b94555ca382c
+
         }
     }
 }

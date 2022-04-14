@@ -21,12 +21,54 @@ namespace Hospital.Repository
             return GetPatient(patient.Lbo);
         }
 
-        /*
-        public Boolean UpdatePatient(int lbo, String firstName, String lastName, String email, int phoneNumber, String country, String city, String adress)
+        
+        public Boolean UpdatePatient(String lbo, String firstName, String lastName, Gender.Genders gender, DateTime birthday, String email, String phoneNumber, String country, String city, String adress)
         {
-            //to do
+            List<Patient> patients = new List<Patient>();
+            patients = ShowPatients();
+            foreach (Patient patient in patients)
+            {
+                if (patient.Lbo == lbo)
+                {
+                    if (firstName.Length != 0)
+                    {
+                        patient.FirstName = firstName;
+                    }
+                    if (lastName.Length != 0)
+                    {
+                        patient.LastName = lastName;
+                    }
+                    patient._Gender = gender;
+                    patient.Birthday = birthday;
+                    if (email.Length != 0)
+                    {
+                        patient.Email = email;
+                    }
+                    if (phoneNumber.Length != 0)
+                    {
+                        patient.PhoneNumber = phoneNumber;
+                    }
+                    if (country.Length != 0)
+                    {
+                        patient.Country = country;
+                    }
+                    if (city.Length != 0)
+                    {
+                        patient.City = city;
+                    }
+                    if (adress.Length != 0)
+                    {
+                        patient.Adress = adress;
+                    }
+                    Serializer<Patient> patientSerializer = new Serializer<Patient>();
+                    patientSerializer.toCSV("patients.txt", patients);
+
+                    return true;
+                }
+
+            } throw new NotFoundException(string.Format(NOT_FOUND_ERROR, "lbo", lbo));
         }
-        */
+        
 
         public List<Patient> ShowPatients()
         {
@@ -53,7 +95,7 @@ namespace Hospital.Repository
                     }
                     else
                     {
-                        throw new System.Exception(" ");
+                        return false;
                     }
                 }
             } throw new NotFoundException(string.Format(NOT_FOUND_ERROR, "lbo", lbo));
@@ -72,7 +114,7 @@ namespace Hospital.Repository
             catch (ArgumentException)
             {
                 {
-                    throw new NotFoundException(string.Format(NOT_FOUND_ERROR, "lbo", lbo));
+                    throw new NotFoundException(string.Format(NOT_FOUND_ERROR, "lbo", lbo), null);
                 }
             }
         }

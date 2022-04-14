@@ -22,7 +22,7 @@ namespace Hospital.Service
 
             if (firstName.Length == 0 || lastName.Length == 0 || jmbg.Length == 0 || lbo.Length == 0)
             {
-                throw new System.Exception(" ", null);
+                return null;
             }
             else
             {
@@ -32,18 +32,17 @@ namespace Hospital.Service
                 }
                 else
                 {
-                    throw new System.Exception(" ", null);
+                    return null;
                 }
             }
 
         }
 
-        /*
-        public Boolean UpdatePatient(int lbo, String firstName, String lastName, String email, int phoneNumber, String country, String city, String adress)
+
+        public Boolean UpdatePatient(String lbo, String firstName, String lastName, Gender.Genders gender, DateTime birthday, String email, String phoneNumber, String country, String city, String adress)
         {
-           // TODO: implement
-           return null;
-        }*/
+            return patientRepository.UpdatePatient(lbo, firstName, lastName, gender, birthday, email, phoneNumber, country, city, adress);
+        }
 
         public List<Patient> ShowPatients()
         {

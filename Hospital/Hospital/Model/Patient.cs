@@ -15,7 +15,7 @@ namespace Hospital.Model
         public String PhoneNumber { get; set; }
         public String Jmbg { get; set; }
         public String Lbo { get; set; }
-        public System.DateTime Birthday { get; set; }
+        public DateTime Birthday { get; set; }
         public String Country { get; set; }
         public String City { get; set; }
         public String Adress { get; set; }

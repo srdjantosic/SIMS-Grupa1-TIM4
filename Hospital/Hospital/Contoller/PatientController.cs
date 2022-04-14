@@ -30,13 +30,12 @@ namespace Hospital.Contoller
                 return null;
             }
         }
-        /*
-        public Boolean UpdatePatient(int lbo, String firstName, String lastName, String email, int phoneNumber, String country, String city, String adress)
+        
+        public Boolean UpdatePatient(String lbo, String firstName, String lastName, Gender.Genders gender, DateTime birthday, String email, String phoneNumber, String country, String city, String adress)
         {
-           // TODO: implement
-           return null;
+           return patientService.UpdatePatient(lbo, firstName, lastName, gender, birthday, email, phoneNumber, country, city, adress);
         }
-       */
+       
         public List<Patient> ShowPatients()
         {
             return patientService.ShowPatients();
