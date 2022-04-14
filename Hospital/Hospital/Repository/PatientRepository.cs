@@ -111,14 +111,18 @@ namespace Hospital.Repository
                     return ShowPatients().SingleOrDefault(patient => patient.Lbo == lbo);
                 }
             }
-            catch (ArgumentException)
+            catch(ArgumentException)
             {
                 {
+<<<<<<< HEAD
                     throw new NotFoundException(string.Format(NOT_FOUND_ERROR, "lbo", lbo), null);
+=======
+                    throw new System.Exception("Patient with lbo can not be found!", null);
+>>>>>>> dd9f4fac733eb55b01dde56b96ce1c428b909399
                 }
             }
         }
-
+             
     }
 
 }

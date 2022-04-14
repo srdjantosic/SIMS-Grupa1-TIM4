@@ -1,8 +1,4 @@
-/***********************************************************************
- * Module:  Prostorija.cs
- * Author:  Bogdan
- * Purpose: Definition of the Class Prostorija
- ***********************************************************************/
+
 
 namespace Hospital.Model
 {
@@ -15,8 +11,8 @@ namespace Hospital.Model
         public Room() { }
         public Room(String Name, RoomType.RoomTypes Type)
         {
-            Name = Name;
-            Type = Type;
+            this.Name = Name;
+            this.Type = Type;
         }
 
         public void fromCSV(string[] values)

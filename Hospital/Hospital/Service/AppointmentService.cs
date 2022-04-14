@@ -16,21 +16,28 @@ namespace Hospital.Service
         }
         public Appointment CreateAppointment(DateTime dateTime, string lks, string lbo)
         {
-            if(dateTime == null || lks == null || lbo == null)
-            {
+            if (lks.Equals("") || lbo.Equals(""))
                 throw new NotFoundException(string.Format(NOT_FOUND_ERROR, "lbo", lbo));
-            }
-            else
+
+            List<Appointment> appointments = new List<Appointment>();
+            appointments = ShowAppointments();
+
+            foreach (Appointment appointment in appointments)
             {
-                return appointmentRepository.CreateAppointment(dateTime, lks, lbo);
+                if (appointment.Lks.Equals(lks) && appointment.Lbo.Equals(lbo) && appointment._DateTime == dateTime && appointment.IsDeleted == false)
+                    return null;
+
             }
+            return appointmentRepository.CreateAppointment(dateTime, lks, lbo);
         }
-      /*
-      public Boolean UpdateAppointment(DateTime adress, int id)
-      {
-         // TODO: implement
-         return null;
-      }*/
+    
+        public Boolean UpdateAppointment(DateTime dateTime, int id)
+        {
+            if (appointmentRepository.GetAppointment(id).IsDeleted == true)
+                return false;
+            else
+                return appointmentRepository.UpdateAppointment(dateTime, id);
+        }
       
         public List<Appointment> ShowAppointments()
         {
@@ -40,11 +47,16 @@ namespace Hospital.Service
         {
             return appointmentRepository.DeleteAppointment(id);
         }
+<<<<<<< HEAD
 
+=======
+      
+>>>>>>> dd9f4fac733eb55b01dde56b96ce1c428b909399
         public Appointment GetAppointment(int id)
         {
             return appointmentRepository.GetAppointment(id);
         }
+<<<<<<< HEAD
 
 
     }
@@ -52,3 +64,9 @@ namespace Hospital.Service
    
 }
 
+=======
+   
+   }
+
+}
+>>>>>>> dd9f4fac733eb55b01dde56b96ce1c428b909399

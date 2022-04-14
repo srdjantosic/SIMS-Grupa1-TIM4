@@ -1,4 +1,4 @@
-﻿// See https://aka.ms/new-console-template for more information
+﻿
 using Hospital.Contoller;
 using Hospital.Model;
 using Hospital.Repository;
@@ -16,11 +16,15 @@ static void Manu()
         Console.WriteLine("\t2 - Doctor");
         Console.WriteLine("\t3 - Secretary");
         Console.Write("Your option? ");
+<<<<<<< HEAD
 
+=======
+>>>>>>> dd9f4fac733eb55b01dde56b96ce1c428b909399
 
         switch (Console.ReadLine())
         {
             case "1":
+                Manager();
                 break;
             case "2":
                 Doctor();
@@ -157,6 +161,7 @@ static void Secretary()
                     Console.WriteLine("Patient already exists");
                 }
                 break;
+<<<<<<< HEAD
             case "4":
                 Console.WriteLine("### UPDATE PATIENT ###");
 
@@ -202,6 +207,9 @@ static void Secretary()
             case "6":
                 Manu();
                 break;
+=======
+
+>>>>>>> dd9f4fac733eb55b01dde56b96ce1c428b909399
 
         }
     }
@@ -228,10 +236,13 @@ static void Doctor()
         switch (Console.ReadLine())
         {
             case "1":
+                Console.WriteLine("### Enter your LKS:  ###");
+                string doctorLks = Console.ReadLine();
+
                 Console.WriteLine("### Appointments ###");
                 foreach (Appointment appointment in appointmentController.ShowAppointments())
                 {
-                    if(appointment.IsDeleted == false)
+                    if(appointment.IsDeleted == false && appointment.Lks.Equals(doctorLks))
                     {
                         string appointmentsToShow = "Id: " + appointment.Id + ", " + "Lks: " + appointment.Lks + ", " + "DateTime: " + appointment._DateTime +
                             ", " + "Lbo: " + appointment.Lbo + ", " + "idDeleted: " + appointment.IsDeleted + "\n";
@@ -240,52 +251,214 @@ static void Doctor()
                 }
                 break;
             case "2":
+                Console.WriteLine("### Enter your LKS:  ###");
+                doctorLks = Console.ReadLine();
+
                 Console.WriteLine("Enter id of appointment");
                 int appointmentId = int.Parse(Console.ReadLine());
-                Console.WriteLine("### Appointment ###");
                 Appointment appointment2 = appointmentController.GetAppintment(appointmentId);
-                if (appointment2.IsDeleted == false)
+
+                if (appointment2 != null && appointment2.IsDeleted == false && appointment2.Lks.Equals(doctorLks))
                 {
+                    Console.WriteLine("### Appointment ###");
                     string appointmentToShow = "Id: " + appointment2.Id + ", " + "Lks: " + appointment2.Lks + ", " + "DateTime: " + appointment2._DateTime +
                          ", " + "Lbo: " + appointment2.Lbo + ", " + "idDeleted: " + appointment2.IsDeleted + "\n";
                     Console.WriteLine(appointmentToShow);
-                }
+                }else 
+                    Console.WriteLine("Appointment doesn't exist");
+
                 break;
             case "3":
-                String lbo;
-                String lks;
-                DateTime dateTime;
-
                 Console.WriteLine("### CREATE NEW Appointment ###");
                 Console.Write("LBO* : ");
-                lbo = Console.ReadLine();
+                String newlbo = Console.ReadLine();
                 Console.Write("LKS* : ");
-                lks = Console.ReadLine();
-                Console.Write("DateTime* (DD/MM/YYYY) : ");
-                dateTime = DateTime.Parse(Console.ReadLine());
+                String newlks = Console.ReadLine();
+                Console.Write("DateTime* (MM/DD/YYYY HH:MM:SS) : ");
+                
+                String input = Console.ReadLine();
+                if (input.Equals(""))
+                {
+                    Console.Write("Please enter DateTime\n");
+                    Doctor();
 
-                if (appointmentController.CreateAppointment(dateTime, lks, lbo) != null)
-                {
-                    Console.WriteLine("Appointment: " + dateTime + " " + lks + " " + lbo + " successfully created");
                 }
-                else
-                {
+
+                DateTime newDateTime = DateTime.Parse(input);
+                    
+                if (appointmentController.CreateAppointment(newDateTime, newlks, newlbo) != null) 
+                    Console.WriteLine("Appointment: " + newDateTime + " " + newlks + " " + newlbo + " successfully created");
+                else 
                     Console.WriteLine("Appointment already exists");
-                }
+
                 break;
             case "4":
+                Console.WriteLine("### UPDATE Appointment ###");
+
+                Console.WriteLine("### Enter your LKS:  ###");
+                doctorLks = Console.ReadLine();
+
+                Console.Write("Id: ");
+                
+                input = Console.ReadLine();
+                if (input.Equals(""))
+                {
+                    Console.Write("Please enter id\n");
+                    Doctor();
+                }
+
+                int idAppointmentToUpdate = int.Parse(input);
+
+                if(!appointmentService.GetAppointment(idAppointmentToUpdate).Lks.Equals(doctorLks))
+                {
+                    Console.WriteLine("### You only call update your appointment ###");
+                    Doctor();
+                }
+
+                Console.Write("DateTime (DD/MM/YYYY) : ");
+                input = Console.ReadLine();
+                if (input.Equals(""))
+                {
+                    Console.Write("Please enter DateTime\n");
+                    Doctor();
+                }
+                DateTime dateTimeToUpdate = DateTime.Parse(input);
+
+                if(appointmentController.UpdateAppointment(dateTimeToUpdate, idAppointmentToUpdate))
+                    Console.Write("Appointment is successfully updated\n");
+                else
+                    Console.Write("ERROR - ID doesn't exist!!!\n");
+
                 break;
             case "5":
                 Console.WriteLine("Enter id of appointment");
-                appointmentId = int.Parse(Console.ReadLine());
+                input = Console.ReadLine();
+                if (input.Equals(""))
+                {
+                    Console.Write("Please enter id\n");
+                    Doctor();
+                }
+
+                appointmentId = int.Parse(input);
+
+                Console.WriteLine("### Enter your LKS:  ###");
+                doctorLks = Console.ReadLine();
+
+                if (!appointmentService.GetAppointment(appointmentId).Lks.Equals(doctorLks))
+                {
+                    Console.WriteLine("### You only call delete your appointment ###");
+                    Doctor();
+                }
+
                 Boolean deleted = appointmentController.DeleteAppointment(appointmentId);
-                if (deleted) Console.WriteLine("### Appointment is success deleted ###"); else Console.WriteLine("### Appointment IS NOT DELETED ###");
+                if (deleted) Console.WriteLine("### Appointment is success deleted ###"); else Console.WriteLine("### ERROR - Appointment doesn't exist!!! ###");
                 break;
             case "6":
                 Manu();
                 break;
         }
     }
+}
+static void Manager()
+{
+    RoomRepository roomRepository = new RoomRepository();
+    RoomService roomService = new RoomService(roomRepository);
+    RoomController roomController = new RoomController(roomService);
+
+    bool endApp = false;
+    while (!endApp)
+    {
+        Console.WriteLine("Choose function from the following list:");
+        Console.WriteLine("\t1 - Get All");
+        Console.WriteLine("\t2 - Get One");
+        Console.WriteLine("\t3 - Create");
+        Console.WriteLine("\t4 - Update");
+        Console.WriteLine("\t5 - Delete");
+        Console.WriteLine("\t6 - Back");
+
+        Console.Write("Your option? ");
+
+
+        switch (Console.ReadLine())
+        {
+            case "1":
+                Console.WriteLine("### Rooms###");
+                foreach (Room room in roomController.ShowRooms())
+                {
+                    Console.WriteLine($"Name:{ room.Name} Room Type: {room.Type} ");
+                }
+                break;
+            case "2":
+                Console.WriteLine(" Room ");
+                Console.Write("Name  : ");
+                String name = Console.ReadLine();
+
+                Room room2 = roomController.GetRoom(name);
+
+                if (room2 != null)
+                {
+                 Console.WriteLine($"Name:{ room2.Name} Room Type: {room2.Type} Is deleted: {room2.IsDeleted}");
+
+                }
+                break;
+            case "3":
+                String nam;
+                RoomType.RoomTypes typ;
+                Console.WriteLine("Create new room");
+                Console.Write("Enter name : ");
+                nam = Console.ReadLine();
+                if (nam.Equals(""))
+                {
+                    Console.Write("Try again, you must input name!\n");
+                    Manager();
+                }
+                Console.Write("Enter type: ");
+                typ = (RoomType.RoomTypes)Enum.Parse(typeof(RoomType.RoomTypes), Console.ReadLine());
+                if (roomController.CreateRoom(nam, typ) != null)
+                {
+                    Console.WriteLine("Room: " + nam + " Type:" + typ + " successfully created");
+                }
+                else
+                {
+                    Console.WriteLine("Room already exists");
+                }
+                break;
+            case "4":
+                Console.WriteLine("Enter room for update");
+                string n = Console.ReadLine();
+                Console.WriteLine("Enter new name");
+                string v = Console.ReadLine();
+                if (v.Equals(""))
+                {
+                    Console.Write("Try again, you must input new name!\n");
+                   Manager();
+                }
+                Console.WriteLine("Enter new type");
+                string w = Console.ReadLine();
+                if (w.Equals(""))
+                {
+                    Console.Write("Try again, you must input new type!\n");
+                    Manager();
+                }
+                RoomType.RoomTypes cast = (RoomType.RoomTypes)Enum.Parse(typeof(RoomType.RoomTypes), w);
+               Boolean updated= roomController.UpdateRoom(n, v, cast);
+                if (updated) Console.WriteLine(" Room is successfully updated!");
+                else Console.WriteLine(" Room with that name does not exists! ");
+                break;
+            case "5":
+                Console.WriteLine("Enter id of room");
+                string roomid = Console.ReadLine();
+                Boolean deleted = roomController.DeleteRoom(roomid);
+                if (deleted) Console.WriteLine(" Room is successfully deleted!");
+                else Console.WriteLine(" Room with that name does not exists! ");
+                break;
+            case "6":
+                Manu();
+                break;
+
+        }
+    }
+
 }
 
 
