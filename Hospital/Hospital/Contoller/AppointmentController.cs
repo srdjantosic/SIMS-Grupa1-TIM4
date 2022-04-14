@@ -16,18 +16,16 @@ namespace Hospital.Contoller
         {
             Appointment appointment = appointmentService.CreateAppointment(dateTime, lks, lbo);
             if(appointment != null)
-            {
                 return appointment;
-            }
-            else { return null; }
+            else  
+                return null;
         }
-      /*
-      public Boolean UpdateAppointment(DateTime adress, int id)
-      {
-         // TODO: implement
-         return false;
-      }*/
-      
+
+        public Boolean UpdateAppointment(DateTime dateTime, int id)
+        {
+           return appointmentService.UpdateAppointment(dateTime, id);
+        }
+
         public List<Appointment> ShowAppointments()
         {
             return appointmentService.ShowAppointments();
