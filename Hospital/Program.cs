@@ -1,4 +1,4 @@
-﻿// See https://aka.ms/new-console-template for more information
+﻿
 using Hospital.Contoller;
 using Hospital.Model;
 using Hospital.Repository;
@@ -176,10 +176,13 @@ static void Doctor()
         switch (Console.ReadLine())
         {
             case "1":
+                Console.WriteLine("### Enter your LKS:  ###");
+                string doctorLks = Console.ReadLine();
+
                 Console.WriteLine("### Appointments ###");
                 foreach (Appointment appointment in appointmentController.ShowAppointments())
                 {
-                    if(appointment.IsDeleted == false)
+                    if(appointment.IsDeleted == false && appointment.Lks.Equals(doctorLks))
                     {
                         string appointmentsToShow = "Id: " + appointment.Id + ", " + "Lks: " + appointment.Lks + ", " + "DateTime: " + appointment._DateTime +
                             ", " + "Lbo: " + appointment.Lbo + ", " + "idDeleted: " + appointment.IsDeleted + "\n";
@@ -188,46 +191,107 @@ static void Doctor()
                 }
                 break;
             case "2":
+                Console.WriteLine("### Enter your LKS:  ###");
+                doctorLks = Console.ReadLine();
+
                 Console.WriteLine("Enter id of appointment");
                 int appointmentId = int.Parse(Console.ReadLine());
-                Console.WriteLine("### Appointment ###");
                 Appointment appointment2 = appointmentController.GetAppintment(appointmentId);
-                if (appointment2.IsDeleted == false)
+
+                if (appointment2 != null && appointment2.IsDeleted == false && appointment2.Lks.Equals(doctorLks))
                 {
+                    Console.WriteLine("### Appointment ###");
                     string appointmentToShow = "Id: " + appointment2.Id + ", " + "Lks: " + appointment2.Lks + ", " + "DateTime: " + appointment2._DateTime +
                          ", " + "Lbo: " + appointment2.Lbo + ", " + "idDeleted: " + appointment2.IsDeleted + "\n";
                     Console.WriteLine(appointmentToShow);
-                }
+                }else 
+                    Console.WriteLine("Appointment doesn't exist");
+
                 break;
             case "3":
-                String lbo;
-                String lks;
-                DateTime dateTime;
-
                 Console.WriteLine("### CREATE NEW Appointment ###");
                 Console.Write("LBO* : ");
-                lbo = Console.ReadLine();
+                String newlbo = Console.ReadLine();
                 Console.Write("LKS* : ");
-                lks = Console.ReadLine();
-                Console.Write("DateTime* (DD/MM/YYYY) : ");
-                dateTime = DateTime.Parse(Console.ReadLine());
+                String newlks = Console.ReadLine();
+                Console.Write("DateTime* (MM/DD/YYYY HH:MM:SS) : ");
+                
+                String input = Console.ReadLine();
+                if (input.Equals(""))
+                {
+                    Console.Write("Please enter DateTime\n");
+                    Doctor();
 
-                if (appointmentController.CreateAppointment(dateTime, lks, lbo) != null)
-                {
-                    Console.WriteLine("Appointment: " + dateTime + " " + lks + " " + lbo + " successfully created");
                 }
-                else
-                {
+
+                DateTime newDateTime = DateTime.Parse(input);
+                    
+                if (appointmentController.CreateAppointment(newDateTime, newlks, newlbo) != null) 
+                    Console.WriteLine("Appointment: " + newDateTime + " " + newlks + " " + newlbo + " successfully created");
+                else 
                     Console.WriteLine("Appointment already exists");
-                }
+
                 break;
             case "4":
+                Console.WriteLine("### UPDATE Appointment ###");
+
+                Console.WriteLine("### Enter your LKS:  ###");
+                doctorLks = Console.ReadLine();
+
+                Console.Write("Id: ");
+                
+                input = Console.ReadLine();
+                if (input.Equals(""))
+                {
+                    Console.Write("Please enter id\n");
+                    Doctor();
+                }
+
+                int idAppointmentToUpdate = int.Parse(input);
+
+                if(!appointmentService.GetAppointment(idAppointmentToUpdate).Lks.Equals(doctorLks))
+                {
+                    Console.WriteLine("### You only call update your appointment ###");
+                    Doctor();
+                }
+
+                Console.Write("DateTime (DD/MM/YYYY) : ");
+                input = Console.ReadLine();
+                if (input.Equals(""))
+                {
+                    Console.Write("Please enter DateTime\n");
+                    Doctor();
+                }
+                DateTime dateTimeToUpdate = DateTime.Parse(input);
+
+                if(appointmentController.UpdateAppointment(dateTimeToUpdate, idAppointmentToUpdate))
+                    Console.Write("Appointment is successfully updated\n");
+                else
+                    Console.Write("ERROR - ID doesn't exist!!!\n");
+
                 break;
             case "5":
                 Console.WriteLine("Enter id of appointment");
-                appointmentId = int.Parse(Console.ReadLine());
+                input = Console.ReadLine();
+                if (input.Equals(""))
+                {
+                    Console.Write("Please enter id\n");
+                    Doctor();
+                }
+
+                appointmentId = int.Parse(input);
+
+                Console.WriteLine("### Enter your LKS:  ###");
+                doctorLks = Console.ReadLine();
+
+                if (!appointmentService.GetAppointment(appointmentId).Lks.Equals(doctorLks))
+                {
+                    Console.WriteLine("### You only call delete your appointment ###");
+                    Doctor();
+                }
+
                 Boolean deleted = appointmentController.DeleteAppointment(appointmentId);
-                if (deleted) Console.WriteLine("### Appointment is success deleted ###"); else Console.WriteLine("### Appointment IS NOT DELETED ###");
+                if (deleted) Console.WriteLine("### Appointment is success deleted ###"); else Console.WriteLine("### ERROR - Appointment doesn't exist!!! ###");
                 break;
             case "6":
                 Manu();
