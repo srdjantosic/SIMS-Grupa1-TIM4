@@ -1,8 +1,4 @@
-/***********************************************************************
- * Module:  Prostorija.cs
- * Author:  Bogdan
- * Purpose: Definition of the Class Prostorija
- ***********************************************************************/
+
 
 namespace Hospital.Model
 {
