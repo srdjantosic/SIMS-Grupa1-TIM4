@@ -16,10 +16,6 @@ static void Manu()
         Console.WriteLine("\t2 - Doctor");
         Console.WriteLine("\t3 - Secretary");
         Console.Write("Your option? ");
-<<<<<<< HEAD
-
-=======
->>>>>>> dd9f4fac733eb55b01dde56b96ce1c428b909399
 
         switch (Console.ReadLine())
         {
@@ -161,7 +157,6 @@ static void Secretary()
                     Console.WriteLine("Patient already exists");
                 }
                 break;
-<<<<<<< HEAD
             case "4":
                 Console.WriteLine("### UPDATE PATIENT ###");
 
@@ -207,9 +202,6 @@ static void Secretary()
             case "6":
                 Manu();
                 break;
-=======
-
->>>>>>> dd9f4fac733eb55b01dde56b96ce1c428b909399
 
         }
     }

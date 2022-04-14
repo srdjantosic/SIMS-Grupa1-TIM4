@@ -47,16 +47,12 @@ namespace Hospital.Service
         {
             return appointmentRepository.DeleteAppointment(id);
         }
-<<<<<<< HEAD
 
-=======
-      
->>>>>>> dd9f4fac733eb55b01dde56b96ce1c428b909399
         public Appointment GetAppointment(int id)
         {
             return appointmentRepository.GetAppointment(id);
         }
-<<<<<<< HEAD
+
 
 
     }
@@ -64,9 +60,3 @@ namespace Hospital.Service
    
 }
 
-=======
-   
-   }
-
-}
->>>>>>> dd9f4fac733eb55b01dde56b96ce1c428b909399
