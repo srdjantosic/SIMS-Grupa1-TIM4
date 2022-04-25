@@ -10,31 +10,28 @@ using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
 using System.Windows.Shapes;
-using Project.Hospital.View.Secretary;
-using Project.Hospital.View.Manager;
-namespace Project
+
+namespace Project.Hospital.View.Manager
 {
     /// <summary>
-    /// Interaction logic for MainWindow.xaml
+    /// Interaction logic for PrikazProstorija.xaml
     /// </summary>
-    public partial class MainWindow : Window
+    public partial class PrikazProstorija : Window
     {
-        public MainWindow()
+        public PrikazProstorija()
         {
             InitializeComponent();
         }
-
-        private void prijaviSe(object sender, RoutedEventArgs e)
+        private void ok(object sender, RoutedEventArgs e)
         {
-            var pacijenti = new Pacijenti();
-            pacijenti.Show();
+            var ok = new DodavanjeNoveProstorije();
+            ok.Show();
             this.Close();
         }
-        private void inmanager(object sender, RoutedEventArgs e)
+        private void vrati(object sender, RoutedEventArgs e)
         {
-            var pocetna= new Pocetna();
+            var pocetna = new DodavanjeNoveProstorije();
             pocetna.Show();
             this.Close();
         }
