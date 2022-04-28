@@ -1,8 +1,7 @@
-using Project.Hospital.Model;
 using Hospital.Service;
+using Project.Hospital.Model;
 using System;
 using System.Collections.Generic;
-using System.Linq;
 
 namespace Project.Hospital.Controller
 {
@@ -15,10 +14,10 @@ namespace Project.Hospital.Controller
             this.appointmentService = appointmentService;
         }
 
-        public Appointment createAppointment(DateTime dateTime, string lks, string lbo)
+        public Appointment createAppointment(DateTime dateTime, string lks, string lbo, string roomName)
         {
-            Appointment appointment = appointmentService.createAppointment(dateTime, lks, lbo);
-            if(appointment != null)
+            Appointment appointment = appointmentService.createAppointment(dateTime, lks, lbo, roomName);
+            if (appointment != null)
                 return appointment;
             return null;
         }
@@ -26,7 +25,7 @@ namespace Project.Hospital.Controller
 
         public Boolean updateAppointment(DateTime dateTime, int id)
         {
-           return appointmentService.updateAppointment(dateTime, id);
+            return appointmentService.updateAppointment(dateTime, id);
         }
 
         public List<Appointment> showAppointments()
@@ -42,7 +41,7 @@ namespace Project.Hospital.Controller
         {
             return appointmentService.getAppointment(id);
         }
-  
-   }
+
+    }
 }
 

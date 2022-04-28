@@ -23,7 +23,7 @@ namespace Project.Hospital.Model
 
         public Patient() { }
 
-        public Patient(String firstName, String lastName, Gender.Genders gender, String email, String phone, String jmbg, String lbo, DateTime birthday,  String country, String city, String adress)
+        public Patient(String firstName, String lastName, Gender.Genders gender, String email, String phone, String jmbg, String lbo, DateTime birthday, String country, String city, String adress)
         {
             this.FirstName = firstName;
             this.LastName = lastName;

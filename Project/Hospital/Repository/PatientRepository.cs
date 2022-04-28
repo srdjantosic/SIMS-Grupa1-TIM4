@@ -24,7 +24,7 @@ namespace Project.Hospital.Repository
             return GetPatient(patient.Lbo);
         }
 
-        
+
         public Boolean UpdatePatient(String lbo, String firstName, String lastName, Gender.Genders gender, DateTime birthday, String email, String phoneNumber, String country, String city, String adress)
         {
             List<Patient> patients = new List<Patient>();
@@ -69,9 +69,10 @@ namespace Project.Hospital.Repository
                     return true;
                 }
 
-            } throw new NotFoundException(string.Format(NOT_FOUND_ERROR, "lbo", lbo));
+            }
+            throw new NotFoundException(string.Format(NOT_FOUND_ERROR, "lbo", lbo));
         }
-        
+
 
         public List<Patient> ShowPatients()
         {
@@ -101,7 +102,8 @@ namespace Project.Hospital.Repository
                         return false;
                     }
                 }
-            } throw new NotFoundException(string.Format(NOT_FOUND_ERROR, "lbo", lbo));
+            }
+            throw new NotFoundException(string.Format(NOT_FOUND_ERROR, "lbo", lbo));
 
         }
 
@@ -114,7 +116,7 @@ namespace Project.Hospital.Repository
                     return ShowPatients().SingleOrDefault(patient => patient.Lbo == lbo);
                 }
             }
-            catch(ArgumentException)
+            catch (ArgumentException)
             {
                 {
 
@@ -123,7 +125,7 @@ namespace Project.Hospital.Repository
                 }
             }
         }
-             
+
     }
 
 }

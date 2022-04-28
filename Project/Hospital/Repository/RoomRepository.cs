@@ -1,5 +1,5 @@
-using Project.Hospital.Model;
 using Project.Hospital.Exception;
+using Project.Hospital.Model;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -33,7 +33,7 @@ namespace Hospital.Repository
                     roomSerializer.toCSV("rooms.txt", rooms);
                     return true;
                 }
-                    
+
             }
             return false;
 
@@ -48,8 +48,8 @@ namespace Hospital.Repository
             return rooms;
         }
 
-         public Boolean DeleteRoom(String name)
-         {
+        public Boolean DeleteRoom(String name)
+        {
             List<Room> rooms = new List<Room>();
             rooms = ShowRooms();
 
@@ -65,18 +65,18 @@ namespace Hospital.Repository
                     }
                     else
                     {
-                       
+
                         return false;
-                     
+
                     }
                 }
             }
-            
+
             return false;
-            
+
 
         }
-        
+
         public Room GetRoom(String name)
         {
             try

@@ -11,7 +11,7 @@ namespace Project.Hospital.Model
         public String medicineArea { get; set; }
         public String lks { get; set; }
 
-        public Doctor () { }
+        public Doctor() { }
 
         public Doctor(String firstName, String lastName, String email, String phoneNumber, string medicineArea, String lks)
         {

@@ -1,6 +1,6 @@
-using System.IO;
 using System;
 using System.Collections.Generic;
+using System.IO;
 
 namespace Project.Hospital.Model
 {
@@ -38,7 +38,7 @@ namespace Project.Hospital.Model
         {
             string line = string.Join(DELIMITER, obj.toCSV());
 
-            File.AppendAllText(fileName, line+Environment.NewLine);
+            File.AppendAllText(fileName, line + Environment.NewLine);
 
         }
     }

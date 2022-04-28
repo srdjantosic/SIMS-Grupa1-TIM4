@@ -7,7 +7,6 @@ using Project.Hospital.Model;
 using Project.Hospital.Repository;
 using System;
 using System.Collections.Generic;
-using System.Linq;
 
 namespace Project.Hospital.Service
 {
@@ -22,8 +21,8 @@ namespace Project.Hospital.Service
         }
         public Patient CreatePatient(String firstName, String lastName, Gender.Genders gender, String email, String phoneNumber, String jmbg, String lbo, System.DateTime birthday, String country, String city, String adress)
         {
-            
-            if(firstName.Length==0 || lastName.Length==0 || jmbg.Length==0 || lbo.Length == 0)
+
+            if (firstName.Length == 0 || lastName.Length == 0 || jmbg.Length == 0 || lbo.Length == 0)
             {
                 return null;
             }
