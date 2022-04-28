@@ -25,16 +25,17 @@ namespace Project.Hospital.View.Manager
             InitializeComponent();
         }
 
-        private void Button_Click(object sender, RoutedEventArgs e)
-        {
-
-        }
 
         private void prostorije(object sender, RoutedEventArgs e)
         {
             var prostorije = new DodavanjeNoveProstorije();
             prostorije.Show();
             this.Close();
+
+        }
+        private void opremi(object sender, RoutedEventArgs e)
+        {
+            Pocetnaa.Content = new PrikazOpreme();
 
         }
     }

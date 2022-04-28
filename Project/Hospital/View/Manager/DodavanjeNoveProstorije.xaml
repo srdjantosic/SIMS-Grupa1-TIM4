@@ -18,7 +18,7 @@
 
                         <Button Content="Prikaz svih prostorija" Height="86" Width="230" Margin="89,227,413,39" FontSize="20" Click="prikazi" />
                         <Button Content="Dodaj novu prostoriju" Height="86" Width="230" Margin="89,10,412,160" FontSize="20" Click="dodaj"  />
-                        <Button Content="Obrisi prostoriju" Height="86" Width="230" Margin="404,237,12,50" FontSize="20" />
+                        <Button Content="Obrisi prostoriju" Height="86" Width="230" Margin="404,237,12,50" FontSize="20"  />
                         <Button Content="Azuriraj prostoriju" Height="86" Width="230" Margin="404,78,12,20" VerticalAlignment="Top" FontSize="20" Opacity="0.9"/>
                     
                 </Grid>

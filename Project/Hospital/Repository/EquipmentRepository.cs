@@ -8,13 +8,13 @@ namespace Project.Hospital.Repository
 {
     public class EquipmentRepository
     {
-        private const string NOT_FOUND_ERROR = "Room with {0}:{1} can not be found!";
+        private const string NOT_FOUND_ERROR = "Equipments with {0}:{1} can not be found!";
         public EquipmentRepository() { }
         public List<Equipment> ShowEquipment()
         {
             List<Equipment> equipments = new List<Equipment>();
             Serializer<Equipment> equipmentSerializer = new Serializer<Equipment>();
-            equipments = equipmentSerializer.fromCSV("equipmnets.txt");
+            equipments = equipmentSerializer.fromCSV("equipments.txt");
             return equipments;
         }
     }

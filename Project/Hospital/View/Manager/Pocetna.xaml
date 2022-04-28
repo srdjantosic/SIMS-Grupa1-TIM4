@@ -9,10 +9,10 @@
     <Grid>
 
         <Button Height="60" Width="237" FontSize="18" Margin="676,0,40,588">Lekovi</Button>
-        <Button Height="60" Width="237" FontSize="18" Margin="676,100,40,484">Oprema</Button>
+        <Button Height="60" Width="237" FontSize="18" Margin="676,100,40,484" Click="opremi">Oprema</Button>
         <Button Height="60" Width="237" FontSize="18" Margin="676,200,40,378" Click="prostorije">Prostorije</Button>
         <Button Height="60" Width="237" FontSize="18"  Margin="676,300,40,269">Anketa</Button>
         <Button Height="60" Width="237" FontSize="18" Margin="676,400,40,172">Podešavanja</Button>
-
+        <Frame x:Name="Pocetnaa" />
     </Grid>
 </Window>

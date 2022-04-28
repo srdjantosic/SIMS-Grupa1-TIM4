@@ -37,6 +37,7 @@ namespace Project.Hospital.View.Manager
             dodaj.Show();
             this.Close();
         }
+       
         private void prikazi(object sender, RoutedEventArgs e)
         {
             var prikaz = new PrikazProstorija();
