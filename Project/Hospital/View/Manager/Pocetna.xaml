@@ -1,0 +1,18 @@
+﻿<Window x:Class="Project.Hospital.View.Manager.Pocetna"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:Project.Hospital.View.Manager"
+        mc:Ignorable="d"
+        Title="Pocetna" Height="768" Width="1024">
+    <Grid>
+
+        <Button Height="60" Width="237" FontSize="18" Margin="676,0,40,588">Lekovi</Button>
+        <Button Height="60" Width="237" FontSize="18" Margin="676,100,40,484" Click="opremi">Oprema</Button>
+        <Button Height="60" Width="237" FontSize="18" Margin="676,200,40,378" Click="prostorije">Prostorije</Button>
+        <Button Height="60" Width="237" FontSize="18"  Margin="676,300,40,269">Anketa</Button>
+        <Button Height="60" Width="237" FontSize="18" Margin="676,400,40,172">Podešavanja</Button>
+        <Frame x:Name="Pocetnaa" />
+    </Grid>
+</Window>
