@@ -29,7 +29,21 @@
                 <TextBlock DockPanel.Dock="Left" Width="550" FontSize="32" Padding="20">Pacijenti</TextBlock>
                 <Button DockPanel.Dock="Right" FontSize="18" Height="80" Margin="30" Click="kreiranjeNovogNaloga">Kreiranje novog naloga</Button>
             </DockPanel>
-            <DataGrid Grid.Row="1" AutoGenerateColumns="True" >
+            <DataGrid Grid.Row="1" x:Name="dataGridPatients" ItemsSource="{Binding Path=Patients}" AutoGenerateColumns="False" SelectionMode="Single" IsReadOnly="True" HorizontalAlignment="Left"
+                      VerticalAlignment="Top" Width="824" Height="550" MouseDoubleClick="kartonPacijenta">
+                <DataGrid.Columns>
+                    <DataGridTextColumn Header="LBO" Binding="{Binding Lbo}" Width="168"/>
+                    <DataGridTextColumn Header="JMBG" Binding="{Binding Jmbg}" Width="168"/>
+                    <DataGridTextColumn Header="IME" Binding="{Binding FirstName}" Width="160"/>
+                    <DataGridTextColumn Header="PREZIME" Binding="{Binding LastName}" Width="160"/>
+                    <DataGridTemplateColumn Width="168">
+                        <DataGridTemplateColumn.CellTemplate>
+                            <DataTemplate>
+                                <Button Name="btnKarton" Content="KartonPacijenta" Click="kartonPacijenta"/>
+                            </DataTemplate>
+                        </DataGridTemplateColumn.CellTemplate>
+                    </DataGridTemplateColumn>
+                </DataGrid.Columns>
 
             </DataGrid>
         </Grid>
