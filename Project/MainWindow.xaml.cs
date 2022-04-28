@@ -1,8 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using Project.Hospital.View.Doctor;
+using Project.Hospital.View.Secretary;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Data;
@@ -14,6 +11,7 @@ using System.Windows.Navigation;
 using System.Windows.Shapes;
 using Project.Hospital.View.Secretary;
 using Project.Hospital.View.Manager;
+
 namespace Project
 {
     public partial class MainWindow : Window
