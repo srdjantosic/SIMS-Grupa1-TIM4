@@ -42,9 +42,9 @@ namespace Project.Hospital.Service
         }
 
 
-        public Boolean UpdatePatient(String lbo, String firstName, String lastName, Gender.Genders gender, DateTime birthday, String email, String phoneNumber, String country, String city, String adress)
+        public Boolean UpdatePatient(Patient patient)
         {
-            return patientRepository.UpdatePatient(lbo, firstName, lastName, gender, birthday, email, phoneNumber, country, city, adress);
+            return patientRepository.UpdatePatient(patient);
         }
 
         public List<Patient> ShowPatients()

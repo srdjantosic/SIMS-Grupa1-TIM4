@@ -37,7 +37,7 @@ namespace Project.Hospital.Controller
         
         public Boolean UpdatePatient(String lbo, String firstName, String lastName, Gender.Genders gender, DateTime birthday, String email, String phoneNumber, String country, String city, String adress)
         {
-           return patientService.UpdatePatient(lbo, firstName, lastName, gender, birthday, email, phoneNumber, country, city, adress);
+           return patientService.UpdatePatient(GetPatient(lbo));
         }
        
         public List<Patient> ShowPatients()

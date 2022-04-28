@@ -65,19 +65,17 @@ namespace Project.Hospital.View.Secretary
             string adresa = adresaBox.Text;
 
             Patient patient = patientController.CreatePatient(ime, prezime, Gender.Genders.No_Gender, email, telefon, jmbg, lbo, DateTime.Parse(datum), drzava, mesto, adresa);
-
-
-
-            /*string ime = "Bogdan";
-            string prezime = "Blagojevic";
-            string email = "boki@gmail.com";
-            string telefon = "0642345678";
-            string jmbg = "2308000607088";
-            string lbo = "12345654321";
-            string datum = "23/08/2000";
-            string drzava = "Srbija";
-            string mesto = "Novi Sad";
-            string adresa = "Neka";*/
+            
+            if(patient != null)
+            {
+                var pacijenti = new Pacijenti();
+                pacijenti.Show();
+                this.Close();
+            }
+            else
+            {
+                MessageBox.Show("Greska prilikom kreiranja!");
+            }
 
         }
     }
