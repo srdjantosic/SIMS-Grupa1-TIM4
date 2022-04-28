@@ -16,9 +16,6 @@ using Project.Hospital.View.Secretary;
 using Project.Hospital.View.Manager;
 namespace Project
 {
-    /// <summary>
-    /// Interaction logic for MainWindow.xaml
-    /// </summary>
     public partial class MainWindow : Window
     {
         public MainWindow()
@@ -36,6 +33,13 @@ namespace Project
         {
             var pocetna= new Pocetna();
             pocetna.Show();
+            this.Close();
+        }
+
+        private void logIn(object sender, RoutedEventArgs e)
+        {
+            var schedule = new Schedule();
+            schedule.Show();
             this.Close();
         }
     }

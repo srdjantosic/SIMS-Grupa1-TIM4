@@ -1,8 +1,7 @@
-using Project.Hospital.Model;
 using Hospital.Repository;
+using Project.Hospital.Model;
 using System;
 using System.Collections.Generic;
-using System.Linq;
 
 namespace Hospital.Service
 {
@@ -17,9 +16,9 @@ namespace Hospital.Service
 
 
 
-        public Room  CreateRoom(String newName, RoomType.RoomTypes newType)
+        public Room CreateRoom(String newName, RoomType.RoomTypes newType)
         {
-            if (newName.Length == 0 )
+            if (newName.Length == 0)
             {
                 throw new System.Exception(" ", null);
             }
@@ -31,9 +30,9 @@ namespace Hospital.Service
                 }
                 else
                 {
-                return null;
+                    return null;
                 }
-        }
+            }
         }
 
         public Boolean UpdateRoom(String name, String newName, RoomType.RoomTypes newType)
@@ -46,12 +45,12 @@ namespace Hospital.Service
         {
             return roomRepository.ShowRooms();
         }
-        
+
         public Boolean DeleteRoom(String name)
         {
             return roomRepository.DeleteRoom(name);
         }
-        
+
         public Room GetRoom(String name)
         {
             return roomRepository.GetRoom(name);

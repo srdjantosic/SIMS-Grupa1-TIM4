@@ -6,78 +6,78 @@ using System.Linq;
 
 namespace Hospital.Repository
 {
-        public class AppointmentRepository
+    public class AppointmentRepository
+    {
+
+        private const string NOT_FOUND_ERROR = "Appointment with {0}:{1} can not be found!";
+        private const string fileName = "appointment.txt";
+
+        public Appointment createAppointment(DateTime dateTime, String lks, String lbo, String roomName)
         {
 
-            private const string NOT_FOUND_ERROR = "Appointment with {0}:{1} can not be found!";
-            private const string fileName = "appointment.txt";
-
-            public Appointment createAppointment(DateTime dateTime, String lks, String lbo)
-            {
-
             Serializer<Appointment> appointmentSerializer = new Serializer<Appointment>();
-            Appointment appointment = new Appointment(showAppointments().Count, lks, dateTime, lbo);
+            Appointment appointment = new Appointment(showAppointments().Count, lks, dateTime, lbo, roomName);
             appointmentSerializer.oneToCSV(fileName, appointment);
             return appointment;
-            }
-            public Boolean updateAppointment(DateTime dateTime, int id)
-            {
-                List<Appointment> appointments = showAppointments();
-
-                foreach (Appointment appointment in appointments)
-                {
-                    if(appointment.id == id)
-                    {
-                        appointment.dateTime = dateTime;
-                        Serializer<Appointment> appointmentSerializer = new Serializer<Appointment>();
-                        appointmentSerializer.toCSV(fileName, appointments);
-                        return true;
-                    }
-                }
-            return false;
         }
+        public Boolean updateAppointment(DateTime dateTime, int id)
+        {
+            List<Appointment> appointments = showAppointments();
 
-            public List<Appointment> showAppointments()
+            foreach (Appointment appointment in appointments)
             {
-                Serializer<Appointment> appointmentSerializer = new Serializer<Appointment>();
-                List<Appointment> appointments = appointmentSerializer.fromCSV(fileName);
-                return appointments;
-            }
-
-
-            public Boolean deleteAppointment(int id)
-            { 
-
-                List<Appointment> appointments = showAppointments();
-                Appointment appointmentToDelete = getAppointment(id);
-                if (appointmentToDelete != null && appointmentToDelete.isDeleted == false)
+                if (appointment.id == id)
                 {
-
-                    appointments.RemoveAt(id);
-                    appointmentToDelete.isDeleted = true;
-                    appointments.Insert(id, appointmentToDelete);
+                    appointment.dateTime = dateTime;
                     Serializer<Appointment> appointmentSerializer = new Serializer<Appointment>();
                     appointmentSerializer.toCSV(fileName, appointments);
                     return true;
                 }
+            }
+            return false;
+        }
 
-                return false;
+        public List<Appointment> showAppointments()
+        {
+            Serializer<Appointment> appointmentSerializer = new Serializer<Appointment>();
+            List<Appointment> appointments = appointmentSerializer.fromCSV(fileName);
+            return appointments;
+        }
+
+
+        public Boolean deleteAppointment(int id)
+        {
+
+            List<Appointment> appointments = showAppointments();
+            Appointment appointmentToDelete = getAppointment(id);
+            if (appointmentToDelete != null && appointmentToDelete.isDeleted == false)
+            {
+
+                appointments.RemoveAt(id);
+                appointmentToDelete.isDeleted = true;
+                appointments.Insert(id, appointmentToDelete);
+                Serializer<Appointment> appointmentSerializer = new Serializer<Appointment>();
+                appointmentSerializer.toCSV(fileName, appointments);
+                return true;
             }
 
-            public Appointment getAppointment(int id)
+            return false;
+        }
+
+        public Appointment getAppointment(int id)
+        {
+            try
             {
-                try
                 {
-                    {
-                        return showAppointments().SingleOrDefault(appointment => appointment.id == id);
-                    }
+                    return showAppointments().SingleOrDefault(appointment => appointment.id == id);
                 }
-                catch (ArgumentException)
+            }
+            catch (ArgumentException)
+            {
                 {
-                    {
-                        throw new NotFoundException(string.Format(NOT_FOUND_ERROR, "id", id));
-                    }
+                    throw new NotFoundException(string.Format(NOT_FOUND_ERROR, "id", id));
                 }
             }
         }
+    }
 }

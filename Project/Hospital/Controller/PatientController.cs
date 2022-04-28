@@ -7,7 +7,6 @@ using Project.Hospital.Model;
 using Project.Hospital.Service;
 using System;
 using System.Collections.Generic;
-using System.Linq;
 
 
 namespace Project.Hospital.Controller
@@ -34,12 +33,12 @@ namespace Project.Hospital.Controller
                 return null;
             }
         }
-        
+
         public Boolean UpdatePatient(String lbo, String firstName, String lastName, Gender.Genders gender, DateTime birthday, String email, String phoneNumber, String country, String city, String adress)
         {
-           return patientService.UpdatePatient(lbo, firstName, lastName, gender, birthday, email, phoneNumber, country, city, adress);
+           return patientService.UpdatePatient(GetPatient(lbo));
         }
-       
+
         public List<Patient> ShowPatients()
         {
             return patientService.ShowPatients();

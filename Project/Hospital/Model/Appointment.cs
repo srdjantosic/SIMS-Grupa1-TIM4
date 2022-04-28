@@ -11,15 +11,18 @@ namespace Project.Hospital.Model
 
         public Boolean isDeleted { get; set; } = false;
 
+        public String roomName { get; set; }
+
 
         public Appointment() { }
 
-        public Appointment(int id, string lks, DateTime dateTime, string lbo)
+        public Appointment(int id, string lks, DateTime dateTime, string lbo, String roomName)
         {
             id = id;
             lks = lks;
             dateTime = dateTime;
             lbo = lbo;
+            roomName = roomName;
         }
 
         public void fromCSV(string[] values)
@@ -29,6 +32,7 @@ namespace Project.Hospital.Model
             dateTime = DateTime.Parse(values[2]);
             lbo = values[3];
             isDeleted = Boolean.Parse(values[4]);
+            roomName = values[5];
         }
 
         public string[] toCSV()
@@ -39,7 +43,8 @@ namespace Project.Hospital.Model
                 lks,
                 dateTime.ToString(),
                 lbo,
-                isDeleted.ToString()
+                isDeleted.ToString(),
+                roomName
             };
             return csvValues;
         }

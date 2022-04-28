@@ -4,6 +4,8 @@
  * Purpose: Definition of the Class Model.Patient
  ***********************************************************************/
 using System;
+using System.Collections.Generic;
+using System.Linq;
 
 namespace Project.Hospital.Model
 {
@@ -21,9 +23,11 @@ namespace Project.Hospital.Model
         public String City { get; set; }
         public String Adress { get; set; }
 
+        public List<Allergen> Allergens = new List<Allergen>();
+
         public Patient() { }
 
-        public Patient(String firstName, String lastName, Gender.Genders gender, String email, String phone, String jmbg, String lbo, DateTime birthday,  String country, String city, String adress)
+        public Patient(String firstName, String lastName, Gender.Genders gender, String email, String phone, String jmbg, String lbo, DateTime birthday, String country, String city, String adress)
         {
             this.FirstName = firstName;
             this.LastName = lastName;
@@ -38,6 +42,10 @@ namespace Project.Hospital.Model
             this.Adress = adress;
         }
 
+        public List<Allergen> getAllergens() { return Allergens; }
+
+        public void setAllergens(List<Allergen> allergens) { this.Allergens = allergens; }
+
         public void fromCSV(string[] values)
         {
             FirstName = values[0];
@@ -51,10 +59,24 @@ namespace Project.Hospital.Model
             Country = values[8];
             City = values[9];
             Adress = values[10];
+
+            List<string> allergens = values[11].Split(',').ToList();
+            foreach(string allergen in allergens)
+            {
+                Allergens.Add(new Allergen() { Name = allergen});
+            }
         }
 
         public string[] toCSV()
         {
+            List<string> allergensString = new List<string>();
+            foreach(Allergen allergen in Allergens)
+            {
+                allergensString.Add(allergen.Name);
+            }
+
+            string allergens = string.Join(',', allergensString);
+       
             string[] csvValues =
             {
             FirstName,
@@ -67,10 +89,12 @@ namespace Project.Hospital.Model
             Birthday.ToString(),
             Country,
             City,
-            Adress
+            Adress,
+            allergens
             };
             return csvValues;
         }
+
 
     }
 
