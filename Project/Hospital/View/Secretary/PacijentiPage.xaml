@@ -1,0 +1,38 @@
+﻿<Page x:Class="Project.Hospital.View.Secretary.PacijentiPage"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:local="clr-namespace:Project.Hospital.View.Secretary"
+      mc:Ignorable="d" 
+      d:DesignHeight="768" d:DesignWidth="824"
+      Title="PacijentiPage">
+
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"></RowDefinition>
+            <RowDefinition></RowDefinition>
+        </Grid.RowDefinitions>
+        <DockPanel Grid.Row="0" Height="180" Width="824">
+            <TextBlock DockPanel.Dock="Left" Width="550" FontSize="32" Padding="20">Pacijenti</TextBlock>
+            <Button DockPanel.Dock="Right" FontSize="18" Height="80" Margin="30" Click="kreiranjeNovogNaloga">Kreiranje novog naloga</Button>
+        </DockPanel>
+        <DataGrid Grid.Row="1" x:Name="dataGridPatients" ItemsSource="{Binding Path=Patients}" AutoGenerateColumns="False" SelectionMode="Single" IsReadOnly="True" HorizontalAlignment="Left"
+                      VerticalAlignment="Top" Width="824" Height="550">
+            <DataGrid.Columns>
+                <DataGridTextColumn Header="LBO" Binding="{Binding Lbo}" Width="168"/>
+                <DataGridTextColumn Header="JMBG" Binding="{Binding Jmbg}" Width="168"/>
+                <DataGridTextColumn Header="IME" Binding="{Binding FirstName}" Width="160"/>
+                <DataGridTextColumn Header="PREZIME" Binding="{Binding LastName}" Width="160"/>
+                <DataGridTemplateColumn Width="168">
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate>
+                            <Button Name="btnKarton" Content="KartonPacijenta" Click="kartonPacijenta"/>
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                </DataGridTemplateColumn>
+            </DataGrid.Columns>
+
+        </DataGrid>
+    </Grid>
+</Page>

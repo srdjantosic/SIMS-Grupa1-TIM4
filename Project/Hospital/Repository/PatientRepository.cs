@@ -40,7 +40,7 @@ namespace Project.Hospital.Repository
                     return true;
                 }
 
-            } throw new NotFoundException(string.Format(NOT_FOUND_ERROR, "lbo", lbo));
+            } throw new NotFoundException(string.Format(NOT_FOUND_ERROR, "lbo", patient.Lbo));
         }
         
 

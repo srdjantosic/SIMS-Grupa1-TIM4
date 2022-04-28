@@ -13,8 +13,8 @@ namespace Project
 
         private void prijaviSe(object sender, RoutedEventArgs e)
         {
-            var pacijenti = new Pacijenti();
-            pacijenti.Show();
+            var pocetna = new Pocetna();
+            pocetna.Show();
             this.Close();
         }
 

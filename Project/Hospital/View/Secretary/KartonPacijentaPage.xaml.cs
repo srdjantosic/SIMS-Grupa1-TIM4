@@ -1,5 +1,10 @@
-﻿using System;
+﻿using Project.Hospital.Controller;
+using Project.Hospital.Model;
+using Project.Hospital.Repository;
+using Project.Hospital.Service;
+using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -10,19 +15,15 @@ using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
+using System.Windows.Navigation;
 using System.Windows.Shapes;
-using Project.Hospital.Model;
-using Project.Hospital.Repository;
-using Project.Hospital.Service;
-using Project.Hospital.Controller;
-using System.Collections.ObjectModel;
 
 namespace Project.Hospital.View.Secretary
 {
     /// <summary>
-    /// Interaction logic for KartonPacijenta.xaml
+    /// Interaction logic for KartonPacijentaPage.xaml
     /// </summary>
-    public partial class KartonPacijenta : Window
+    public partial class KartonPacijentaPage : Page
     {
         private PatientRepository patientRepository;
         private PatientService patientService;
@@ -31,13 +32,13 @@ namespace Project.Hospital.View.Secretary
         private AllergenController allergenController;
         private Patient Patient { get; set; }
         public ObservableCollection<Allergen> Allergens { get; set; }
-        public KartonPacijenta(Patient patient)
+        public KartonPacijentaPage(Patient patient)
         {
             InitializeComponent();
             this.patientRepository = new PatientRepository();
             this.patientService = new PatientService(patientRepository);
             this.patientController = new PatientController(patientService);
- 
+
             this.allergenService = new AllergenService(patientService);
             this.allergenController = new AllergenController(allergenService);
             this.Patient = patient;
@@ -58,7 +59,7 @@ namespace Project.Hospital.View.Secretary
             if (patientController.GetPatient(patient.Lbo).getAllergens() != null)
             {
                 foreach (Allergen allergen in patientController.GetPatient(patient.Lbo).getAllergens())
-                { 
+                {
                     Allergens.Add(new Allergen { Name = allergen.Name });
                 }
             }
@@ -66,26 +67,23 @@ namespace Project.Hospital.View.Secretary
 
         private void nazad(object sender, RoutedEventArgs e)
         {
-            var pacijenti = new Pacijenti();
-            pacijenti.Show();
-            this.Close();
+            PacijentiPage page = new PacijentiPage();
+            NavigationService.Navigate(page);
         }
 
         private void dodavanjeAlergena(object sender, RoutedEventArgs e)
         {
-            var dodavanjeAlergena = new DodavanjeAlergena(Patient);
-            dodavanjeAlergena.Show();
-            this.Close();
+            var page = new DodavanjeAlergenaPage(Patient);
+            NavigationService.Navigate(page);
         }
 
         private void obrisi(object sender, RoutedEventArgs e)
         {
             Allergen allergenContext = (Allergen)((Button)e.Source).DataContext;
-            if(allergenController.deletePatientAllergen(Patient.Lbo, allergenContext.Name))
+            if (allergenController.deletePatientAllergen(Patient.Lbo, allergenContext.Name))
             {
-                var kartonPacijenta = new KartonPacijenta(Patient);
-                kartonPacijenta.Show();
-                this.Close();
+                var page = new KartonPacijentaPage(Patient);
+                NavigationService.Navigate(page);
             }
         }
     }

@@ -1,0 +1,25 @@
+﻿<Window x:Class="Project.Hospital.View.Secretary.Pocetna"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:Project.Hospital.View.Secretary"
+        mc:Ignorable="d"
+        Title="ZDRAVO KORPORACIJA" Height="768" Width="1024">
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="Auto"></ColumnDefinition>
+            <ColumnDefinition Width="Auto"></ColumnDefinition>
+        </Grid.ColumnDefinitions>
+        <WrapPanel Grid.Column="0" Orientation="Vertical">
+            <Button Height="60" Width="200" FontSize="16">Pocetna</Button>
+            <Button Height="60" FontSize="16" Click="pacijenti">Pacijenti</Button>
+            <Button Height="60" FontSize="16">Hitan slucaj</Button>
+            <Button Height="60" FontSize="16" Click="raspored">Raspored</Button>
+            <Button Height="60" FontSize="16">Oprema</Button>
+            <Button Height="60" FontSize="16">Sastanci</Button>
+            <Button Height="60" FontSize="16">Zahtevi za slobodne dane</Button>
+        </WrapPanel>
+        <Frame x:Name="Prozor" Grid.Column="1" Width="824"></Frame>
+    </Grid>
+</Window>
