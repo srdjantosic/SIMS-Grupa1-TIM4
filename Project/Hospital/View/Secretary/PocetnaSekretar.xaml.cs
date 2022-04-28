@@ -17,9 +17,9 @@ namespace Project.Hospital.View.Secretary
     /// <summary>
     /// Interaction logic for Pocetna.xaml
     /// </summary>
-    public partial class Pocetna : Window
+    public partial class PocetnaSekretar : Window
     {
-        public Pocetna()
+        public PocetnaSekretar()
         {
             InitializeComponent();
         }

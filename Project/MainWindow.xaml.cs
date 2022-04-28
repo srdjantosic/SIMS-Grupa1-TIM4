@@ -23,7 +23,7 @@ namespace Project
 
         private void prijaviSe(object sender, RoutedEventArgs e)
         {
-            var pocetna = new Pocetna();
+            var pocetna = new PocetnaSekretar();
             pocetna.Show();
             this.Close();
         }
