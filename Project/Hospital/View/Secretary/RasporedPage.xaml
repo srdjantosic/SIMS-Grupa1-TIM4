@@ -1,0 +1,38 @@
+﻿<Page x:Class="Project.Hospital.View.Secretary.RasporedPage"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:local="clr-namespace:Project.Hospital.View.Secretary"
+      mc:Ignorable="d" 
+      d:DesignHeight="768" d:DesignWidth="824"
+      Title="RasporedPage">
+
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"></RowDefinition>
+            <RowDefinition></RowDefinition>
+        </Grid.RowDefinitions>
+        <DockPanel Grid.Row="0" Height="150" Width="824">
+            <TextBlock DockPanel.Dock="Left" Width="550" FontSize="32" Padding="20">Raspored</TextBlock>
+            <Button DockPanel.Dock="Right" FontSize="18" Height="80" Margin="30">Zakazivanje pregleda</Button>
+        </DockPanel>
+        <DataGrid Grid.Row="1" x:Name="dataGridAppointments" ItemsSource="{Binding Path=Appointments}" AutoGenerateColumns="False" SelectionMode="Single" IsReadOnly="True" HorizontalAlignment="Left"
+                      VerticalAlignment="Top" Width="824" Height="550">
+            <DataGrid.Columns>
+                <DataGridTextColumn Header="ID" Binding="{Binding id}" Width="24"/>
+                <DataGridTextColumn Header="DATUM I VREME" Binding="{Binding dateTime}" Width="200"/>
+                <DataGridTextColumn Header="PACIJENT" Binding="{Binding lbo}" Width="200"/>
+                <DataGridTextColumn Header="LEKAR" Binding="{Binding lks}" Width="200"/>
+                <DataGridTemplateColumn Width="192">
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate>
+                            <Button Name="btnDetaljiPregleda" Content="DetaljiPregleda" Click="detaljiPregleda"/>
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                </DataGridTemplateColumn>
+            </DataGrid.Columns>
+
+        </DataGrid>
+    </Grid>
+</Page>
