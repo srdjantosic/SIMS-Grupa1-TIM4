@@ -1,4 +1,8 @@
-﻿using System;
+﻿using Project.Hospital.Controller;
+using Project.Hospital.Model;
+using Project.Hospital.Repository;
+using Project.Hospital.Service;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -10,18 +14,15 @@ using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
+using System.Windows.Navigation;
 using System.Windows.Shapes;
-using Project.Hospital.Model;
-using Project.Hospital.Repository;
-using Project.Hospital.Service;
-using Project.Hospital.Controller;
 
 namespace Project.Hospital.View.Secretary
 {
     /// <summary>
-    /// Interaction logic for DodavanjeAlergena.xaml
+    /// Interaction logic for DodavanjeAlergenaPage.xaml
     /// </summary>
-    public partial class DodavanjeAlergena : Window
+    public partial class DodavanjeAlergenaPage : Page
     {
         private AllergenService allergenService;
         private AllergenController allergenController;
@@ -29,7 +30,7 @@ namespace Project.Hospital.View.Secretary
         private PatientService patientService;
 
         private Patient patient;
-        public DodavanjeAlergena(Patient patient)
+        public DodavanjeAlergenaPage(Patient patient)
         {
             this.patientRepository = new PatientRepository();
             this.patientService = new PatientService(patientRepository);
@@ -42,16 +43,16 @@ namespace Project.Hospital.View.Secretary
 
         private void odustani(object sender, RoutedEventArgs e)
         {
-            var kartonPacijenta = new KartonPacijenta(patient);
-            kartonPacijenta.Show();
-            this.Close();
+            KartonPacijentaPage page = new KartonPacijentaPage(patient);
+            NavigationService.Navigate(page);
+
         }
 
         private void dodaj(object sender, RoutedEventArgs e)
         {
             string name = nazivAlergenaBox.Text;
 
-            if(name.Length == 0)
+            if (name.Length == 0)
             {
                 nazivAlergenaBox.Focus();
             }
@@ -61,9 +62,8 @@ namespace Project.Hospital.View.Secretary
 
                 if (allergen != null)
                 {
-                    var kartonPacijenta = new KartonPacijenta(patient);
-                    kartonPacijenta.Show();
-                    this.Close();
+                    KartonPacijentaPage page = new KartonPacijentaPage(patient);
+                    NavigationService.Navigate(page);
                 }
             }
         }

@@ -23,8 +23,8 @@ namespace Project
 
         private void prijaviSe(object sender, RoutedEventArgs e)
         {
-            var pacijenti = new Pacijenti();
-            pacijenti.Show();
+            var pocetna = new PocetnaSekretar();
+            pocetna.Show();
             this.Close();
         }
         private void inmanager(object sender, RoutedEventArgs e)

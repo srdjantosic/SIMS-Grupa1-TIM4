@@ -61,8 +61,32 @@ namespace Hospital.Service
             return false;
         }
 
+        public List<Appointment> getFutureAppointments(DateTime dateTime)
+        {
+            List<Appointment> futureAppointments = new List<Appointment>();
 
+            foreach(Appointment appointment in appointmentRepository.showAppointments())
+            {
+                if(appointment.dateTime > dateTime)
+                {
+                    futureAppointments.Add(appointment);
+                }
+            }
+            return futureAppointments;
+        }
+        public List<Appointment> getPastAppointments(DateTime dateTime)
+        {
+            List<Appointment> futureAppointments = new List<Appointment>();
 
+            foreach (Appointment appointment in appointmentRepository.showAppointments())
+            {
+                if (appointment.dateTime < dateTime)
+                {
+                    futureAppointments.Add(appointment);
+                }
+            }
+            return futureAppointments;
+        }
     }
 
 

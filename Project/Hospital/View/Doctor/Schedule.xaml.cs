@@ -2,6 +2,7 @@
 using Hospital.Service;
 using Project.Hospital.Controller;
 using Project.Hospital.Model;
+using System;
 using System.Collections.ObjectModel;
 using System.Windows;
 
@@ -18,16 +19,44 @@ namespace Project.Hospital.View.Doctor
             this.appointmentRepository = new AppointmentRepository();
             this.appointmentService = new AppointmentService(appointmentRepository);
             this.appointmentController = new AppointmentController(appointmentService);
+
             InitializeComponent();
             this.DataContext = this;
+
             appointments = new ObservableCollection<Appointment>();
+
             foreach (Appointment appointment in appointmentController.showAppointments())
             {
                 appointments.Add(appointment);
             }
+
+            futureAppointments = new ObservableCollection<Appointment>();
+            DateTime dateTime = DateTime.Now;
+            foreach (Appointment appointment in appointmentController.getFutureAppointments(dateTime))
+            {
+                futureAppointments.Add(appointment);
+            }
+
+            pastAppointments = new ObservableCollection<Appointment>();
+            foreach (Appointment appointment in appointmentController.getPastAppointments(dateTime))
+            {
+                pastAppointments.Add(appointment);
+            }
         }
 
         public ObservableCollection<Appointment> appointments
+        {
+            get;
+            set;
+        }
+
+        public ObservableCollection<Appointment> futureAppointments
+        {
+            get;
+            set;
+        }
+
+        public ObservableCollection<Appointment> pastAppointments
         {
             get;
             set;

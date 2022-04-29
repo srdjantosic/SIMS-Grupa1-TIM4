@@ -1,8 +1,3 @@
-/***********************************************************************
- * Module:  Controller.cs
- * Author:  Bogdan
- * Purpose: Definition of the Class Controller
- ***********************************************************************/
 using Project.Hospital.Exception;
 using Project.Hospital.Model;
 using System;
@@ -15,13 +10,14 @@ namespace Project.Hospital.Repository
     public class PatientRepository
     {
         private const string NOT_FOUND_ERROR = "Patient with {0}:{1} can not be found!";
+        private const string fileName = "patients.txt";
         public PatientRepository() { }
 
-        public Patient CreatePatient(String firstName, String lastName, Gender.Genders gender, String email, String phoneNumber, String jmbg, String lbo, System.DateTime birthday, String country, String city, String adress)
+        public Patient CreatePatient(String firstName, String lastName, Gender.Genders gender, String email, String phoneNumber, String jmbg, String lbo, DateTime birthday, String country, String city, String adress)
         {
             Serializer<Patient> patientSerializer = new Serializer<Patient>();
             Patient patient = new Patient(firstName, lastName, gender, email, phoneNumber, jmbg, lbo, birthday, country, city, adress);
-            patientSerializer.oneToCSV("patients.txt", patient);
+            patientSerializer.oneToCSV(fileName, patient);
             return GetPatient(patient.Lbo);
         }
 
@@ -36,20 +32,41 @@ namespace Project.Hospital.Repository
                 {
                     patient2.setAllergens(patient.getAllergens());
                     Serializer<Patient> patientSerializer = new Serializer<Patient>();
-                    patientSerializer.toCSV("patients.txt", patients);
+                    patientSerializer.toCSV(fileName, patients);
 
                     return true;
                 }
 
-            } throw new NotFoundException(string.Format(NOT_FOUND_ERROR, "lbo"));
+            } throw new NotFoundException(string.Format(NOT_FOUND_ERROR, "lbo", patient.Lbo));
         }
-        
+
+        public Boolean updatePatientsMedicalChard(String lbo, double temperature, int heartRate, String bloodPressure, int weight, int height)
+        {
+            List<Patient> patients = ShowPatients();
+
+            foreach(Patient patient in patients)
+            {
+                if(patient.Lbo == lbo)
+                {
+                    patient.Temperature = temperature;
+                    patient.HeartRate = heartRate;
+                    patient.BloodPressure = bloodPressure;
+                    patient.Weight = weight;
+                    patient.Height = height;
+                    Serializer<Patient> patientSerializer = new Serializer<Patient>();
+                    patientSerializer.toCSV(fileName, patients);
+
+                    return true;
+                }
+            } throw new NotFoundException(string.Format(NOT_FOUND_ERROR, "lbo", lbo));
+        }
+
 
         public List<Patient> ShowPatients()
         {
             List<Patient> patients = new List<Patient>();
             Serializer<Patient> patientSerializer = new Serializer<Patient>();
-            patients = patientSerializer.fromCSV("patients.txt");
+            patients = patientSerializer.fromCSV(fileName);
             return patients;
         }
 
@@ -65,7 +82,7 @@ namespace Project.Hospital.Repository
                     if (patients.Remove(patient))
                     {
                         Serializer<Patient> patientSerializer = new Serializer<Patient>();
-                        patientSerializer.toCSV("patients.txt", patients);
+                        patientSerializer.toCSV(fileName, patients);
                         return true;
                     }
                     else
