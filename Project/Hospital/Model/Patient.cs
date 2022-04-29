@@ -1,8 +1,3 @@
-/***********************************************************************
- * Module:  Patient.cs
- * Author:  Bogdan
- * Purpose: Definition of the Class Model.Patient
- ***********************************************************************/
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -22,12 +17,18 @@ namespace Project.Hospital.Model
         public String Country { get; set; }
         public String City { get; set; }
         public String Adress { get; set; }
+        public double Temperature { get; set; } = 36.5;
+        public int HeartRate { get; set; } = 80;
+        public String BloodPressure { get; set; } = "120/80";
+        public int Weight { get; set; } = 80;
+        public int Height { get; set; } = 180;
 
         public List<Allergen> Allergens = new List<Allergen>();
 
         public Patient() { }
 
-        public Patient(String firstName, String lastName, Gender.Genders gender, String email, String phone, String jmbg, String lbo, DateTime birthday, String country, String city, String adress)
+        public Patient(String firstName, String lastName, Gender.Genders gender, String email, String phone, String jmbg, String lbo, DateTime birthday, String country
+            , String city, String adress)
         {
             this.FirstName = firstName;
             this.LastName = lastName;
@@ -55,12 +56,17 @@ namespace Project.Hospital.Model
             PhoneNumber = values[4];
             Jmbg = values[5];
             Lbo = values[6];
-            Birthday = System.DateTime.Parse(values[7]);
+            Birthday = DateTime.Parse(values[7]);
             Country = values[8];
             City = values[9];
             Adress = values[10];
+            Temperature = double.Parse(values[11]);
+            HeartRate = int.Parse(values[12]);
+            BloodPressure = values[13];
+            Weight = int.Parse(values[14]);
+            Height = int.Parse(values[15]);
 
-            List<string> allergens = values[11].Split(',').ToList();
+            List<string> allergens = values[16].Split(',').ToList();
             foreach(string allergen in allergens)
             {
                 Allergens.Add(new Allergen() { Name = allergen});
@@ -90,6 +96,11 @@ namespace Project.Hospital.Model
             Country,
             City,
             Adress,
+            Temperature.ToString(),
+            HeartRate.ToString(),
+            BloodPressure,
+            Weight.ToString(),
+            Height.ToString(),
             allergens
             };
             return csvValues;

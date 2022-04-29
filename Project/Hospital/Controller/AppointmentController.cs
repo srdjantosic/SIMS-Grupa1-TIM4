@@ -42,6 +42,16 @@ namespace Project.Hospital.Controller
             return appointmentService.getAppointment(id);
         }
 
+        public List<Appointment> getFutureAppointments(DateTime dateTime)
+        {
+            return appointmentService.getFutureAppointments(dateTime);
+        }
+
+        public List<Appointment> getPastAppointments(DateTime dateTime)
+        {
+            return appointmentService.getPastAppointments(dateTime);
+        }
+
     }
 }
 

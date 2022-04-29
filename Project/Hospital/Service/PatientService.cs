@@ -1,8 +1,3 @@
-/***********************************************************************
- * Module:  Controller.cs
- * Author:  Bogdan
- * Purpose: Definition of the Class Controller
- ***********************************************************************/
 using Project.Hospital.Model;
 using Project.Hospital.Repository;
 using System;
@@ -19,7 +14,7 @@ namespace Project.Hospital.Service
         {
             this.patientRepository = patientRepository;
         }
-        public Patient CreatePatient(String firstName, String lastName, Gender.Genders gender, String email, String phoneNumber, String jmbg, String lbo, System.DateTime birthday, String country, String city, String adress)
+        public Patient CreatePatient(String firstName, String lastName, Gender.Genders gender, String email, String phoneNumber, String jmbg, String lbo, DateTime birthday, String country, String city, String adress)
         {
 
             if (firstName.Length == 0 || lastName.Length == 0 || jmbg.Length == 0 || lbo.Length == 0)
@@ -44,6 +39,11 @@ namespace Project.Hospital.Service
         public Boolean UpdatePatient(Patient patient)
         {
             return patientRepository.UpdatePatient(patient);
+        }
+
+        public Boolean updatePatientsMedicalChard(String lbo, double temperature, int heartRate, String bloodPressure, int weight, int height)
+        {
+            return patientRepository.updatePatientsMedicalChard(lbo, temperature, heartRate, bloodPressure, weight, height);
         }
 
         public List<Patient> ShowPatients()
