@@ -10,7 +10,6 @@
   <ItemGroup>
     <Folder Include="Hospital\Recources\" />
     <Folder Include="Hospital\View\Doctor\" />
-    <Folder Include="Hospital\View\Manager\" />
   </ItemGroup>
 
 </Project>

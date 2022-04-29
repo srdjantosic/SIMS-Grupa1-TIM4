@@ -9,6 +9,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 
+
 namespace Project.Hospital.Repository
 {
     public class PatientRepository
@@ -40,7 +41,7 @@ namespace Project.Hospital.Repository
                     return true;
                 }
 
-            } throw new NotFoundException(string.Format(NOT_FOUND_ERROR, "lbo", lbo));
+            } throw new NotFoundException(string.Format(NOT_FOUND_ERROR, "lbo"));
         }
         
 
