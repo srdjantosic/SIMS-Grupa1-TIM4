@@ -56,5 +56,11 @@ namespace Project.Hospital.View.Secretary
             var page = new DetaljiOPregleduPage(appointment);
             NavigationService.Navigate(page);
         }
+
+        private void zakazivanjePregleda(object sender, RoutedEventArgs e)
+        {
+            var page = new ZakazivanjePregledaPage();
+            NavigationService.Navigate(page);
+        }
     }
 }

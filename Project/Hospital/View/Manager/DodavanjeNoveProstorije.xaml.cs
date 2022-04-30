@@ -10,39 +10,41 @@ using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
+using System.Windows.Navigation;
 using System.Windows.Shapes;
-using Project.Hospital.View.Manager;
+using Project.Hospital.Controller;
+using Project.Hospital.Model;
+using Project.Hospital.Service;
+using Project.Hospital.Repository;
+using Hospital.Repository;
+using Hospital.Service;
 
 namespace Project.Hospital.View.Manager
 {
-    /// <summary>
-    /// Interaction logic for DodavanjeNoveProstorije.xaml
-    /// </summary>
-    public partial class DodavanjeNoveProstorije : Window
+
+    public partial class DodavanjeNoveProstorije : Page
     {
+        private RoomRepository roomRepository;
+        private RoomService roomService;
+        private RoomController roomController;
         public DodavanjeNoveProstorije()
         {
+            this.roomRepository = new RoomRepository();
+            this.roomService = new RoomService(roomRepository);
+            this.roomController = new RoomController(roomService);
             InitializeComponent();
         }
 
-        private void vrati(object sender, RoutedEventArgs e)
+
+
+        private void kreiraj(object sender, RoutedEventArgs e)
         {
-            var pocetna = new Pocetna();
-            pocetna.Show();
-            this.Close();
-        }
-        private void dodaj(object sender, RoutedEventArgs e)
-        {
-           var dodaj = new DodavanjeNoveProstorije1();
-            dodaj.Show();
-            this.Close();
-        }
-       
-        private void prikazi(object sender, RoutedEventArgs e)
-        {
-            var prikaz = new PrikazProstorija();
-            prikaz.Show();
-            this.Close();
+
+            string Name = nameBox.Text;
+            string Type = typeBox.Text;
+            RoomType.RoomTypes roomType = (RoomType.RoomTypes)Enum.Parse(typeof(RoomType.RoomTypes), Type);
+
+            Room room = roomController.CreateRoom(Name, roomType);
         }
     }
 }
