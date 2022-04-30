@@ -10,39 +10,32 @@ using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
+using System.Windows.Navigation;
 using System.Windows.Shapes;
 using Project.Hospital.View.Manager;
 
 namespace Project.Hospital.View.Manager
 {
-    /// <summary>
-    /// Interaction logic for Pocetna.xaml
-    /// </summary>
-    public partial class Pocetna : Window
+   
+    public partial class Prostorije : Page
     {
-        public Pocetna()
+        public Prostorije()
         {
             InitializeComponent();
         }
-
-
-        
-        private void opremi(object sender, RoutedEventArgs e)
+        public void dodaj(object sender, RoutedEventArgs e)
         {
-            Pocetnaa.Content = new PrikazOpreme();
+            var page = new DodavanjeNoveProstorije();
+            NavigationService.Navigate(page);
+
 
         }
-        private void vidiprostorije(object sender, RoutedEventArgs e)
+        public void vrati(object sender, RoutedEventArgs e)
         {
-            Pocetnaa.Content = new Prostorije();
+            
+            
+
 
         }
-
-        private void lekovi(object sender, RoutedEventArgs e)
-        {
-            Pocetnaa.Content = new Lekovi();
-
-        }
-
     }
 }

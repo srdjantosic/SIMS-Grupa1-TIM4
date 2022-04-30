@@ -5,10 +5,10 @@
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
       xmlns:local="clr-namespace:Project.Hospital.View.Manager"
       mc:Ignorable="d" 
-      d:DesignHeight="455.4" d:DesignWidth="796.4"
+      d:DesignHeight="768" d:DesignWidth="1014"
       Title="PrikazOpreme">
 
-    <Grid Background="#FFF9F2F2" >
+    <Grid Background="#FFF9F2F2" HorizontalAlignment="Right" Width="1014" >
         <TabControl Margin="133,156,133,154" >
             <TabItem Header="Prikaz opreme" >
                 <Grid Background="#FFE5E5E5">
@@ -17,17 +17,17 @@
                         <RowDefinition></RowDefinition>
                     </Grid.RowDefinitions>
                     <ComboBox Width="120" HorizontalAlignment="Right" Grid.Row="0" Margin="0,5,10,5"/>
-                    <DataGrid x:Name="pregledOpreme" Grid.Row="1" 
-                  SelectionMode="Single" IsReadOnly="True"  ItemsSource="{Binding Path=Equipments}">
+                    <DataGrid x:Name="pregledOpreme" Grid.Row="1" AutoGenerateColumns="False"
+                  SelectionMode="Single" IsReadOnly="True"  ItemsSource="{Binding Path=Equipments}" >
                         <DataGrid.Columns>
-                            <DataGridTextColumn Header="Naziv opreme" Binding="{Binding Name}" Width="168"/>
-                            <DataGridTextColumn Header="Vrsta opreme" Binding="{Binding EquipmentType}" Width="168"/>
-                            <DataGridTextColumn Header="Količina" Binding="{Binding Quantity}" Width="71"/>
-                            <DataGridTextColumn Header="Prostorija u kojoj se nalazi" Binding="{Binding RoomId}" Width="156"/>
-                            <DataGridTemplateColumn Width="168">
+                            <DataGridTextColumn Header="Naziv opreme" Binding="{Binding Name}" Width="160"/>
+                            <DataGridTextColumn Header="Vrsta opreme" Binding="{Binding EquipmentType}" Width="160"/>
+                            <DataGridTextColumn Header="Količina"     Binding="{Binding Quantity}" Width="140"/>
+                            <DataGridTextColumn Header="Prostorija u kojoj se nalazi" Binding="{Binding RoomId}" Width="160"/>
+                            <DataGridTemplateColumn Width="1*">
                                 <DataGridTemplateColumn.CellTemplate>
                                     <DataTemplate>
-                                        <Button Content="Prebaci" />
+                                        <Button Content="Prebaci"  Click="prebaci"/>
                                     </DataTemplate>
                                 </DataGridTemplateColumn.CellTemplate>
                             </DataGridTemplateColumn>

@@ -10,30 +10,27 @@ using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
+using System.Windows.Navigation;
 using System.Windows.Shapes;
 
 namespace Project.Hospital.View.Manager
 {
     /// <summary>
-    /// Interaction logic for PrikazProstorija.xaml
+    /// Interaction logic for PrebacivanjeOpreme.xaml
     /// </summary>
-    public partial class PrikazProstorija : Window
+    public partial class PrebacivanjeOpreme : Page
     {
-        public PrikazProstorija()
+        public PrebacivanjeOpreme()
         {
             InitializeComponent();
+     
         }
-        private void ok(object sender, RoutedEventArgs e)
+        public void vrati(object sender, RoutedEventArgs e)
         {
-            var ok = new DodavanjeNoveProstorije();
-            ok.Show();
-            this.Close();
-        }
-        private void vrati(object sender, RoutedEventArgs e)
-        {
-            var pocetna = new DodavanjeNoveProstorije();
-            pocetna.Show();
-            this.Close();
+            var page = new PrikazOpreme();
+            NavigationService.Navigate(page);
+
+
         }
     }
 }

@@ -28,7 +28,7 @@
             <ComboBoxItem>Past appointments</ComboBoxItem>
             <ComboBoxItem>Future appointments</ComboBoxItem>
         </ComboBox>
-        
+
         <DataGrid Grid.Column="1" x:Name="dgSchedule" ItemsSource="{Binding appointments}" IsReadOnly="True" SelectionMode="Single" AutoGenerateColumns="False" 
                   HorizontalAlignment="Left" VerticalAlignment="Top" Margin="180,90,0,0">
             <DataGrid.Columns>

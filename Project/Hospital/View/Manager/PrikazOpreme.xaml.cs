@@ -26,29 +26,38 @@ namespace Project.Hospital.View.Manager
         private EquipmentRepository equipmentRepository;
         private EquipmentService equipmentService;
         private EquipmentController equipmentController;
-
-        private int colNum = 0;
+        private ObservableCollection<Equipment> _equipment;
+       
         public ObservableCollection<Equipment> Equipments
         {
-            get;
-            set;
+            get ; 
+            set ; 
         }
         public PrikazOpreme()
         {
-            InitializeComponent();
+           
             this.equipmentRepository = new EquipmentRepository();
             this.equipmentService = new EquipmentService(equipmentRepository);
             this.equipmentController = new EquipmentController(equipmentService);
-
+            InitializeComponent();
             this.DataContext = this;
             Equipments = new ObservableCollection<Equipment>();
+        
             foreach (Equipment equipment in equipmentController.ShowEquipment())
             {
-                Equipments.Add(new Equipment { Name = equipment.Name, EquipmentType=equipment.EquipmentType, Quantity=equipment.Quantity, RoomId=equipment.RoomId });
+                Equipments.Add( equipment );
             }
+
         }
-       
-       
+
+        public void prebaci(object sender, RoutedEventArgs e)
+        {
+            var page = new PrebacivanjeOpreme();
+            NavigationService.Navigate(page);
+
+
+        }
+        
 
     }
 

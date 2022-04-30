@@ -13,26 +13,17 @@ namespace Project.Hospital.View.Doctor
         private PatientRepository patientRepository;
         private PatientService patientService;
         private PatientController patientController;
-
-        private MedicalChardRepository medicalChardRepository;
-        private MedicalChardService medicalChardService;
-        private MedicalChardController medicalChardController;
         public DetailsSchedule(Appointment appointment)
         {
             this.patientRepository = new PatientRepository();
             this.patientService = new PatientService(patientRepository);
             this.patientController = new PatientController(patientService);
 
-            this.medicalChardRepository = new MedicalChardRepository();
-            this.medicalChardService = new MedicalChardService(medicalChardRepository);
-            this.medicalChardController = new MedicalChardController(medicalChardService);
-
             InitializeComponent();
             this.DataContext = this;
 
             patients = new ObservableCollection<Patient>();
             appointments = new ObservableCollection<Appointment>();
-            medicalChards = new ObservableCollection<MedicalChard>();
 
             foreach (Patient patient in patientController.ShowPatients())
             {
@@ -43,8 +34,6 @@ namespace Project.Hospital.View.Doctor
                     break;
                 }
             }
-
-            medicalChards.Add(medicalChardController.getMedicalChard(appointment.lbo));
         }
 
         public ObservableCollection<Patient> patients
@@ -59,17 +48,28 @@ namespace Project.Hospital.View.Doctor
             set;
         }
 
-        public ObservableCollection<MedicalChard> medicalChards
-        {
-            get;
-            set;
-        }
-
         private void createPersonalTerm(object sender, RoutedEventArgs e)
         {
             var createPersonalTerm = new CreatePersonalTerm();
             createPersonalTerm.Show();
             this.Close();
+        }
+
+        private void updatePatientsMedicalChard(object sender, RoutedEventArgs e)
+        {
+            Boolean isUpdated = patientController.updatePatientsMedicalChard(lboBox.Text, double.Parse(temperatureBox.Text), int.Parse(heartRateBox.Text)
+                , bloodPressureBox.Text, int.Parse(weightBox.Text), int.Parse(heightBox.Text));
+
+            if(isUpdated == true)
+            {
+                var moreDetailsSchedule = new MoreDetailsSchedule();
+                moreDetailsSchedule.Show();
+                this.Close();
+            }
+            else
+            {
+                MessageBox.Show("Error with updating medical chard!");
+            }
         }
     }
 }
