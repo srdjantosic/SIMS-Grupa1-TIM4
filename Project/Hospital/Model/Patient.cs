@@ -25,6 +25,8 @@ namespace Project.Hospital.Model
 
         public List<Allergen> Allergens = new List<Allergen>();
 
+        public List<int> prescriptionsIds = new List<int>();
+
         public Patient() { }
 
         public Patient(String firstName, String lastName, Gender.Genders gender, String email, String phone, String jmbg, String lbo, DateTime birthday, String country
@@ -44,8 +46,10 @@ namespace Project.Hospital.Model
         }
 
         public List<Allergen> getAllergens() { return Allergens; }
+        public List<int> GetPrescriptions() { return prescriptionsIds; }
 
         public void setAllergens(List<Allergen> allergens) { this.Allergens = allergens; }
+        public void setPrescription(List<int> prescriptionsIds) { this.prescriptionsIds = prescriptionsIds; }
 
         public void fromCSV(string[] values)
         {
@@ -71,6 +75,12 @@ namespace Project.Hospital.Model
             {
                 Allergens.Add(new Allergen() { Name = allergen});
             }
+
+            List<string> idsOfPrescriptions = values[17].Split(',').ToList();
+            foreach(string idOfprescription in idsOfPrescriptions)
+            {
+                prescriptionsIds.Add(int.Parse(idOfprescription));
+            }
         }
 
         public string[] toCSV()
@@ -82,7 +92,15 @@ namespace Project.Hospital.Model
             }
 
             string allergens = string.Join(',', allergensString);
-       
+
+            List<string> idsPrescriptionsString = new List<string>();
+            foreach(int idPrescription in prescriptionsIds)
+            {
+                idsPrescriptionsString.Add(idPrescription.ToString());
+            }
+
+            string prescriptionId = string.Join(',', idsPrescriptionsString);
+
             string[] csvValues =
             {
             FirstName,
@@ -101,7 +119,8 @@ namespace Project.Hospital.Model
             BloodPressure,
             Weight.ToString(),
             Height.ToString(),
-            allergens
+            allergens,
+            prescriptionId
             };
             return csvValues;
         }

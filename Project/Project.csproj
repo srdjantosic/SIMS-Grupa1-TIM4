@@ -1,7 +1,7 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <OutputType>WinExe</OutputType>
+    <OutputType>Exe</OutputType>
     <TargetFramework>net6.0-windows</TargetFramework>
     <Nullable>enable</Nullable>
     <UseWPF>true</UseWPF>
@@ -9,7 +9,6 @@
 
   <ItemGroup>
     <Folder Include="Hospital\Recources\" />
-    <Folder Include="Hospital\View\Doctor\" />
     <Folder Include="Hospital\View\Manager\" />
   </ItemGroup>
 
