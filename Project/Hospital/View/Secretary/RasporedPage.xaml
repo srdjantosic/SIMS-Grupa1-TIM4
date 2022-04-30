@@ -15,7 +15,7 @@
         </Grid.RowDefinitions>
         <DockPanel Grid.Row="0" Height="150" Width="824">
             <TextBlock DockPanel.Dock="Left" Width="550" FontSize="32" Padding="20">Raspored</TextBlock>
-            <Button DockPanel.Dock="Right" FontSize="18" Height="80" Margin="30">Zakazivanje pregleda</Button>
+            <Button DockPanel.Dock="Right" FontSize="18" Height="80" Margin="30" Click="zakazivanjePregleda">Zakazivanje pregleda</Button>
         </DockPanel>
         <DataGrid Grid.Row="1" x:Name="dataGridAppointments" ItemsSource="{Binding Path=Appointments}" AutoGenerateColumns="False" SelectionMode="Single" IsReadOnly="True" HorizontalAlignment="Left"
                       VerticalAlignment="Top" Width="824" Height="550">
