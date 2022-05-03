@@ -27,17 +27,33 @@ namespace Project.Hospital.View.Manager
         private EquipmentService equipmentService;
         private EquipmentController equipmentController;
         private ObservableCollection<Equipment> _equipment;
+        private EquipmentToMoveRepository equipmentToMoveRepository;
+        private EquipmentToMoveService equipmentToMoveService;
        
         public ObservableCollection<Equipment> Equipments
         {
             get ; 
             set ; 
         }
+        private Equipment _choosenEquipment;
+
+        public Equipment ChoosenEquipment
+        {
+            get => _choosenEquipment;
+            set
+            {
+                _choosenEquipment = value;
+
+            }
+
+        }
         public PrikazOpreme()
         {
            
             this.equipmentRepository = new EquipmentRepository();
-            this.equipmentService = new EquipmentService(equipmentRepository);
+            this.equipmentToMoveRepository = new EquipmentToMoveRepository();
+            this.equipmentToMoveService = new EquipmentToMoveService(equipmentToMoveRepository, equipmentRepository);
+            this.equipmentService = new EquipmentService(equipmentRepository, equipmentToMoveRepository,equipmentToMoveService);
             this.equipmentController = new EquipmentController(equipmentService);
             InitializeComponent();
             this.DataContext = this;
@@ -52,7 +68,7 @@ namespace Project.Hospital.View.Manager
 
         public void prebaci(object sender, RoutedEventArgs e)
         {
-            var page = new PrebacivanjeOpreme();
+            var page = new PrebacivanjeOpreme(ChoosenEquipment.Name,ChoosenEquipment.RoomId, ChoosenEquipment.Id);
             NavigationService.Navigate(page);
 
 

@@ -9,7 +9,8 @@ namespace Project.Hospital.Model
     public  class Equipment : Serializable
     {
         public String Name { get; set; }
-        public enum EquipmentTypes        {
+        public String Id { get; set; }
+        public enum EquipmentTypes{
             Permanent,
             Spendable
         }
@@ -19,32 +20,36 @@ namespace Project.Hospital.Model
         public String RoomId { get; set; }
 
         public Equipment() { }
-        public Equipment(String Name, EquipmentTypes EquipmentType,int Quantity,String RoomId)
+        public Equipment(String id, String Name, EquipmentTypes EquipmentType,int Quantity,String RoomId)
         {
             this.Name = Name;
             this.EquipmentType = EquipmentType;
             this.Quantity =Quantity;
             this.RoomId = RoomId;
+            this.Id = id;
         }
 
         public void fromCSV(string[] values)
         {
 
-
-            Name = values[0];
-            EquipmentType = (EquipmentTypes)Enum.Parse(typeof(EquipmentTypes), values[1]);
-            Quantity = int.Parse(values[2]);
-            RoomId = values[3];
+            Id = values[0];
+            Name = values[1];
+            EquipmentType = (EquipmentTypes)Enum.Parse(typeof(EquipmentTypes), values[2]);
+            Quantity = int.Parse(values[3]);
+            RoomId = values[4];
+        
         }
 
         public string[] toCSV()
         {
             string[] csvValues =
             {
+                Id,
                 Name,
                 EquipmentType.ToString(),
                 Quantity.ToString(),
                 RoomId
+                
             };
             return csvValues;
         }
