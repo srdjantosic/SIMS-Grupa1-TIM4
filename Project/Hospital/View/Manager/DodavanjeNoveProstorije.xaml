@@ -10,8 +10,8 @@
 
     <Grid Margin="133,156,133,154" Background="#FFF3ECEC">
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="00*"/>
-            <ColumnDefinition Width="279*"/>
+            <ColumnDefinition Width="0*"/>
+            <ColumnDefinition Width="748"/>
         </Grid.ColumnDefinitions>
         <TabControl Grid.ColumnSpan="2">
             <TabItem Header="Rad sa prostorijama" IsSelected="True">
