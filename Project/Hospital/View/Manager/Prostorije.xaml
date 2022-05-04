@@ -8,12 +8,12 @@
       d:DesignHeight="768" d:DesignWidth="1014"
       Title="Prostorije" Foreground="#FFF1EAEA" >
 
-    <Grid Background="#FFF9F2F2" >
+    <Grid HorizontalAlignment="Right" Width="1014" Background="#FFF5F2F2" >
 
         <TabControl Margin="133,156,133,154">
             <TabItem Header="Rad sa prostorijama">
                 <Grid Background="#FFE5E5E5">
-                   
+
                     <Button Content="Prikaz svih prostorija" Height="86" Width="230" Margin="89,227,209,-201" FontSize="20" Grid.ColumnSpan="3"  />
                     <Button Content="Dodaj novu prostoriju" Height="86" Width="230" Margin="89,10,209,16" FontSize="20" Grid.ColumnSpan="3"  Click="dodaj" />
                     <Button Content="Obrisi prostoriju" Height="86" Width="230" Margin="206,237,-107,-211" FontSize="20" Grid.Column="2"  />
@@ -21,52 +21,54 @@
 
                 </Grid>
             </TabItem>
-            <TabItem Header="Renoviranje prostorija">
+            <TabItem Header="Renoviranje prostorija" Height="20" VerticalAlignment="Top">
                 <Grid Background="#FFE5E5E5">
                     <Grid.RowDefinitions>
-                        <RowDefinition Height="30"></RowDefinition>
-                        <RowDefinition></RowDefinition>
-                        <RowDefinition></RowDefinition>
-                        <RowDefinition></RowDefinition>
-                        <RowDefinition></RowDefinition>
-                        <RowDefinition></RowDefinition>
-                        <RowDefinition></RowDefinition>
+                        <RowDefinition Height="112"></RowDefinition>
+
+                        <RowDefinition Height="151*"></RowDefinition>
+
+
+                        <RowDefinition Height="82*"></RowDefinition>
+                        <RowDefinition Height="85*"></RowDefinition>
                     </Grid.RowDefinitions>
 
                     <Grid.ColumnDefinitions>
-                        <ColumnDefinition></ColumnDefinition>
-                        <ColumnDefinition></ColumnDefinition>
+
+                        <ColumnDefinition Width="32*" />
+                        <ColumnDefinition Width="21*" ></ColumnDefinition>
 
                     </Grid.ColumnDefinitions>
-                    <DockPanel Grid.Row="0" Grid.Column="0" >
+                    <DockPanel Grid.Column="0" Grid.ColumnSpan="2" VerticalAlignment="Center" Height="100" >
                         <Label DockPanel.Dock="Top"  Width="160" HorizontalAlignment="Left" Margin="40,30,0,0" FontSize="18" VerticalAlignment="Top">Vrsta renoviranja:</Label>
-                        <CheckBox Content="CheckBox" Width="30" Height="140"/>
+                        <CheckBox DockPanel.Dock="Top" FontSize="18" Content="Osnovno renoviranje" Margin="0,-23,140,0" Width="216"  Height="35"/>
+                        <CheckBox DockPanel.Dock="Top" FontSize="18" Content="Napredno renoviranje" Margin="0,-2,140,0" Width="216"  Height="35"/>
+                    </DockPanel>
+                    <DockPanel Grid.Column="0" Grid.Row="1" VerticalAlignment="Top" HorizontalAlignment="Left" Height="68" Width="202">
+                        <Label DockPanel.Dock="Top" Height="48" Width="162" Margin="40,20,0,0" FontSize="18" HorizontalAlignment="Left" Content="Oznaka prostorije :"/>
+                        <TextBox Height="20" Width="80" HorizontalAlignment="Right" Margin="0,-60,-85,1" VerticalAlignment="Stretch" ></TextBox>
 
                     </DockPanel>
-                    <DockPanel Grid.Row="2" Grid.Column="0">
-                        <Label DockPanel.Dock="Top" FontSize="18" Width="160" HorizontalAlignment="Center" Margin="100,30,0,0">Količina:</Label>
-                    </DockPanel>
-                    <DockPanel Grid.Row="3" Grid.Column="0">
-                        <Label DockPanel.Dock="Top" FontSize="18" Width="160" HorizontalAlignment="Center" Margin="100,30,0,0">Datum izvršavanja:</Label>
+                    <DockPanel DockPanel.Dock="Bottom" Grid.Column="0" Grid.Row="1" Margin="40,0,0,55"  VerticalAlignment="Bottom" HorizontalAlignment="Left" Height="8" Width="152">
+                        <Label DockPanel.Dock="Top" Height="48" Width="162" Margin="0,0,-10,-30" FontSize="18" HorizontalAlignment="Left" Content="Razlog renoviranja:" VerticalAlignment="Center"/>
+                        <TextBox Height="40" Width="122" Margin="-40,-60,-137,-30" VerticalAlignment="Bottom" HorizontalAlignment="Right" />
 
                     </DockPanel>
+                    <DockPanel Grid.Column="0" Grid.Row="2" VerticalAlignment="Center" HorizontalAlignment="Left" Height="58" Width="344">
+                        <Label DockPanel.Dock="Top" Height="48" Width="224" Margin="40,-20,80,0" FontSize="18" Content="Trajanje radova(u danima):" HorizontalAlignment="Center" VerticalAlignment="Top"/>
+                        <TextBox Height="25" Width="80" HorizontalAlignment="Right" Margin="19,-80,-5,1" VerticalAlignment="Stretch" ></TextBox>
 
-                    <DockPanel Grid.Row="3" Grid.Column="1" HorizontalAlignment="Left" VerticalAlignment="Stretch">
 
-                        <DatePicker HorizontalAlignment="Center" Height="30" Width="250" FontSize="16" Margin="10,30,0,0" Padding="0,5,0,0" Name="datumBox"></DatePicker>
                     </DockPanel>
-                    <DockPanel Grid.Row="2" Grid.Column="1">
-                        <TextBox HorizontalAlignment="Left" VerticalContentAlignment="Center" Height="25" Width="250" FontSize="16" Margin="10,30,0,0" Name="prezimeBox"></TextBox>
+                    <DockPanel Grid.Row="3" VerticalAlignment="Center" HorizontalAlignment="Center" Height="98" Width="448">
+                        <Label DockPanel.Dock="Top" Height="48" Margin="40,5,80,0" FontSize="18" Content="Interval:" HorizontalContentAlignment="Left" HorizontalAlignment="Left" VerticalAlignment="Bottom"/>
+                        <DatePicker Width="100" Margin="120,-40,0,0" Height="24" VerticalAlignment="Top" HorizontalAlignment="Left"/>
+                        <Label DockPanel.Dock="Top" Height="48" Margin="10,-45,0,0" FontSize="18" Content="do" HorizontalContentAlignment="Left" HorizontalAlignment="Left" VerticalAlignment="Top"/>
+                        <DatePicker Width="100" Margin="-20,-44,0,0" Height="24" VerticalAlignment="Top" HorizontalAlignment="Center"/>
+
                     </DockPanel>
-                    <DockPanel Grid.Row="1" Grid.Column="1">
-                        <ComboBox Width="120" Height="30" HorizontalAlignment="Left"  Margin="10,30,0,0"/>
-                    </DockPanel>
-                    <DockPanel Grid.Row="5" Grid.Column="0">
-                        <Button Height="40" Width="180" Click="vrati" HorizontalAlignment="Center" VerticalAlignment="Bottom" >Otkaži</Button>
-                    </DockPanel>
-                    <DockPanel Grid.Row="5" Grid.Column="1">
-                        <Button Height="40" Width="180" Click="vrati" HorizontalAlignment="Center" VerticalAlignment="Bottom" >Potvrdi</Button>
-                    </DockPanel>
+                    <Calendar Grid.Row="0" Grid.Column="1" HorizontalAlignment="Left" Margin="83,0,0,0" Width="178" Grid.RowSpan="2" VerticalAlignment="Center" Height="168"/>
+
                 </Grid>
             </TabItem>
         </TabControl>
