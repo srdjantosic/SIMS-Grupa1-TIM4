@@ -18,11 +18,11 @@ namespace Project.Hospital.Model
 
         public Appointment(int id, string lks, DateTime dateTime, string lbo, String roomName)
         {
-            id = id;
-            lks = lks;
-            dateTime = dateTime;
-            lbo = lbo;
-            roomName = roomName;
+            this.id = id;
+            this.lks = lks;
+            this.dateTime = dateTime;
+            this.lbo = lbo;
+            this.roomName = roomName;
         }
 
         public void fromCSV(string[] values)

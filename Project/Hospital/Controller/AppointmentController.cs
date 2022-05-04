@@ -52,6 +52,21 @@ namespace Project.Hospital.Controller
             return appointmentService.getPastAppointments(dateTime);
         }
 
+        public List<Appointment> getAppointmentsByLks(String lks)
+        {
+            return appointmentService.getAppointmentsByLks(lks);
+        }
+
+        public List<Appointment> getAvailableAppointments(Doctor doctor, Patient patient, DateTime start, DateTime end)
+        {
+            return appointmentService.getAvailableAppointments(doctor, patient, start, end);
+        }
+
+        public List<Appointment> getAllAvailableAppointments(Patient patient, DateTime start, DateTime end)
+        {
+            return appointmentService.getAllAvailableAppointments(patient, start, end);
+        }
+
     }
 }
 
