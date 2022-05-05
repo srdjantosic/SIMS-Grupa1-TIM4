@@ -29,5 +29,10 @@ namespace Project.Hospital.Repository
             return getAll().SingleOrDefault(doctor => doctor.lks == lks);
         }
 
+        public Doctor getDoctorByEmailAndPassword(String email, String password)
+        {
+            return getAll().SingleOrDefault(doctor => doctor.email == email && doctor.password == password);
+        }
+
     }
 }

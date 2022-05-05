@@ -12,6 +12,7 @@ namespace Project.Hospital.Model
         public String medicineArea { get; set; }
         public String lks { get; set; }
         public String roomName { get; set; }
+        public String password { get; set; }
 
         public Doctor() { }
 
@@ -26,6 +27,18 @@ namespace Project.Hospital.Model
             this.roomName = roomName;
         }
 
+        public Doctor(String firstName, String lastName, String email, String phoneNumber, string medicineArea, String lks, String roomName, String password)
+        {
+            this.firstName = firstName;
+            this.lastName = lastName;
+            this.email = email;
+            this.phoneNumber = phoneNumber;
+            this.medicineArea = medicineArea;
+            this.lks = lks;
+            this.roomName = roomName;
+            this.password = password;
+        }
+
         public void fromCSV(string[] values)
         {
             firstName = values[0];
@@ -35,6 +48,7 @@ namespace Project.Hospital.Model
             medicineArea = values[4];
             lks = values[5];
             roomName = values[6];
+            password = values[7];
         }
 
         public string[] toCSV()
@@ -47,7 +61,8 @@ namespace Project.Hospital.Model
                 phoneNumber,
                 medicineArea,
                 lks,
-                roomName
+                roomName,
+                password
             };
             return csvValues;
         }

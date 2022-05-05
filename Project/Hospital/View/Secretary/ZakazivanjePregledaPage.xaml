@@ -15,8 +15,8 @@
         </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto"></RowDefinition>
-            <RowDefinition></RowDefinition>
-            <RowDefinition></RowDefinition>
+            <RowDefinition Height="Auto"></RowDefinition>
+            <RowDefinition Height="Auto"></RowDefinition>
             <RowDefinition></RowDefinition>
         </Grid.RowDefinitions>
         <TextBlock Grid.Row="0" Height="80" FontSize="32" FontWeight="Bold" HorizontalAlignment="Center" VerticalAlignment="Center">Zakazivanje pregleda</TextBlock>
@@ -24,27 +24,15 @@
             <Grid.RowDefinitions>
                 <RowDefinition></RowDefinition>
                 <RowDefinition></RowDefinition>
-                <RowDefinition></RowDefinition>
-                <RowDefinition></RowDefinition>
-                <RowDefinition></RowDefinition>
             </Grid.RowDefinitions>
             <Label Grid.Row="0" HorizontalAlignment="Right" VerticalAlignment="Bottom" Width="300" Margin="0,0,30,0">LBO* :</Label>
             <TextBox Grid.Row="1" Name="tbLbo" Width="300" HorizontalAlignment="Right" Height="20" Margin="0,0,30,0" VerticalAlignment="Top" HorizontalContentAlignment="Center" />
         </Grid>
-        <Grid Grid.Row="1" Grid.Column="1">
-            <Grid.RowDefinitions>
-                <RowDefinition></RowDefinition>
-                <RowDefinition></RowDefinition>
-                <RowDefinition></RowDefinition>
-                <RowDefinition></RowDefinition>
-                <RowDefinition></RowDefinition>
-            </Grid.RowDefinitions>
-        </Grid>
         <Grid Grid.Row="2" Grid.Column="0">
             <Grid.RowDefinitions>
+                <RowDefinition Height="80"></RowDefinition>
                 <RowDefinition></RowDefinition>
-                <RowDefinition></RowDefinition>
-                <RowDefinition></RowDefinition>
+                <RowDefinition Height="50"></RowDefinition>
                 <RowDefinition></RowDefinition>
                 <RowDefinition></RowDefinition>
             </Grid.RowDefinitions>
@@ -55,25 +43,25 @@
         </Grid>
         <Grid Grid.Row="3" Grid.Column="0">
             <Grid.RowDefinitions>
-                <RowDefinition></RowDefinition>
-                <RowDefinition></RowDefinition>
-                <RowDefinition></RowDefinition>
-                <RowDefinition></RowDefinition>
+                <RowDefinition Height="80"></RowDefinition>
+                <RowDefinition Height="Auto"></RowDefinition>
+                <RowDefinition Height="80"></RowDefinition>
+                <RowDefinition Height="Auto"></RowDefinition>
                 <RowDefinition></RowDefinition>
             </Grid.RowDefinitions>
             <Grid.ColumnDefinitions>
                 <ColumnDefinition></ColumnDefinition>
                 <ColumnDefinition></ColumnDefinition>
             </Grid.ColumnDefinitions>
-            <Label Grid.Row="0" Grid.Column="0" Margin="41,0,0,46" Grid.RowSpan="2" VerticalAlignment="Bottom">POCETNI DATUM* :</Label>
-            <DatePicker Grid.Row="1" Grid.Column="0" Name="dpPocDat" Margin="41,0,0,46" Grid.RowSpan="2"></DatePicker>
-            <Label Grid.Row="2" Grid.Column="0" Margin="41,0,0,45" Grid.RowSpan="2" VerticalAlignment="Bottom">POCETNO VREME* :</Label>
-            <TextBox Grid.Row="3" Grid.Column="0" Name="tbPocVre" Height="20" Margin="41,0,0,0" VerticalAlignment="Top"></TextBox>
+            <Label Grid.Row="0" Grid.Column="0" VerticalAlignment="Bottom" HorizontalContentAlignment="Center">POCETNI DATUM* :</Label>
+            <DatePicker Grid.Row="1" Grid.Column="0" Name="dpPocDat" Width="180"></DatePicker>
+            <Label Grid.Row="2" Grid.Column="0" VerticalAlignment="Bottom" HorizontalContentAlignment="Center">POCETNO VREME* :</Label>
+            <TextBox Grid.Row="3" Grid.Column="0" Name="tbPocVre" Height="20" VerticalAlignment="Top" Width="180"></TextBox>
 
-            <Label Grid.Row="0" Grid.Column="1" Margin="41,0,0,46" Grid.RowSpan="2" VerticalAlignment="Bottom">KRAJNJI DATUM* :</Label>
-            <DatePicker Grid.Row="1" Grid.Column="1" Name="dpKrajDat" Margin="41,0,0,46" Grid.RowSpan="2"></DatePicker>
-            <Label Grid.Row="2" Grid.Column="1" Margin="41,0,0,45" Grid.RowSpan="2" VerticalAlignment="Bottom">KRAJNJE VREME* :</Label>
-            <TextBox Grid.Row="3" Grid.Column="1" Name="tbKrajVre" Height="20" Margin="41,0,0,0" VerticalAlignment="Top"/>
+            <Label Grid.Row="0" Grid.Column="1" VerticalAlignment="Bottom" HorizontalContentAlignment="Center">KRAJNJI DATUM* :</Label>
+            <DatePicker Grid.Row="1" Grid.Column="1" Name="dpKrajDat" Width="180"></DatePicker>
+            <Label Grid.Row="2" Grid.Column="1" VerticalAlignment="Bottom" HorizontalContentAlignment="Center">KRAJNJE VREME* :</Label>
+            <TextBox Grid.Row="3" Grid.Column="1" Name="tbKrajVre" Height="20" VerticalAlignment="Top" Width="180"/>
         </Grid>
         <Grid Grid.Row="3" Grid.Column="1">
             <Grid.ColumnDefinitions>
@@ -87,13 +75,13 @@
                 <RowDefinition></RowDefinition>
                 <RowDefinition></RowDefinition>
             </Grid.RowDefinitions>
-            <TextBlock Grid.Column="0" Grid.Row="0" FontWeight="Bold" HorizontalAlignment="Center" VerticalAlignment="Center">ODABIR PRIORITETA</TextBlock>
-            <ComboBox Grid.Column="0" Grid.Row="1" Name="cbPrioritet" Width="200" Height="25">
+            <TextBlock Grid.Column="0" Grid.Row="0" FontWeight="Bold" HorizontalAlignment="Center" VerticalAlignment="Bottom">ODABIR PRIORITETA</TextBlock>
+            <ComboBox Grid.Column="0" Grid.Row="1" Name="cbPrioritet" Width="200" Height="25" VerticalAlignment="Top" Margin="0,20,0,0">
                 <ComboBoxItem>Lekar</ComboBoxItem>
                 <ComboBoxItem>Vreme</ComboBoxItem>
             </ComboBox>
-            <Button Grid.Column="0" Grid.Row="3" Width="150" Margin="10,0,10,0" Click="odustani">Odustani</Button>
-            <Button Grid.Column="1" Grid.Row="3" Margin="10,0,10,0" Width="150" Click="zakazi">Zakazi</Button>
+            <Button Grid.Column="0" Grid.Row="3" Width="150" Height="60" Margin="10,0,10,0" Click="odustani">Odustani</Button>
+            <Button Grid.Column="1" Grid.Row="3" Margin="10,0,10,0" Width="150" Height="60" Click="zakazi">Zakazi</Button>
         </Grid>
     </Grid>
 </Page>

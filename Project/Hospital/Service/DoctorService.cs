@@ -31,6 +31,11 @@ namespace Project.Hospital.Service
         {
             return doctorRepository.getDoctorByLks(lks);
         }
+
+        public Doctor getDoctorByEmailAndPassword(String email, String password)
+        {
+            return doctorRepository.getDoctorByEmailAndPassword(email, password);
+        }
         
     }
 }
