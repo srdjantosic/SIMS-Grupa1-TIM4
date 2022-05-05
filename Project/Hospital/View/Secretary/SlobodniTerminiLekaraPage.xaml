@@ -1,0 +1,21 @@
+﻿<Page x:Class="Project.Hospital.View.Secretary.SlobodniTerminiLekaraPage"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:local="clr-namespace:Project.Hospital.View.Secretary"
+      mc:Ignorable="d" 
+      d:DesignHeight="768" d:DesignWidth="824"
+      Title="SlobodniTerminiLekaraPage">
+
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"></RowDefinition>
+            <RowDefinition></RowDefinition>
+        </Grid.RowDefinitions>
+        <TextBlock Grid.Row="0" Height="80" FontSize="32" FontWeight="Bold" HorizontalAlignment="Center" VerticalAlignment="Center">Slobodni termini izabranog lekara</TextBlock>
+        <DataGrid Grid.Row="1" x:Name="dataGridAppointments" HorizontalAlignment="Left"
+                      VerticalAlignment="Top" Width="824" Height="550" MouseDoubleClick="dataGridAppointments_MouseDoubleClick" Loaded="dataGridAppointments_Loaded">
+        </DataGrid>
+    </Grid>
+</Page>

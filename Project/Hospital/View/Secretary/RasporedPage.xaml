@@ -17,22 +17,7 @@
             <TextBlock DockPanel.Dock="Left" Width="550" FontSize="32" Padding="20">Raspored</TextBlock>
             <Button DockPanel.Dock="Right" FontSize="18" Height="80" Margin="30" Click="zakazivanjePregleda">Zakazivanje pregleda</Button>
         </DockPanel>
-        <DataGrid Grid.Row="1" x:Name="dataGridAppointments" ItemsSource="{Binding Path=Appointments}" AutoGenerateColumns="False" SelectionMode="Single" IsReadOnly="True" HorizontalAlignment="Left"
-                      VerticalAlignment="Top" Width="824" Height="550">
-            <DataGrid.Columns>
-                <DataGridTextColumn Header="ID" Binding="{Binding id}" Width="24"/>
-                <DataGridTextColumn Header="DATUM I VREME" Binding="{Binding dateTime}" Width="200"/>
-                <DataGridTextColumn Header="PACIJENT" Binding="{Binding lbo}" Width="200"/>
-                <DataGridTextColumn Header="LEKAR" Binding="{Binding lks}" Width="200"/>
-                <DataGridTemplateColumn Width="192">
-                    <DataGridTemplateColumn.CellTemplate>
-                        <DataTemplate>
-                            <Button Name="btnDetaljiPregleda" Content="DetaljiPregleda" Click="detaljiPregleda"/>
-                        </DataTemplate>
-                    </DataGridTemplateColumn.CellTemplate>
-                </DataGridTemplateColumn>
-            </DataGrid.Columns>
-
-        </DataGrid>
+        <DataGrid Grid.Row="1" x:Name="dataGridAppointments" IsReadOnly="True" HorizontalAlignment="Left"
+                      VerticalAlignment="Top" Width="824" Height="550" Loaded="dataGridAppointments_Loaded" MouseDoubleClick="dataGridAppointments_MouseDoubleClick"/>
     </Grid>
 </Page>

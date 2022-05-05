@@ -79,7 +79,8 @@ namespace Project.Hospital.Model
             List<string> idsOfPrescriptions = values[17].Split(',').ToList();
             foreach(string idOfprescription in idsOfPrescriptions)
             {
-                prescriptionsIds.Add(int.Parse(idOfprescription));
+                if(idOfprescription.Length!=0)
+                    prescriptionsIds.Add(int.Parse(idOfprescription));
             }
         }
 
