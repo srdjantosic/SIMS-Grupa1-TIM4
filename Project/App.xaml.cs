@@ -10,6 +10,10 @@ namespace Project
 {
     public partial class App : Application
     {
+        private ReportRepository reportRepository;
+        private ReportService reportService;
+        private ReportController reportController;
+
         private MedicineRepository medicineRepository;
         private MedicineService medicineService;
         private MedicineController medicineController;
@@ -24,6 +28,10 @@ namespace Project
 
         public App()
         {
+            this.reportRepository = new ReportRepository();
+            this.reportService = new ReportService(reportRepository);
+            this.reportController = new ReportController(reportService);
+
             this.medicineRepository = new MedicineRepository();
             this.medicineService = new MedicineService(medicineRepository);
             this.medicineController = new MedicineController(medicineService);
@@ -37,6 +45,9 @@ namespace Project
             this.prescriptionService = new PrescriptionService(prescriptionRepository, medicineRepository, patientRepository);
             this.prescriptionController = new PrescriptionController(prescriptionService);
 
+            //reportController.createReport("qqq", "aaa");
+            //reportController.updateReport(1, "zoran", "vela");
+
             /*Prescription prescriptionToUpdate = new Prescription();
             Prescription oldPrescription = prescriptionController.getPrescription(2);
             prescriptionToUpdate.Id = oldPrescription.Id;
@@ -44,6 +55,8 @@ namespace Project
             prescriptionToUpdate.PeriodInDays = 14;
 
             List<string> newMedicines = new List<string>();
+            newMedicines.Add("Lek13");
+            newMedicines.Add("Lek12");
             newMedicines.Add("Lek99");
             newMedicines.Add("Lek96");
             prescriptionToUpdate.setMedicines(newMedicines);
@@ -74,7 +87,7 @@ namespace Project
                 }
             }*/
 
-            /*foreach(Patient patient in patientController.ShowPatients())
+            /*foreach (Patient patient in patientController.ShowPatients())
             {
                 Console.WriteLine(patient.FirstName + " " + patient.LastName + " " + patient._Gender + " " + patient.Email + " " + patient.PhoneNumber + " " 
                     + patient.Jmbg + " " + patient.Lbo + " " + patient.Birthday + " " + patient.Country + " " + patient.City + " " + patient.Adress 
@@ -85,10 +98,10 @@ namespace Project
                     Console.WriteLine(allergen.Name + " ");
                 }
 
-                Console.WriteLine("\n### RECEPTI ###\n");
-                foreach (int id in patient.prescriptionsIds)
+                Console.WriteLine("\n### PAROVI ###\n");
+                foreach (int pair in patient.reportPrescriptinIds)
                 {
-                    Console.WriteLine(id.ToString() + " ");
+                    Console.WriteLine(pair.ToString() + " ");
                 }
             }*/
 

@@ -25,7 +25,7 @@ namespace Project.Hospital.Model
 
         public List<Allergen> Allergens = new List<Allergen>();
 
-        public List<int> prescriptionsIds = new List<int>();
+        public List<int> reportPrescriptinIds = new List<int>();
 
         public Patient() { }
 
@@ -46,10 +46,10 @@ namespace Project.Hospital.Model
         }
 
         public List<Allergen> getAllergens() { return Allergens; }
-        public List<int> GetPrescriptions() { return prescriptionsIds; }
+        public List<int> GetReportPrescriptinIds() { return reportPrescriptinIds;}
 
         public void setAllergens(List<Allergen> allergens) { this.Allergens = allergens; }
-        public void setPrescription(List<int> prescriptionsIds) { this.prescriptionsIds = prescriptionsIds; }
+        public void setReportPrescriptionIds(List<int> reportPrescriptionIds) { this.reportPrescriptinIds = reportPrescriptinIds; }
 
         public void fromCSV(string[] values)
         {
@@ -76,11 +76,13 @@ namespace Project.Hospital.Model
                 Allergens.Add(new Allergen() { Name = allergen});
             }
 
-            List<string> idsOfPrescriptions = values[17].Split(',').ToList();
-            foreach(string idOfprescription in idsOfPrescriptions)
+            List<string> idsOfReportPrescription = values[17].Split(',').ToList();
+
+            foreach(string idOfReportPrescription in idsOfReportPrescription)
             {
-                prescriptionsIds.Add(int.Parse(idOfprescription));
+               reportPrescriptinIds.Add(int.Parse(idOfReportPrescription)); 
             }
+
         }
 
         public string[] toCSV()
@@ -90,16 +92,14 @@ namespace Project.Hospital.Model
             {
                 allergensString.Add(allergen.Name);
             }
-
             string allergens = string.Join(',', allergensString);
 
-            List<string> idsPrescriptionsString = new List<string>();
-            foreach(int idPrescription in prescriptionsIds)
+            List<string> idsReportPrescription = new List<string>();
+            foreach(int idReportPrescription in reportPrescriptinIds)
             {
-                idsPrescriptionsString.Add(idPrescription.ToString());
+                idsReportPrescription.Add(idReportPrescription.ToString());
             }
-
-            string prescriptionId = string.Join(',', idsPrescriptionsString);
+            string reportPrescriptionId = string.Join(',', idsReportPrescription);
 
             string[] csvValues =
             {
@@ -120,7 +120,7 @@ namespace Project.Hospital.Model
             Weight.ToString(),
             Height.ToString(),
             allergens,
-            prescriptionId
+            reportPrescriptionId
             };
             return csvValues;
         }
