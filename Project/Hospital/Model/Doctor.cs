@@ -1,4 +1,5 @@
-using System;
+﻿using System;
+using System.Linq;
 
 namespace Project.Hospital.Model
 {
@@ -10,10 +11,12 @@ namespace Project.Hospital.Model
         public String phoneNumber { get; set; }
         public String medicineArea { get; set; }
         public String lks { get; set; }
+        public String roomName { get; set; }
+        public String password { get; set; }
 
         public Doctor() { }
 
-        public Doctor(String firstName, String lastName, String email, String phoneNumber, string medicineArea, String lks)
+        public Doctor(String firstName, String lastName, String email, String phoneNumber, string medicineArea, String lks, String roomName)
         {
             this.firstName = firstName;
             this.lastName = lastName;
@@ -21,6 +24,19 @@ namespace Project.Hospital.Model
             this.phoneNumber = phoneNumber;
             this.medicineArea = medicineArea;
             this.lks = lks;
+            this.roomName = roomName;
+        }
+
+        public Doctor(String firstName, String lastName, String email, String phoneNumber, string medicineArea, String lks, String roomName, String password)
+        {
+            this.firstName = firstName;
+            this.lastName = lastName;
+            this.email = email;
+            this.phoneNumber = phoneNumber;
+            this.medicineArea = medicineArea;
+            this.lks = lks;
+            this.roomName = roomName;
+            this.password = password;
         }
 
         public void fromCSV(string[] values)
@@ -31,6 +47,8 @@ namespace Project.Hospital.Model
             phoneNumber = values[3];
             medicineArea = values[4];
             lks = values[5];
+            roomName = values[6];
+            password = values[7];
         }
 
         public string[] toCSV()
@@ -42,7 +60,9 @@ namespace Project.Hospital.Model
                 email,
                 phoneNumber,
                 medicineArea,
-                lks
+                lks,
+                roomName,
+                password
             };
             return csvValues;
         }

@@ -14,7 +14,10 @@
             <RowDefinition Height="Auto"></RowDefinition>
             <RowDefinition></RowDefinition>
         </Grid.RowDefinitions>
-        <TextBlock Grid.Row="0" Height="100" FontSize="22" FontWeight="Bold" Padding="60, 50, 0, 0">Detalji o pregledu</TextBlock>
+        <DockPanel Grid.Row="0" Height="100" Width="824">
+            <Button DockPanel.Dock="Left" Width="80" Margin="20,20,20,40" FontSize="16" Click="nazad">Nazad</Button>
+            <TextBlock DockPanel.Dock="Right" FontSize="32" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0, 30, 400 , 0">Detalji o pregledu</TextBlock>
+        </DockPanel>
         <Grid Grid.Row="1" Height="400">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition></ColumnDefinition>

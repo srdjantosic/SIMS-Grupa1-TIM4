@@ -9,8 +9,11 @@
 
   <ItemGroup>
     <Folder Include="Hospital\Recources\" />
+
     <Folder Include="Hospital\View\Manager\" />
+
     <Folder Include="Hospital\View\Doctor\" />
+
   </ItemGroup>
 
 </Project>

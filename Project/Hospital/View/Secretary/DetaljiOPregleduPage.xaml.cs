@@ -32,6 +32,9 @@ namespace Project.Hospital.View.Secretary
         private PatientRepository patientRepository;
         private PatientService patientService;
         private PatientController patientController;
+        private DoctorRepository doctorRepository;
+        private DoctorService doctorService;
+        private DoctorController doctorController;
         private Appointment Appointment;
         public DetaljiOPregleduPage(Appointment appointment)
         {
@@ -44,6 +47,10 @@ namespace Project.Hospital.View.Secretary
             this.patientService = new PatientService(patientRepository);
             this.patientController = new PatientController(patientService);
 
+            this.doctorRepository = new DoctorRepository();
+            this.doctorService = new DoctorService(doctorRepository);
+            this.doctorController = new DoctorController(doctorService);
+
             this.Appointment = appointment;
 
             Patient patient = patientController.GetPatient(appointment.lbo);
@@ -51,9 +58,17 @@ namespace Project.Hospital.View.Secretary
             {
                 tbPacijent.Text = patient.FirstName + " " + patient.LastName;
             }
+
+            Model.Doctor doctor = doctorController.getDoctorByLks(appointment.lks);
+            if(doctor != null)
+            {
+                tbLekar.Text = doctor.firstName + " " + doctor.lastName + " (" + doctor.medicineArea + ") ";
+            }
+
+
             tbProstorija.Text = appointment.roomName;
             tbDatumIVreme.Text = appointment.dateTime.ToLongDateString()+" "+appointment.dateTime.ToLongTimeString();
-            
+           
      
         }
 
@@ -69,6 +84,12 @@ namespace Project.Hospital.View.Secretary
         private void izmeni(object sender, RoutedEventArgs e)
         {
             var page = new IzmenaPregledaPage(Appointment);
+            NavigationService.Navigate(page);
+        }
+
+        private void nazad(object sender, RoutedEventArgs e)
+        {
+            var page = new RasporedPage();
             NavigationService.Navigate(page);
         }
     }

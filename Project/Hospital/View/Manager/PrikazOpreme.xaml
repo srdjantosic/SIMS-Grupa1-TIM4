@@ -18,7 +18,7 @@
                     </Grid.RowDefinitions>
                     <ComboBox Width="120" HorizontalAlignment="Right" Grid.Row="0" Margin="0,5,10,5"/>
                     <DataGrid x:Name="pregledOpreme" Grid.Row="1" AutoGenerateColumns="False"
-                  SelectionMode="Single" IsReadOnly="True"  ItemsSource="{Binding Path=Equipments}" >
+                  SelectionMode="Single" IsReadOnly="True" SelectedItem="{Binding Path=ChoosenEquipment}" ItemsSource="{Binding Path=Equipments}" >
                         <DataGrid.Columns>
                             <DataGridTextColumn Header="Naziv opreme" Binding="{Binding Name}" Width="160"/>
                             <DataGridTextColumn Header="Vrsta opreme" Binding="{Binding EquipmentType}" Width="160"/>
