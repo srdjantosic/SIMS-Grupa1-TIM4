@@ -13,13 +13,34 @@
         <TabControl Margin="133,156,133,154">
             <TabItem Header="Rad sa prostorijama">
                 <Grid Background="#FFE5E5E5">
-
-                    <Button Content="Prikaz svih prostorija" Height="86" Width="230" Margin="89,227,209,-201" FontSize="20" Grid.ColumnSpan="3"  />
-                    <Button Content="Dodaj novu prostoriju" Height="86" Width="230" Margin="89,10,209,16" FontSize="20" Grid.ColumnSpan="3"  Click="dodaj" />
-                    <Button Content="Obrisi prostoriju" Height="86" Width="230" Margin="206,237,-107,-211" FontSize="20" Grid.Column="2"  />
-                    <Button Content="Azuriraj prostoriju" Height="86" Width="230" Margin="206,78,-107,0" VerticalAlignment="Top" FontSize="20" Opacity="0.9" Grid.Column="2"/>
-
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="50"></RowDefinition>
+                        <RowDefinition></RowDefinition>
+                    </Grid.RowDefinitions>
+                    <ComboBox Width="120" HorizontalAlignment="Right" Grid.Row="0" Margin="0,5,10,5"/>
+                    <DataGrid x:Name="pregledProstorije" Grid.Row="1" AutoGenerateColumns="False"
+                  SelectionMode="Single" IsReadOnly="True" SelectedItem="{Binding Path=ChoosenRoom}" ItemsSource="{Binding Path=Rooms}" >
+                        <DataGrid.Columns>
+                            <DataGridTextColumn Header="Naziv prostorije" Binding="{Binding Name}" Width="160"/>
+                            <DataGridTextColumn Header="Tip prostorije" Binding="{Binding Type}" Width="160"/>
+                            <DataGridTemplateColumn Width="1*">
+                                <DataGridTemplateColumn.CellTemplate>
+                                    <DataTemplate>
+                                        <Button Content="Azuriraj"  />
+                                    </DataTemplate>
+                                </DataGridTemplateColumn.CellTemplate>
+                            </DataGridTemplateColumn>
+                            <DataGridTemplateColumn Width="1*">
+                                <DataGridTemplateColumn.CellTemplate>
+                                    <DataTemplate>
+                                        <Button Content="Obrisi"  />
+                                    </DataTemplate>
+                                </DataGridTemplateColumn.CellTemplate>
+                            </DataGridTemplateColumn>
+                        </DataGrid.Columns>
+                    </DataGrid>
                 </Grid>
+               
             </TabItem>
             <TabItem Header="Renoviranje prostorija" Height="20" VerticalAlignment="Top">
                 <Grid Background="#FFE5E5E5">
@@ -67,6 +88,10 @@
                         <DatePicker Width="100" Margin="-20,-44,0,0" Height="24" VerticalAlignment="Top" HorizontalAlignment="Center"/>
 
                     </DockPanel>
+                    <DockPanel Grid.Column="1" Grid.Row="3" VerticalAlignment="Center" HorizontalAlignment="Left" Height="58" Width="344">
+                        <Button Height="40" Width="180">Potvrdi</Button>
+                    </DockPanel>
+                    
                     <Calendar Grid.Row="0" Grid.Column="1" HorizontalAlignment="Left" Margin="83,0,0,0" Width="178" Grid.RowSpan="2" VerticalAlignment="Center" Height="168"/>
 
                 </Grid>

@@ -9,11 +9,11 @@
 
   <ItemGroup>
     <Folder Include="Hospital\Recources\" />
-<<<<<<< HEAD
+
     <Folder Include="Hospital\View\Manager\" />
-=======
+
     <Folder Include="Hospital\View\Doctor\" />
->>>>>>> e1685c1203a1cd67efad2b85f3b493a2daa5f299
+
   </ItemGroup>
 
 </Project>

@@ -56,6 +56,10 @@ namespace Hospital.Service
             return roomRepository.GetRoom(name);
         }
 
+        public void RenovateRoom(String id) { 
+        
+        }
+            
     }
 
 }
