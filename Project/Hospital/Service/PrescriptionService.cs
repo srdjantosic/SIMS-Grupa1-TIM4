@@ -23,22 +23,9 @@ namespace Project.Hospital.Service
 
         public Prescription createPrescription(string lbo, Prescription newPrescription)
         {
-            if(newPrescription.getMedicines().Count == 0 || newPrescription.PeriodInDays < 1)
+            if(isValid(lbo, newPrescription) == false)
             {
                 return null;
-            }
-
-            Patient patient = patientRepository.GetPatient(lbo);
-
-            foreach(string medicine in newPrescription.getMedicines())
-            {
-                foreach(Allergen allergen in patient.getAllergens())
-                {
-                    if (medicine.Equals(allergen.Name))
-                    {
-                        return null;
-                    }
-                }
             }
 
             return prescriptionRepository.createPrescription(newPrescription);
@@ -46,23 +33,9 @@ namespace Project.Hospital.Service
 
         public Boolean updatePrescription(string lbo, Prescription prescriptionToUpdate)
         {
-            
-            if (prescriptionToUpdate.getMedicines().Count == 0  || prescriptionToUpdate.PeriodInDays < 1)
+            if(isValid(lbo, prescriptionToUpdate) == false)
             {
                 return false;
-            }
-
-            Patient patient = patientRepository.GetPatient(lbo);
-
-            foreach(string medicin in prescriptionToUpdate.getMedicines())
-            {
-                foreach(Allergen allergen in patient.getAllergens())
-                {
-                    if (medicin.Equals(allergen.Name))
-                    {
-                        return false;
-                    }
-                }
             }
 
             prescriptionRepository.updatePrescription(prescriptionToUpdate);
@@ -78,6 +51,28 @@ namespace Project.Hospital.Service
         public Prescription getPrescription(int id)
         {
             return prescriptionRepository.getPrescription(id);
+        }
+
+        public Boolean isValid(string lbo, Prescription prescription)
+        {
+            if (prescription.getMedicines().Count == 0 || prescription.PeriodInDays < 1)
+            {
+                return false;
+            }
+
+            Patient patient = patientRepository.GetPatient(lbo);
+
+            foreach (string medicin in prescription.getMedicines())
+            {
+                foreach (Allergen allergen in patient.getAllergens())
+                {
+                    if (medicin.Equals(allergen.Name))
+                    {
+                        return false;
+                    }
+                }
+            }
+            return true;
         }
 
     }
