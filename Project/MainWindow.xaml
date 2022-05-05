@@ -30,9 +30,7 @@
             </StackPanel>
             <DockPanel Grid.Row="3" Height="100">
                 <Button DockPanel.Dock="Right" Width="150" Height="50" FontSize="24" Click="prijaviSe">Prijavi se</Button>
-                <Button DockPanel.Dock="Right" Width="200" Height="50" FontSize="24" Click="logIn">Bogdan legenda</Button>
             </DockPanel>
         </Grid>
-        <Button Height="60" Width="237" FontSize="18" Margin="0,10,24,636" Click="inmanager">Manager</Button>
     </Grid>
 </Window>

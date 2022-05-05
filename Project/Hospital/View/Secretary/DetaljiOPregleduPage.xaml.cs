@@ -86,5 +86,11 @@ namespace Project.Hospital.View.Secretary
             var page = new IzmenaPregledaPage(Appointment);
             NavigationService.Navigate(page);
         }
+
+        private void nazad(object sender, RoutedEventArgs e)
+        {
+            var page = new RasporedPage();
+            NavigationService.Navigate(page);
+        }
     }
 }

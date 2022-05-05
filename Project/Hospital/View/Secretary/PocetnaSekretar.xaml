@@ -12,13 +12,14 @@
             <ColumnDefinition Width="Auto"></ColumnDefinition>
         </Grid.ColumnDefinitions>
         <WrapPanel Grid.Column="0" Orientation="Vertical">
-            <Button Height="60" Width="200" FontSize="16">Pocetna</Button>
+            <Button Height="60" Width="200" FontSize="16" Click="pocetna">Pocetna</Button>
             <Button Height="60" FontSize="16" Click="pacijenti">Pacijenti</Button>
             <Button Height="60" FontSize="16">Hitan slucaj</Button>
             <Button Height="60" FontSize="16" Click="raspored">Raspored</Button>
             <Button Height="60" FontSize="16">Oprema</Button>
             <Button Height="60" FontSize="16">Sastanci</Button>
             <Button Height="60" FontSize="16">Zahtevi za slobodne dane</Button>
+            <Button Height="60" FontSize="16" Click="odjaviSe">Odjavi se</Button>
         </WrapPanel>
         <Frame x:Name="Prozor" Grid.Column="1" Width="824"></Frame>
     </Grid>

@@ -67,7 +67,7 @@
                 <TextBox HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Height="25" Width="250" FontSize="16" Margin="0,0,100,0" Name="emailBox"></TextBox>
             </DockPanel>
             <DockPanel Grid.Row="2" Grid.Column="1">
-                <Label DockPanel.Dock="Top" FontSize="18" Height="30" Width="250" HorizontalAlignment="Center" Margin="0,30,100,0">Drazava :</Label>
+                <Label DockPanel.Dock="Top" FontSize="18" Height="30" Width="250" HorizontalAlignment="Center" Margin="0,30,100,0">Drzava :</Label>
                 <TextBox HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Height="25" Width="250" FontSize="16" Margin="0,0,100,0" Name="drzavaBox"></TextBox>
             </DockPanel>
             <DockPanel Grid.Row="3" Grid.Column="1">

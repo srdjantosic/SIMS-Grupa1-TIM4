@@ -32,6 +32,9 @@ namespace Project.Hospital.View.Secretary
         private PatientRepository patientRepository;
         private PatientService patientService;
         private PatientController patientController;
+        private DoctorRepository doctorRepository;
+        private DoctorService doctorService;
+        private DoctorController doctorController;
         private Appointment Appointment;
         public IzmenaPregledaPage(Appointment appointment)
         {
@@ -44,12 +47,21 @@ namespace Project.Hospital.View.Secretary
             this.patientService = new PatientService(patientRepository);
             this.patientController = new PatientController(patientService);
 
+            this.doctorRepository = new DoctorRepository();
+            this.doctorService = new DoctorService(doctorRepository);
+            this.doctorController = new DoctorController(doctorService);
+
             this.Appointment = appointment;
 
             Patient patient = patientController.GetPatient(appointment.lbo);
             if (patient != null)
             {
                 tbPacijent.Text = patient.FirstName + " " + patient.LastName;
+            }
+            Model.Doctor doctor = doctorController.getDoctorByLks(appointment.lks);
+            if(doctor != null)
+            {
+                tbLekar.Text = doctor.firstName + " " + doctor.lastName + " (" + doctor.medicineArea + ") ";
             }
             tbProstorija.Text = appointment.roomName;
             dpDatum.Text = appointment.dateTime.ToShortDateString();

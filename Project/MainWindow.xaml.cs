@@ -22,12 +22,24 @@ namespace Project
         private DoctorRepository doctorRepository;
         private DoctorService doctorService;
         private DoctorController doctorController;
+        private SecretaryRepository secretaryRepository;
+        private SecretaryService secretaryService;
+        private SecretaryController secretaryController;
+        private ManagerRepository managerRepository;
+        private ManagerService managerService;
+        private ManagerController managerController;
         public MainWindow()
         {
             InitializeComponent();
             this.doctorRepository = new DoctorRepository();
             this.doctorService = new DoctorService(doctorRepository);
             this.doctorController = new DoctorController(doctorService);
+            this.secretaryRepository = new SecretaryRepository();
+            this.secretaryService = new SecretaryService(secretaryRepository);
+            this.secretaryController = new SecretaryController(secretaryService);
+            this.managerRepository = new ManagerRepository();
+            this.managerService = new ManagerService(managerRepository);
+            this.managerController = new ManagerController(managerService);
         }
 
         private void prijaviSe(object sender, RoutedEventArgs e)
@@ -37,30 +49,34 @@ namespace Project
 
             if(doctorController.getDoctorByEmailAndPassword(Email, Password) != null)
             {
-                var pocetna = new PocetnaSekretar();
+                var pocetna = new Schedule();
                 pocetna.Show();
                 this.Close();
             }
             else
             {
-                var login = new MainWindow();
-                login.Show();
-                this.Close();
+                if(secretaryController.getByEmailAndPassword(Email, Password) != null) 
+                {
+                    var pocetna = new PocetnaSekretar();
+                    pocetna.Show();
+                    this.Close();
+                }
+                else
+                {
+                    if(managerController.getByEmailAndPassword(Email, Password) != null)
+                    {
+                        var pocetna = new Pocetna();
+                        pocetna.Show();
+                        this.Close();
+                    }
+                    else
+                    {
+                        var logIn = new MainWindow();
+                        logIn.Show();
+                        this.Close();
+                    }
+                }
             }
-        }
-
-        private void inmanager(object sender, RoutedEventArgs e)
-        {
-            var pocetna= new Pocetna();
-            pocetna.Show();
-            this.Close();
-        }
-
-        private void logIn(object sender, RoutedEventArgs e)
-        {
-            var schedule = new Schedule();
-            schedule.Show();
-            this.Close();
         }
     }
 }
