@@ -40,7 +40,7 @@
                         </DataGrid.Columns>
                     </DataGrid>
                 </Grid>
-               
+
             </TabItem>
             <TabItem Header="Renoviranje prostorija" Height="20" VerticalAlignment="Top">
                 <Grid Background="#FFE5E5E5">
@@ -67,37 +67,38 @@
                     </DockPanel>
                     <DockPanel Grid.Column="0" Grid.Row="1" VerticalAlignment="Top" HorizontalAlignment="Left" Height="68" Width="202">
                         <Label DockPanel.Dock="Top" Height="48" Width="162" Margin="40,20,0,0" FontSize="18" HorizontalAlignment="Left" Content="Oznaka prostorije :"/>
-                        <TextBox Height="20" Width="80" HorizontalAlignment="Right" Margin="0,-60,-85,1" VerticalAlignment="Stretch" ></TextBox>
+                        <TextBox Name="roomid" Height="20" Width="80" HorizontalAlignment="Right" Margin="0,-60,-85,1" VerticalAlignment="Stretch" ></TextBox>
 
                     </DockPanel>
                     <DockPanel DockPanel.Dock="Bottom" Grid.Column="0" Grid.Row="1" Margin="40,0,0,55"  VerticalAlignment="Bottom" HorizontalAlignment="Left" Height="8" Width="152">
                         <Label DockPanel.Dock="Top" Height="48" Width="162" Margin="0,0,-10,-30" FontSize="18" HorizontalAlignment="Left" Content="Razlog renoviranja:" VerticalAlignment="Center"/>
-                        <TextBox Height="40" Width="122" Margin="-40,-60,-137,-30" VerticalAlignment="Bottom" HorizontalAlignment="Right" />
+                        <TextBox Name="comment" Height="40" Width="122" Margin="-40,-60,-137,-30" VerticalAlignment="Bottom" HorizontalAlignment="Right" />
 
                     </DockPanel>
                     <DockPanel Grid.Column="0" Grid.Row="2" VerticalAlignment="Center" HorizontalAlignment="Left" Height="58" Width="344">
                         <Label DockPanel.Dock="Top" Height="48" Width="224" Margin="40,-20,80,0" FontSize="18" Content="Trajanje radova(u danima):" HorizontalAlignment="Center" VerticalAlignment="Top"/>
-                        <TextBox Height="25" Width="80" HorizontalAlignment="Right" Margin="19,-80,-5,1" VerticalAlignment="Stretch" ></TextBox>
+                        <TextBox Name="trajanje" Height="25" Width="80" HorizontalAlignment="Right" Margin="19,-80,-5,1" VerticalAlignment="Stretch" ></TextBox>
 
 
                     </DockPanel>
                     <DockPanel Grid.Row="3" VerticalAlignment="Center" HorizontalAlignment="Center" Height="98" Width="448">
                         <Label DockPanel.Dock="Top" Height="48" Margin="40,5,80,0" FontSize="18" Content="Interval:" HorizontalContentAlignment="Left" HorizontalAlignment="Left" VerticalAlignment="Bottom"/>
-                        <DatePicker Width="100" Margin="120,-40,0,0" Height="24" VerticalAlignment="Top" HorizontalAlignment="Left"/>
+                        <DatePicker Name="datPoc" Width="100" Margin="120,-40,0,0" Height="24" VerticalAlignment="Top" HorizontalAlignment="Left"/>
                         <Label DockPanel.Dock="Top" Height="48" Margin="10,-45,0,0" FontSize="18" Content="do" HorizontalContentAlignment="Left" HorizontalAlignment="Left" VerticalAlignment="Top"/>
-                        <DatePicker Width="100" Margin="-20,-44,0,0" Height="24" VerticalAlignment="Top" HorizontalAlignment="Center"/>
+                        <DatePicker Name="datKraj" Width="100" Margin="-20,-44,0,0" Height="24" VerticalAlignment="Top" HorizontalAlignment="Center"/>
 
                     </DockPanel>
                     <DockPanel Grid.Column="1" Grid.Row="3" VerticalAlignment="Center" HorizontalAlignment="Left" Height="58" Width="344">
-                        <Button Height="40" Width="180">Potvrdi</Button>
+                        <Button Height="40" Width="180" Click="potvrdi">Potvrdi</Button>
                     </DockPanel>
-                    
+
                     <Calendar Grid.Row="0" Grid.Column="1" HorizontalAlignment="Left" Margin="83,0,0,0" Width="178" Grid.RowSpan="2" VerticalAlignment="Center" Height="168"/>
 
                 </Grid>
             </TabItem>
         </TabControl>
-        <Button Content="Početna" HorizontalAlignment="Left" Margin="216,79,0,0" VerticalAlignment="Top" Click="vrati"/>
+        <Button Height="40" Width="130" Content="Početna" HorizontalAlignment="Left" Margin="67,44,0,0" VerticalAlignment="Top"  />
+        <Button Content="Odjavi se" HorizontalAlignment="Left" Margin="848,44,0,0" VerticalAlignment="Top" Width="130" Height="40" Click="Button_Click"/>
 
 
     </Grid>

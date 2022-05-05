@@ -15,9 +15,7 @@ using Project.Hospital.View.Manager;
 
 namespace Project.Hospital.View.Manager
 {
-    /// <summary>
-    /// Interaction logic for Pocetna.xaml
-    /// </summary>
+    
     public partial class Pocetna : Window
     {
         public Pocetna()
@@ -41,6 +39,13 @@ namespace Project.Hospital.View.Manager
         private void lekovi(object sender, RoutedEventArgs e)
         {
             Pocetnaa.Content = new Lekovi();
+
+        }
+        private void logout(object sender, RoutedEventArgs e)
+        {
+            var main = new MainWindow();
+            main.Show();
+            this.Close();
 
         }
 
