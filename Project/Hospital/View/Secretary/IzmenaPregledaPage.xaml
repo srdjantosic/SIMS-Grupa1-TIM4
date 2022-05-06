@@ -1,0 +1,56 @@
+﻿<Page x:Class="Project.Hospital.View.Secretary.IzmenaPregledaPage"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:local="clr-namespace:Project.Hospital.View.Secretary"
+      mc:Ignorable="d" 
+      d:DesignHeight="768" d:DesignWidth="824"
+      Title="IzmenaPregledaPage">
+
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"></RowDefinition>
+            <RowDefinition Height="Auto"></RowDefinition>
+            <RowDefinition></RowDefinition>
+        </Grid.RowDefinitions>
+        <TextBlock Grid.Row="0" Height="100" FontSize="32" Padding="60, 50, 0, 0">Detalji o pregledu</TextBlock>
+        <Grid Grid.Row="1" Height="500">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition></ColumnDefinition>
+                <ColumnDefinition Width="Auto"></ColumnDefinition>
+                <ColumnDefinition></ColumnDefinition>
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"></RowDefinition>
+                <RowDefinition Height="Auto"></RowDefinition>
+                <RowDefinition Height="Auto"></RowDefinition>
+                <RowDefinition Height="Auto"></RowDefinition>
+            </Grid.RowDefinitions>
+            <WrapPanel Grid.Column="1" Grid.Row="0" Height="100" Width="350" Orientation="Horizontal">
+                <Label>PACIJENT:</Label>
+                <TextBlock Name="tbPacijent" Width="200" HorizontalAlignment="Center" VerticalAlignment="Center"></TextBlock>
+            </WrapPanel>
+            <WrapPanel Grid.Column="1" Grid.Row="1" Height="100" Width="350" Orientation="Horizontal">
+                <Label>LEKAR:</Label>
+                <TextBlock Name="tbLekar" Width="200" HorizontalAlignment="Center" VerticalAlignment="Center"></TextBlock>
+            </WrapPanel>
+            <Grid Grid.Column="1" Grid.Row="3" Height="200" Width="350">
+                <Grid.RowDefinitions>
+                    <RowDefinition></RowDefinition>
+                    <RowDefinition></RowDefinition>
+                    <RowDefinition></RowDefinition>
+                </Grid.RowDefinitions>
+                <Label Grid.Row="0" Padding="0,20">IZMENA DATUMA I VREMENA:</Label>
+                <DatePicker Grid.Row="1" Name="dpDatum" Width="140" VerticalAlignment="Center" HorizontalAlignment="Left"></DatePicker>
+                <TextBox Grid.Row="2" Name="tbVreme" Height="20" Width="140" HorizontalAlignment="Left"></TextBox>
+            </Grid>
+            <WrapPanel Grid.Column="1" Grid.Row="2" Height="100" Orientation="Horizontal">
+                <Label>PROSTORIJA:</Label>
+                <TextBlock Name="tbProstorija" Width="200" HorizontalAlignment="Center" VerticalAlignment="Center"></TextBlock>
+            </WrapPanel>
+        </Grid>
+        <Button Grid.Column="1" HorizontalAlignment="Left" Margin="280,0,0,0" Grid.Row="6" VerticalAlignment="Top" Width="100" Height="40" FontSize="16" Click="odustani">Odustani</Button>
+        <Button Grid.Column="1" HorizontalAlignment="Left" Margin="450,0,0,0" Grid.Row="6" VerticalAlignment="Top" Width="100" Height="40" FontSize="16" Click="izmeni">Izmeni</Button>
+    </Grid>
+</Page>

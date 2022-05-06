@@ -1,0 +1,25 @@
+﻿<Window x:Class="Project.Hospital.View.Manager.Pocetna"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:Project.Hospital.View.Manager"
+        mc:Ignorable="d"
+        Title="Pocetna" Height="768" Width="1024">
+    <Grid HorizontalAlignment="Right" Margin="10,0,0,0">
+
+
+
+        <WrapPanel Orientation="Vertical" HorizontalAlignment="Center" VerticalAlignment="Center" Height="608">
+            <Button Height="60"  Width="237" FontSize="18" Margin="0,0,60,40" Content="Lekovi" Click="lekovi" />
+            <Button Height="60"  Width="236" FontSize="18" Margin="0,0,60,40"  Click="opremi" Content="Oprema"/>
+            <Button Height="60" Width="237" FontSize="18" Margin="0,0,60,40" Click="vidiprostorije" Content="Prostorije"/>
+            <Button Height="60" Width="237" FontSize="18" Margin="0,0,60,40" Content="Anketa"/>
+            <Button Height="60" Width="237" FontSize="18" Margin="0,0,60,40" Content="Podešavanja" />
+            <Button Height="60" Width="237" FontSize="18" Margin="0,0,60,40" Click="logout" Content="Odjavi se"/>
+
+
+        </WrapPanel>
+        <Frame x:Name="Pocetnaa" Margin="0,10,0,0"  NavigationUIVisibility="Hidden"/>
+    </Grid>
+</Window>
