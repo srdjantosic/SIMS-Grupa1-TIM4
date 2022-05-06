@@ -14,6 +14,7 @@ using Project.Hospital.View.Manager;
 using Project.Hospital.Repository;
 using Project.Hospital.Service;
 using Project.Hospital.Controller;
+using Project.Hospital.Model;
 
 namespace Project
 {
@@ -47,9 +48,9 @@ namespace Project
             string Email = email.Text;
             string Password = password.Password.ToString();
 
-            if(doctorController.getDoctorByEmailAndPassword(Email, Password) != null)
+            if (doctorController.getDoctorByEmailAndPassword(Email, Password) != null)
             {
-                var pocetna = new Schedule();
+                var pocetna = new Schedule(doctorController.getDoctorByEmailAndPassword(Email, Password).lks);
                 pocetna.Show();
                 this.Close();
             }

@@ -44,7 +44,6 @@ namespace Hospital.Repository
             return appointments;
         }
 
-
         public Boolean deleteAppointment(int id)
         {
 

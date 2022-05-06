@@ -14,7 +14,7 @@ namespace Project.Hospital.View.Doctor
         private AppointmentService appointmentService;
         private AppointmentController appointmentController;
 
-        public Schedule()
+        public Schedule(string doctorLks)
         {
             this.appointmentRepository = new AppointmentRepository();
             this.appointmentService = new AppointmentService(appointmentRepository);
@@ -25,20 +25,20 @@ namespace Project.Hospital.View.Doctor
 
             appointments = new ObservableCollection<Appointment>();
 
-            foreach (Appointment appointment in appointmentController.showAppointments())
+            foreach (Appointment appointment in appointmentController.showAppointmentsByDoctorLks(doctorLks))
             {
                 appointments.Add(appointment);
             }
 
             futureAppointments = new ObservableCollection<Appointment>();
             DateTime dateTime = DateTime.Now;
-            foreach (Appointment appointment in appointmentController.getFutureAppointments(dateTime))
+            foreach (Appointment appointment in appointmentController.getFutureAppointments(dateTime, doctorLks))
             {
                 futureAppointments.Add(appointment);
             }
 
             pastAppointments = new ObservableCollection<Appointment>();
-            foreach (Appointment appointment in appointmentController.getPastAppointments(dateTime))
+            foreach (Appointment appointment in appointmentController.getPastAppointments(dateTime, doctorLks))
             {
                 pastAppointments.Add(appointment);
             }
