@@ -73,8 +73,13 @@ namespace Project.Hospital.View.Manager
 
 
         }
-        
 
+        private void prostorije(object sender, RoutedEventArgs e)
+        {
+            var page = new Prostorije();
+            NavigationService.Navigate(page);
+
+        }
     }
 
 
