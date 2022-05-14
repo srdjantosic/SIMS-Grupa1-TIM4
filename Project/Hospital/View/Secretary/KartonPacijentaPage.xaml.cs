@@ -65,16 +65,10 @@ namespace Project.Hospital.View.Secretary
             }
         }
 
-        private void nazad(object sender, RoutedEventArgs e)
-        {
-            PacijentiPage page = new PacijentiPage();
-            NavigationService.Navigate(page);
-        }
-
         private void dodavanjeAlergena(object sender, RoutedEventArgs e)
         {
-            var page = new DodavanjeAlergenaPage(Patient);
-            NavigationService.Navigate(page);
+            var dodavanjeAlergena = new DodavanjeAlergena(Patient);
+            dodavanjeAlergena.ShowDialog();
         }
 
         private void obrisi(object sender, RoutedEventArgs e)
@@ -85,6 +79,16 @@ namespace Project.Hospital.View.Secretary
                 var page = new KartonPacijentaPage(Patient);
                 NavigationService.Navigate(page);
             }
+        }
+
+        private void Back_CanExecute(object sender, CanExecuteRoutedEventArgs e)
+        {
+            e.CanExecute = true;
+        }
+        private void Back_Executed(object sender, ExecutedRoutedEventArgs e)
+        {
+            PacijentiPage page = new PacijentiPage();
+            NavigationService.Navigate(page);
         }
     }
 }

@@ -79,7 +79,7 @@ namespace Project.Hospital.View.Secretary
                 string prioritet = cbPrioritet.Text;
                 if (prioritet == "Lekar")
                 {
-                    var page1 = new PrioritetLekarPage(doctor, patient);
+                    var page1 = new PrioritetLekarPage(doctor, patient, pocIntervala, krajIntervala);
                     NavigationService.Navigate(page1);
                 }
                 else

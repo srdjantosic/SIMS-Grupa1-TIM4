@@ -5,16 +5,17 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Project.Hospital.View.Secretary"
         mc:Ignorable="d"
-        Title="ZDRAVO KORPORACIJA" Height="768" Width="1024">
+        Title="ZDRAVO KORPORACIJA" Height="768" Width="1024"
+        FocusManager.FocusedElement="{Binding ElementName=btnPocetna}">
     <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="Auto"></ColumnDefinition>
             <ColumnDefinition Width="Auto"></ColumnDefinition>
         </Grid.ColumnDefinitions>
         <WrapPanel Grid.Column="0" Orientation="Vertical">
-            <Button Height="60" Width="200" FontSize="16" Click="pocetna">Pocetna</Button>
-            <Button Height="60" FontSize="16" Click="pacijenti">Pacijenti</Button>
-            <Button Height="60" FontSize="16">Hitan slucaj</Button>
+            <Button Name="btnPocetna" Height="60" Width="200" FontSize="16" Click="pocetna" GotFocus="btn_GotFocus">Pocetna</Button>
+            <Button Height="60" FontSize="16" Click="pacijenti" GotFocus="btn_GotFocus">Pacijenti</Button>
+            <Button Height="60" FontSize="16" GotFocus="btn_GotFocus">Hitan slucaj</Button>
             <Button Height="60" FontSize="16" Click="raspored">Raspored</Button>
             <Button Height="60" FontSize="16">Oprema</Button>
             <Button Height="60" FontSize="16">Sastanci</Button>

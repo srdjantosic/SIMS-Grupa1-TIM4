@@ -127,22 +127,24 @@ namespace Hospital.Service
                     {
                         Appointment newAvailableAppointment = new Appointment(availableAppointments.Count, doctor.lks, DateTime.Parse((start.AddDays(i)).ToShortDateString()+" "+workTime[j]), patient.Lbo, " ");
 
-                        int indicator = 0;
-                        foreach (Appointment appointment in appointments)
+                        if((newAvailableAppointment.dateTime.DayOfWeek != DayOfWeek.Saturday) && (newAvailableAppointment.dateTime.DayOfWeek != DayOfWeek.Sunday))
                         {
-                            if(!appointment.isDeleted)
+                            int indicator = 0;
+                            foreach (Appointment appointment in appointments)
                             {
-                                if (newAvailableAppointment.lks.Equals(appointment.lks) && newAvailableAppointment.dateTime == appointment.dateTime)
+                                if (!appointment.isDeleted)
                                 {
-                                    indicator = indicator + 1;
+                                    if (newAvailableAppointment.lks.Equals(appointment.lks) && newAvailableAppointment.dateTime == appointment.dateTime)
+                                    {
+                                        indicator = indicator + 1;
+                                    }
                                 }
-                            }   
+                            }
+                            if (indicator == 0)
+                            {
+                                availableAppointments.Add(newAvailableAppointment);
+                            }
                         }
-                        if(indicator == 0)
-                        {
-                            availableAppointments.Add(newAvailableAppointment);
-                        }
-                        
                     }
                 }
             }
@@ -164,8 +166,21 @@ namespace Hospital.Service
             }
             return allAvailableAppointments;
         }
-        
 
+        public bool isNewDateTimeAvailable(Appointment appointment, DateTime newDateTime)
+        {
+            foreach(Appointment appoint in getAppointmentsByLks(appointment.lks))
+            {
+                if(!appoint.isDeleted)
+                {
+                    if(appoint.dateTime.Equals(newDateTime))
+                    {
+                        return false;
+                    }
+                }
+            }
+            return true;
+        }
     }
 
 

@@ -67,6 +67,10 @@ namespace Project.Hospital.Controller
             return appointmentService.getAllAvailableAppointments(patient, start, end);
         }
 
+        public bool isNewDateTimeAvailable(Appointment appointment, DateTime newDateTime)
+        {
+            return appointmentService.isNewDateTimeAvailable(appointment, newDateTime);
+        }
     }
 }
 

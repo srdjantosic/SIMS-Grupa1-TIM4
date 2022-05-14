@@ -9,6 +9,10 @@
       Title="PocetnaPage">
 
     <Grid>
-        
+        <Image Margin="199,126,199,180" RenderTransformOrigin="0.506,0.843">
+            <Image.Source>
+                <BitmapImage DecodePixelWidth="300" UriSource="/Hospital/Recources/00236-medical-01.png" />
+            </Image.Source>
+        </Image>
     </Grid>
 </Page>
