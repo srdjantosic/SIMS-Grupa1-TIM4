@@ -32,6 +32,11 @@ namespace Project.Hospital.Controller
         {
             return appointmentService.showAppointments();
         }
+
+        public List<Appointment> showAppointmentsByDoctorLks(string lks)
+        {
+            return appointmentService.showAppointmentsByDoctorLks(lks);
+        }
         public Boolean deleteAppointment(int id)
         {
             return appointmentService.deleteAppointment(id);
@@ -42,14 +47,14 @@ namespace Project.Hospital.Controller
             return appointmentService.getAppointment(id);
         }
 
-        public List<Appointment> getFutureAppointments(DateTime dateTime)
+        public List<Appointment> getFutureAppointments(DateTime dateTime, string lks)
         {
-            return appointmentService.getFutureAppointments(dateTime);
+            return appointmentService.getFutureAppointments(dateTime, lks);
         }
 
-        public List<Appointment> getPastAppointments(DateTime dateTime)
+        public List<Appointment> getPastAppointments(DateTime dateTime, string lks)
         {
-            return appointmentService.getPastAppointments(dateTime);
+            return appointmentService.getPastAppointments(dateTime, lks);
         }
 
         public List<Appointment> getAppointmentsByLks(String lks)

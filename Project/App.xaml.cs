@@ -1,4 +1,6 @@
-﻿using Project.Hospital.Controller;
+﻿using Hospital.Repository;
+using Hospital.Service;
+using Project.Hospital.Controller;
 using Project.Hospital.Model;
 using Project.Hospital.Repository;
 using Project.Hospital.Service;
@@ -10,6 +12,10 @@ namespace Project
 {
     public partial class App : Application
     {
+        private ReportRepository reportRepository;
+        private ReportService reportService;
+        private ReportController reportController;
+
         private MedicineRepository medicineRepository;
         private MedicineService medicineService;
         private MedicineController medicineController;
@@ -22,8 +28,16 @@ namespace Project
         private PatientService patientService;
         private PatientController patientController;
 
+        private AppointmentRepository appointmentRepository;
+        private AppointmentService appointmentService;
+        private AppointmentController appointmentController;
+
         public App()
         {
+            this.reportRepository = new ReportRepository();
+            this.reportService = new ReportService(reportRepository);
+            this.reportController = new ReportController(reportService);
+
             this.medicineRepository = new MedicineRepository();
             this.medicineService = new MedicineService(medicineRepository);
             this.medicineController = new MedicineController(medicineService);
@@ -37,27 +51,36 @@ namespace Project
             this.prescriptionService = new PrescriptionService(prescriptionRepository, medicineRepository, patientRepository);
             this.prescriptionController = new PrescriptionController(prescriptionService);
 
+            this.appointmentRepository = new AppointmentRepository();
+            this.appointmentService = new AppointmentService(appointmentRepository);
+            this.appointmentController = new AppointmentController(appointmentService);
+
+            //reportController.createReport("kjkjk", "erterte");
+            //reportController.updateReport(3, "opo", "lll");
+
             /*Prescription prescriptionToUpdate = new Prescription();
-            Prescription oldPrescription = prescriptionController.getPrescription(2);
+            Prescription oldPrescription = prescriptionController.getPrescription(3);
             prescriptionToUpdate.Id = oldPrescription.Id;
             prescriptionToUpdate.BeginOfUse = oldPrescription.BeginOfUse;
             prescriptionToUpdate.PeriodInDays = 14;
 
             List<string> newMedicines = new List<string>();
-            newMedicines.Add("Lek99");
-            newMedicines.Add("Lek96");
+            newMedicines.Add("Lek18");
+            newMedicines.Add("Lek19");
+            newMedicines.Add("Lek55");
+            newMedicines.Add("Lek41");
             prescriptionToUpdate.setMedicines(newMedicines);
 
             prescriptionController.updatePrescriotion("26904250383", prescriptionToUpdate);*/
 
-            /*Prescription newPrescription = new Prescription();
-            newPrescription.Id = 2;
+           /* Prescription newPrescription = new Prescription();
+            newPrescription.Id = 4;
             newPrescription.BeginOfUse = DateTime.Now;
             newPrescription.PeriodInDays = 5;
 
             List<string> newMedicines = new List<string>();
-            newMedicines.Add("Lek13");
-            newMedicines.Add("Lek12");
+            newMedicines.Add("Brufen");
+            newMedicines.Add("Lek19");
             newPrescription.setMedicines(newMedicines);
 
             prescriptionController.createPrescription("26904250383", newPrescription);*/
@@ -74,7 +97,19 @@ namespace Project
                 }
             }*/
 
-            /*foreach(Patient patient in patientController.ShowPatients())
+            /*foreach (Appointment appointment in appointmentController.getFutureAppointments(DateTime.Now, "588594"))
+            {
+                Console.WriteLine(appointment.id + " " + appointment.lbo + " " + appointment.dateTime + " " + appointment.lks 
+                    + " " + appointment.isDeleted + " " + appointment.roomName+ "\n") ;
+            }*/
+
+            /*foreach (Appointment appointment in appointmentController.getPastAppointments(DateTime.Now, "588594"))
+            {
+                Console.WriteLine(appointment.id + " " + appointment.lbo + " " + appointment.dateTime + " " + appointment.lks
+                    + " " + appointment.isDeleted + " " + appointment.roomName + "\n");
+            }*/
+
+            /*foreach (Patient patient in patientController.ShowPatients())
             {
                 Console.WriteLine(patient.FirstName + " " + patient.LastName + " " + patient._Gender + " " + patient.Email + " " + patient.PhoneNumber + " " 
                     + patient.Jmbg + " " + patient.Lbo + " " + patient.Birthday + " " + patient.Country + " " + patient.City + " " + patient.Adress 
@@ -85,10 +120,10 @@ namespace Project
                     Console.WriteLine(allergen.Name + " ");
                 }
 
-                Console.WriteLine("\n### RECEPTI ###\n");
-                foreach (int id in patient.prescriptionsIds)
+                Console.WriteLine("\n### PAROVI ###\n");
+                foreach (int pair in patient.reportPrescriptinIds)
                 {
-                    Console.WriteLine(id.ToString() + " ");
+                    Console.WriteLine(pair.ToString() + " ");
                 }
             }*/
 

@@ -52,6 +52,18 @@ namespace Hospital.Service
         {
             return appointmentRepository.showAppointments();
         }
+
+        public List<Appointment> showAppointmentsByDoctorLks(string lks)
+        {
+            List<Appointment> doctorAppointments = new List<Appointment>();
+            foreach(Appointment appointment in showAppointments())
+            {
+                if (appointment.lks.Equals(lks)) {
+                    doctorAppointments.Add(appointment);
+                }
+            }
+            return doctorAppointments;
+        }
         public Boolean deleteAppointment(int id)
         {
             return appointmentRepository.deleteAppointment(id);
@@ -70,11 +82,11 @@ namespace Hospital.Service
             return false;
         }
 
-        public List<Appointment> getFutureAppointments(DateTime dateTime)
+        public List<Appointment> getFutureAppointments(DateTime dateTime, string lks)
         {
             List<Appointment> futureAppointments = new List<Appointment>();
 
-            foreach(Appointment appointment in appointmentRepository.showAppointments())
+            foreach(Appointment appointment in showAppointmentsByDoctorLks(lks))
             {
                 if(appointment.dateTime > dateTime)
                 {
@@ -83,18 +95,18 @@ namespace Hospital.Service
             }
             return futureAppointments;
         }
-        public List<Appointment> getPastAppointments(DateTime dateTime)
+        public List<Appointment> getPastAppointments(DateTime dateTime, string lks)
         {
-            List<Appointment> futureAppointments = new List<Appointment>();
+            List<Appointment> pastAppointments = new List<Appointment>();
 
-            foreach (Appointment appointment in appointmentRepository.showAppointments())
+            foreach (Appointment appointment in showAppointmentsByDoctorLks(lks))
             {
                 if (appointment.dateTime < dateTime)
                 {
-                    futureAppointments.Add(appointment);
+                    pastAppointments.Add(appointment);
                 }
             }
-            return futureAppointments;
+            return pastAppointments;
         }
 
         public List<Appointment> getAppointmentsByLks(String lks)

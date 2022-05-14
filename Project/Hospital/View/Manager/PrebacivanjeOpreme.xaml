@@ -64,5 +64,7 @@
         </TabControl>
 
         <Button Height="40" Width="130" Click="vrati" HorizontalAlignment="Left" Margin="32,39,20,669">Nazad</Button>
+        <Button Height="40" Width="130"  HorizontalAlignment="Left" Margin="835,44,0,684" Click="Button_Click">Odjavi se</Button>
+
     </Grid>
 </Page>

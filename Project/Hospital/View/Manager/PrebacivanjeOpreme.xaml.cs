@@ -125,5 +125,10 @@ namespace Project.Hospital.View.Manager
 
 
         }
+
+        private void Button_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
     }
 }

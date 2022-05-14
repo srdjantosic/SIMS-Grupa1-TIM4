@@ -67,11 +67,19 @@ namespace Project.Hospital.View.Manager
 
 
         }
-        public void vrati(object sender, RoutedEventArgs e)
+        public void potvrdi(object sender, RoutedEventArgs e)
         {
-            
-            
 
+            string Name = roomid.Text;
+            string day = trajanje.Text;
+            string datpoc = datPoc.Text;
+            string datkraj = datKraj.Text;
+            int days = Convert.ToInt32(day);
+            DateTime start = DateTime.Parse(datpoc);
+            DateTime end = DateTime.Parse(datkraj);
+            roomController.RenovateRoom(Name,start,end,days);
+            var page = new Prostorije();
+            NavigationService.Navigate(page);
 
         }
         public void prebaci(object sender, RoutedEventArgs e)
@@ -83,6 +91,17 @@ namespace Project.Hospital.View.Manager
         }
 
         private void TextBox_TextChanged(object sender, TextChangedEventArgs e)
+        {
+
+        }
+
+        private void vrati(object sender, RoutedEventArgs e)
+        {
+
+            
+        }
+
+        private void Button_Click(object sender, RoutedEventArgs e)
         {
 
         }

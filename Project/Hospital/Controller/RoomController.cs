@@ -51,6 +51,9 @@ namespace Project.Hospital.Controller
             return roomService.GetRoom(name);
 
         }
+        public void RenovateRoom(String Name, DateTime start, DateTime end, int days) {
+            roomService.RenovateRoom(Name, start, end, days);
+        }
 
     }
 }

@@ -38,5 +38,9 @@
 
         </TabControl>
 
+
+        <Button Content="Pocetna"  Height="41" Width="130" HorizontalAlignment="Left" Margin="40,35,0,0" VerticalAlignment="Top"/>
+        <Button Content="Prostorije" HorizontalAlignment="Left" Margin="800,36,0,0" VerticalAlignment="Top" Width="130" Height="40" Click="prostorije"/>
+
     </Grid>
 </Page>
