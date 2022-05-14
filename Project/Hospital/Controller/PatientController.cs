@@ -39,6 +39,16 @@ namespace Project.Hospital.Controller
             return patientService.updatePatientsMedicalChard(lbo, temperature, heartRate, bloodPressure, weight, height);
         }
 
+        public Boolean createReportAndPrescription(string lbo, Prescription prescription, Report report)
+        {
+            return patientService.createReportAndPrescription(lbo, prescription, report);
+        }
+
+        public Boolean updateReportAndPrescription(string lbo, Prescription prescriptionToUpdate, Report reportToUpdate)
+        {
+            return patientService.updateReportAndPrescription(lbo, prescriptionToUpdate, reportToUpdate);
+        }
+
         public List<Patient> ShowPatients()
         {
             return patientService.ShowPatients();

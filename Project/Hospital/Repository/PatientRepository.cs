@@ -21,7 +21,25 @@ namespace Project.Hospital.Repository
             return GetPatient(patient.Lbo);
         }
 
-        
+        public Boolean createReportAndPrescription(string lbo, int prescriptionId, int reportId)
+        {
+            List<Patient> patients = ShowPatients();
+
+            foreach (Patient patient2 in patients)
+            {
+                if (patient2.Lbo == lbo)
+                {
+                    patient2.GetReportPrescriptinIds().Add(prescriptionId);
+                    patient2.GetReportPrescriptinIds().Add(reportId);
+                    Serializer<Patient> patientSerializer = new Serializer<Patient>();
+                    patientSerializer.toCSV(fileName, patients);
+
+                    return true;
+                }
+
+            }
+            throw new NotFoundException(string.Format(NOT_FOUND_ERROR, "lbo", lbo));
+        }
         public Boolean UpdatePatient(Patient patient)
         {
             List<Patient> patients = new List<Patient>();
