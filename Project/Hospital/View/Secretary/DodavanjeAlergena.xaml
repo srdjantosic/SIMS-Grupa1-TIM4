@@ -1,0 +1,23 @@
+﻿<Window x:Class="Project.Hospital.View.Secretary.DodavanjeAlergena"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:Project.Hospital.View.Secretary"
+        mc:Ignorable="d"
+        Title="DodavanjeAlergena" Height="500" Width="450">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition></RowDefinition>
+            <RowDefinition></RowDefinition>
+            <RowDefinition></RowDefinition>
+        </Grid.RowDefinitions>
+        <TextBlock Grid.Row="0" FontSize="22" FontWeight="Bold" Padding="60, 100, 0, 0">Dodavanje alergena</TextBlock>
+        <DockPanel Grid.Row="1">
+            <Label DockPanel.Dock="Top" FontSize="18" Width="250" HorizontalAlignment="Center" Margin="0,30,0,0">Naziv alergena* :</Label>
+            <TextBox HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Height="25" Width="250" FontSize="16" Name="nazivAlergenaBox" Margin="0,0,0,55"/>
+        </DockPanel>
+        <Button Grid.Row="2" VerticalAlignment="Top" Height="40" FontSize="16" Click="odustani" Margin="103,0,247,0">Odustani</Button>
+        <Button Grid.Row="2" VerticalAlignment="Top" Height="40" FontSize="16" Click="dodaj" Margin="254,0,96,0">Dodaj</Button>
+    </Grid>
+</Window>

@@ -4,7 +4,9 @@ using Project.Hospital.Repository;
 using Project.Hospital.Service;
 using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Linq;
+using System.Net.Mail;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
@@ -33,12 +35,8 @@ namespace Project.Hospital.View.Secretary
             this.patientRepository = new PatientRepository();
             this.patientService = new PatientService(patientRepository);
             this.patientController = new PatientController(patientService);
-        }
 
-        private void nazad(object sender, RoutedEventArgs e)
-        {
-            PacijentiPage page = new PacijentiPage();
-            NavigationService.Navigate(page);
+            imeBox.Focus();
         }
 
         private void odustani(object sender, RoutedEventArgs e)
@@ -59,8 +57,18 @@ namespace Project.Hospital.View.Secretary
             string drzava = drzavaBox.Text;
             string mesto = mestoBox.Text;
             string adresa = adresaBox.Text;
+            Gender.Genders gender = Gender.Genders.No_Gender;
 
-            Patient patient = patientController.CreatePatient(ime, prezime, Gender.Genders.No_Gender, email, telefon, jmbg, lbo, DateTime.Parse(datum), drzava, mesto, adresa);
+            if ((bool)rb1.IsChecked)
+            {
+                gender = Gender.Genders.Female;
+            }
+            else
+            {
+                gender = Gender.Genders.Male;
+            }
+
+            Patient patient = patientController.CreatePatient(ime, prezime, gender, email, telefon, jmbg, lbo, DateTime.Parse(datum), drzava, mesto, adresa);
 
             if (patient != null)
             {
@@ -72,5 +80,15 @@ namespace Project.Hospital.View.Secretary
                 MessageBox.Show("Greska prilikom kreiranja!");
             }
         }
+        private void Back_CanExecute(object sender, CanExecuteRoutedEventArgs e)
+        {
+            e.CanExecute = true;
+        }
+        private void Back_Executed(object sender, ExecutedRoutedEventArgs e)
+        {
+            PacijentiPage page = new PacijentiPage();
+            NavigationService.Navigate(page);
+        }
     }
+
 }

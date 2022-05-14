@@ -14,15 +14,14 @@ using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
 using System.Windows.Shapes;
 
 namespace Project.Hospital.View.Secretary
 {
     /// <summary>
-    /// Interaction logic for DodavanjeAlergenaPage.xaml
+    /// Interaction logic for DodavanjeAlergena.xaml
     /// </summary>
-    public partial class DodavanjeAlergenaPage : Page
+    public partial class DodavanjeAlergena : Window
     {
         private AllergenService allergenService;
         private AllergenController allergenController;
@@ -30,7 +29,7 @@ namespace Project.Hospital.View.Secretary
         private PatientService patientService;
 
         private Patient patient;
-        public DodavanjeAlergenaPage(Patient patient)
+        public DodavanjeAlergena(Patient patient)
         {
             this.patientRepository = new PatientRepository();
             this.patientService = new PatientService(patientRepository);
@@ -43,8 +42,7 @@ namespace Project.Hospital.View.Secretary
 
         private void odustani(object sender, RoutedEventArgs e)
         {
-            KartonPacijentaPage page = new KartonPacijentaPage(patient);
-            NavigationService.Navigate(page);
+            this.Close();
 
         }
 
@@ -62,8 +60,7 @@ namespace Project.Hospital.View.Secretary
 
                 if (allergen != null)
                 {
-                    KartonPacijentaPage page = new KartonPacijentaPage(patient);
-                    NavigationService.Navigate(page);
+                    this.Close();
                 }
             }
         }

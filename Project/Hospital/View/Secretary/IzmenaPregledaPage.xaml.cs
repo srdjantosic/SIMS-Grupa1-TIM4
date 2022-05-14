@@ -80,11 +80,18 @@ namespace Project.Hospital.View.Secretary
             {
                 string dateTime = dpDatum.Text + " " + tbVreme.Text;
                 DateTime newDateTime = DateTime.Parse(dateTime);
-                if(appointmentController.updateAppointment(newDateTime, Appointment.id))
+                if(appointmentController.isNewDateTimeAvailable(Appointment, newDateTime))
                 {
-                    Appointment appointment = appointmentController.getAppintment(Appointment.id);
-                    var page = new DetaljiOPregleduPage(appointment);
-                    NavigationService.Navigate(page);
+                    if(appointmentController.updateAppointment(newDateTime, Appointment.id))
+                    {
+                        Appointment appointment = appointmentController.getAppintment(Appointment.id);
+                        var page = new DetaljiOPregleduPage(appointment);
+                        NavigationService.Navigate(page);
+                    }
+                }
+                else
+                {
+                    MessageBox.Show("Lekar je zauzet u izabrano vreme");
                 }
             }
             else

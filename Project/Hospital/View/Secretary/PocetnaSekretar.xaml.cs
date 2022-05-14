@@ -10,7 +10,9 @@ using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
+using System.Windows.Navigation;
 using System.Windows.Shapes;
+
 
 namespace Project.Hospital.View.Secretary
 {
@@ -22,6 +24,7 @@ namespace Project.Hospital.View.Secretary
         public PocetnaSekretar()
         {
             InitializeComponent();
+
         }
 
         private void pacijenti(object sender, RoutedEventArgs e)
@@ -44,6 +47,12 @@ namespace Project.Hospital.View.Secretary
             var main = new MainWindow();
             main.Show();
             this.Close();
+        }
+
+        private void btn_GotFocus(object sender, RoutedEventArgs e)
+        {
+            Button btn = e.Source as Button;
+            btn.Background = Brushes.CadetBlue;
         }
     }
 }
