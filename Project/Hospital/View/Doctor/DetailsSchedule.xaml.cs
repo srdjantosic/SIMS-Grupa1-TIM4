@@ -1,4 +1,6 @@
-﻿using Project.Hospital.Controller;
+﻿using Hospital.Repository;
+using Hospital.Service;
+using Project.Hospital.Controller;
 using Project.Hospital.Model;
 using Project.Hospital.Repository;
 using Project.Hospital.Service;
@@ -27,6 +29,10 @@ namespace Project.Hospital.View.Doctor
         private ReportService reportService;
         private ReportController reportController;
 
+        private AppointmentRepository appointmentRepository;
+        private AppointmentService appointmentService;
+        private AppointmentController appointmentController;
+
         Appointment currentAppointment = new Appointment();
         public DetailsSchedule(Appointment appointment)
         {
@@ -50,6 +56,10 @@ namespace Project.Hospital.View.Doctor
             //this.patientService = new PatientService(patientRepository, prescriptionRepository, reportRepository);
             this.patientService = new PatientService(patientRepository, prescriptionService, reportService);
             this.patientController = new PatientController(patientService);
+
+            this.appointmentRepository = new AppointmentRepository();
+            this.appointmentService = new AppointmentService(appointmentRepository);
+            this.appointmentController = new AppointmentController(appointmentService);
 
 
             InitializeComponent();
@@ -78,20 +88,12 @@ namespace Project.Hospital.View.Doctor
             }
         }
 
-        private void createPersonalTerm(object sender, RoutedEventArgs e)
-        {
-            var createPersonalTerm = new CreatePersonalTerm();
-            createPersonalTerm.Show();
-            this.Close();
-        }
-
-
         public void fillingDataGridUsingDataTable()
         {
             DataTable dt = new DataTable();
-            DataColumn medicalChard = new DataColumn("Medical Chard", typeof(string));
+            DataColumn medicalChart = new DataColumn("Medical Chart", typeof(string));
 
-            dt.Columns.Add(medicalChard);
+            dt.Columns.Add(medicalChart);
 
             foreach(Patient patient in patientController.ShowPatients())
             {
@@ -143,5 +145,81 @@ private void updatePatientsMedicalChard(object sender, RoutedEventArgs e)
        MessageBox.Show("Error with updating medical chard!");
    }
 }*/
+        private void btnModify(object sender, RoutedEventArgs e)
+        {
+            DateTime newDateTime = DateTime.Parse(DateTimeBox.Text);
+            string newRoomName = RoomNameBox.Text;
+
+            MessageBoxResult result = MessageBox.Show("Do you want to modify appointment?", "Alert", MessageBoxButton.YesNo);
+            switch (result)
+            {
+                case MessageBoxResult.Yes:
+                    appointmentController.updateDateTimeAndRoomName(currentAppointment.id, newDateTime, newRoomName);
+                    break;
+                case MessageBoxResult.No:
+                    var detailsSchedule = new DetailsSchedule(currentAppointment);
+                    detailsSchedule.Show();
+                    this.Close();
+                    break;
+            }
+
+        }
+        private void btnDelete(object sender, RoutedEventArgs e)
+        {
+            MessageBoxResult result = MessageBox.Show("Do you want to delete appointment?", "Alert", MessageBoxButton.YesNo);
+            switch (result)
+            {
+                case MessageBoxResult.Yes:
+                    appointmentController.deleteAppointment(currentAppointment.id);
+                    var schedule = new Schedule(currentAppointment.lks);
+                    schedule.Show();
+                    this.Close();
+                    break;
+                case MessageBoxResult.No:
+                    break;
+            }
+        }
+        private void btnSetDiagnosis(object sender, RoutedEventArgs e)
+        {
+            var moreDetailsSchedule = new MoreDetailsSchedule(currentAppointment);
+            moreDetailsSchedule.Show();
+            this.Close();
+        }
+        private void btnSchedule(object sender, RoutedEventArgs e)
+        {
+            var schedule = new Schedule(currentAppointment.lks);
+            schedule.Show();
+            this.Close();
+        }
+
+        private void btnMedicines(object sender, RoutedEventArgs e)
+        {
+            var medicines = new Medicines(currentAppointment.lks);
+            medicines.Show();
+            this.Close();
+        }
+
+        private void btnCreateRequestForFreeDays(object sender, RoutedEventArgs e)
+        {
+            var createRequestForFreeDays = new CreateRequestForFreeDays(currentAppointment.lks);
+            createRequestForFreeDays.Show();
+            this.Close();
+        }
+        private void createPersonalTerm(object sender, RoutedEventArgs e)
+        {
+            var createPersonalTerm = new CreatePersonalTerm();
+            createPersonalTerm.Show();
+            this.Close();
+        }
+
+
+        private void btnLogOut(object sender, RoutedEventArgs e)
+        {
+            var logIn = new LogIn();
+            logIn.Show();
+            this.Close();
+        }
+
+
     }
 }

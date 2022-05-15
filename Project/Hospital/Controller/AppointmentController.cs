@@ -28,6 +28,12 @@ namespace Project.Hospital.Controller
             return appointmentService.updateAppointment(dateTime, id);
         }
 
+        //TODO
+        public Boolean updateDateTimeAndRoomName(int id, DateTime dateTime, string roomName)
+        {
+            return appointmentService.updateDateTimeAndRoomName(id, dateTime, roomName);
+        }
+
         public List<Appointment> showAppointments()
         {
             return appointmentService.showAppointments();

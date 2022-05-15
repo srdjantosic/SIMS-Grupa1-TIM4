@@ -6,6 +6,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
@@ -121,52 +122,121 @@ namespace Project.Hospital.View.Doctor
             }
         }
 
-        private void setMedicalChard(object sender, RoutedEventArgs e)
+        //private static readonly Regex _regex = new Regex("[^0-9.-]+"); //regex that matches disallowed text
+
+        private static readonly Regex _regex = new Regex("[0-9]+"); //regex that matches disallowed text
+        private static bool IsTextAllowed(string text)
         {
-            if (isAlreadyCreated == false)
-            {
-                Prescription newPrescription = new Prescription();
-                newPrescription.Id = prescriptionController.showPrescriptions().Count;
-                newPrescription.BeginOfUse = DateTime.Now;
-                newPrescription.PeriodInDays = int.Parse(tbPeriodInDays.Text);
-                List<string> medicinesToSend = new List<string>();
-                List<string> newMedicinesToSend = tbMedicines.Text.Split(',').ToList();
-                foreach (string name in newMedicinesToSend)
-                {
-                    medicinesToSend.Add(name);
-                }
-                newPrescription.setMedicines(medicinesToSend);
+            return !_regex.IsMatch(text);
+        }
 
-                Report newReport = new Report();
-                newReport.Id = reportController.showReports().Count;
-                newReport.Diagnosis = tbDiagnosis.Text;
-                newReport.Comment = tbComment.Text;
-                patientController.createReportAndPrescription(currentAppointment.lbo, newPrescription, newReport);
-            }
-            else
-            {
-                Prescription prescriptionToUpdate = new Prescription();
-                prescriptionToUpdate.Id = prescription.Id;
-                prescriptionToUpdate.BeginOfUse = prescription.BeginOfUse;
-                prescriptionToUpdate.PeriodInDays = int.Parse(tbPeriodInDays.Text);
-                List<string> medicinesToSend = new List<string>();
-                List<string> newMedicinesToSend = tbMedicines.Text.Split(',').ToList();
-                foreach (string name in newMedicinesToSend)
-                {
-                    medicinesToSend.Add(name);
-                }
-                prescriptionToUpdate.setMedicines(medicinesToSend);
+        private void setMedicalChart(object sender, RoutedEventArgs e)
+        {
 
-                Report reportToUpdate = new Report();
-                reportToUpdate.Id = report.Id;
-                reportToUpdate.Diagnosis = tbDiagnosis.Text;
-                reportToUpdate.Comment = tbComment.Text;
-                patientController.updateReportAndPrescription(currentAppointment.lbo, prescriptionToUpdate, reportToUpdate);
+            Boolean areDoctorWantToSetMedicalChart = false;
+            Boolean isAnyFiendEmpty = false;
+
+            MessageBoxResult result = MessageBox.Show("Do you want to set medical chart?", "Alert", MessageBoxButton.YesNo);
+            switch (result)
+            {
+                case MessageBoxResult.Yes:
+                    areDoctorWantToSetMedicalChart = true;
+                    break;
+                case MessageBoxResult.No:
+                    break;
             }
 
+            if((tbDiagnosis.Text.Equals("") || tbComment.Text.Equals("") || tbMedicines.Text.Equals("") || tbPeriodInDays.Text.Equals("")) && areDoctorWantToSetMedicalChart == true)
+            {
+                isAnyFiendEmpty = true;
+                MessageBox.Show("You must fill every field!", "ERROR");
+            }
+
+
+            if (IsTextAllowed(tbPeriodInDays.Text) == false && areDoctorWantToSetMedicalChart == true && isAnyFiendEmpty == false)
+            {
+                MessageBox.Show("Period in days must be numeric!", "ERROR");
+            }
+            else if (IsTextAllowed(tbPeriodInDays.Text) == true && areDoctorWantToSetMedicalChart == true && isAnyFiendEmpty == false)
+            {
+
+                if (isAlreadyCreated == false)
+                {
+                    Prescription newPrescription = new Prescription();
+                    newPrescription.Id = prescriptionController.showPrescriptions().Count;
+                    newPrescription.BeginOfUse = DateTime.Now;
+                    newPrescription.PeriodInDays = int.Parse(tbPeriodInDays.Text);
+                    List<string> medicinesToSend = new List<string>();
+                    List<string> newMedicinesToSend = tbMedicines.Text.Split(',').ToList();
+                    foreach (string name in newMedicinesToSend)
+                    {
+                        medicinesToSend.Add(name);
+                    }
+                    newPrescription.setMedicines(medicinesToSend);
+
+                    Report newReport = new Report();
+                    newReport.Id = reportController.showReports().Count;
+                    newReport.Diagnosis = tbDiagnosis.Text;
+                    newReport.Comment = tbComment.Text;
+                    patientController.createReportAndPrescription(currentAppointment.lbo, newPrescription, newReport);
+                }
+                else
+                {
+                    Prescription prescriptionToUpdate = new Prescription();
+                    prescriptionToUpdate.Id = prescription.Id;
+                    prescriptionToUpdate.BeginOfUse = prescription.BeginOfUse;
+
+
+                    prescriptionToUpdate.PeriodInDays = int.Parse(tbPeriodInDays.Text);
+                    List<string> medicinesToSend = new List<string>();
+                    List<string> newMedicinesToSend = tbMedicines.Text.Split(',').ToList();
+                    foreach (string name in newMedicinesToSend)
+                    {
+                        medicinesToSend.Add(name);
+                    }
+                    prescriptionToUpdate.setMedicines(medicinesToSend);
+
+                    Report reportToUpdate = new Report();
+                    reportToUpdate.Id = report.Id;
+                    reportToUpdate.Diagnosis = tbDiagnosis.Text;
+                    reportToUpdate.Comment = tbComment.Text;
+                    patientController.updateReportAndPrescription(currentAppointment.lbo, prescriptionToUpdate, reportToUpdate);
+                }
+
+                var schedule = new Schedule(currentAppointment.lks);
+                schedule.Show();
+                this.Close();
+            }
+        }
+
+        private void btnSchedule(object sender, RoutedEventArgs e)
+        {
             var schedule = new Schedule(currentAppointment.lks);
             schedule.Show();
             this.Close();
         }
+
+        private void btnMedicines(object sender, RoutedEventArgs e)
+        {
+            var medicines = new Medicines(currentAppointment.lks);
+            medicines.Show();
+            this.Close();
+        }
+
+        private void btnCreateRequestForFreeDays(object sender, RoutedEventArgs e)
+        {
+            var createRequestForFreeDays = new CreateRequestForFreeDays(currentAppointment.lks);
+            createRequestForFreeDays.Show();
+            this.Close();
+        }
+
+        private void btnLogOut(object sender, RoutedEventArgs e)
+        {
+            var logIn = new LogIn();
+            logIn.Show();
+            this.Close();
+        }
+
+
     }
 }

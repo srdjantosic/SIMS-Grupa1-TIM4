@@ -37,6 +37,26 @@ namespace Hospital.Repository
             return false;
         }
 
+        //TODO
+        public Boolean updateDateTimeAndRoomName(int id, DateTime dateTime, string roomName)
+        {
+            List<Appointment> appointments = showAppointments();
+
+            foreach (Appointment appointment in appointments)
+            {
+                if (appointment.id == id)
+                {
+                    appointment.dateTime = dateTime;
+                    appointment.roomName = roomName;
+                    Serializer<Appointment> appointmentSerializer = new Serializer<Appointment>();
+                    appointmentSerializer.toCSV(fileName, appointments);
+                    return true;
+                }
+            }
+            return false;
+
+        }
+
         public List<Appointment> showAppointments()
         {
             Serializer<Appointment> appointmentSerializer = new Serializer<Appointment>();

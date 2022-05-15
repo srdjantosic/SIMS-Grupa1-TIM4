@@ -13,14 +13,14 @@
         </Grid.ColumnDefinitions>
         <WrapPanel Grid.Column="0" Orientation="Vertical" Width="138">
             <Label FontSize="20" FontWeight="Normal" HorizontalAlignment="Stretch" Margin="20,18,0,0">Details</Label>
-            <Button Height="40" Margin="0,30,0,0">SCHEDULE</Button>
-            <Button Height="40">MEDICINES</Button>
-            <Button Height="40" FontSize="9">CREATE REQUEST FOR FREE DAYS</Button>
+            <Button Height="40" Margin="0,30,0,0" Click="btnSchedule">SCHEDULE</Button>
+            <Button Height="40" Click="btnMedicines">MEDICINES</Button>
+            <Button Height="40" FontSize="9" Click="btnCreateRequestForFreeDays">CREATE REQUEST FOR FREE DAYS</Button>
             <Button Height="40" FontSize="9">SHOW REQUESTS FOR FREE DAYS</Button>
             <Button Height="40" FontSize="9" Click="createPersonalTerm">CREATE PERSONAL TERM</Button>
             <Button Height="40" FontSize="9">CREATE NONPERSONAL TERM</Button>
             <Button Height="40">HELP</Button>
-            <Button Height="40">LOG OUT</Button>
+            <Button Height="40" Click="btnLogOut">LOG OUT</Button>
         </WrapPanel>
 
         <Grid Grid.Column="1" Width="662">
@@ -48,10 +48,12 @@
                     </Grid.RowDefinitions>
 
                     <TextBlock Grid.Column="0" Grid.Row="0">Date and Time:</TextBlock>
-                    <TextBox Grid.Column="0" Grid.Row="0" Name="DateTimeBox"  IsReadOnly="True" Width="140" BorderBrush="White" Margin="50,0,0,0"></TextBox>
+                    <!--<TextBox Grid.Column="0" Grid.Row="0" Name="DateTimeBox"  IsReadOnly="True" Width="140" BorderBrush="White" Margin="50,0,0,0"></TextBox>-->
+                    <DatePicker Grid.Column="0" Grid.Row="0" Name="DateTimeBox" HorizontalAlignment="Right" Height="30" Width="110" FontSize="12" Margin="0,0,50,0"/>
 
-                    <TextBlock Grid.Column="1" Grid.Row="0">Room:</TextBlock> 
-                    <TextBox Grid.Column="1" Grid.Row="0" Name ="RoomNameBox" Margin="0,0,90,0" IsReadOnly="True" Width="100" BorderBrush="White" ></TextBox>
+
+                    <TextBlock Grid.Column="1" Grid.Row="0">Room:</TextBlock>
+                    <TextBox Grid.Column="1" Grid.Row="0" Name ="RoomNameBox" Margin="0,0,90,0" Width="100"></TextBox>
 
                     <TextBlock Grid.Column="0" Grid.Row="1">First name:</TextBlock>
                     <TextBlock Grid.Column="0" Grid.Row="2">Last name:</TextBlock>
@@ -79,11 +81,11 @@
                     <TextBox Grid.Column="1" Grid.Row="3" Name="CityBox" Margin="0,0,110,0" IsReadOnly="True" Width="100" BorderBrush="White"></TextBox>
                     <TextBox Grid.Column="1" Grid.Row="4" Name="AdressBox" Margin="0,0,70,0" IsReadOnly="True" Width="100" BorderBrush="White"></TextBox>
 
-                    
-                    <!--Promeniti ova 2 button Click=""-->
-                    <Button Grid.Column="1" Grid.Row="7"  Width="50" Height="20" Margin="70,0,0,0">Modify</Button>
 
-                    <Button Grid.Column="1" Grid.Row="7"  Width="50" Height="20" Margin="200,0,0,0">Delete</Button>
+                    <!--Promeniti ova 2 button Click=""-->
+                    <Button Grid.Column="1" Grid.Row="7"  Width="50" Height="20" Margin="70,0,0,0" Click="btnModify">Modify</Button>
+
+                    <Button Grid.Column="1" Grid.Row="7"  Width="50" Height="20" Margin="200,0,0,0" Click="btnDelete">Delete</Button>
                 </Grid>
             </GroupBox>
 
@@ -95,107 +97,9 @@
 
                 <DataGrid Grid.Column="0" x:Name="dataGridMedicalChard" HorizontalAlignment="Left" VerticalAlignment="Top" Loaded="dataGridMedicalChard_Loaded"/>
 
-                <Button Grid.Column="1" Width="80" Height="20" Margin="170,80,0,0">Set diagnosis</Button>
-            </Grid>   
-
-
-
+                <Button Grid.Column="1" Width="80" Height="20" Margin="170,80,0,0" Click="btnSetDiagnosis">Set diagnosis</Button>
+                
+            </Grid>
         </Grid>
-
-
-        <!--<Grid Grid.Column="1" DataContext="{Binding appointments}" Margin="80,0,0,0">
-            <Grid.RowDefinitions>
-                <RowDefinition Height="Auto"/>
-            </Grid.RowDefinitions>
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="Auto"/>
-                <ColumnDefinition Width="Auto"/>
-                <ColumnDefinition Width="Auto"/>
-                <ColumnDefinition Width="Auto"/>
-            </Grid.ColumnDefinitions>
-
-            <TextBlock Grid.Column="0" Grid.Row="0">Date and Time:</TextBlock>
-
-            <TextBlock Grid.Column="1" Grid.Row="0" Text="{Binding Path=dateTime}" Margin="5,0,0,0"></TextBlock>
-
-            <TextBlock Grid.Column="2" Grid.Row="0" Margin="55,0,0,0">Room: </TextBlock>
-
-            <TextBlock Grid.Column="3" Grid.Row="0" Text="{Binding Path=roomName}" Margin="5,0,0,0"></TextBlock>
-        </Grid>
-
-        <Grid Grid.Column="1" DataContext="{Binding patients}" Margin="80,40,0,0">
-            <Grid.RowDefinitions>
-                <RowDefinition Height="Auto"/>
-                <RowDefinition Height="Auto"/>
-                <RowDefinition Height="Auto"/>
-                <RowDefinition Height="Auto"/>
-                <RowDefinition Height="Auto"/>
-                <RowDefinition Height="Auto"/>
-                <RowDefinition Height="Auto"/>
-            </Grid.RowDefinitions>
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="Auto"/>
-                <ColumnDefinition Width="Auto"/>
-                <ColumnDefinition Width="Auto"/>
-            </Grid.ColumnDefinitions>
-
-            <TextBlock Grid.Column="0" Grid.Row="0">First name:</TextBlock>
-            <TextBlock Grid.Column="0" Grid.Row="1">Last name:</TextBlock>
-            <TextBlock Grid.Column="0" Grid.Row="2">Gender:</TextBlock>
-            <TextBlock Grid.Column="0" Grid.Row="3">Email:</TextBlock>
-            <TextBlock Grid.Column="0" Grid.Row="4">Phone number:</TextBlock>
-            <TextBlock Grid.Column="0" Grid.Row="5">JMBG:</TextBlock>
-            <TextBlock Grid.Column="0" Grid.Row="6">Lbo:</TextBlock>
-
-            <TextBlock Grid.Column="0" Grid.Row="0" Text="{Binding Path=FirstName}" Margin="65,0,0,0"></TextBlock>
-            <TextBlock Grid.Column="0" Grid.Row="1" Text="{Binding Path=LastName}" Margin="65,0,0,0"></TextBlock>
-            <TextBlock Grid.Column="0" Grid.Row="2" Text="{Binding Path=_Gender}" Margin="50,0,0,0"></TextBlock>
-            <TextBlock Grid.Column="0" Grid.Row="3" Text="{Binding Path=Email}" Margin="40,0,0,0"></TextBlock>
-            <TextBlock Grid.Column="0" Grid.Row="4" Text="{Binding Path=PhoneNumber}" Margin="85,0,0,0"></TextBlock>
-            <TextBlock Grid.Column="0" Grid.Row="5" Text="{Binding Path=Jmbg}" Margin="40,0,0,0"></TextBlock>
-            <TextBlock Grid.Column="0" Grid.Row="6" Text="{Binding Path=Lbo}" Margin="30,0,0,0" Name="lboBox"></TextBlock>
-
-            <TextBlock Grid.Column="1" Grid.Row="0" Margin="50,0,0,0" >Birthday:</TextBlock>
-            <TextBlock Grid.Column="1" Grid.Row="1" Margin="50,0,0,0">Country:</TextBlock>
-            <TextBlock Grid.Column="1" Grid.Row="2" Margin="50,0,0,0">City:</TextBlock>
-            <TextBlock Grid.Column="1" Grid.Row="3" Margin="50,0,0,0">Address:</TextBlock>
-
-            <TextBlock Grid.Column="1" Grid.Row="0" Text="{Binding Path=Birthday}" Margin="100,0,0,0"></TextBlock>
-            <TextBlock Grid.Column="1" Grid.Row="1" Text="{Binding Path=Country}" Margin="100,0,0,0"></TextBlock>
-            <TextBlock Grid.Column="1" Grid.Row="2" Text="{Binding Path=City}" Margin="80,0,0,0"></TextBlock>
-            <TextBlock Grid.Column="1" Grid.Row="3" Text="{Binding Path=Adress}" Margin="100,0,0,0"></TextBlock>
-
-        </Grid>
-
-        <Grid Grid.Column="1" DataContext="{Binding patients}" Margin="80,247,0,0">
-            <Grid.RowDefinitions>
-                <RowDefinition Height="Auto"/>
-                <RowDefinition Height="Auto"/>
-                <RowDefinition Height="Auto"/>
-                <RowDefinition Height="Auto"/>
-                <RowDefinition Height="Auto"/>
-                <RowDefinition Height="Auto"/>
-            </Grid.RowDefinitions>
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="Auto"/>
-            </Grid.ColumnDefinitions>
-
-            <TextBlock Grid.Column="0" Grid.Row="0" Background="#FFB9C1E9">Medical chard </TextBlock>
-            <TextBlock Grid.Column="0" Grid.Row="1">Temperature: </TextBlock>
-            <TextBlock Grid.Column="0" Grid.Row="2">Heart rate: </TextBlock>
-            <TextBlock Grid.Column="0" Grid.Row="3">Blood Pressure: </TextBlock>
-            <TextBlock Grid.Column="0" Grid.Row="4">Weight: </TextBlock>
-            <TextBlock Grid.Column="0" Grid.Row="5">Height: </TextBlock>
-
-            <TextBox Grid.Column="0" Grid.Row="1" Text="{Binding Path=Temperature}" Margin="75,0,0,0" Name="temperatureBox"></TextBox>
-            <TextBox Grid.Column="0" Grid.Row="2" Text="{Binding Path=HeartRate}" Margin="60,0,0,0" Name="heartRateBox"></TextBox>
-            <TextBox Grid.Column="0" Grid.Row="3" Text="{Binding Path=BloodPressure}" Margin="85,0,0,0" Name="bloodPressureBox"></TextBox>
-            <TextBox Grid.Column="0" Grid.Row="4" Text="{Binding Path=Weight}" Margin="45,0,0,0" Name="weightBox"></TextBox>
-            <TextBox Grid.Column="0" Grid.Row="5" Text="{Binding Path=Height}" Margin="40,0,0,0" Name="heightBox"></TextBox>
-            
-        </Grid>
-
-        <Button Grid.Column="1" Width="80" Height="20" Margin="550,270,0,0" Click="updatePatientsMedicalChard">Set diagnosis</Button>-->
-
     </Grid>
 </Window>
