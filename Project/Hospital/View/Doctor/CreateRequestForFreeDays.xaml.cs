@@ -1,4 +1,8 @@
-﻿using System;
+﻿using Project.Hospital.Controller;
+using Project.Hospital.Model;
+using Project.Hospital.Repository;
+using Project.Hospital.Service;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -16,46 +20,80 @@ namespace Project.Hospital.View.Doctor
 {
     public partial class CreateRequestForFreeDays : Window
     {
+        private RequestForFreeDaysRepository requestForFreeDaysRepository;
+        private RequestForFreeDaysService requestForFreeDaysService;
+        private RequestForFreeDaysController requestForFreeDaysController;
+
+        private DoctorRepository doctorRepository;
+        private DoctorService doctorService;
+        private DoctorController doctorController;
+ 
         string loggedDoctor = "";
         public CreateRequestForFreeDays(string doctroLks)
         {
             loggedDoctor = doctroLks;
+
+            this.doctorRepository = new DoctorRepository();
+            this.doctorService = new DoctorService(doctorRepository);
+            this.doctorController = new DoctorController(doctorService);
+
+            this.requestForFreeDaysRepository = new RequestForFreeDaysRepository();
+            this.requestForFreeDaysService = new RequestForFreeDaysService(requestForFreeDaysRepository, doctorService);
+            this.requestForFreeDaysController = new RequestForFreeDaysController(requestForFreeDaysService);
+
+
             InitializeComponent();
             this.DataContext = this;
         }
         private void btnSendRequest(object sender, RoutedEventArgs e)
         {
-            Boolean isAnyFielsEmpty = false;
-
             if (dpStartDate.Text.Equals("") || dpEndDate.Text.Equals("") || tbReason.Text.Equals(""))
             {
-                isAnyFielsEmpty = true;
                 MessageBox.Show("You must fill every field!", "ERROR");
+                return;
 
-            }
-            else
+            } else if (!dpStartDate.Text.Equals("") && !dpEndDate.Text.Equals("") && !tbReason.Text.Equals(""))
             {
-                MessageBox.Show("Request is successfully created!", "Alert");
-                var createRequestForFreeDays = new CreateRequestForFreeDays(loggedDoctor);
-                createRequestForFreeDays.Show();
-                this.Close();
+                DateTime dateTime = DateTime.Now.Date;
+                DateTime startDateTime = DateTime.Parse(dpStartDate.Text).AddDays(1).Date;
+
+                if (DateTime.Compare(DateTime.Now.Date, DateTime.Parse(dpStartDate.Text).AddDays(1).Date) == 0)
+                {
+                    MessageBox.Show("Your request must be two or more days before!", "Alert");
+                    return;
+                }
+
+                if(DateTime.Compare(DateTime.Parse(dpStartDate.Text), DateTime.Parse(dpEndDate.Text)) > 0)
+                {
+                    MessageBox.Show("Start date must be before End date!", "Alert");
+                    return;
+                }
             }
 
-            /*DateTime startDate = DateTime.Parse(dpStartDate.Text);
-            DateTime endDate = DateTime.Parse(dpEndDate.Text);
-
-
-            Console.WriteLine(startDate.ToString());
-            Console.WriteLine("\n");
-            Console.WriteLine(endDate.ToString());
-
+            RequestForFreeDays requestForFreeDaysToCreate = new RequestForFreeDays();
+            requestForFreeDaysToCreate.Lks = loggedDoctor;
+            requestForFreeDaysToCreate.Start = DateTime.Parse(dpStartDate.Text);
+            requestForFreeDaysToCreate.End = DateTime.Parse(dpEndDate.Text);
+            requestForFreeDaysToCreate.Reason = tbReason.Text;
             if (status1.IsChecked == true)
             {
-                Console.WriteLine("Yes");
-            }else if(status2.IsChecked == true)
+                requestForFreeDaysToCreate.isEmergency = true;
+            }
+            else if (status2.IsChecked == true)
             {
-                Console.WriteLine("No");
-            }*/
+                requestForFreeDaysToCreate.isEmergency = false;
+            }
+
+            if(requestForFreeDaysController.createRequestForFreeDays(requestForFreeDaysToCreate) == null)
+            {
+                MessageBox.Show("More than one doctor in same medicine area is on holiday!", "Alert");
+                return;
+            }
+            MessageBox.Show("Request is successfully created!", "Alert");
+            
+            var createRequestForFreeDays = new CreateRequestForFreeDays(loggedDoctor);
+            createRequestForFreeDays.Show();
+            this.Close();
         }
 
         private void btnSchedule(object sender, RoutedEventArgs e)
