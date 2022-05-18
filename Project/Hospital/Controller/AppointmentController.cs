@@ -70,17 +70,25 @@ namespace Project.Hospital.Controller
 
         public List<Appointment> getAvailableAppointments(Doctor doctor, Patient patient, DateTime start, DateTime end)
         {
-            return appointmentService.getAvailableAppointments(doctor, patient, start, end);
+            return appointmentService.GetAvailableAppointments(doctor, patient, start, end);
         }
 
-        public List<Appointment> getAllAvailableAppointments(Patient patient, DateTime start, DateTime end)
+        public List<Appointment> GetAvailableAppointmentsForAllDoctors(Patient patient, DateTime start, DateTime end)
         {
-            return appointmentService.getAllAvailableAppointments(patient, start, end);
+            return appointmentService.GetAvailableAppointmentsForAllDoctors(patient, start, end);
         }
 
-        public bool isNewDateTimeAvailable(Appointment appointment, DateTime newDateTime)
+        public bool IsNewDateTimeAvailable(Appointment appointment, DateTime newDateTime)
         {
-            return appointmentService.isNewDateTimeAvailable(appointment, newDateTime);
+            return appointmentService.IsNewDateTimeAvailable(appointment, newDateTime);
+        }
+        public Appointment GetFirstAvailableAppointment(Patient patient, String area, DateTime receptionTime)
+        {
+            return appointmentService.GetFirstAlailableAppointment(patient, area, receptionTime);
+        }
+        public List<Tuple<int, Appointment, Appointment>> DobaviZauzeteTremineSortiranePoMogucnostiPomeranja(String area, DateTime receptionTime)
+        {
+            return appointmentService.GetTakenAppointment(area, receptionTime);
         }
     }
 }

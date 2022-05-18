@@ -68,5 +68,10 @@ namespace Project.Hospital.View.Secretary
         {
             Prozor.Content = new OpremaPage();
         }
+
+        private void hitanSlucaj(object sender, RoutedEventArgs e)
+        {
+            Prozor.Content = new HitanSlucaj();
+        }
     }
 }

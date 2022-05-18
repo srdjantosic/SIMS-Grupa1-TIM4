@@ -75,7 +75,7 @@ namespace Project.Hospital.View.Secretary
             dt.Columns.Add(datumVreme);
             dt.Columns.Add(lekar);
 
-            foreach (Appointment appointment in appointmentController.getAllAvailableAppointments(patient, pocIntervala, krajIntervala))
+            foreach (Appointment appointment in appointmentController.GetAvailableAppointmentsForAllDoctors(patient, pocIntervala, krajIntervala))
             {
                 if (!appointment.isDeleted)
                 {
