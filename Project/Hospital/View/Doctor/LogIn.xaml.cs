@@ -36,9 +36,9 @@ namespace Project.Hospital.View.Doctor
             string Email = emailBox.Text;
             string Password = passwordBox.Password.ToString();
 
-            if(doctorController.getDoctorByEmailAndPassword(Email, Password) != null)
+            if(doctorController.GetDoctorByEmailAndPassword(Email, Password) != null)
             {
-                var schedule = new Schedule(doctorController.getDoctorByEmailAndPassword(Email, Password).lks);
+                var schedule = new Schedule(doctorController.GetDoctorByEmailAndPassword(Email, Password).lks);
                 schedule.Show();
                 this.Close();
             }

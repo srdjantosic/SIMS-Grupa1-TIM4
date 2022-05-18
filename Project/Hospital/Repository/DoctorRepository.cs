@@ -11,7 +11,7 @@ namespace Project.Hospital.Repository
     {
         public DoctorRepository() { }
 
-        public List<Doctor> getAll()
+        public List<Doctor> GetAll()
         {
             List<Doctor> doctors = new List<Doctor>();
             Serializer<Doctor> doctorSerializer = new Serializer<Doctor>();
@@ -19,19 +19,19 @@ namespace Project.Hospital.Repository
             return doctors;
         }
 
-        public Doctor getDoctorByName(String firstName, String lastName)
+        public Doctor GetDoctorByName(String firstName, String lastName)
         {
-            return getAll().SingleOrDefault(doctor => doctor.firstName == firstName && doctor.lastName == lastName);
+            return GetAll().SingleOrDefault(doctor => doctor.firstName == firstName && doctor.lastName == lastName);
         }
 
-        public Doctor getDoctorByLks(String lks)
+        public Doctor GetDoctorByLks(String lks)
         {
-            return getAll().SingleOrDefault(doctor => doctor.lks == lks);
+            return GetAll().SingleOrDefault(doctor => doctor.lks == lks);
         }
 
-        public Doctor getDoctorByEmailAndPassword(String email, String password)
+        public Doctor GetDoctorByEmailAndPassword(String email, String password)
         {
-            return getAll().SingleOrDefault(doctor => doctor.email == email && doctor.password == password);
+            return GetAll().SingleOrDefault(doctor => doctor.email == email && doctor.password == password);
         }
 
     }

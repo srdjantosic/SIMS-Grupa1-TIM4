@@ -29,7 +29,7 @@ namespace Project.Hospital.View.Doctor
 
             appointments = new ObservableCollection<Appointment>();
 
-            foreach (Appointment appointment in appointmentController.showAppointmentsByDoctorLks(doctorLks))
+            foreach (Appointment appointment in appointmentController.ShowAppointmentsByDoctorLks(doctorLks))
             {
                 if (appointment.isDeleted == false)
                 {
@@ -39,13 +39,13 @@ namespace Project.Hospital.View.Doctor
 
             futureAppointments = new ObservableCollection<Appointment>();
             DateTime dateTime = DateTime.Now;
-            foreach (Appointment appointment in appointmentController.getFutureAppointments(dateTime, doctorLks))
+            foreach (Appointment appointment in appointmentController.GetFutureAppointments(dateTime, doctorLks))
             {
                 futureAppointments.Add(appointment);
             }
 
             pastAppointments = new ObservableCollection<Appointment>();
-            foreach (Appointment appointment in appointmentController.getPastAppointments(dateTime, doctorLks))
+            foreach (Appointment appointment in appointmentController.GetPastAppointments(dateTime, doctorLks))
             {
                 pastAppointments.Add(appointment);
             }

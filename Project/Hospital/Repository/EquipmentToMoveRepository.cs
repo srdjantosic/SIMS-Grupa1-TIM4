@@ -11,7 +11,7 @@ namespace Project.Hospital.Repository
     {
         public EquipmentToMoveRepository() { }
 
-        public EquipmentToMove changeEquipment(String Id, String OldRoomId, String Name, int Quantity, DateTime dateTime,String newRoomID)
+        public EquipmentToMove ChangeEquipment(String Id, String OldRoomId, String Name, int Quantity, DateTime dateTime,String newRoomID)
         {
             
             Serializer<EquipmentToMove> equipmentToMoveSerializer = new Serializer<EquipmentToMove>();

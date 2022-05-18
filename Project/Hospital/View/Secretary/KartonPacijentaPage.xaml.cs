@@ -78,7 +78,7 @@ namespace Project.Hospital.View.Secretary
         private void obrisi(object sender, RoutedEventArgs e)
         {
             Allergen allergenContext = (Allergen)((Button)e.Source).DataContext;
-            if (allergenController.deletePatientAllergen(Patient.Lbo, allergenContext.Name))
+            if (allergenController.DeletePatientAllergen(Patient.Lbo, allergenContext.Name))
             {
                 var page = new KartonPacijentaPage(Patient);
                 NavigationService.Navigate(page);

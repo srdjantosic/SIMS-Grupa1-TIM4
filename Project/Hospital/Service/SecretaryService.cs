@@ -17,9 +17,9 @@ namespace Project.Hospital.Service
             this.secretaryRepository = secretaryRepository;
         }
 
-        public Secretary getByEmailAndPassword(String email, String password)
+        public Secretary GetByEmailAndPassword(String email, String password)
         {
-            return secretaryRepository.getByEmailAndPassword(email, password);
+            return secretaryRepository.GetByEmailAndPassword(email, password);
         }
     }
 }

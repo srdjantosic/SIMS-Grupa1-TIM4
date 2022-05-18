@@ -39,42 +39,42 @@ namespace Hospital.Service
             if (lks.Equals("") || lbo.Equals(""))
                 throw new NotFoundException(string.Format(NOT_FOUND_ERROR, "lbo", lbo));
 
-            List<Appointment> appointments = showAppointments();
+            List<Appointment> appointments = ShowAppointments();
 
             foreach (Appointment appointment in appointments)
             {
                 if (isAppointmentAlreadyExist(appointment, lks, lbo, dateTime, roomName))
                     return null;
             }
-            return appointmentRepository.createAppointment(dateTime, lks, lbo, roomName);
+            return appointmentRepository.CreateAppointment(dateTime, lks, lbo, roomName);
         }
 
-        public Boolean updateAppointment(DateTime dateTime, int id)
+        public Boolean UpdateAppointment(DateTime dateTime, int id)
         {
-            if (appointmentRepository.getAppointment(id).isDeleted == true)
+            if (appointmentRepository.GetAppointment(id).isDeleted == true)
                 return false;
             else
-                return appointmentRepository.updateAppointment(dateTime, id);
+                return appointmentRepository.UpdateAppointment(dateTime, id);
         }
 
         //TODO
-        public Boolean updateDateTimeAndRoomName(int id, DateTime dateTime, string roomName)
+        public Boolean UpdateDateTimeAndRoomName(int id, DateTime dateTime, string roomName)
         {
-            if (appointmentRepository.getAppointment(id).isDeleted == true)
+            if (appointmentRepository.GetAppointment(id).isDeleted == true)
                 return false;
             else
-                return appointmentRepository.updateDateTimeAndRoomName(id, dateTime, roomName);
+                return appointmentRepository.UpdateDateTimeAndRoomName(id, dateTime, roomName);
         }
 
-        public List<Appointment> showAppointments()
+        public List<Appointment> ShowAppointments()
         {
-            return appointmentRepository.showAppointments();
+            return appointmentRepository.ShowAppointments();
         }
 
-        public List<Appointment> showAppointmentsByDoctorLks(string lks)
+        public List<Appointment> ShowAppointmentsByDoctorLks(string lks)
         {
             List<Appointment> doctorAppointments = new List<Appointment>();
-            foreach(Appointment appointment in showAppointments())
+            foreach(Appointment appointment in ShowAppointments())
             {
                 if (appointment.lks.Equals(lks)) {
                     doctorAppointments.Add(appointment);
@@ -82,14 +82,14 @@ namespace Hospital.Service
             }
             return doctorAppointments;
         }
-        public Boolean deleteAppointment(int id)
+        public Boolean DeleteAppointment(int id)
         {
-            return appointmentRepository.deleteAppointment(id);
+            return appointmentRepository.DeleteAppointment(id);
         }
 
-        public Appointment getAppointment(int id)
+        public Appointment GetAppointment(int id)
         {
-            return appointmentRepository.getAppointment(id);
+            return appointmentRepository.GetAppointment(id);
         }
 
         private Boolean isAppointmentAlreadyExist(Appointment appointment, string lks, string lbo, DateTime dateTime, string roomName)
@@ -100,11 +100,11 @@ namespace Hospital.Service
             return false;
         }
 
-        public List<Appointment> getFutureAppointments(DateTime dateTime, string lks)
+        public List<Appointment> GetFutureAppointments(DateTime dateTime, string lks)
         {
             List<Appointment> futureAppointments = new List<Appointment>();
 
-            foreach(Appointment appointment in showAppointmentsByDoctorLks(lks))
+            foreach(Appointment appointment in ShowAppointmentsByDoctorLks(lks))
             {
                 if(appointment.dateTime > dateTime)
                 {
@@ -113,11 +113,11 @@ namespace Hospital.Service
             }
             return futureAppointments;
         }
-        public List<Appointment> getPastAppointments(DateTime dateTime, string lks)
+        public List<Appointment> GetPastAppointments(DateTime dateTime, string lks)
         {
             List<Appointment> pastAppointments = new List<Appointment>();
 
-            foreach (Appointment appointment in showAppointmentsByDoctorLks(lks))
+            foreach (Appointment appointment in ShowAppointmentsByDoctorLks(lks))
             {
                 if (appointment.dateTime < dateTime)
                 {
@@ -127,11 +127,11 @@ namespace Hospital.Service
             return pastAppointments;
         }
 
-        public List<Appointment> getAppointmentsByLks(String lks)
+        public List<Appointment> GetAppointmentsByLks(String lks)
         {
             List<Appointment> appointments = new List<Appointment>();
 
-            foreach(Appointment appointment in appointmentRepository.showAppointments())
+            foreach(Appointment appointment in appointmentRepository.ShowAppointments())
             {
                 if(appointment.lks == lks)
                 {
@@ -195,7 +195,7 @@ namespace Hospital.Service
         {
             List<Appointment> allAvailableAppointments = new List<Appointment>();
 
-            foreach(Doctor doctor in doctorService.getAll())
+            foreach(Doctor doctor in doctorService.GetAll())
             {
                 foreach(Appointment appointment in GetAvailableAppointments(doctor, patient, start, end))
                 {
@@ -207,7 +207,7 @@ namespace Hospital.Service
 
         public bool IsNewDateTimeAvailable(Appointment appointment, DateTime newDateTime)
         {
-            foreach(Appointment appoint in getAppointmentsByLks(appointment.lks))
+            foreach(Appointment appoint in GetAppointmentsByLks(appointment.lks))
             {
                 if(!appoint.isDeleted)
                 {

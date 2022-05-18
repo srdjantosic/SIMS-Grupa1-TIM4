@@ -117,7 +117,7 @@ namespace Project.Hospital.View.Manager
             string RoomId = combo.SelectedItem.ToString();
             string vreme = datum.Text;
             DateTime datetime = DateTime.Parse(vreme);  
-            equipmentToMoveController.changeEquipment(this.Id, OldRoomId,Name, Quantity, datetime, RoomId);
+            equipmentToMoveController.ChangeEquipment(this.Id, OldRoomId,Name, Quantity, datetime, RoomId);
             var page = new PrikazOpreme();
             NavigationService.Navigate(page);
 

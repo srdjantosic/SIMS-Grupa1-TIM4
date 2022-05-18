@@ -17,30 +17,30 @@ namespace Project.Hospital.Service
             this.doctorRepository = doctorRepository;
         }
 
-        public List<Doctor> getAll()
+        public List<Doctor> GetAll()
         {
-            return doctorRepository.getAll();
+            return doctorRepository.GetAll();
         }
 
-        public Doctor getDoctorByName(String firstName, String lastName)
+        public Doctor GetDoctorByName(String firstName, String lastName)
         {
-            return doctorRepository.getDoctorByName(firstName, lastName);
+            return doctorRepository.GetDoctorByName(firstName, lastName);
         }
 
-        public Doctor getDoctorByLks(String lks)
+        public Doctor GetDoctorByLks(String lks)
         {
-            return doctorRepository.getDoctorByLks(lks);
+            return doctorRepository.GetDoctorByLks(lks);
         }
 
-        public Doctor getDoctorByEmailAndPassword(String email, String password)
+        public Doctor GetDoctorByEmailAndPassword(String email, String password)
         {
-            return doctorRepository.getDoctorByEmailAndPassword(email, password);
+            return doctorRepository.GetDoctorByEmailAndPassword(email, password);
         }
 
         public List<Doctor> GetDoktorsFromGivenArea(String area)
         {
             List<Doctor> doctorsByArea = new List<Doctor>();
-            foreach(Doctor doctor in getAll())
+            foreach(Doctor doctor in GetAll())
             {
                 if(doctor.medicineArea == area)
                 {

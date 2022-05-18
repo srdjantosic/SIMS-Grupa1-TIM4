@@ -57,7 +57,7 @@ namespace Project.Hospital.View.Doctor
                 DateTime dateTime = DateTime.Now.Date;
                 DateTime startDateTime = DateTime.Parse(dpStartDate.Text).AddDays(1).Date;
 
-                if (DateTime.Compare(DateTime.Now.Date, DateTime.Parse(dpStartDate.Text).AddDays(1).Date) == 0)
+                if (DateTime.Compare(DateTime.Now.Date.AddDays(1), DateTime.Parse(dpStartDate.Text).Date) >= 0)
                 {
                     MessageBox.Show("Your request must be two or more days before!", "Alert");
                     return;
@@ -65,7 +65,7 @@ namespace Project.Hospital.View.Doctor
 
                 if(DateTime.Compare(DateTime.Parse(dpStartDate.Text), DateTime.Parse(dpEndDate.Text)) > 0)
                 {
-                    MessageBox.Show("Start date must be before End date!", "Alert");
+                    MessageBox.Show("Choose correct dates!", "Alert");
                     return;
                 }
             }
@@ -84,7 +84,7 @@ namespace Project.Hospital.View.Doctor
                 requestForFreeDaysToCreate.isEmergency = false;
             }
 
-            if(requestForFreeDaysController.createRequestForFreeDays(requestForFreeDaysToCreate) == null)
+            if(requestForFreeDaysController.CreateRequestForFreeDays(requestForFreeDaysToCreate) == null)
             {
                 MessageBox.Show("More than one doctor in same medicine area is on holiday!", "Alert");
                 return;

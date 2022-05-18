@@ -86,16 +86,16 @@ namespace Project.Hospital.View.Doctor
                     positionOfPrescription++;
                     DateTime startApoointment = appointment.dateTime;
                     DateTime endAppointment = startApoointment.AddHours(1);
-                    if (startApoointment <= prescriptionController.getPrescription(positionsOfPrescriptions).BeginOfUse &&
-                        endAppointment >= prescriptionController.getPrescription(positionsOfPrescriptions).BeginOfUse)
+                    if (startApoointment <= prescriptionController.GetPrescription(positionsOfPrescriptions).BeginOfUse &&
+                        endAppointment >= prescriptionController.GetPrescription(positionsOfPrescriptions).BeginOfUse)
                     {
                         foundPrescription = positionsOfPrescriptions;
                     }
                 }
             }
 
-            report = reportController.getReport(foundReport);
-            prescription = prescriptionController.getPrescription(foundPrescription);
+            report = reportController.GetReport(foundReport);
+            prescription = prescriptionController.GetPrescription(foundPrescription);
 
             if (report != null && prescription != null)
             {
@@ -163,7 +163,7 @@ namespace Project.Hospital.View.Doctor
                 if (isAlreadyCreated == false)
                 {
                     Prescription newPrescription = new Prescription();
-                    newPrescription.Id = prescriptionController.showPrescriptions().Count;
+                    newPrescription.Id = prescriptionController.ShowPrescriptions().Count;
                     newPrescription.BeginOfUse = DateTime.Now;
                     newPrescription.PeriodInDays = int.Parse(tbPeriodInDays.Text);
                     List<string> medicinesToSend = new List<string>();
@@ -175,10 +175,10 @@ namespace Project.Hospital.View.Doctor
                     newPrescription.setMedicines(medicinesToSend);
 
                     Report newReport = new Report();
-                    newReport.Id = reportController.showReports().Count;
+                    newReport.Id = reportController.ShowReports().Count;
                     newReport.Diagnosis = tbDiagnosis.Text;
                     newReport.Comment = tbComment.Text;
-                    patientController.createReportAndPrescription(currentAppointment.lbo, newPrescription, newReport);
+                    patientController.CreateReportAndPrescription(currentAppointment.lbo, newPrescription, newReport);
                 }
                 else
                 {
@@ -200,7 +200,7 @@ namespace Project.Hospital.View.Doctor
                     reportToUpdate.Id = report.Id;
                     reportToUpdate.Diagnosis = tbDiagnosis.Text;
                     reportToUpdate.Comment = tbComment.Text;
-                    patientController.updateReportAndPrescription(currentAppointment.lbo, prescriptionToUpdate, reportToUpdate);
+                    patientController.UpdateReportAndPrescription(currentAppointment.lbo, prescriptionToUpdate, reportToUpdate);
                 }
 
                 var schedule = new Schedule(currentAppointment.lks);

@@ -58,7 +58,7 @@ namespace Project.Hospital.View.Secretary
             {
                 tbPacijent.Text = patient.FirstName + " " + patient.LastName;
             }
-            Model.Doctor doctor = doctorController.getDoctorByLks(appointment.lks);
+            Model.Doctor doctor = doctorController.GetDoctorByLks(appointment.lks);
             if(doctor != null)
             {
                 tbLekar.Text = doctor.firstName + " " + doctor.lastName + " (" + doctor.medicineArea + ") ";
@@ -82,9 +82,9 @@ namespace Project.Hospital.View.Secretary
                 DateTime newDateTime = DateTime.Parse(dateTime);
                 if(appointmentController.IsNewDateTimeAvailable(Appointment, newDateTime))
                 {
-                    if(appointmentController.updateAppointment(newDateTime, Appointment.id))
+                    if(appointmentController.UpdateAppointment(newDateTime, Appointment.id))
                     {
-                        Appointment appointment = appointmentController.getAppintment(Appointment.id);
+                        Appointment appointment = appointmentController.GetAppintment(Appointment.id);
                         var page = new DetaljiOPregleduPage(appointment);
                         NavigationService.Navigate(page);
                     }

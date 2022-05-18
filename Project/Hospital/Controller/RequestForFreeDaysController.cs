@@ -17,9 +17,9 @@ namespace Project.Hospital.Controller
             this.requestForFreeDaysService = requestForFreeDaysService;
         }
 
-        public RequestForFreeDays createRequestForFreeDays(RequestForFreeDays newRequestForFreeDays)
+        public RequestForFreeDays CreateRequestForFreeDays(RequestForFreeDays newRequestForFreeDays)
         {
-            return requestForFreeDaysService.createRequestForFreeDays(newRequestForFreeDays);
+            return requestForFreeDaysService.CreateRequestForFreeDays(newRequestForFreeDays);
         }
 
     }

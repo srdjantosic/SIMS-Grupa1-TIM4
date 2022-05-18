@@ -12,17 +12,17 @@ namespace Hospital.Repository
         private const string NOT_FOUND_ERROR = "Appointment with {0}:{1} can not be found!";
         private const string fileName = "appointment.txt";
 
-        public Appointment createAppointment(DateTime dateTime, String lks, String lbo, String roomName)
+        public Appointment CreateAppointment(DateTime dateTime, String lks, String lbo, String roomName)
         {
 
             Serializer<Appointment> appointmentSerializer = new Serializer<Appointment>();
-            Appointment appointment = new Appointment(showAppointments().Count, lks, dateTime, lbo, roomName);
+            Appointment appointment = new Appointment(ShowAppointments().Count, lks, dateTime, lbo, roomName);
             appointmentSerializer.oneToCSV(fileName, appointment);
             return appointment;
         }
-        public Boolean updateAppointment(DateTime dateTime, int id)
+        public Boolean UpdateAppointment(DateTime dateTime, int id)
         {
-            List<Appointment> appointments = showAppointments();
+            List<Appointment> appointments = ShowAppointments();
 
             foreach (Appointment appointment in appointments)
             {
@@ -38,9 +38,9 @@ namespace Hospital.Repository
         }
 
         //TODO
-        public Boolean updateDateTimeAndRoomName(int id, DateTime dateTime, string roomName)
+        public Boolean UpdateDateTimeAndRoomName(int id, DateTime dateTime, string roomName)
         {
-            List<Appointment> appointments = showAppointments();
+            List<Appointment> appointments = ShowAppointments();
 
             foreach (Appointment appointment in appointments)
             {
@@ -57,18 +57,18 @@ namespace Hospital.Repository
 
         }
 
-        public List<Appointment> showAppointments()
+        public List<Appointment> ShowAppointments()
         {
             Serializer<Appointment> appointmentSerializer = new Serializer<Appointment>();
             List<Appointment> appointments = appointmentSerializer.fromCSV(fileName);
             return appointments;
         }
 
-        public Boolean deleteAppointment(int id)
+        public Boolean DeleteAppointment(int id)
         {
 
-            List<Appointment> appointments = showAppointments();
-            Appointment appointmentToDelete = getAppointment(id);
+            List<Appointment> appointments = ShowAppointments();
+            Appointment appointmentToDelete = GetAppointment(id);
             if (appointmentToDelete != null && appointmentToDelete.isDeleted == false)
             {
 
@@ -83,12 +83,12 @@ namespace Hospital.Repository
             return false;
         }
 
-        public Appointment getAppointment(int id)
+        public Appointment GetAppointment(int id)
         {
             try
             {
                 {
-                    return showAppointments().SingleOrDefault(appointment => appointment.id == id);
+                    return ShowAppointments().SingleOrDefault(appointment => appointment.id == id);
                 }
             }
             catch (ArgumentException)

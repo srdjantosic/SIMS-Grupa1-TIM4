@@ -14,61 +14,61 @@ namespace Project.Hospital.Controller
             this.appointmentService = appointmentService;
         }
 
-        public Appointment createAppointment(DateTime dateTime, string lks, string lbo, string roomName)
+        public Appointment CreateAppointment(DateTime dateTime, string lks, string lbo, string roomName)
         {
-            Appointment appointment = appointmentService.createAppointment(dateTime, lks, lbo, roomName);
+            Appointment appointment = appointmentService.CreateAppointment(dateTime, lks, lbo, roomName);
             if (appointment != null)
                 return appointment;
             return null;
         }
 
 
-        public Boolean updateAppointment(DateTime dateTime, int id)
+        public Boolean UpdateAppointment(DateTime dateTime, int id)
         {
-            return appointmentService.updateAppointment(dateTime, id);
+            return appointmentService.UpdateAppointment(dateTime, id);
         }
 
         //TODO
-        public Boolean updateDateTimeAndRoomName(int id, DateTime dateTime, string roomName)
+        public Boolean UpdateDateTimeAndRoomName(int id, DateTime dateTime, string roomName)
         {
-            return appointmentService.updateDateTimeAndRoomName(id, dateTime, roomName);
+            return appointmentService.UpdateDateTimeAndRoomName(id, dateTime, roomName);
         }
 
-        public List<Appointment> showAppointments()
+        public List<Appointment> ShowAppointments()
         {
-            return appointmentService.showAppointments();
+            return appointmentService.ShowAppointments();
         }
 
-        public List<Appointment> showAppointmentsByDoctorLks(string lks)
+        public List<Appointment> ShowAppointmentsByDoctorLks(string lks)
         {
-            return appointmentService.showAppointmentsByDoctorLks(lks);
+            return appointmentService.ShowAppointmentsByDoctorLks(lks);
         }
-        public Boolean deleteAppointment(int id)
+        public Boolean DeleteAppointment(int id)
         {
-            return appointmentService.deleteAppointment(id);
-        }
-
-        public Appointment getAppintment(int id)
-        {
-            return appointmentService.getAppointment(id);
+            return appointmentService.DeleteAppointment(id);
         }
 
-        public List<Appointment> getFutureAppointments(DateTime dateTime, string lks)
+        public Appointment GetAppintment(int id)
         {
-            return appointmentService.getFutureAppointments(dateTime, lks);
+            return appointmentService.GetAppointment(id);
         }
 
-        public List<Appointment> getPastAppointments(DateTime dateTime, string lks)
+        public List<Appointment> GetFutureAppointments(DateTime dateTime, string lks)
         {
-            return appointmentService.getPastAppointments(dateTime, lks);
+            return appointmentService.GetFutureAppointments(dateTime, lks);
         }
 
-        public List<Appointment> getAppointmentsByLks(String lks)
+        public List<Appointment> GetPastAppointments(DateTime dateTime, string lks)
         {
-            return appointmentService.getAppointmentsByLks(lks);
+            return appointmentService.GetPastAppointments(dateTime, lks);
         }
 
-        public List<Appointment> getAvailableAppointments(Doctor doctor, Patient patient, DateTime start, DateTime end)
+        public List<Appointment> GetAppointmentsByLks(String lks)
+        {
+            return appointmentService.GetAppointmentsByLks(lks);
+        }
+
+        public List<Appointment> GetAvailableAppointments(Doctor doctor, Patient patient, DateTime start, DateTime end)
         {
             return appointmentService.GetAvailableAppointments(doctor, patient, start, end);
         }
