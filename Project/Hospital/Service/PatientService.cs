@@ -10,10 +10,21 @@ namespace Project.Hospital.Service
 
         private PatientRepository patientRepository;
 
+        private PrescriptionService prescriptionService;
+        private ReportService reportService;
+        
+
         public PatientService(PatientRepository patientRepository)
         {
             this.patientRepository = patientRepository;
         }
+        public PatientService(PatientRepository patientRepository, PrescriptionService prescriptionService, ReportService reportService)
+        {
+            this.patientRepository = patientRepository;
+            this.prescriptionService=prescriptionService;
+            this.reportService=reportService;
+        }
+
         public Patient CreatePatient(String firstName, String lastName, Gender.Genders gender, String email, String phoneNumber, String jmbg, String lbo, DateTime birthday, String country, String city, String adress)
         {
 
@@ -33,6 +44,39 @@ namespace Project.Hospital.Service
                 }
             }
 
+        }
+
+        public Boolean createReportAndPrescription(string lbo, Prescription prescription, Report report)
+        {
+            Prescription newPrescription = prescriptionService.createPrescription(lbo, prescription);
+            if (newPrescription == null) {
+                return false;
+            }
+            Report newReport = reportService.createReport(report.Diagnosis, report.Comment);
+            if (newReport == null) { 
+                return false;
+            }
+            Boolean isCreated = patientRepository.createReportAndPrescription(lbo, prescription.Id, report.Id);
+            if (isCreated == false)
+            {
+                return false;
+            }
+
+            return true;
+        }
+
+        public Boolean updateReportAndPrescription(string lbo, Prescription prescriptionToUpdate, Report reportToUpdate) 
+        {
+            Boolean isPrescriptionUpdated = prescriptionService.updatePrescription(lbo, prescriptionToUpdate);
+            if(isPrescriptionUpdated == false){
+                return false;
+            }
+            Boolean isReportUpdated = reportService.updateReport(reportToUpdate.Id, reportToUpdate.Diagnosis, reportToUpdate.Comment);
+            if (isReportUpdated == false)
+            {
+                return false;
+            }
+            return true;
         }
 
 

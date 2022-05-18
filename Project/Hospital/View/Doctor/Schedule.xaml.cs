@@ -14,8 +14,12 @@ namespace Project.Hospital.View.Doctor
         private AppointmentService appointmentService;
         private AppointmentController appointmentController;
 
+
+        string loggedDoctor = "";
         public Schedule(string doctorLks)
         {
+            loggedDoctor = doctorLks;
+
             this.appointmentRepository = new AppointmentRepository();
             this.appointmentService = new AppointmentService(appointmentRepository);
             this.appointmentController = new AppointmentController(appointmentService);
@@ -27,7 +31,10 @@ namespace Project.Hospital.View.Doctor
 
             foreach (Appointment appointment in appointmentController.showAppointmentsByDoctorLks(doctorLks))
             {
-                appointments.Add(appointment);
+                if (appointment.isDeleted == false)
+                {
+                    appointments.Add(appointment);
+                }
             }
 
             futureAppointments = new ObservableCollection<Appointment>();
@@ -61,7 +68,19 @@ namespace Project.Hospital.View.Doctor
             get;
             set;
         }
+        private void btnMedicines(object sender, RoutedEventArgs e)
+        {
+            var medicines = new Medicines(loggedDoctor);
+            medicines.Show();
+            this.Close();
+        }
 
+        private void btnCreateRequestForFreeDays(object sender, RoutedEventArgs e)
+        {
+            var createRequestForFreeDays = new CreateRequestForFreeDays(loggedDoctor);
+            createRequestForFreeDays.Show();
+            this.Close();
+        }
         private void createPersonalTerm(object sender, RoutedEventArgs e)
         {
             var createPersonalTerm = new CreatePersonalTerm();
@@ -77,11 +96,13 @@ namespace Project.Hospital.View.Doctor
             this.Close();
         }
 
-        private void logOut(object sender,  RoutedEventArgs e)
+        private void btnLogOut(object sender,  RoutedEventArgs e)
         {
-            var mainWindow = new MainWindow();
-            mainWindow.Show();
+            var logIn = new LogIn();
+            logIn.Show();
             this.Close();
         }
+
+
     }
 }

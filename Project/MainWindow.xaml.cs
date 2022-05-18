@@ -44,7 +44,7 @@ namespace Project
         }
         private void Button_Click_Doctor(object sender, RoutedEventArgs e)
         {
-            var pocetna = new Schedule("123454");
+            var pocetna = new LogIn();
             pocetna.Show();
             this.Close();
         }

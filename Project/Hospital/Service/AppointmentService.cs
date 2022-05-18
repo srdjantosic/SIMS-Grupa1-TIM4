@@ -49,6 +49,15 @@ namespace Hospital.Service
                 return appointmentRepository.updateAppointment(dateTime, id);
         }
 
+        //TODO
+        public Boolean updateDateTimeAndRoomName(int id, DateTime dateTime, string roomName)
+        {
+            if (appointmentRepository.getAppointment(id).isDeleted == true)
+                return false;
+            else
+                return appointmentRepository.updateDateTimeAndRoomName(id, dateTime, roomName);
+        }
+
         public List<Appointment> showAppointments()
         {
             return appointmentRepository.showAppointments();

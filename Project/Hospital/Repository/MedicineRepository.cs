@@ -19,6 +19,8 @@ namespace Project.Hospital.Repository
             medicineSerializer.oneToCSV(fileName, medicine);
             return medicine;
         }
+
+        //TODO
         public Boolean updateMedicineStatus(string name)
         {
             List<Medicine> medicines = showMedicines();
@@ -28,6 +30,24 @@ namespace Project.Hospital.Repository
                 if (medicine.Name.Equals(name))
                 {
                     medicine.isActive = true;
+                    Serializer<Medicine> medicineSerializer = new Serializer<Medicine>();
+                    medicineSerializer.toCSV(fileName, medicines);
+                    return true;
+                }
+            }
+            return false;
+        }
+
+        //TODO
+        public Boolean setReasonForDeclining(string name, string reason)
+        {
+            List<Medicine> medicines = showMedicines();
+
+            foreach (Medicine medicine in medicines)
+            {
+                if (medicine.Name.Equals(name))
+                {
+                    medicine.ReasonForDecline = reason;
                     Serializer<Medicine> medicineSerializer = new Serializer<Medicine>();
                     medicineSerializer.toCSV(fileName, medicines);
                     return true;
