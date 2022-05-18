@@ -12,7 +12,7 @@ namespace Project.Hospital.Repository
     {
         private const string NOT_FOUND_ERROR = "Medicine with {0}:{1} can not be found!";
         private const string fileName = "medicine.txt";
-        public Medicine createMedicine(string name, string manufacturer, DateTime expiringDate, string components, string instructionsForUse)
+        public Medicine CreateMedicine(string name, string manufacturer, DateTime expiringDate, string components, string instructionsForUse)
         {
             Serializer<Medicine> medicineSerializer = new Serializer<Medicine>();
             Medicine medicine = new Medicine(name, manufacturer, expiringDate, components, instructionsForUse);
@@ -21,9 +21,9 @@ namespace Project.Hospital.Repository
         }
 
         //TODO
-        public Boolean updateMedicineStatus(string name)
+        public Boolean UpdateMedicineStatus(string name)
         {
-            List<Medicine> medicines = showMedicines();
+            List<Medicine> medicines = ShowMedicines();
 
             foreach (Medicine medicine in medicines)
             {
@@ -39,9 +39,9 @@ namespace Project.Hospital.Repository
         }
 
         //TODO
-        public Boolean setReasonForDeclining(string name, string reason)
+        public Boolean SetReasonForDeclining(string name, string reason)
         {
-            List<Medicine> medicines = showMedicines();
+            List<Medicine> medicines = ShowMedicines();
 
             foreach (Medicine medicine in medicines)
             {
@@ -56,19 +56,19 @@ namespace Project.Hospital.Repository
             return false;
         }
 
-        public List<Medicine> showMedicines()
+        public List<Medicine> ShowMedicines()
         {
             Serializer<Medicine> medicineSerializer = new Serializer<Medicine>();
             List<Medicine> medicines = medicineSerializer.fromCSV(fileName);
             return medicines;
         }
 
-        public Medicine getMedicine(string name)
+        public Medicine GetMedicine(string name)
         {
             try
             {
                 {
-                    return showMedicines().SingleOrDefault(medicine => medicine.Name.Equals(name));
+                    return ShowMedicines().SingleOrDefault(medicine => medicine.Name.Equals(name));
                 }
             }
             catch (ArgumentException)

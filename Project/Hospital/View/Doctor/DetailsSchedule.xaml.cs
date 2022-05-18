@@ -154,7 +154,7 @@ private void updatePatientsMedicalChard(object sender, RoutedEventArgs e)
             switch (result)
             {
                 case MessageBoxResult.Yes:
-                    appointmentController.updateDateTimeAndRoomName(currentAppointment.id, newDateTime, newRoomName);
+                    appointmentController.UpdateDateTimeAndRoomName(currentAppointment.id, newDateTime, newRoomName);
                     break;
                 case MessageBoxResult.No:
                     var detailsSchedule = new DetailsSchedule(currentAppointment);
@@ -170,7 +170,7 @@ private void updatePatientsMedicalChard(object sender, RoutedEventArgs e)
             switch (result)
             {
                 case MessageBoxResult.Yes:
-                    appointmentController.deleteAppointment(currentAppointment.id);
+                    appointmentController.DeleteAppointment(currentAppointment.id);
                     var schedule = new Schedule(currentAppointment.lks);
                     schedule.Show();
                     this.Close();

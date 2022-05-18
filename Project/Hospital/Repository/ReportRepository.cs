@@ -13,16 +13,16 @@ namespace Project.Hospital.Repository
         private const string NOT_FOUND_ERROR = "Report with {0}:{1} can not be found!";
         private const string fileName = "report.txt";
 
-        public Report createReport(string diagnosis, string comment)
+        public Report CreateReport(string diagnosis, string comment)
         {
             Serializer<Report> reportSerializer = new Serializer<Report>();
-            Report report = new Report(showReports().Count, diagnosis, comment);
+            Report report = new Report(ShowReports().Count, diagnosis, comment);
             reportSerializer.oneToCSV(fileName, report);
             return report;
         }
-        public Boolean updateReport(int id, string diagnosis, string comment)
+        public Boolean UpdateReport(int id, string diagnosis, string comment)
         {
-            List<Report> reports = showReports();
+            List<Report> reports = ShowReports();
 
             foreach (Report report in reports)
             {
@@ -37,19 +37,19 @@ namespace Project.Hospital.Repository
             }
             return false;
         }
-        public List<Report> showReports()
+        public List<Report> ShowReports()
         {
             Serializer<Report> reportSerializer = new Serializer<Report>();
             List<Report> reports = reportSerializer.fromCSV(fileName);
             return reports;
         }
 
-        public Report getReport(int id)
+        public Report GetReport(int id)
         {
             try
             {
                 {
-                    return showReports().SingleOrDefault(report => report.Id == id);
+                    return ShowReports().SingleOrDefault(report => report.Id == id);
                 }
             }
             catch (ArgumentException)

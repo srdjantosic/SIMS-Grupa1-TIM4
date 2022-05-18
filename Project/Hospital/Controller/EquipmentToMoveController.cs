@@ -16,8 +16,8 @@ namespace Project.Hospital.Controller
         {
             this.equipmentToMoveService = equipmentToMoveService;
         }
-        public void changeEquipment(String Id, String oldRoomId, String Name, int Quantity, DateTime dateTime, String newRoomID) {
-           equipmentToMoveService.changeEquipment(Id, oldRoomId, Name, Quantity, dateTime, newRoomID); 
+        public void ChangeEquipment(String Id, String oldRoomId, String Name, int Quantity, DateTime dateTime, String newRoomID) {
+           equipmentToMoveService.ChangeEquipment(Id, oldRoomId, Name, Quantity, dateTime, newRoomID); 
         }
         public List<EquipmentToMove> ShowEquipment()
         {

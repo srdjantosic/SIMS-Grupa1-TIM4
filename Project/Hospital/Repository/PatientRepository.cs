@@ -21,7 +21,7 @@ namespace Project.Hospital.Repository
             return GetPatient(patient.Lbo);
         }
 
-        public Boolean createReportAndPrescription(string lbo, int prescriptionId, int reportId)
+        public Boolean CreateReportAndPrescription(string lbo, int prescriptionId, int reportId)
         {
             List<Patient> patients = ShowPatients();
 
@@ -58,7 +58,7 @@ namespace Project.Hospital.Repository
             } throw new NotFoundException(string.Format(NOT_FOUND_ERROR, "lbo", patient.Lbo));
         }
 
-        public Boolean updatePatientsMedicalChard(String lbo, double temperature, int heartRate, String bloodPressure, int weight, int height)
+        public Boolean UpdatePatientsMedicalChard(String lbo, double temperature, int heartRate, String bloodPressure, int weight, int height)
         {
             List<Patient> patients = ShowPatients();
 

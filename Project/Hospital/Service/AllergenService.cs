@@ -18,7 +18,7 @@ namespace Project.Hospital.Service
             this.patientService = patientService;
         }
 
-        public Allergen createAllergen(String name, String lbo)
+        public Allergen CreateAllergen(String name, String lbo)
         {
             
             Patient patient = patientService.GetPatient(lbo);
@@ -40,13 +40,13 @@ namespace Project.Hospital.Service
             
         }
 
-        public List<Allergen> getPatientAllergens(String lbo)
+        public List<Allergen> GetPatientAllergens(String lbo)
         {
             Patient patient = patientService.GetPatient(lbo);
             return patient.getAllergens();
         }
 
-        public bool deletePatientAllergen(String lbo, String name)
+        public bool DeletePatientAllergen(String lbo, String name)
         {
             Patient patient = patientService.GetPatient(lbo);
             foreach(Allergen allergen in patient.getAllergens())

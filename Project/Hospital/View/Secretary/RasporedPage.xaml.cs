@@ -66,7 +66,7 @@ namespace Project.Hospital.View.Secretary
             dt.Columns.Add(pacijent);
             dt.Columns.Add(lekar);
 
-            foreach(Appointment appointment in appointmentController.showAppointments())
+            foreach(Appointment appointment in appointmentController.ShowAppointments())
             {
                 if (!appointment.isDeleted)
                 {
@@ -75,7 +75,7 @@ namespace Project.Hospital.View.Secretary
                     row[1] = appointment.dateTime.ToShortDateString() + " " + appointment.dateTime.ToLongTimeString();
                     Patient patient = patientController.GetPatient(appointment.lbo);
                     row[2] = patient.FirstName + " " + patient.LastName;
-                    Model.Doctor doctor = doctorController.getDoctorByLks(appointment.lks);
+                    Model.Doctor doctor = doctorController.GetDoctorByLks(appointment.lks);
                     row[3] = doctor.firstName + " " + doctor.lastName;
 
                     dt.Rows.Add(row);
@@ -103,7 +103,7 @@ namespace Project.Hospital.View.Secretary
                 DataRowView dataRow = (DataRowView)dataGridAppointments.SelectedItem;
                 int appointment = (int)dataRow.Row.ItemArray[0];
 
-                var page = new DetaljiOPregleduPage(appointmentController.getAppintment(appointment));
+                var page = new DetaljiOPregleduPage(appointmentController.GetAppintment(appointment));
                 NavigationService.Navigate(page);
             }
         }

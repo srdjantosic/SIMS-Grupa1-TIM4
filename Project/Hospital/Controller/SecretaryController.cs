@@ -15,9 +15,9 @@ namespace Project.Hospital.Controller
         {
             this.secretaryService = secretaryService;
         }
-        public Secretary getByEmailAndPassword(String email, String password)
+        public Secretary GetByEmailAndPassword(String email, String password)
         {
-            return secretaryService.getByEmailAndPassword(email, password);
+            return secretaryService.GetByEmailAndPassword(email, password);
         }
 
     }

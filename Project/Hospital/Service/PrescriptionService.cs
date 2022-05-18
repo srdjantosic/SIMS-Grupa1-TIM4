@@ -21,36 +21,36 @@ namespace Project.Hospital.Service
             this.patientRepository = patientRepository;
         }
 
-        public Prescription createPrescription(string lbo, Prescription newPrescription)
+        public Prescription CreatePrescription(string lbo, Prescription newPrescription)
         {
             if(isValid(lbo, newPrescription) == false)
             {
                 return null;
             }
 
-            return prescriptionRepository.createPrescription(newPrescription);
+            return prescriptionRepository.CreatePrescription(newPrescription);
         }
 
-        public Boolean updatePrescription(string lbo, Prescription prescriptionToUpdate)
+        public Boolean UpdatePrescription(string lbo, Prescription prescriptionToUpdate)
         {
             if(isValid(lbo, prescriptionToUpdate) == false)
             {
                 return false;
             }
 
-            prescriptionRepository.updatePrescription(prescriptionToUpdate);
+            prescriptionRepository.UpdatePrescription(prescriptionToUpdate);
 
             return true;
         }
 
-        public List<Prescription> showPrescriptions()
+        public List<Prescription> ShowPrescriptions()
         {
-            return prescriptionRepository.showPrescriptions();
+            return prescriptionRepository.ShowPrescriptions();
         }
 
-        public Prescription getPrescription(int id)
+        public Prescription GetPrescription(int id)
         {
-            return prescriptionRepository.getPrescription(id);
+            return prescriptionRepository.GetPrescription(id);
         }
 
         public Boolean isValid(string lbo, Prescription prescription)

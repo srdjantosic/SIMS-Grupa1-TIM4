@@ -75,14 +75,14 @@ namespace Project.Hospital.View.Secretary
             dt.Columns.Add(datumVreme);
             dt.Columns.Add(lekar);
 
-            foreach (Appointment appointment in appointmentController.getAllAvailableAppointments(patient, pocIntervala, krajIntervala))
+            foreach (Appointment appointment in appointmentController.GetAllAvailableAppointments(patient, pocIntervala, krajIntervala))
             {
                 if (!appointment.isDeleted)
                 {
                     DataRow row = dt.NewRow();
                     row[0] = appointment.id;
                     row[1] = appointment.dateTime.ToShortDateString() + " " + appointment.dateTime.ToLongTimeString();
-                    Model.Doctor doctor = doctorController.getDoctorByLks(appointment.lks);
+                    Model.Doctor doctor = doctorController.GetDoctorByLks(appointment.lks);
                     row[2] = doctor.firstName + " " + doctor.lastName;
 
                     dt.Rows.Add(row);
@@ -105,9 +105,9 @@ namespace Project.Hospital.View.Secretary
                 DateTime vreme = DateTime.Parse((string)dataRow.Row.ItemArray[1]);
                 string[] lekar = ((string)dataRow.Row.ItemArray[2]).Split(" ");
 
-                Model.Doctor doctor = doctorController.getDoctorByName(lekar[0], lekar[1]);
+                Model.Doctor doctor = doctorController.GetDoctorByName(lekar[0], lekar[1]);
 
-                Appointment appointment = appointmentController.createAppointment(vreme, doctor.lks, patient.Lbo, doctor.roomName);
+                Appointment appointment = appointmentController.CreateAppointment(vreme, doctor.lks, patient.Lbo, doctor.roomName);
                 if (appointment != null)
                 {
                     var page = new RasporedPage();

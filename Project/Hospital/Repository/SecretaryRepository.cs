@@ -11,7 +11,7 @@ namespace Project.Hospital.Repository
     {
         public SecretaryRepository() { }
 
-        public List<Secretary> getAll()
+        public List<Secretary> GetAll()
         {
             List<Secretary> secretaries = new List<Secretary>();
             Serializer<Secretary> serializer = new Serializer<Secretary>();
@@ -19,9 +19,9 @@ namespace Project.Hospital.Repository
             return secretaries;
         }
 
-        public Secretary getByEmailAndPassword(String email, String password)
+        public Secretary GetByEmailAndPassword(String email, String password)
         {
-            return getAll().SingleOrDefault(secretary => secretary.Email == email && secretary.Password == password);
+            return GetAll().SingleOrDefault(secretary => secretary.Email == email && secretary.Password == password);
         }
     }
 }

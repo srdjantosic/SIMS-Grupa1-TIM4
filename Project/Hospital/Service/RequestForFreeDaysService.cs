@@ -20,32 +20,32 @@ namespace Project.Hospital.Service
             this.doctorService = doctorService;
         }
 
-        public RequestForFreeDays createRequestForFreeDays(RequestForFreeDays newRequestForFreeDays)
+        public RequestForFreeDays CreateRequestForFreeDays(RequestForFreeDays newRequestForFreeDays)
         {
             if(newRequestForFreeDays.isEmergency == true)
             {
-                return requestForFreeDaysRepository.createRequestForFreeDays(newRequestForFreeDays);
+                return requestForFreeDaysRepository.CreateRequestForFreeDays(newRequestForFreeDays);
             }
 
-            if (countDoctorsInSameMedicineArea(doctorService.getDoctorByLks(newRequestForFreeDays.Lks).medicineArea) > 1){
+            if (CountDoctorsInSameMedicineArea(doctorService.GetDoctorByLks(newRequestForFreeDays.Lks).medicineArea) > 1){
                 return null;
             }
 
-            return requestForFreeDaysRepository.createRequestForFreeDays(newRequestForFreeDays);
+            return requestForFreeDaysRepository.CreateRequestForFreeDays(newRequestForFreeDays);
         }
 
-        public List<RequestForFreeDays> showRequestsForFreeDays()
+        public List<RequestForFreeDays> ShowRequestsForFreeDays()
         {
-            return requestForFreeDaysRepository.showRequestsForFreeDays();
+            return requestForFreeDaysRepository.ShowRequestsForFreeDays();
         }
 
-        public int countDoctorsInSameMedicineArea(string medicineArea)
+        public int CountDoctorsInSameMedicineArea(string medicineArea)
         {
             int numberOfDoctors = 0;
 
-            foreach (RequestForFreeDays requestForFreeDays in showRequestsForFreeDays())
+            foreach (RequestForFreeDays requestForFreeDays in ShowRequestsForFreeDays())
             {
-                if (isMedicineAreasEquals(medicineArea, doctorService.getDoctorByLks(requestForFreeDays.Lks).medicineArea) && isRequestAcceptedOrOnHold(requestForFreeDays))
+                if (isMedicineAreasEquals(medicineArea, doctorService.GetDoctorByLks(requestForFreeDays.Lks).medicineArea) && isRequestAcceptedOrOnHold(requestForFreeDays))
                     numberOfDoctors++;
             }
             return numberOfDoctors;

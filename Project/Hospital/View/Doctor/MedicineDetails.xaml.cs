@@ -39,7 +39,7 @@ namespace Project.Hospital.View.Doctor
             InitializeComponent();
             this.DataContext = this;
 
-            Medicine medicineToShow = medicineController.getMedicine(medicine.Name);
+            Medicine medicineToShow = medicineController.GetMedicine(medicine.Name);
 
             tbMedicineContain.Text = medicineToShow.Components;
             tbInstrucions.Text = medicineToShow.InstructionsForUse;
@@ -52,7 +52,7 @@ namespace Project.Hospital.View.Doctor
             switch (result)
             {
                 case MessageBoxResult.Yes:
-                    medicineController.updateMedicineStatus(currentMedicine.Name);
+                    medicineController.UpdateMedicineStatus(currentMedicine.Name);
                     var medicines = new Medicines(loggedDoctor);
                     medicines.Show();
                     this.Close();

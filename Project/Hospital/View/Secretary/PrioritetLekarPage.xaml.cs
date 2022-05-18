@@ -57,7 +57,7 @@ namespace Project.Hospital.View.Secretary
             dt.Columns.Add(id);
             dt.Columns.Add(datumVreme);
            
-            foreach (Appointment appointment in appointmentController.getAvailableAppointments(doctor, patient, pocIntervala, krajIntervala))
+            foreach (Appointment appointment in appointmentController.GetAvailableAppointments(doctor, patient, pocIntervala, krajIntervala))
             {
                 if (!appointment.isDeleted)
                 {
@@ -85,7 +85,7 @@ namespace Project.Hospital.View.Secretary
 
                 DateTime vreme = DateTime.Parse((string)dataRow.Row.ItemArray[1]);
 
-                Appointment newAppointment = appointmentController.createAppointment(vreme, doctor.lks, patient.Lbo, doctor.roomName);
+                Appointment newAppointment = appointmentController.CreateAppointment(vreme, doctor.lks, patient.Lbo, doctor.roomName);
                 if (newAppointment != null)
                 {
                     var page = new RasporedPage();

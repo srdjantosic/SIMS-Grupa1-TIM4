@@ -59,7 +59,7 @@ namespace Project.Hospital.View.Secretary
                 tbPacijent.Text = patient.FirstName + " " + patient.LastName;
             }
 
-            Model.Doctor doctor = doctorController.getDoctorByLks(appointment.lks);
+            Model.Doctor doctor = doctorController.GetDoctorByLks(appointment.lks);
             if(doctor != null)
             {
                 tbLekar.Text = doctor.firstName + " " + doctor.lastName + " (" + doctor.medicineArea + ") ";
@@ -74,7 +74,7 @@ namespace Project.Hospital.View.Secretary
 
         private void obrisi(object sender, RoutedEventArgs e)
         {
-            if (appointmentController.deleteAppointment(Appointment.id))
+            if (appointmentController.DeleteAppointment(Appointment.id))
             {
                 var page = new RasporedPage();
                 NavigationService.Navigate(page);

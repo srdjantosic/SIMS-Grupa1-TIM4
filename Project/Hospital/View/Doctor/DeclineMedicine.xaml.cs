@@ -40,7 +40,7 @@ namespace Project.Hospital.View.Doctor
             InitializeComponent();
             this.DataContext = this;
 
-            tbSet.Text = medicineController.getMedicine(medicine.Name).ReasonForDecline;
+            tbSet.Text = medicineController.GetMedicine(medicine.Name).ReasonForDecline;
         }
 
         private void btnSet(object sender, RoutedEventArgs e)
@@ -55,7 +55,7 @@ namespace Project.Hospital.View.Doctor
                     }
                     else
                     {
-                        medicineController.setReasonForDeclining(currentMedicine.Name, tbSet.Text);
+                        medicineController.SetReasonForDeclining(currentMedicine.Name, tbSet.Text);
                         var medicines = new Medicines(loggedDoctor);
                         medicines.Show();
                         this.Close();

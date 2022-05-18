@@ -20,29 +20,29 @@ namespace Project.Hospital.Service
         }
 
         //TODO
-        public Boolean updateMedicineStatus(string name)
+        public Boolean UpdateMedicineStatus(string name)
         {
-            return medicineRepository.updateMedicineStatus(name);
+            return medicineRepository.UpdateMedicineStatus(name);
         }
 
         //TODO
-        public Boolean setReasonForDeclining(string name, string reason)
+        public Boolean SetReasonForDeclining(string name, string reason)
         {
-            return medicineRepository.setReasonForDeclining(name, reason);
+            return medicineRepository.SetReasonForDeclining(name, reason);
         }
 
 
-        public List<Medicine> showMedicines()
+        public List<Medicine> ShowMedicines()
         {
-            return medicineRepository.showMedicines();
+            return medicineRepository.ShowMedicines();
         }
 
         //TODO
-        public List<Medicine> showUnverifiedMedicines()
+        public List<Medicine> ShowUnverifiedMedicines()
         {
             List<Medicine> medicines = new List<Medicine>();
 
-            foreach(Medicine medicine in showMedicines())
+            foreach(Medicine medicine in ShowMedicines())
             {
                 if(medicine.isActive == false)
                 {
@@ -52,9 +52,9 @@ namespace Project.Hospital.Service
             return medicines;
         }
 
-        public Medicine getMedicine(string name)
+        public Medicine GetMedicine(string name)
         {
-            return medicineRepository.getMedicine(name);
+            return medicineRepository.GetMedicine(name);
         }
     }
 }

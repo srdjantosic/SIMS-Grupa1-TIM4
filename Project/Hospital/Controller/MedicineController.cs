@@ -19,31 +19,31 @@ namespace Project.Hospital.Controller
         }
 
         //TODO
-        public Boolean updateMedicineStatus(string name)
+        public Boolean UpdateMedicineStatus(string name)
         {
-            return medicineService.updateMedicineStatus(name);
+            return medicineService.UpdateMedicineStatus(name);
         }
 
         //TODO
-        public Boolean setReasonForDeclining(string name, string reason)
+        public Boolean SetReasonForDeclining(string name, string reason)
         {
-            return medicineService.setReasonForDeclining(name, reason);
+            return medicineService.SetReasonForDeclining(name, reason);
         }
 
-        public List<Medicine> showMedicines()
+        public List<Medicine> ShowMedicines()
         {
-            return medicineService.showMedicines();
+            return medicineService.ShowMedicines();
         }
 
         //TODO
-        public List<Medicine> showUnverifiedMedicines()
+        public List<Medicine> ShowUnverifiedMedicines()
         {
-            return medicineService.showUnverifiedMedicines();
+            return medicineService.ShowUnverifiedMedicines();
         }
 
-        public Medicine getMedicine(string name)
+        public Medicine GetMedicine(string name)
         {
-            return medicineService.getMedicine(name);
+            return medicineService.GetMedicine(name);
         }
     }
 }
