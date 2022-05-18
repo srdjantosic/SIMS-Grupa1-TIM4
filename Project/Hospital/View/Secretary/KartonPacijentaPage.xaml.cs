@@ -5,6 +5,7 @@ using Project.Hospital.Service;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Data;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -35,6 +36,9 @@ namespace Project.Hospital.View.Secretary
         public KartonPacijentaPage(Patient patient)
         {
             InitializeComponent();
+
+            btnDodavanjeAlergena.Focus();
+
             this.patientRepository = new PatientRepository();
             this.patientService = new PatientService(patientRepository);
             this.patientController = new PatientController(patientService);
@@ -64,7 +68,7 @@ namespace Project.Hospital.View.Secretary
                 }
             }
         }
-
+        
         private void dodavanjeAlergena(object sender, RoutedEventArgs e)
         {
             var dodavanjeAlergena = new DodavanjeAlergena(Patient);
@@ -90,5 +94,22 @@ namespace Project.Hospital.View.Secretary
             PacijentiPage page = new PacijentiPage();
             NavigationService.Navigate(page);
         }
+        private void Right_CanExecute(object sender, CanExecuteRoutedEventArgs e)
+        {
+            e.CanExecute = true;
+        }
+        private void Right_Executed(object sender, ExecutedRoutedEventArgs e)
+        {
+            btnDodavanjeAlergena.Focus();
+        }
+        private void Left_CanExecute(object sender, CanExecuteRoutedEventArgs e)
+        {
+            e.CanExecute = true;
+        }
+        private void Left_Executed(object sender, ExecutedRoutedEventArgs e)
+        {
+            dataGridPatientAllergens.Focus();
+        }
+
     }
 }

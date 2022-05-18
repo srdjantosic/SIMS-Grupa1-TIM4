@@ -3,11 +3,20 @@
       xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:cmd="clr-namespace:Project.Hospital.View.Secretary.Commands"
       xmlns:local="clr-namespace:Project.Hospital.View.Secretary"
       mc:Ignorable="d" 
       d:DesignHeight="768" d:DesignWidth="824"
       Title="PacijentiPage">
 
+    <Page.CommandBindings>
+        <CommandBinding Command="cmd:RoutedCommand.Right" CanExecute="Right_CanExecute" Executed="Right_Executed"></CommandBinding>
+        <CommandBinding Command="cmd:RoutedCommand.Left" CanExecute="Left_CanExecute" Executed="Left_Executed"></CommandBinding>
+        <CommandBinding Command="cmd:RoutedCommand.Select" CanExecute="Select_CanExecute" Executed="Select_Executed"></CommandBinding>
+        <CommandBinding Command="cmd:RoutedCommand.Up" CanExecute="Up_CanExecute" Executed="Up_Executed"></CommandBinding>
+        <CommandBinding Command="cmd:RoutedCommand.Down" CanExecute="Down_CanExecute" Executed="Down_Executed"></CommandBinding>
+    </Page.CommandBindings>
+    
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto"></RowDefinition>
@@ -20,12 +29,12 @@
                     <RowDefinition></RowDefinition>
                 </Grid.RowDefinitions>
                 <TextBlock Grid.Row="0" FontSize="38" Padding="30,20">Pacijenti</TextBlock>
-                <TextBox Grid.Row="1" Name="txtSearch" Height="25" Width="400" Margin="25,32,125,32" VerticalContentAlignment="Center" TextChanged="TextBox_TextChanged" PreviewKeyDown="txtSearch_PreviewKeyDown"></TextBox>
+                <TextBox Grid.Row="1" Name="txtSearch" Height="25" Width="400" Margin="25,32,125,32" VerticalContentAlignment="Center" TextChanged="TextBox_TextChanged" KeyDown="txtSearch_KeyDown"></TextBox>
             </Grid>
-            <Button DockPanel.Dock="Right" FontSize="18" Height="80" Margin="30" Click="kreiranjeNovogNaloga">Kreiranje novog naloga</Button>
+            <Button DockPanel.Dock="Right" Name="btnKreiranjeNovogNaloga" FontSize="18" Height="80" Margin="30" Click="kreiranjeNovogNaloga">Kreiranje novog naloga</Button>
         </DockPanel>
         <DataGrid Grid.Row="1" x:Name="dataGridPatients" HorizontalAlignment="Left"
-                      VerticalAlignment="Top" Width="790" Height="500" Loaded="dataGridPatients_Loaded" MouseDoubleClick="dataGridPatients_MouseDoubleClick" Margin="10,0,0,0">
+                      VerticalAlignment="Top" Width="790" Height="500" Loaded="dataGridPatients_Loaded" Margin="10,0,0,0" IsReadOnly="True">
 
         </DataGrid>
     </Grid>

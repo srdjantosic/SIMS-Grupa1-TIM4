@@ -1,0 +1,34 @@
+﻿<Window x:Class="Project.Hospital.View.Secretary.KreiranjeZahtevaZaNabavku"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:Project.Hospital.View.Secretary"
+        mc:Ignorable="d"
+        Title="KreiranjeZahtevaZaNabavku" Height="500" Width="450">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition></RowDefinition>
+            <RowDefinition></RowDefinition>
+            <RowDefinition></RowDefinition>
+            <RowDefinition></RowDefinition>
+            <RowDefinition></RowDefinition>
+            <RowDefinition></RowDefinition>
+        </Grid.RowDefinitions>
+        <TextBlock Grid.Row="0" FontSize="22" FontWeight="Bold" Padding="50, 50">Kreiranje zahteva za nabavku</TextBlock>
+        <DockPanel Grid.Row="1">
+            <Label DockPanel.Dock="Top" FontSize="18" Width="250" HorizontalAlignment="Center" Margin="0,15,0,0">Sifra opreme :</Label>
+            <TextBox HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Height="25" Width="250" FontSize="16" Name="sifraOpreme"/>
+        </DockPanel>
+        <DockPanel Grid.Row="2">
+            <Label DockPanel.Dock="Top" FontSize="18" Width="250" HorizontalAlignment="Center" Margin="0,15,0,0">Naziv opreme :</Label>
+            <TextBox HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Height="25" Width="250" FontSize="16" Name="nazivOpreme"/>
+        </DockPanel>
+        <DockPanel Grid.Row="3">
+            <Label DockPanel.Dock="Top" FontSize="18" Width="250" HorizontalAlignment="Center" Margin="0,15,0,0">Kolicina :</Label>
+            <TextBox HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Height="25" Width="250" FontSize="16" Name="kolicinaBox"/>
+        </DockPanel>
+        <Button Grid.Row="4" VerticalAlignment="Bottom" Height="40" FontSize="16" Click="odustani" Margin="103,0,247,0" Name="btnOdustani">Odustani</Button>
+        <Button Grid.Row="4" VerticalAlignment="Bottom" Height="40" FontSize="16" Click="kreiraj" Margin="254,0,96,0" Name="btnKreiraj">Kreiraj</Button>
+    </Grid>
+</Window>

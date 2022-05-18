@@ -72,6 +72,8 @@ namespace Project.Hospital.View.Secretary
             this.dataGridPatients.Columns[1].Width = 236;
             this.dataGridPatients.Columns[2].Width = 118;
             this.dataGridPatients.Columns[3].Width = 118;
+
+            
         }
 
         private void kreiranjeNovogNaloga(object sender, RoutedEventArgs e)
@@ -107,24 +109,76 @@ namespace Project.Hospital.View.Secretary
             dataGridPatients.ItemsSource = dv;
         }
 
-        private void txtSearch_PreviewKeyDown(object sender, KeyEventArgs e)
+        private void Right_CanExecute(object sender, CanExecuteRoutedEventArgs e)
         {
-            switch(e.Key)
+            e.CanExecute = true;
+        }
+
+        private void Right_Executed(object sender, ExecutedRoutedEventArgs e)
+        {
+            if (txtSearch.Focus())
             {
-                case Key.Right:
-                    MessageBox.Show("Desno");
-                    break;
-                case Key.Left:
-                    MessageBox.Show("Levo");
-                    break;
-                case Key.Up:
-                    MessageBox.Show("Gore");
-                    break;
-                case Key.Down:
-                    MessageBox.Show("Dole");
-                    break;
+                btnKreiranjeNovogNaloga.Focus();
+            }
+        }
 
+        private void Left_CanExecute(object sender, CanExecuteRoutedEventArgs e)
+        {
+            e.CanExecute = true;
+        }
 
+        private void Left_Executed(object sender, ExecutedRoutedEventArgs e)
+        {
+            if (btnKreiranjeNovogNaloga.Focus())
+            {
+                txtSearch.Focus();
+            }
+        }
+        private void Select_CanExecute(object sender, CanExecuteRoutedEventArgs e)
+        {
+            e.CanExecute = true;
+        }
+
+        private void Select_Executed(object sender, ExecutedRoutedEventArgs e)
+        {
+            if (dataGridPatients.SelectedItem != null)
+            {
+                DataRowView dataRow = (DataRowView)dataGridPatients.SelectedItem;
+                string lbo = (string)dataRow.Row.ItemArray[0];
+                Patient patient = patientController.GetPatient(lbo);
+                if (patient != null)
+                {
+                    var page = new KartonPacijentaPage(patient);
+                    NavigationService.Navigate(page);
+                }
+            }
+        }
+        private void Up_CanExecute(object sender, CanExecuteRoutedEventArgs e)
+        {
+            e.CanExecute = true;
+        }
+
+        private void Up_Executed(object sender, ExecutedRoutedEventArgs e)
+        {
+            txtSearch.Focus();
+        }
+
+        private void Down_CanExecute(object sender, CanExecuteRoutedEventArgs e)
+        {
+            e.CanExecute = true;
+        }
+
+        private void Down_Executed(object sender, ExecutedRoutedEventArgs e)
+        {
+            dataGridPatients.Focus();
+            
+        }
+
+        private void txtSearch_KeyDown(object sender, KeyEventArgs e)
+        {
+            if(e.Key == Key.Enter)
+            {
+                dataGridPatients.Focus();
             }
         }
     }

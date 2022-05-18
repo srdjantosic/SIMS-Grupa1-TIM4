@@ -11,6 +11,8 @@
 
     <Page.CommandBindings>
         <CommandBinding Command="cmd:RoutedCommand.Back" CanExecute="Back_CanExecute" Executed="Back_Executed"></CommandBinding>
+        <CommandBinding Command="cmd:RoutedCommand.Left" CanExecute="Left_CanExecute" Executed="Left_Executed"></CommandBinding>
+        <CommandBinding Command="cmd:RoutedCommand.Right" CanExecute="Right_CanExecute" Executed="Right_Executed"></CommandBinding>
     </Page.CommandBindings>
     
     <Grid>
@@ -102,7 +104,7 @@
                         </DataGrid.Columns>
                     </DataGrid>
                     <Grid Grid.Column="1">
-                        <Button Width="180" Height="60" FontSize="16" Click="dodavanjeAlergena" Margin="0,44,0,127">Dodavanje alergena</Button>
+                        <Button Width="180" Height="60" FontSize="16" Click="dodavanjeAlergena" Margin="0,44,0,127" Name="btnDodavanjeAlergena">Dodavanje alergena</Button>
                     </Grid>
                 </Grid>
             </GroupBox>

@@ -36,6 +36,19 @@ namespace Project.Hospital.Service
         {
             return doctorRepository.getDoctorByEmailAndPassword(email, password);
         }
+
+        public List<Doctor> GetDoktorsFromGivenArea(String area)
+        {
+            List<Doctor> doctorsByArea = new List<Doctor>();
+            foreach(Doctor doctor in getAll())
+            {
+                if(doctor.medicineArea == area)
+                {
+                    doctorsByArea.Add(doctor);
+                }
+            }
+            return doctorsByArea;
+        }
         
     }
 }

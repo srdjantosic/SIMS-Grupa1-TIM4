@@ -49,10 +49,24 @@ namespace Project.Hospital.View.Secretary
             this.Close();
         }
 
-        private void btn_GotFocus(object sender, RoutedEventArgs e)
+        private void WrapPanel_PreviewKeyDown(object sender, KeyEventArgs e)
         {
-            Button btn = e.Source as Button;
-            btn.Background = Brushes.CadetBlue;
+            switch(e.Key)
+            {
+                case Key.Down:
+                    this.MoveFocus(new TraversalRequest(FocusNavigationDirection.Down));
+                    break;
+                case Key.Up:
+                    this.MoveFocus(new TraversalRequest(FocusNavigationDirection.Up));
+                    break;
+                default:
+                    break;
+            }
+        }
+
+        private void oprema(object sender, RoutedEventArgs e)
+        {
+            Prozor.Content = new OpremaPage();
         }
     }
 }
