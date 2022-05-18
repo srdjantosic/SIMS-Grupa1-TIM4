@@ -40,7 +40,7 @@ namespace Project.Hospital.Service
         public List<Doctor> GetDoktorsFromGivenArea(String area)
         {
             List<Doctor> doctorsByArea = new List<Doctor>();
-            foreach(Doctor doctor in getAll())
+            foreach(Doctor doctor in GetAll())
             {
                 if(doctor.medicineArea == area)
                 {

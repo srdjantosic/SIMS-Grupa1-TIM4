@@ -211,7 +211,7 @@ namespace Hospital.Service
 
             foreach(Doctor doctor in doctorService.GetDoktorsFromGivenArea(area))
             {
-                foreach(Appointment appointment in getAvailableAppointments(doctor, patient, DateTime.Now, DateTime.Now.AddHours(1)))
+                foreach(Appointment appointment in GetAvailableAppointments(doctor, patient, DateTime.Now, DateTime.Now.AddHours(1)))
                 {
                     allAvailableAppointments.Add(appointment);
                 }
