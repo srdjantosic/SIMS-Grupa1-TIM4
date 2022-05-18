@@ -4,7 +4,6 @@
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
       xmlns:cmd="clr-namespace:Project.Hospital.View.Secretary.Commands"
-      xmlns:local="clr-namespace:Project.Hospital.View.Secretary"
       mc:Ignorable="d" 
       d:DesignHeight="768" d:DesignWidth="824"
       Title="KreiranjeNovogNalogaPage">
@@ -51,8 +50,8 @@
             <DockPanel Grid.Row="3" Grid.Column="0">
                 <Label DockPanel.Dock="Top" FontSize="18" Height="30" Width="250" HorizontalAlignment="Center" Margin="100,25,0,0">Pol :</Label>
                 <WrapPanel HorizontalAlignment="Center" Height="30" Width="250"  Margin="100,0,0,0" Orientation="Horizontal">
-                    <RadioButton Name="rb1" Width="100" FontSize="16" Margin="5,10,0,0">Z</RadioButton>
-                    <RadioButton Name="rb2" Width="100" FontSize="16" Margin="5,10,0,0">M</RadioButton>
+                    <RadioButton Name="rb1" Width="100" FontSize="16" Margin="5,10,0,0" KeyDown="rb1_KeyDown">Z</RadioButton>
+                    <RadioButton Name="rb2" Width="100" FontSize="16" Margin="5,10,0,0" KeyDown="rb2_KeyDown">M</RadioButton>
                 </WrapPanel>
             </DockPanel>
             <DockPanel Grid.Row="4" Grid.Column="0">
@@ -69,7 +68,8 @@
             </DockPanel>
             <DockPanel Grid.Row="1" Grid.Column="1">
                 <Label DockPanel.Dock="Top" FontSize="18" Height="30" Width="250" HorizontalAlignment="Center" Margin="0,30,100,0">Email :</Label>
-                <TextBox HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Height="25" Width="250" FontSize="16" Margin="0,0,100,0" Name="emailBox"></TextBox>
+                <TextBox HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Height="25" Width="250" FontSize="16" Margin="0,0,100,0" Name="emailBox">
+                </TextBox>
             </DockPanel>
             <DockPanel Grid.Row="2" Grid.Column="1">
                 <Label DockPanel.Dock="Top" FontSize="18" Height="30" Width="250" HorizontalAlignment="Center" Margin="0,30,100,0">Drzava :</Label>

@@ -38,6 +38,7 @@ namespace Project.Hospital.View.Secretary
             this.allergenController = new AllergenController(allergenService);
             InitializeComponent();
             this.patient = patient;
+            nazivAlergenaBox.Focus();
         }
 
         private void odustani(object sender, RoutedEventArgs e)
@@ -60,8 +61,63 @@ namespace Project.Hospital.View.Secretary
 
                 if (allergen != null)
                 {
-                    this.Close();
+                    this.Close();  
                 }
+            }
+        }
+
+        private void nazivAlergenaBox_KeyDown(object sender, KeyEventArgs e)
+        {
+            if(e.Key == Key.Enter)
+            {
+                btnDodaj.Focus();
+            }
+        }
+        private void Right_CanExecute(object sender, CanExecuteRoutedEventArgs e)
+        {
+            e.CanExecute = true;
+        }
+
+        private void Right_Executed(object sender, ExecutedRoutedEventArgs e)
+        {
+            if (btnOdustani.Focus())
+            {
+                btnDodaj.Focus();
+            }
+        }
+
+        private void Left_CanExecute(object sender, CanExecuteRoutedEventArgs e)
+        {
+            e.CanExecute = true;
+        }
+
+        private void Left_Executed(object sender, ExecutedRoutedEventArgs e)
+        {
+            if (btnDodaj.Focus())
+            {
+                btnOdustani.Focus();
+            }
+        }
+        private void Up_CanExecute(object sender, CanExecuteRoutedEventArgs e)
+        {
+            e.CanExecute = true;
+        }
+
+        private void Up_Executed(object sender, ExecutedRoutedEventArgs e)
+        {
+            nazivAlergenaBox.Focus();
+        }
+
+        private void Down_CanExecute(object sender, CanExecuteRoutedEventArgs e)
+        {
+            e.CanExecute = true;
+        }
+
+        private void Down_Executed(object sender, ExecutedRoutedEventArgs e)
+        {
+            if (nazivAlergenaBox.Focus())
+            {
+                btnDodaj.Focus();
             }
         }
     }

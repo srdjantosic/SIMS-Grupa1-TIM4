@@ -5,6 +5,7 @@ using System;
 using System.Collections.Generic;
 using Project.Hospital.Service;
 using Project.Hospital.Model;
+using System.Linq;
 
 namespace Hospital.Service
 {
@@ -201,6 +202,26 @@ namespace Hospital.Service
                 }
             }
             return true;
+        }
+
+        //Za hitan slucaj
+        public Appointment GetFirstAlailableAppointment(Patient patient, String area)
+        {
+            List<Appointment> allAvailableAppointments = new List<Appointment>();
+
+            foreach(Doctor doctor in doctorService.GetDoktorsFromGivenArea(area))
+            {
+                foreach(Appointment appointment in getAvailableAppointments(doctor, patient, DateTime.Now, DateTime.Now.AddHours(1)))
+                {
+                    allAvailableAppointments.Add(appointment);
+                }
+            }
+            return SortingAppointments(allAvailableAppointments).First();
+        }
+
+        public List<Appointment> SortingAppointments(List<Appointment> appointments)
+        {
+            return appointments.OrderBy(o => o.dateTime).ToList();
         }
     }
 

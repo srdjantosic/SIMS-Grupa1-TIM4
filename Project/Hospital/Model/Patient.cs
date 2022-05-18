@@ -78,11 +78,13 @@ namespace Project.Hospital.Model
 
             List<string> idsOfReportPrescription = values[17].Split(',').ToList();
 
-            if (idsOfReportPrescription.Count > 1)
+            if (idsOfReportPrescription.Count%2==0)
             {
                 foreach (string idOfReportPrescription in idsOfReportPrescription)
                 {
+
                     reportPrescriptinIds.Add(int.Parse(idOfReportPrescription));
+
                 }
             }
 
