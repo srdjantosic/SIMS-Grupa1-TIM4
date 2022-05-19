@@ -80,7 +80,7 @@ namespace Project.Hospital.View.Secretary
             {
                 string dateTime = dpDatum.Text + " " + tbVreme.Text;
                 DateTime newDateTime = DateTime.Parse(dateTime);
-                if(appointmentController.isNewDateTimeAvailable(Appointment, newDateTime))
+                if(appointmentController.IsNewDateTimeAvailable(Appointment, newDateTime))
                 {
                     if(appointmentController.UpdateAppointment(newDateTime, Appointment.id))
                     {

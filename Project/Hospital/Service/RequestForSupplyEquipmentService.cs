@@ -31,10 +31,8 @@ namespace Project.Hospital.Service
         }
         public RequestForSupplyEquipment CreateRequest(String id, String name, int quantity)
         {
-            //Equipment procurementEquipment = equipmentService.GetSpendableEquipmentByName(name);
-            RequestForSupplyEquipment requestForSupply = GetRequestById(id);
-
-            if(requestForSupply == null)
+            
+            if(GetRequestById(id) == null)
             {
                 DateTime createdDate = DateTime.Now;
                 return requestForSupplyEquipmentRepository.CreateRequest(name, id, quantity, createdDate);
