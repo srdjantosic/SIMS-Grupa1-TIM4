@@ -175,7 +175,7 @@ namespace Hospital.Service
 
         public bool isAvailable(Doctor doctor, Appointment newAvailableAppointment)
         {
-            List<Appointment> appointments = getAppointmentsByLks(doctor.lks);
+            List<Appointment> appointments = GetAppointmentsByLks(doctor.lks);
 
             foreach (Appointment appointment in appointments)
             {
@@ -243,7 +243,7 @@ namespace Hospital.Service
 
             foreach (Doctor doctor in doctorService.GetDoktorsFromGivenArea(area))
             {
-                List<Appointment> appointments = getAppointmentsByLks(doctor.lks);
+                List<Appointment> appointments = GetAppointmentsByLks(doctor.lks);
                 foreach (Appointment appointment in appointments)
                 {
                     if(DateTime.Compare(appointment.dateTime, receptionTime) > 0 && DateTime.Compare(appointment.dateTime, receptionTime.AddHours(1)) < 0)
@@ -265,7 +265,7 @@ namespace Hospital.Service
         public Appointment GetFirstAvailableAppointment(Appointment appointment)
         {
             Patient patient = patientService.GetPatient(appointment.lbo);
-            Doctor doctor = doctorService.getDoctorByLks(appointment.lks);
+            Doctor doctor = doctorService.GetDoctorByLks(appointment.lks);
             DateTime start = appointment.dateTime.AddDays(1);
             DateTime end = appointment.dateTime.AddDays(10);
             List<Appointment> availableAppointments = GetAvailableAppointments(doctor, patient, start, end);
