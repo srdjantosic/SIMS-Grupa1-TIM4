@@ -212,6 +212,11 @@ private void updatePatientsMedicalChard(object sender, RoutedEventArgs e)
             this.Close();
         }
 
+        private void btnCreateAppointmentForAnotherDoctor(object sender, RoutedEventArgs e)
+        {
+
+        }
+
 
         private void btnLogOut(object sender, RoutedEventArgs e)
         {
@@ -220,6 +225,11 @@ private void updatePatientsMedicalChard(object sender, RoutedEventArgs e)
             this.Close();
         }
 
-
+        private void btnCreateAppointment(object sender, RoutedEventArgs e)
+        {
+            var createAppointmentForAnotherDoctor = new CreateAppointmentForAnotherDoctor(currentAppointment.lks, currentAppointment.lbo);
+            createAppointmentForAnotherDoctor.Show();
+            this.Close();
+        }
     }
 }

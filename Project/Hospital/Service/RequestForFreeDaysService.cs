@@ -23,16 +23,16 @@ namespace Project.Hospital.Service
             this.appointmentService = appointmentService;
         }
 
-        public List<RequestForFreeDays> ShowRequestsForFreeDays()
+        public List<RequestForFreeDays> ShowRequests()
         {
-            return requestForFreeDaysRepository.ShowRequestsForFreeDays();
+            return requestForFreeDaysRepository.ShowRequests();
         }
 
-        public RequestForFreeDays CreateRequestForFreeDays(RequestForFreeDays newRequestForFreeDays)
+        public RequestForFreeDays CreateRequest(RequestForFreeDays newRequestForFreeDays)
         {
             if(newRequestForFreeDays.isEmergency == true)
             {
-                return requestForFreeDaysRepository.CreateRequestForFreeDays(newRequestForFreeDays);
+                return requestForFreeDaysRepository.CreateRequest(newRequestForFreeDays);
             }
 
             if (CountDoctorsInSameMedicineArea(doctorService.GetDoctorByLks(newRequestForFreeDays.Lks).medicineArea) > 1 || isDoctorBusyInRequestPeriod(newRequestForFreeDays))
@@ -40,7 +40,7 @@ namespace Project.Hospital.Service
                 return null;
             }
 
-            return requestForFreeDaysRepository.CreateRequestForFreeDays(newRequestForFreeDays);
+            return requestForFreeDaysRepository.CreateRequest(newRequestForFreeDays);
         }
 
         public Boolean isDoctorBusyInRequestPeriod(RequestForFreeDays requestForFreeDays)
@@ -59,7 +59,7 @@ namespace Project.Hospital.Service
         {
             int numberOfDoctors = 0;
 
-            foreach (RequestForFreeDays requestForFreeDays in ShowRequestsForFreeDays())
+            foreach (RequestForFreeDays requestForFreeDays in ShowRequests())
             {
                 if (isMedicineAreasEquals(medicineArea, doctorService.GetDoctorByLks(requestForFreeDays.Lks).medicineArea) && isRequestAcceptedOrOnHold(requestForFreeDays))
                     numberOfDoctors++;

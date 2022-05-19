@@ -103,6 +103,11 @@ namespace Project.Hospital.View.Doctor
             this.Close();
         }
 
-
+        private void btnNotifications(object sender, RoutedEventArgs e)
+        {
+            var notifications = new Notifications(loggedDoctor);
+            notifications.Show();
+            this.Close();
+        }
     }
 }

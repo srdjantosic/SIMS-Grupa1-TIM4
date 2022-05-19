@@ -78,7 +78,7 @@ namespace Project.Hospital.View.Secretary
 
             if(appointment != null)
             {
-                appointmentController.createAppointment(appointment.dateTime, appointment.lks, appointment.lbo, appointment.roomName);
+                appointmentController.CreateAppointment(appointment.dateTime, appointment.lks, appointment.lbo, appointment.roomName);
                 MessageBox.Show("Hitan slucaj je ubacen u raspored");
             }
             else

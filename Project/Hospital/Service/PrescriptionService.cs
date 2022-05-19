@@ -23,7 +23,7 @@ namespace Project.Hospital.Service
 
         public Prescription CreatePrescription(string lbo, Prescription newPrescription)
         {
-            if(isValid(lbo, newPrescription) == false)
+            if(isMedicineAlowedToPatient(lbo, newPrescription) == false)
             {
                 return null;
             }
@@ -33,7 +33,7 @@ namespace Project.Hospital.Service
 
         public Boolean UpdatePrescription(string lbo, Prescription prescriptionToUpdate)
         {
-            if(isValid(lbo, prescriptionToUpdate) == false)
+            if(isMedicineAlowedToPatient(lbo, prescriptionToUpdate) == false)
             {
                 return false;
             }
@@ -53,7 +53,7 @@ namespace Project.Hospital.Service
             return prescriptionRepository.GetPrescription(id);
         }
 
-        public Boolean isValid(string lbo, Prescription prescription)
+        public Boolean isMedicineAlowedToPatient(string lbo, Prescription prescription)
         {
             if (prescription.getMedicines().Count == 0 || prescription.PeriodInDays < 1)
             {

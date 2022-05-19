@@ -67,7 +67,7 @@ namespace Project.Hospital.View.Secretary
                 row[1] = item.Item2.dateTime.ToShortDateString() + " " + item.Item2.dateTime.ToLongTimeString();
                 Patient patient = patientController.GetPatient(item.Item2.lbo);
                 row[2] = patient.FirstName + " " + patient.LastName;
-                Model.Doctor doctor = doctorController.getDoctorByLks(item.Item2.lks);
+                Model.Doctor doctor = doctorController.GetDoctorByLks(item.Item2.lks);
                 row[3] = doctor.firstName + " " + doctor.lastName;
 
                 dt.Rows.Add(row);

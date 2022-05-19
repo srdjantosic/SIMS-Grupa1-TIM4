@@ -97,7 +97,7 @@ namespace Project.Hospital.View.Doctor
                 requestForFreeDaysToCreate.isEmergency = false;
             }
 
-            if(requestForFreeDaysController.CreateRequestForFreeDays(requestForFreeDaysToCreate) == null)
+            if(requestForFreeDaysController.CreateRequest(requestForFreeDaysToCreate) == null)
             {
                 MessageBox.Show("More than one doctor in same medicine area is on holiday or you are busy in that period!", "Alert");
                 return;

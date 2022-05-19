@@ -34,7 +34,7 @@ namespace Hospital.Service
             this.doctorService = doctorService;
             this.patientService = patientService;
         }
-        public Appointment createAppointment(DateTime dateTime, string lks, string lbo, string roomName)
+        public Appointment CreateAppointment(DateTime dateTime, string lks, string lbo, string roomName)
         {
             if (lks.Equals("") || lbo.Equals(""))
                 throw new NotFoundException(string.Format(NOT_FOUND_ERROR, "lbo", lbo));
