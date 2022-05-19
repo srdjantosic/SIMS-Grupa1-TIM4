@@ -24,18 +24,13 @@
             </Grid>
             <Button DockPanel.Dock="Right" Name="btnKreiranjeZahteva" FontSize="16" Height="80" Margin="30" Click="kreiranjeZahteva">Kreiranje zahteva za nabavku</Button>
         </DockPanel>
-        <Grid Grid.Row="1" Name="EquipmentGrid">
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition></ColumnDefinition>
-                <ColumnDefinition></ColumnDefinition>
-            </Grid.ColumnDefinitions>
-            <Grid.RowDefinitions>
-                <RowDefinition></RowDefinition>
-                <RowDefinition></RowDefinition>
-                <RowDefinition></RowDefinition>
-                <RowDefinition></RowDefinition>
-            </Grid.RowDefinitions>
-           
-        </Grid>
+        <DataGrid Grid.Row="1" x:Name="dataGridEquipment" ItemsSource="{Binding Path=Equipment}" AutoGenerateColumns="False" SelectionMode="Single" IsReadOnly="True" HorizontalAlignment="Center"
+                      VerticalAlignment="Center" Height="450" Width="750">
+            <DataGrid.Columns>
+                <DataGridTextColumn Header="Sifra opreme" Binding="{Binding Id}" Width="250"/>
+                <DataGridTextColumn Header="Naziv opreme" Binding="{Binding Name}" Width="300"/>
+                <DataGridTextColumn Header="Raspoloziva kolicina" Binding="{Binding Quantity}" Width="180"/>
+            </DataGrid.Columns>
+        </DataGrid>
     </Grid>
 </Page>

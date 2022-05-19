@@ -8,25 +8,25 @@ namespace Project.Hospital.Model
 {
     public class RequestForSupplyEquipment : Serializable
     {
-        public String Name { get; set; }
-        public String Id { get; set; }
-        public int Quantity { get; set; }
+        public String EquipmentName { get; set; }
+        public String EquipmentId { get; set; }
+        public int QuantityToProcured { get; set; }
         public DateTime CreateDate { get; set; }
 
         public RequestForSupplyEquipment() { }
-        public RequestForSupplyEquipment(String name, String id, int quantity, DateTime createDate)
+        public RequestForSupplyEquipment(String equipmentName, String equipmentId, int quantityToProcured, DateTime createDate)
         {
-            this.Name = name;
-            this.Id = id;
-            this.Quantity = quantity;
+            this.EquipmentName = equipmentName;
+            this.EquipmentId = equipmentId;
+            this.QuantityToProcured = quantityToProcured;
             this.CreateDate = createDate;
         }
         public void fromCSV(string[] values)
         {
 
-            Id = values[0];
-            Name = values[1];
-            Quantity = int.Parse(values[2]);
+            EquipmentId = values[0];
+            EquipmentName = values[1];
+            QuantityToProcured = int.Parse(values[2]);
             CreateDate = DateTime.Parse(values[3]);
 
         }
@@ -34,9 +34,9 @@ namespace Project.Hospital.Model
         {
             string[] csvValues =
             {
-                Id,
-                Name,
-                Quantity.ToString(),
+                EquipmentId,
+                EquipmentName,
+                QuantityToProcured.ToString(),
                 CreateDate.ToString()
 
             };

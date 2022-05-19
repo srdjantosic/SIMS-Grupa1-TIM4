@@ -18,6 +18,6 @@
             <Button DockPanel.Dock="Right" FontSize="18" Height="80" Margin="30" Click="zakazivanjePregleda">Zakazivanje pregleda</Button>
         </DockPanel>
         <DataGrid Grid.Row="1" x:Name="dataGridAppointments" IsReadOnly="True" HorizontalAlignment="Left"
-                      VerticalAlignment="Top" Width="824" Height="550" Loaded="dataGridAppointments_Loaded" MouseDoubleClick="dataGridAppointments_MouseDoubleClick"/>
+                      VerticalAlignment="Top" Width="750" Height="550" Margin="25,0,0,0" Loaded="dataGridAppointments_Loaded" MouseDoubleClick="dataGridAppointments_MouseDoubleClick"/>
     </Grid>
 </Page>

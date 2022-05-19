@@ -16,17 +16,17 @@ namespace Project.Hospital.Controller
         {
             this.requestForSupplyEquipmentService = requestForSupplyEquipmentService;
         }
-        public RequestForSupplyEquipment GetRequestById(String id)
+        public RequestForSupplyEquipment GetRequestById(String equipmentId)
         {
-            return requestForSupplyEquipmentService.GetRequestById(id);
+            return requestForSupplyEquipmentService.GetRequestById(equipmentId);
         }
-        public Boolean DeleteRequest(String name)
+        public Boolean DeleteRequest(String equipmentName)
         {
-            return requestForSupplyEquipmentService.DeleteRequest(name);
+            return requestForSupplyEquipmentService.DeleteRequest(equipmentName);
         }
-        public RequestForSupplyEquipment CreateRequest(String id, String name, int quantity)
+        public RequestForSupplyEquipment CreateRequest(String equipmentId, String equipmentName, int quantityToProcured)
         {
-            return requestForSupplyEquipmentService.CreateRequest(id, name, quantity);
+            return requestForSupplyEquipmentService.CreateRequest(equipmentId, equipmentName, quantityToProcured);
         }
     }
 }

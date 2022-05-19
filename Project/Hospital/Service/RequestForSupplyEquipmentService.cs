@@ -11,7 +11,6 @@ namespace Project.Hospital.Service
     public class RequestForSupplyEquipmentService
     {
         private RequestForSupplyEquipmentRepository requestForSupplyEquipmentRepository;
-        //private EquipmentService equipmentService;
 
         public RequestForSupplyEquipmentService(RequestForSupplyEquipmentRepository requestForSupplyEquipmentRepository)
         {
@@ -21,21 +20,21 @@ namespace Project.Hospital.Service
         {
             return requestForSupplyEquipmentRepository.GetAllRequests();
         }
-        public RequestForSupplyEquipment GetRequestById(String id)
+        public RequestForSupplyEquipment GetRequestById(String equipmentId)
         {
-            return requestForSupplyEquipmentRepository.GetRequestById(id);
+            return requestForSupplyEquipmentRepository.GetRequestById(equipmentId);
         }
-        public Boolean DeleteRequest(String name)
+        public Boolean DeleteRequest(String equipmentName)
         {
-            return requestForSupplyEquipmentRepository.DeleteRequest(name);
+            return requestForSupplyEquipmentRepository.DeleteRequest(equipmentName);
         }
-        public RequestForSupplyEquipment CreateRequest(String id, String name, int quantity)
+        public RequestForSupplyEquipment CreateRequest(String equipmentId, String equipmentName, int quantityToProcured)
         {
             
-            if(GetRequestById(id) == null)
+            if(GetRequestById(equipmentId) == null)
             {
                 DateTime createdDate = DateTime.Now;
-                return requestForSupplyEquipmentRepository.CreateRequest(name, id, quantity, createdDate);
+                return requestForSupplyEquipmentRepository.CreateRequest(equipmentName, equipmentId, quantityToProcured, createdDate);
             }
             else
             {

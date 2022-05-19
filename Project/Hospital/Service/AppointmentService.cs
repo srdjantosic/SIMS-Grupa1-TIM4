@@ -145,9 +145,9 @@ namespace Hospital.Service
         {
             List<Appointment> availableAppointments = new List<Appointment>();
             
-            for(int i = 0; i<(end - start).TotalDays; i=i+1)//dani
+            for(int i = 0; i<(end - start).TotalDays; i=i+1)
             {
-                for (int j = 0; j < workTime.Length; j=j+1)//sati
+                for (int j = 0; j < workTime.Length; j=j+1)
                 {
                     if (isAppointmentInEnteredInterval(start, end, j))
                     {
@@ -165,7 +165,7 @@ namespace Hospital.Service
 
         public bool isAppointmentInEnteredInterval(DateTime start, DateTime end, int j)
         {
-            return (DateTime.Compare(DateTime.Parse(start.ToShortDateString() + " " + workTime[j]), DateTime.Parse(start.ToString())) > 0 && DateTime.Compare(DateTime.Parse(end.ToShortDateString() + " " + workTime[j]), DateTime.Parse(end.ToString())) < 0);
+            return (DateTime.Compare(DateTime.Parse(start.ToShortDateString() + " " + workTime[j]), DateTime.Parse(start.ToString())) >= 0 && DateTime.Compare(DateTime.Parse(end.ToShortDateString() + " " + workTime[j]), DateTime.Parse(end.ToString())) <= 0);
         }
 
         public bool isWeekend(Appointment appointment)
@@ -175,7 +175,7 @@ namespace Hospital.Service
 
         public bool isAvailable(Doctor doctor, Appointment newAvailableAppointment)
         {
-            List<Appointment> appointments = getAppointmentsByLks(doctor.lks);
+            List<Appointment> appointments = GetAppointmentsByLks(doctor.lks);
 
             foreach (Appointment appointment in appointments)
             {
@@ -190,7 +190,6 @@ namespace Hospital.Service
             return true;
         }
 
-        //vreme prioritet
         public List<Appointment> GetAvailableAppointmentsForAllDoctors(Patient patient, DateTime start, DateTime end)
         {
             List<Appointment> allAvailableAppointments = new List<Appointment>();
@@ -220,14 +219,13 @@ namespace Hospital.Service
             return true;
         }
 
-        //Za hitan slucaj
-        public Appointment GetFirstAlailableAppointment(Patient patient, String area, DateTime receptionTime)
+        public Appointment GetFirstAvailableAppointment(Patient patient, String area, DateTime receptionTime)
         {
             List<Appointment> allAvailableAppointments = new List<Appointment>();
 
             foreach(Doctor doctor in doctorService.GetDoktorsFromGivenArea(area))
             {
-                foreach(Appointment appointment in GetAvailableAppointments(doctor, patient, receptionTime, receptionTime.AddHours(1)))
+                foreach(Appointment appointment in GetAvailableAppointments(doctor, patient, receptionTime, receptionTime.AddMinutes(45)))
                 {
                     allAvailableAppointments.Add(appointment);
                 }
@@ -235,29 +233,28 @@ namespace Hospital.Service
             return allAvailableAppointments.MinBy(appointment => appointment.dateTime);
         }
 
-        //ISPRAVI NAZIV!!!!
-        public List<Tuple<int, Appointment, Appointment>> GetTakenAppointment(String area, DateTime receptionTime)
+        public List<Tuple<int, Appointment, Appointment>> GetTakenAppointments(String area, DateTime receptionTime)
         {
             List<Tuple<int, Appointment, Appointment>> takenAppointments = new List<Tuple<int, Appointment, Appointment>>();
             Appointment firstAvailableAppointment;
 
             foreach (Doctor doctor in doctorService.GetDoktorsFromGivenArea(area))
             {
-                List<Appointment> appointments = getAppointmentsByLks(doctor.lks);
+                List<Appointment> appointments = GetAppointmentsByLks(doctor.lks);
                 foreach (Appointment appointment in appointments)
                 {
-                    if(DateTime.Compare(appointment.dateTime, receptionTime) > 0 && DateTime.Compare(appointment.dateTime, receptionTime.AddHours(1)) < 0)
+                    if(DateTime.Compare(appointment.dateTime, receptionTime) >= 0 && DateTime.Compare(appointment.dateTime, receptionTime.AddMinutes(45)) <= 0)
                     {
                         firstAvailableAppointment = GetFirstAvailableAppointment(appointment);
-                        takenAppointments.Add(Tuple.Create(NadjiRazlikuUDanima(appointment, firstAvailableAppointment), appointment, firstAvailableAppointment));
+                        takenAppointments.Add(Tuple.Create(FindDifferenceInDays(appointment, firstAvailableAppointment), appointment, firstAvailableAppointment));
                         
                     }
                 }
             }
-            return (List<Tuple<int, Appointment, Appointment>>)takenAppointments.OrderByDescending(t => t.Item1);
+            return takenAppointments.OrderByDescending(t => t.Item1).ToList();
         }
 
-        public int NadjiRazlikuUDanima(Appointment takenAppointment, Appointment firstAvailableAppointment)
+        public int FindDifferenceInDays(Appointment takenAppointment, Appointment firstAvailableAppointment)
         {
             return (int)(firstAvailableAppointment.dateTime - takenAppointment.dateTime).TotalDays;
         }
@@ -265,8 +262,8 @@ namespace Hospital.Service
         public Appointment GetFirstAvailableAppointment(Appointment appointment)
         {
             Patient patient = patientService.GetPatient(appointment.lbo);
-            Doctor doctor = doctorService.getDoctorByLks(appointment.lks);
-            DateTime start = appointment.dateTime.AddDays(1);
+            Doctor doctor = doctorService.GetDoctorByLks(appointment.lks);
+            DateTime start = DateTime.Parse(appointment.dateTime.AddDays(1).ToShortDateString() + " " + workTime[0]);
             DateTime end = appointment.dateTime.AddDays(10);
             List<Appointment> availableAppointments = GetAvailableAppointments(doctor, patient, start, end);
 

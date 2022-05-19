@@ -16,6 +16,7 @@ using Project.Hospital.Repository;
 using Project.Hospital.Service;
 using Project.Hospital.Controller;
 using Project.Hospital.Model;
+using System.Collections.ObjectModel;
 
 namespace Project.Hospital.View.Secretary
 {
@@ -26,6 +27,7 @@ namespace Project.Hospital.View.Secretary
         private EquipmentController equipmentController;
         private RequestForSupplyEquipmentRepository requestForSupplyEquipmentRepository;
         private RequestForSupplyEquipmentService requestForSupplyEquipmentService;
+        public ObservableCollection<Equipment> Equipment { get; set; }
         public OpremaPage()
         {
             InitializeComponent();
@@ -36,13 +38,12 @@ namespace Project.Hospital.View.Secretary
             this.equipmentService = new EquipmentService(equipmentRepository, requestForSupplyEquipmentService);
             this.equipmentController = new EquipmentController(equipmentService);
 
-            /*
-            TextBlock textBlock = new TextBlock();
-            textBlock.Text = "Nikolina";
-            Grid.SetColumn(textBlock, 0);
-            Grid.SetRow(textBlock, 0);
-            EquipmentGrid.Children.Add(textBlock);
-            */
+            this.DataContext = this;
+            Equipment = new ObservableCollection<Equipment>();
+            foreach(Equipment equipment in equipmentController.GetAllSpendableEquipment())
+            {
+                Equipment.Add(new Equipment { Id = equipment.Id, Name = equipment.Name, Quantity = equipment.Quantity });
+            }
         }
 
         private void kreiranjeZahteva(object sender, RoutedEventArgs e)

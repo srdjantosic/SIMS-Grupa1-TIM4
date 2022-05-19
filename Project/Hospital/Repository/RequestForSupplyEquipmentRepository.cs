@@ -16,25 +16,25 @@ namespace Project.Hospital.Repository
             List<RequestForSupplyEquipment> requests = requestSerializer.fromCSV("requests.txt");
             return requests;
         }
-        public RequestForSupplyEquipment CreateRequest(String name, String id, int quantity, DateTime createDate)
+        public RequestForSupplyEquipment CreateRequest(String equipmentName, String equipmentId, int quantityToProcured, DateTime createDate)
         {
             Serializer<RequestForSupplyEquipment> requestSerializer = new Serializer<RequestForSupplyEquipment>();
-            RequestForSupplyEquipment request = new RequestForSupplyEquipment(name, id, quantity, createDate);
+            RequestForSupplyEquipment request = new RequestForSupplyEquipment(equipmentName, equipmentId, quantityToProcured, createDate);
             requestSerializer.oneToCSV("requests.txt", request);
             return request;
         }
-        public RequestForSupplyEquipment GetRequestById(String id)
+        public RequestForSupplyEquipment GetRequestById(String equipmentId)
         {
-            return GetAllRequests().SingleOrDefault(request => request.Id == id);
+            return GetAllRequests().SingleOrDefault(request => request.EquipmentId == equipmentId);
         }
 
-        public Boolean DeleteRequest(String name)
+        public Boolean DeleteRequest(String equipmentName)
         {
             List<RequestForSupplyEquipment> requests = GetAllRequests();
 
             foreach(RequestForSupplyEquipment request in requests)
             {
-                if(request.Name == name)
+                if(request.EquipmentName == equipmentName)
                 {
                     if (requests.Remove(request))
                     {

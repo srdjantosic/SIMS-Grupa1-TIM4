@@ -69,9 +69,9 @@ namespace Project.Hospital.Service
                 {
                     if(request.CreateDate.AddDays(ProcurementDeadline).ToShortDateString() == DateTime.Now.ToShortDateString())
                     {
-                        UpdateEquipment(spendableEquipment[i].Name, spendableEquipment[i].Id, spendableEquipment[i].EquipmentType, spendableEquipment[i].Quantity + request.Quantity, spendableEquipment[i].RoomId);
-                        spendableEquipment[i].Quantity += request.Quantity; 
-                        requestForSupplyEquipmentService.DeleteRequest(request.Name);
+                        UpdateEquipment(spendableEquipment[i].Name, spendableEquipment[i].Id, spendableEquipment[i].EquipmentType, spendableEquipment[i].Quantity + request.QuantityToProcured, spendableEquipment[i].RoomId);
+                        spendableEquipment[i].Quantity += request.QuantityToProcured; 
+                        requestForSupplyEquipmentService.DeleteRequest(request.EquipmentName);
                     }
                 }
             }
