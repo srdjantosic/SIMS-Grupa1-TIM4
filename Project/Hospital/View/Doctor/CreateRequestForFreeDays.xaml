@@ -64,8 +64,8 @@
 
                 <Label Grid.Column="0">Emergency request:</Label>
 
-                <RadioButton Grid.Column="1" Name="status1">Yes</RadioButton>
-                <RadioButton Grid.Column="1" Margin="0,20,0,0" IsChecked="true" Name="status2">No</RadioButton>
+                <RadioButton Grid.Column="1" Name="rbTrue">Yes</RadioButton>
+                <RadioButton Grid.Column="1" Margin="0,20,0,0" IsChecked="true" Name="rbFalse">No</RadioButton>
 
             </Grid>
 

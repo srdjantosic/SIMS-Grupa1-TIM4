@@ -21,7 +21,7 @@ namespace Project.Hospital.Repository
         }
 
         //TODO
-        public Boolean UpdateMedicineStatus(string name)
+        public Boolean Verify(string name)
         {
             List<Medicine> medicines = ShowMedicines();
 
@@ -39,7 +39,7 @@ namespace Project.Hospital.Repository
         }
 
         //TODO
-        public Boolean SetReasonForDeclining(string name, string reason)
+        public Boolean SetDecliningReason(string name, string reason)
         {
             List<Medicine> medicines = ShowMedicines();
 

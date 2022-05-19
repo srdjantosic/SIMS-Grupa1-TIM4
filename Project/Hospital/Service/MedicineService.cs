@@ -20,15 +20,15 @@ namespace Project.Hospital.Service
         }
 
         //TODO
-        public Boolean UpdateMedicineStatus(string name)
+        public Boolean Verify(string name)
         {
-            return medicineRepository.UpdateMedicineStatus(name);
+            return medicineRepository.Verify(name);
         }
 
         //TODO
-        public Boolean SetReasonForDeclining(string name, string reason)
+        public Boolean SetDecliningReason(string name, string reason)
         {
-            return medicineRepository.SetReasonForDeclining(name, reason);
+            return medicineRepository.SetDecliningReason(name, reason);
         }
 
 

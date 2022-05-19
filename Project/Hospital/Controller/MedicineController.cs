@@ -19,15 +19,15 @@ namespace Project.Hospital.Controller
         }
 
         //TODO
-        public Boolean UpdateMedicineStatus(string name)
+        public Boolean Verify(string name)
         {
-            return medicineService.UpdateMedicineStatus(name);
+            return medicineService.Verify(name);
         }
 
         //TODO
-        public Boolean SetReasonForDeclining(string name, string reason)
+        public Boolean SetDecliningReason(string name, string reason)
         {
-            return medicineService.SetReasonForDeclining(name, reason);
+            return medicineService.SetDecliningReason(name, reason);
         }
 
         public List<Medicine> ShowMedicines()
