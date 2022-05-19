@@ -9,18 +9,19 @@ namespace Project.Hospital.Repository
 {
     public class RequestForSupplyEquipmentRepository
     {
+        private const string fileName = "requests.txt";
         public RequestForSupplyEquipmentRepository() { }
         public List<RequestForSupplyEquipment> GetAllRequests()
         {
             Serializer<RequestForSupplyEquipment> requestSerializer = new Serializer<RequestForSupplyEquipment>();
-            List<RequestForSupplyEquipment> requests = requestSerializer.fromCSV("requests.txt");
+            List<RequestForSupplyEquipment> requests = requestSerializer.fromCSV(fileName);
             return requests;
         }
         public RequestForSupplyEquipment CreateRequest(String equipmentName, String equipmentId, int quantityToProcured, DateTime createDate)
         {
             Serializer<RequestForSupplyEquipment> requestSerializer = new Serializer<RequestForSupplyEquipment>();
             RequestForSupplyEquipment request = new RequestForSupplyEquipment(equipmentName, equipmentId, quantityToProcured, createDate);
-            requestSerializer.oneToCSV("requests.txt", request);
+            requestSerializer.oneToCSV(fileName, request);
             return request;
         }
         public RequestForSupplyEquipment GetRequestById(String equipmentId)
@@ -39,7 +40,7 @@ namespace Project.Hospital.Repository
                     if (requests.Remove(request))
                     {
                         Serializer<RequestForSupplyEquipment> requestSerializer = new Serializer<RequestForSupplyEquipment>();
-                        requestSerializer.toCSV("requests.txt", requests);
+                        requestSerializer.toCSV(fileName, requests);
                         return true;
                     }
                     return false;

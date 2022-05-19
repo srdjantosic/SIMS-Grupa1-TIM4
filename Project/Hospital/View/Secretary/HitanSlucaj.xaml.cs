@@ -36,6 +36,10 @@ namespace Project.Hospital.View.Secretary
         private DoctorService doctorService;
         private DoctorController doctorController;
 
+        private NotificationRepository notificationRepository;
+        private NotificationService notificationService;
+        private NotificationController notificationController;
+
         private Patient patient;
         private DataTable dt;
         List<Tuple<int, Appointment, Appointment>> Appointments;
@@ -52,6 +56,9 @@ namespace Project.Hospital.View.Secretary
             this.appointmentRepository = new AppointmentRepository();
             this.appointmentService = new AppointmentService(appointmentRepository, doctorService, patientService);
             this.appointmentController = new AppointmentController(appointmentService);
+            this.notificationRepository = new NotificationRepository();
+            this.notificationService = new NotificationService(notificationRepository);
+            this.notificationController = new NotificationController(notificationService);
         }
         public void fillingDataGridUsingDataTable()
         {
@@ -141,11 +148,17 @@ namespace Project.Hospital.View.Secretary
                     if (item.Item2.id.Equals(appointment.id))
                     {
                         DateTime oslobodjenoVreme = item.Item2.dateTime;
-                        if(appointmentController.UpdateAppointment(item.Item3.dateTime, appointment.id))
+                        
+                        if (appointmentController.UpdateAppointment(item.Item3.dateTime, appointment.id))
                         {
+                            Appointment pomerenPregled = appointmentController.GetAppintment(appointment.id);
                             if(appointmentController.CreateAppointment(oslobodjenoVreme, item.Item3.lks, item.Item3.lbo, " ") != null)
                             {
                                 MessageBox.Show("Hitan slucaj je ubacen u raspored");
+
+                                Notification obavestenje = new Notification(pomerenPregled.lks, DateTime.Now, "Vas termin je pomeren za novi datum " + pomerenPregled.dateTime.ToString(), pomerenPregled.lbo);
+                                notificationController.Create(obavestenje);
+
                                 var page = new RasporedPage();
                                 NavigationService.Navigate(page);
                             }

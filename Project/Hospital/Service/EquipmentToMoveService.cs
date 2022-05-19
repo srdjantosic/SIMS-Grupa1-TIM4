@@ -42,7 +42,7 @@ namespace Project.Hospital.Service
 
                     equipmentRepository.UpdateEquipment(Id, Name, Equipment.EquipmentTypes.Permanent, oldQ - Quantity, OldRoomId);
 
-                    equipmentRepository.CreateEquipment(Name, Equipment.EquipmentTypes.Permanent, Quantity, newRoomID);
+                    equipmentRepository.CreateEquipment(" ", Name, Equipment.EquipmentTypes.Permanent, Quantity, newRoomID);
                 }
             }
 

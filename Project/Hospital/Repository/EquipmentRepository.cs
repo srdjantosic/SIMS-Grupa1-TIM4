@@ -19,11 +19,9 @@ namespace Project.Hospital.Repository
             List<Equipment>  equipments = equipmentSerializer.fromCSV("equipments.txt");
             return equipments;
         }
-        public Equipment CreateEquipment(String Name, Equipment.EquipmentTypes equipmentType, int Quantity, String RoomId)
+        public Equipment CreateEquipment(String Id, String Name, Equipment.EquipmentTypes equipmentType, int Quantity, String RoomId)
         {
             Serializer<Equipment> equipmentSerializer = new Serializer<Equipment>();
-            Guid myUUId = Guid.NewGuid();
-            string Id = myUUId.ToString();
             Equipment equipment = new Equipment(Id, Name, equipmentType,Quantity,RoomId);
             equipmentSerializer.oneToCSV("equipments.txt", equipment);
             return equipment;
@@ -79,18 +77,7 @@ namespace Project.Hospital.Repository
         }
         public Equipment GetEquipment(String id)
         {
-            try
-            {
-                {
-                    return ShowEquipment().SingleOrDefault(equipment => equipment.Id == id);
-                }
-            }
-            catch (ArgumentException)
-            {
-                {
-                    throw new NotFoundException(string.Format(NOT_FOUND_ERROR, "id", id));
-                }
-            }
+            return ShowEquipment().SingleOrDefault(equipment => equipment.Id == id);
 
         }
     }

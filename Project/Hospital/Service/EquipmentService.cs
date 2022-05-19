@@ -50,6 +50,8 @@ namespace Project.Hospital.Service
 
         public List<Equipment> GetAllSpendableEquipment()
         {
+            UpdateRequestedEquipment();
+
             List<Equipment> spendableEquipment = new List<Equipment>();
             foreach(Equipment equipment in equipmentRepository.ShowEquipment())
             {
@@ -58,29 +60,41 @@ namespace Project.Hospital.Service
                     spendableEquipment.Add(equipment);
                 }
             }
-            return UpdateRequestedEquipment(spendableEquipment);
+            return spendableEquipment;
         }
-        public List<Equipment> UpdateRequestedEquipment(List<Equipment> spendableEquipment)
+        public void UpdateRequestedEquipment()
         {
-            for (int i = 0; i < spendableEquipment.Count; i++)
+            foreach(RequestForSupplyEquipment request in requestForSupplyEquipmentService.GetAllRequests())
             {
-                RequestForSupplyEquipment request = requestForSupplyEquipmentService.GetRequestById(spendableEquipment[i].Id);
-                if(request != null)
+                if(request.CreateDate.AddDays(ProcurementDeadline).ToShortDateString() == DateTime.Now.ToShortDateString())
                 {
-                    if(request.CreateDate.AddDays(ProcurementDeadline).ToShortDateString() == DateTime.Now.ToShortDateString())
+                    Equipment equipment = GetEquipment(request.EquipmentId);
+                    if(equipment != null)
                     {
-                        UpdateEquipment(spendableEquipment[i].Name, spendableEquipment[i].Id, spendableEquipment[i].EquipmentType, spendableEquipment[i].Quantity + request.QuantityToProcured, spendableEquipment[i].RoomId);
-                        spendableEquipment[i].Quantity += request.QuantityToProcured; 
+                        UpdateEquipment(equipment.Name, equipment.Id, equipment.EquipmentType, equipment.Quantity + request.QuantityToProcured, equipment.RoomId);
+                        requestForSupplyEquipmentService.DeleteRequest(request.EquipmentName);
+                    }
+                    else
+                    {
+                        CreateEquipment(request.EquipmentId, request.EquipmentName, request.QuantityToProcured);
                         requestForSupplyEquipmentService.DeleteRequest(request.EquipmentName);
                     }
                 }
             }
-            return spendableEquipment;
         }
 
         public Boolean UpdateEquipment(String name, String id, Equipment.EquipmentTypes equipmentType, int quantity, String roomId)
         {
             return equipmentRepository.UpdateEquipment(id, name, equipmentType, quantity, roomId);
+        }
+
+        public Equipment CreateEquipment(String id, String name, int quantity)
+        {
+            return equipmentRepository.CreateEquipment(id, name, Equipment.EquipmentTypes.Spendable, quantity, " ");
+        }
+        public Equipment GetEquipment(String id)
+        {
+            return equipmentRepository.GetEquipment(id);
         }
 
     }
