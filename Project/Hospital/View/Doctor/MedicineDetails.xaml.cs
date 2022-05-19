@@ -52,7 +52,7 @@ namespace Project.Hospital.View.Doctor
             switch (result)
             {
                 case MessageBoxResult.Yes:
-                    medicineController.UpdateMedicineStatus(currentMedicine.Name);
+                    medicineController.Verify(currentMedicine.Name);
                     var medicines = new Medicines(loggedDoctor);
                     medicines.Show();
                     this.Close();

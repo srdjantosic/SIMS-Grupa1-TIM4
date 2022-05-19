@@ -23,6 +23,8 @@
             <Button Height="40" Click="btnLogOut">LOG OUT</Button>
         </WrapPanel>
 
+        <Button Grid.Column="1" Width="100" Height="20" Margin="500,0,0,350" Click="btnNotifications">Notifications</Button>
+
         <DataGrid Grid.Column="1" x:Name="dgSchedule" ItemsSource="{Binding appointments}" IsReadOnly="True" SelectionMode="Single" AutoGenerateColumns="False" 
                   HorizontalAlignment="Left" VerticalAlignment="Top" Margin="180,90,0,0">
             <DataGrid.Columns>

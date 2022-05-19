@@ -12,7 +12,7 @@ namespace Project.Hospital.Repository
         private const string NOT_FOUND_ERROR = "Request with {0}:{1} can not be found!";
         private const string fileName = "requestsForFreeDays.txt";
 
-        public RequestForFreeDays CreateRequestForFreeDays(RequestForFreeDays newRequestForFreeDays)
+        public RequestForFreeDays CreateRequest(RequestForFreeDays newRequestForFreeDays)
         {
             Serializer<RequestForFreeDays> requestForFreeDaysSerializer = new Serializer<RequestForFreeDays>();
             RequestForFreeDays requestForFreeDays = new RequestForFreeDays(newRequestForFreeDays.Lks, newRequestForFreeDays.Start, newRequestForFreeDays.End, newRequestForFreeDays.Reason,  newRequestForFreeDays.isEmergency);
@@ -20,7 +20,7 @@ namespace Project.Hospital.Repository
             return requestForFreeDays;
         }
 
-        public List<RequestForFreeDays> ShowRequestsForFreeDays()
+        public List<RequestForFreeDays> ShowRequests()
         {
             Serializer<RequestForFreeDays> requestForFreeDaysSerializer = new Serializer<RequestForFreeDays>();
             List<RequestForFreeDays> requestsForFreeDays = requestForFreeDaysSerializer.fromCSV(fileName);

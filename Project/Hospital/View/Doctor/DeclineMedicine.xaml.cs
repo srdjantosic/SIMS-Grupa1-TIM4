@@ -55,7 +55,7 @@ namespace Project.Hospital.View.Doctor
                     }
                     else
                     {
-                        medicineController.SetReasonForDeclining(currentMedicine.Name, tbSet.Text);
+                        medicineController.SetDecliningReason(currentMedicine.Name, tbSet.Text);
                         var medicines = new Medicines(loggedDoctor);
                         medicines.Show();
                         this.Close();

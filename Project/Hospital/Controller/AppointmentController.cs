@@ -16,7 +16,7 @@ namespace Project.Hospital.Controller
 
         public Appointment CreateAppointment(DateTime dateTime, string lks, string lbo, string roomName)
         {
-            Appointment appointment = appointmentService.createAppointment(dateTime, lks, lbo, roomName);
+            Appointment appointment = appointmentService.CreateAppointment(dateTime, lks, lbo, roomName);
             if (appointment != null)
                 return appointment;
             return null;
