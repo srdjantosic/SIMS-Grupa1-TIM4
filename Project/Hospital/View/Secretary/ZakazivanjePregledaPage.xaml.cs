@@ -64,14 +64,14 @@ namespace Project.Hospital.View.Secretary
             string prezimeLekara = tbPrezimeLekara.Text;
 
             Patient patient = patientController.GetPatient(lbo);
-            Model.Doctor doctor = doctorController.getDoctorByName(imeLekara, prezimeLekara);
+            Model.Doctor doctor = doctorController.GetDoctorByName(imeLekara, prezimeLekara);
 
             string pocetak = dpPocDat.Text + " " + tbPocVre.Text;
             string kraj = dpKrajDat.Text + " " + tbKrajVre.Text;
             DateTime pocIntervala = DateTime.Parse(pocetak); 
             DateTime krajIntervala = DateTime.Parse(kraj);
 
-            List<Appointment> availableAppointments = appointmentController.getAvailableAppointments(doctor, patient, pocIntervala, krajIntervala);
+            List<Appointment> availableAppointments = appointmentController.GetAvailableAppointments(doctor, patient, pocIntervala, krajIntervala);
 
 
             if(availableAppointments.Count==0)
@@ -79,7 +79,7 @@ namespace Project.Hospital.View.Secretary
                 string prioritet = cbPrioritet.Text;
                 if (prioritet == "Lekar")
                 {
-                    var page1 = new PrioritetLekarPage(doctor, patient);
+                    var page1 = new PrioritetLekarPage(doctor, patient, pocIntervala, krajIntervala);
                     NavigationService.Navigate(page1);
                 }
                 else

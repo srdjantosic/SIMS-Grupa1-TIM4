@@ -12,7 +12,7 @@ namespace Project.Hospital.Repository
         private const string fileName = "prescription.txt";
         public PrescriptionRepository () { }
 
-        public Prescription createPrescription(Prescription newPrescription)
+        public Prescription CreatePrescription(Prescription newPrescription)
         {
             Serializer<Prescription> prescriptionSerializer = new Serializer<Prescription>();
             Prescription prescription = new Prescription(newPrescription.Id,newPrescription.BeginOfUse, newPrescription.PeriodInDays);
@@ -21,9 +21,9 @@ namespace Project.Hospital.Repository
             return prescription;
         }
 
-        public Boolean updatePrescription(Prescription newPrescription)
+        public Boolean UpdatePrescription(Prescription newPrescription)
         {
-            List<Prescription> prescriptions = showPrescriptions();
+            List<Prescription> prescriptions = ShowPrescriptions();
             foreach(Prescription prescription in prescriptions)
             {
                 if(prescription.Id == newPrescription.Id)
@@ -37,7 +37,7 @@ namespace Project.Hospital.Repository
             }
             return false;
         }
-        public List<Prescription> showPrescriptions()
+        public List<Prescription> ShowPrescriptions()
         {
             List<Prescription> prescriptions = new List<Prescription>();
             Serializer<Prescription> prescriptiontSerializer = new Serializer<Prescription>();
@@ -45,12 +45,12 @@ namespace Project.Hospital.Repository
             return prescriptions;
         }
 
-        public Prescription getPrescription(int id)
+        public Prescription GetPrescription(int id)
         {
             try
             {
                 {
-                    return showPrescriptions().SingleOrDefault(prescription => prescription.Id == id);
+                    return ShowPrescriptions().SingleOrDefault(prescription => prescription.Id == id);
                 }
             }
             catch (ArgumentException)

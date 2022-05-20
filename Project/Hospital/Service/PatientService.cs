@@ -10,10 +10,21 @@ namespace Project.Hospital.Service
 
         private PatientRepository patientRepository;
 
+        private PrescriptionService prescriptionService;
+        private ReportService reportService;
+        
+
         public PatientService(PatientRepository patientRepository)
         {
             this.patientRepository = patientRepository;
         }
+        public PatientService(PatientRepository patientRepository, PrescriptionService prescriptionService, ReportService reportService)
+        {
+            this.patientRepository = patientRepository;
+            this.prescriptionService=prescriptionService;
+            this.reportService=reportService;
+        }
+
         public Patient CreatePatient(String firstName, String lastName, Gender.Genders gender, String email, String phoneNumber, String jmbg, String lbo, DateTime birthday, String country, String city, String adress)
         {
 
@@ -35,15 +46,48 @@ namespace Project.Hospital.Service
 
         }
 
+        public Boolean CreateReportAndPrescription(string lbo, Prescription prescription, Report report)
+        {
+            Prescription newPrescription = prescriptionService.CreatePrescription(lbo, prescription);
+            if (newPrescription == null) {
+                return false;
+            }
+            Report newReport = reportService.CreateReport(report.Diagnosis, report.Comment);
+            if (newReport == null) { 
+                return false;
+            }
+            Boolean isCreated = patientRepository.CreateReportAndPrescription(lbo, prescription.Id, report.Id);
+            if (isCreated == false)
+            {
+                return false;
+            }
+
+            return true;
+        }
+
+        public Boolean UpdateReportAndPrescription(string lbo, Prescription prescriptionToUpdate, Report reportToUpdate) 
+        {
+            Boolean isPrescriptionUpdated = prescriptionService.UpdatePrescription(lbo, prescriptionToUpdate);
+            if(isPrescriptionUpdated == false){
+                return false;
+            }
+            Boolean isReportUpdated = reportService.UpdateReport(reportToUpdate.Id, reportToUpdate.Diagnosis, reportToUpdate.Comment);
+            if (isReportUpdated == false)
+            {
+                return false;
+            }
+            return true;
+        }
+
 
         public Boolean UpdatePatient(Patient patient)
         {
             return patientRepository.UpdatePatient(patient);
         }
 
-        public Boolean updatePatientsMedicalChard(String lbo, double temperature, int heartRate, String bloodPressure, int weight, int height)
+        public Boolean UpdatePatientsMedicalChard(String lbo, double temperature, int heartRate, String bloodPressure, int weight, int height)
         {
-            return patientRepository.updatePatientsMedicalChard(lbo, temperature, heartRate, bloodPressure, weight, height);
+            return patientRepository.UpdatePatientsMedicalChard(lbo, temperature, heartRate, bloodPressure, weight, height);
         }
 
         public List<Patient> ShowPatients()

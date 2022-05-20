@@ -18,24 +18,24 @@ namespace Project.Hospital.Service
             this.reportRepository = reportRepository;
         }
 
-        public Report createReport(string diagnosis, string comment)
+        public Report CreateReport(string diagnosis, string comment)
         {
-            return reportRepository.createReport(diagnosis, comment);
+            return reportRepository.CreateReport(diagnosis, comment);
         }
 
-        public Boolean updateReport(int id, string diagnosis, string comment)
+        public Boolean UpdateReport(int id, string diagnosis, string comment)
         {
-            return reportRepository.updateReport(id, diagnosis, comment);
+            return reportRepository.UpdateReport(id, diagnosis, comment);
         }
 
-        public List<Report> showReports()
+        public List<Report> ShowReports()
         {
-            return reportRepository.showReports();
+            return reportRepository.ShowReports();
         }
 
-        public Report getReport(int id)
+        public Report GetReport(int id)
         {
-            return reportRepository.getReport(id);
+            return reportRepository.GetReport(id);
         }
 
 

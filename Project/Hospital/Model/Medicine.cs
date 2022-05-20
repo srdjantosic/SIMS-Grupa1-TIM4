@@ -14,6 +14,7 @@ namespace Project.Hospital.Model
         public string Components { get; set; }
         public string InstructionsForUse { get; set; }
         public Boolean isActive { get; set; } = false;
+        public string ReasonForDecline { get; set; } = " ";
 
         public Medicine () { }
 
@@ -34,6 +35,7 @@ namespace Project.Hospital.Model
             Components = values[3];
             InstructionsForUse = values[4];
             isActive = Boolean.Parse(values[5]);
+            ReasonForDecline = values[6];
         }
 
         public string[] toCSV()
@@ -45,7 +47,8 @@ namespace Project.Hospital.Model
                 ExpiringDate.ToString(),
                 Components,
                 InstructionsForUse,
-                isActive.ToString()
+                isActive.ToString(),
+                ReasonForDecline,
             };
             return csvValues;
         }

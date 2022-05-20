@@ -19,5 +19,13 @@ namespace Project.Hospital.Controller
         {
             return equipmentService.ShowEquipment();
         }
+        public List<Equipment> GetAllSpendableEquipment()
+        {
+            return equipmentService.GetAllSpendableEquipment();
+        }
+        public Boolean UpdateEquipment(String name, String id, Equipment.EquipmentTypes equipmentType, int quantity, String roomId)
+        {
+            return equipmentService.UpdateEquipment(name, id, equipmentType, quantity, roomId);
+        }
     }
 }

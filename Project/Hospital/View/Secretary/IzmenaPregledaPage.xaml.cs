@@ -58,7 +58,7 @@ namespace Project.Hospital.View.Secretary
             {
                 tbPacijent.Text = patient.FirstName + " " + patient.LastName;
             }
-            Model.Doctor doctor = doctorController.getDoctorByLks(appointment.lks);
+            Model.Doctor doctor = doctorController.GetDoctorByLks(appointment.lks);
             if(doctor != null)
             {
                 tbLekar.Text = doctor.firstName + " " + doctor.lastName + " (" + doctor.medicineArea + ") ";
@@ -80,11 +80,18 @@ namespace Project.Hospital.View.Secretary
             {
                 string dateTime = dpDatum.Text + " " + tbVreme.Text;
                 DateTime newDateTime = DateTime.Parse(dateTime);
-                if(appointmentController.updateAppointment(newDateTime, Appointment.id))
+                if(appointmentController.IsNewDateTimeAvailable(Appointment, newDateTime))
                 {
-                    Appointment appointment = appointmentController.getAppintment(Appointment.id);
-                    var page = new DetaljiOPregleduPage(appointment);
-                    NavigationService.Navigate(page);
+                    if(appointmentController.UpdateAppointment(newDateTime, Appointment.id))
+                    {
+                        Appointment appointment = appointmentController.GetAppintment(Appointment.id);
+                        var page = new DetaljiOPregleduPage(appointment);
+                        NavigationService.Navigate(page);
+                    }
+                }
+                else
+                {
+                    MessageBox.Show("Lekar je zauzet u izabrano vreme");
                 }
             }
             else

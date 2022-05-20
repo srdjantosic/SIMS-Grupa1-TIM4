@@ -21,7 +21,25 @@ namespace Project.Hospital.Repository
             return GetPatient(patient.Lbo);
         }
 
-        
+        public Boolean CreateReportAndPrescription(string lbo, int prescriptionId, int reportId)
+        {
+            List<Patient> patients = ShowPatients();
+
+            foreach (Patient patient2 in patients)
+            {
+                if (patient2.Lbo == lbo)
+                {
+                    patient2.GetReportPrescriptinIds().Add(prescriptionId);
+                    patient2.GetReportPrescriptinIds().Add(reportId);
+                    Serializer<Patient> patientSerializer = new Serializer<Patient>();
+                    patientSerializer.toCSV(fileName, patients);
+
+                    return true;
+                }
+
+            }
+            throw new NotFoundException(string.Format(NOT_FOUND_ERROR, "lbo", lbo));
+        }
         public Boolean UpdatePatient(Patient patient)
         {
             List<Patient> patients = new List<Patient>();
@@ -40,7 +58,7 @@ namespace Project.Hospital.Repository
             } throw new NotFoundException(string.Format(NOT_FOUND_ERROR, "lbo", patient.Lbo));
         }
 
-        public Boolean updatePatientsMedicalChard(String lbo, double temperature, int heartRate, String bloodPressure, int weight, int height)
+        public Boolean UpdatePatientsMedicalChard(String lbo, double temperature, int heartRate, String bloodPressure, int weight, int height)
         {
             List<Patient> patients = ShowPatients();
 

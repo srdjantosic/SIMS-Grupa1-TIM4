@@ -87,7 +87,7 @@ namespace Project.Hospital.View.Secretary
                 
                 DateTime vreme = DateTime.Parse((string)dataRow.Row.ItemArray[1]);
                 
-                Appointment newAppointment = appointmentController.createAppointment(vreme, doctor.lks, patient.Lbo, doctor.roomName);
+                Appointment newAppointment = appointmentController.CreateAppointment(vreme, doctor.lks, patient.Lbo, doctor.roomName);
                 if (newAppointment != null)
                 {
                     var page = new RasporedPage();

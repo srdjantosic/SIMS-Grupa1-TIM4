@@ -15,9 +15,9 @@ namespace Project.Hospital.Service
         {
             this.managerRepository = managerRepository;
         }
-        public Manager getByEmailAndPassword(String email, String password)
+        public Manager GetByEmailAndPassword(String email, String password)
         {
-            return managerRepository.getByEmailAndPassword(email, password);
+            return managerRepository.GetByEmailAndPassword(email, password);
         }
     }
 }

@@ -3,21 +3,25 @@
       xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
-      xmlns:local="clr-namespace:Project.Hospital.View.Secretary"
+      xmlns:cmd="clr-namespace:Project.Hospital.View.Secretary.Commands"
       mc:Ignorable="d" 
       d:DesignHeight="768" d:DesignWidth="824"
       Title="KreiranjeNovogNalogaPage">
 
+    <Page.CommandBindings>
+        <CommandBinding Command="cmd:RoutedCommand.Back" CanExecute="Back_CanExecute" Executed="Back_Executed"></CommandBinding>
+    </Page.CommandBindings>
+    
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto"></RowDefinition>
             <RowDefinition></RowDefinition>
         </Grid.RowDefinitions>
         <DockPanel Grid.Row="0" Height="100" Width="824">
-            <Button DockPanel.Dock="Left" Width="80" Margin="20,20,20,40" FontSize="16" Click="nazad">Nazad</Button>
+            <Button DockPanel.Dock="Left" Width="80" Margin="20,20,20,40" FontSize="16" Command="cmd:RoutedCommand.Back">Nazad</Button>
             <TextBlock DockPanel.Dock="Right" FontSize="32" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0, 30, 350, 0">Kreiranje novog naloga</TextBlock>
         </DockPanel>
-        <Grid Grid.Row="1">
+        <Grid Grid.Row="1" KeyboardNavigation.TabNavigation="Cycle">
             <Grid.RowDefinitions>
                 <RowDefinition></RowDefinition>
                 <RowDefinition></RowDefinition>
@@ -32,7 +36,7 @@
                 <ColumnDefinition></ColumnDefinition>
             </Grid.ColumnDefinitions>
             <DockPanel Grid.Row="0" Grid.Column="0">
-                <Label DockPanel.Dock="Top" FontSize="18" Width="250" HorizontalAlignment="Center" Margin="100,30,0,0">Ime* :</Label>
+                <Label DockPanel.Dock="Top" FontSize="18" Height="30" Width="250" HorizontalAlignment="Center" Margin="100,30,0,0">Ime* :</Label>
                 <TextBox HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Height="25" Width="250" FontSize="16" Margin="100,0,0,0" Name="imeBox"></TextBox>
             </DockPanel>
             <DockPanel Grid.Row="1" Grid.Column="0">
@@ -46,8 +50,8 @@
             <DockPanel Grid.Row="3" Grid.Column="0">
                 <Label DockPanel.Dock="Top" FontSize="18" Height="30" Width="250" HorizontalAlignment="Center" Margin="100,25,0,0">Pol :</Label>
                 <WrapPanel HorizontalAlignment="Center" Height="30" Width="250"  Margin="100,0,0,0" Orientation="Horizontal">
-                    <RadioButton Width="100" FontSize="16" Margin="5,10,0,0">Z</RadioButton>
-                    <RadioButton Width="100" FontSize="16" Margin="5,10,0,0">M</RadioButton>
+                    <RadioButton Name="rb1" Width="100" FontSize="16" Margin="5,10,0,0" KeyDown="rb1_KeyDown">Z</RadioButton>
+                    <RadioButton Name="rb2" Width="100" FontSize="16" Margin="5,10,0,0" KeyDown="rb2_KeyDown">M</RadioButton>
                 </WrapPanel>
             </DockPanel>
             <DockPanel Grid.Row="4" Grid.Column="0">
@@ -64,7 +68,8 @@
             </DockPanel>
             <DockPanel Grid.Row="1" Grid.Column="1">
                 <Label DockPanel.Dock="Top" FontSize="18" Height="30" Width="250" HorizontalAlignment="Center" Margin="0,30,100,0">Email :</Label>
-                <TextBox HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Height="25" Width="250" FontSize="16" Margin="0,0,100,0" Name="emailBox"></TextBox>
+                <TextBox HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Height="25" Width="250" FontSize="16" Margin="0,0,100,0" Name="emailBox">
+                </TextBox>
             </DockPanel>
             <DockPanel Grid.Row="2" Grid.Column="1">
                 <Label DockPanel.Dock="Top" FontSize="18" Height="30" Width="250" HorizontalAlignment="Center" Margin="0,30,100,0">Drzava :</Label>

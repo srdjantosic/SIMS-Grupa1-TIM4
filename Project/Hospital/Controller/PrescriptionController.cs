@@ -20,9 +20,9 @@ namespace Project.Hospital.Controller
             this.prescriptionService = prescriptionService;
         }
 
-        public Prescription createPrescription(string lbo, Prescription newPrescription)
+        public Prescription CreatePrescription(string lbo, Prescription newPrescription)
         {
-            Prescription prescriptionToCreate = prescriptionService.createPrescription(lbo, newPrescription);
+            Prescription prescriptionToCreate = prescriptionService.CreatePrescription(lbo, newPrescription);
             if (prescriptionToCreate == null)
             {
                 throw new NotFoundException(string.Format(NOT_FOUND_ERROR, "id", newPrescription.Id), null);
@@ -31,9 +31,9 @@ namespace Project.Hospital.Controller
             return prescriptionToCreate;
         }
 
-        public Boolean updatePrescriotion(string lbo, Prescription prescriptionToUpdate)
+        public Boolean UpdatePrescriotion(string lbo, Prescription prescriptionToUpdate)
         {
-            Boolean isPrescriptionUpdated = prescriptionService.updatePrescription(lbo, prescriptionToUpdate);
+            Boolean isPrescriptionUpdated = prescriptionService.UpdatePrescription(lbo, prescriptionToUpdate);
             if(isPrescriptionUpdated == false)
             {
                 throw new NotFoundException(string.Format(NOT_FOUND_ERROR, "id", prescriptionToUpdate.Id), null);
@@ -41,13 +41,13 @@ namespace Project.Hospital.Controller
             return true;
         }
 
-        public List<Prescription> showPrescriptions()
+        public List<Prescription> ShowPrescriptions()
         {
-            return prescriptionService.showPrescriptions();
+            return prescriptionService.ShowPrescriptions();
         }
-        public Prescription getPrescription(int id)
+        public Prescription GetPrescription(int id)
         {
-            return prescriptionService.getPrescription(id);
+            return prescriptionService.GetPrescription(id);
         }
 
     }

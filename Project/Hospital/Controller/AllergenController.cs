@@ -17,19 +17,19 @@ namespace Project.Hospital.Controller
             this.allergenService = allergenService;
         }
 
-        public Allergen createAllergen(String lbo, String name)
+        public Allergen CreateAllergen(String lbo, String name)
         {
-            return allergenService.createAllergen(name, lbo);
+            return allergenService.CreateAllergen(name, lbo);
         }
 
-        public List<Allergen> getPatientAllergens(String lbo)
+        public List<Allergen> GetPatientAllergens(String lbo)
         {
-            return allergenService.getPatientAllergens(lbo);
+            return allergenService.GetPatientAllergens(lbo);
         }
 
-        public bool deletePatientAllergen(String lbo, String name)
+        public bool DeletePatientAllergen(String lbo, String name)
         {
-            return allergenService.deletePatientAllergen(lbo, name);
+            return allergenService.DeletePatientAllergen(lbo, name);
         }
     }
 }

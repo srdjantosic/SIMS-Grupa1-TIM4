@@ -32,6 +32,10 @@ namespace Project
         private AppointmentService appointmentService;
         private AppointmentController appointmentController;
 
+        private DoctorRepository doctorRepository;
+        private DoctorService doctorService;
+        private DoctorController doctorController;
+
         public App()
         {
             this.reportRepository = new ReportRepository();
@@ -54,6 +58,10 @@ namespace Project
             this.appointmentRepository = new AppointmentRepository();
             this.appointmentService = new AppointmentService(appointmentRepository);
             this.appointmentController = new AppointmentController(appointmentService);
+
+            this.doctorRepository = new DoctorRepository();
+            this.doctorService = new DoctorService(doctorRepository);
+            this.doctorController = new DoctorController(doctorService);
 
             //reportController.createReport("kjkjk", "erterte");
             //reportController.updateReport(3, "opo", "lll");

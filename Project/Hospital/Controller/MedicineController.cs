@@ -13,27 +13,37 @@ namespace Project.Hospital.Controller
 
         private MedicineService medicineService;
 
-        public MedicineController (MedicineService medicineService)
+        public MedicineController(MedicineService medicineService)
         {
             this.medicineService = medicineService;
         }
 
-        // ZAVRSI OVO TOSICU - ovaj posa jedino ti mozes da zavrsis
-        //public Medicine createMedicine(string name, string manufacturer, DateTime expiringDate, string components, string instructionsForUse) { }
-
-        public Boolean updateMedicineStatus(string name)
+        //TODO
+        public Boolean Verify(string name)
         {
-            return medicineService.updateMedicineStatus(name);
+            return medicineService.Verify(name);
         }
 
-        public List<Medicine> showMedicines()
+        //TODO
+        public Boolean SetDecliningReason(string name, string reason)
         {
-            return medicineService.showMedicines();
+            return medicineService.SetDecliningReason(name, reason);
         }
 
-        public Medicine getMedicine(string name)
+        public List<Medicine> ShowMedicines()
         {
-            return medicineService.getMedicine(name);
+            return medicineService.ShowMedicines();
+        }
+
+        //TODO
+        public List<Medicine> ShowUnverifiedMedicines()
+        {
+            return medicineService.ShowUnverifiedMedicines();
+        }
+
+        public Medicine GetMedicine(string name)
+        {
+            return medicineService.GetMedicine(name);
         }
     }
 }

@@ -17,23 +17,23 @@ namespace Project.Hospital.Controller
             this.doctorService = doctorService;
         }
 
-        public List<Doctor> getAll()
+        public List<Doctor> GetAll()
         {
-            return doctorService.getAll();
+            return doctorService.GetAll();
         }
-        public Doctor getDoctorByName(String firstName, String lastName)
+        public Doctor GetDoctorByName(String firstName, String lastName)
         {
-            return doctorService.getDoctorByName(firstName, lastName);
-        }
-
-        public Doctor getDoctorByLks(String lks)
-        {
-            return doctorService.getDoctorByLks(lks);
+            return doctorService.GetDoctorByName(firstName, lastName);
         }
 
-        public Doctor getDoctorByEmailAndPassword(String email, String password)
+        public Doctor GetDoctorByLks(String lks)
         {
-            return doctorService.getDoctorByEmailAndPassword(email, password);
+            return doctorService.GetDoctorByLks(lks);
+        }
+
+        public Doctor GetDoctorByEmailAndPassword(String email, String password)
+        {
+            return doctorService.GetDoctorByEmailAndPassword(email, password);
         }
     }
 }

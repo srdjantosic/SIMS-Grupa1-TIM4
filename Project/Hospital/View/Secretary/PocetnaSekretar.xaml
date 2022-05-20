@@ -11,12 +11,12 @@
             <ColumnDefinition Width="Auto"></ColumnDefinition>
             <ColumnDefinition Width="Auto"></ColumnDefinition>
         </Grid.ColumnDefinitions>
-        <WrapPanel Grid.Column="0" Orientation="Vertical">
+        <WrapPanel Grid.Column="0" Orientation="Vertical" PreviewKeyDown="WrapPanel_PreviewKeyDown" >
             <Button Height="60" Width="200" FontSize="16" Click="pocetna">Pocetna</Button>
             <Button Height="60" FontSize="16" Click="pacijenti">Pacijenti</Button>
-            <Button Height="60" FontSize="16">Hitan slucaj</Button>
+            <Button Height="60" FontSize="16" Click="hitanSlucaj">Hitan slucaj</Button>
             <Button Height="60" FontSize="16" Click="raspored">Raspored</Button>
-            <Button Height="60" FontSize="16">Oprema</Button>
+            <Button Height="60" FontSize="16" Click="oprema">Oprema</Button>
             <Button Height="60" FontSize="16">Sastanci</Button>
             <Button Height="60" FontSize="16">Zahtevi za slobodne dane</Button>
             <Button Height="60" FontSize="16" Click="odjaviSe">Odjavi se</Button>

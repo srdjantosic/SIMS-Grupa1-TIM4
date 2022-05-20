@@ -31,7 +31,9 @@ namespace Project.Hospital.View.Secretary
         private AppointmentController appointmentController;
         private Model.Doctor doctor;
         private Patient patient;
-        public PrioritetLekarPage(Model.Doctor doctor, Patient patient)
+        private DateTime pocIntervala;
+        private DateTime krajIntervala;
+        public PrioritetLekarPage(Model.Doctor doctor, Patient patient, DateTime pocIntervala, DateTime krajIntervala)
         {
             InitializeComponent();
 
@@ -40,6 +42,8 @@ namespace Project.Hospital.View.Secretary
             this.appointmentController = new AppointmentController(appointmentService);
             this.doctor = doctor;
             this.patient = patient;
+            this.pocIntervala = pocIntervala.AddDays(1);
+            this.krajIntervala = krajIntervala.AddDays(10);
 
             tbPacijent.Text = patient.FirstName + " " + patient.LastName + " (" + patient.Jmbg + ") ";
             tbLekar.Text = doctor.firstName + " " + doctor.lastName + " (" + doctor.medicineArea + ") ";
@@ -53,7 +57,7 @@ namespace Project.Hospital.View.Secretary
             dt.Columns.Add(id);
             dt.Columns.Add(datumVreme);
            
-            foreach (Appointment appointment in appointmentController.getAvailableAppointments(doctor, patient, pocIntervala, krajIntervala))
+            foreach (Appointment appointment in appointmentController.GetAvailableAppointments(doctor, patient, pocIntervala, krajIntervala))
             {
                 if (!appointment.isDeleted)
                 {
@@ -68,15 +72,9 @@ namespace Project.Hospital.View.Secretary
             dataGridAppointments.ItemsSource = dt.DefaultView;
         }
 
-        private void zakazi(object sender, RoutedEventArgs e)
+        private void dataGridAppointments_Loaded(object sender, RoutedEventArgs e)
         {
-            string pocetak = dpPocDat.Text + " " + tbPocVre.Text;
-            string kraj = dpKrajDat.Text + " " + tbKrajVre.Text;
-            DateTime pocIntervala = DateTime.Parse(pocetak);
-            DateTime krajIntervala = DateTime.Parse(kraj);
-
             this.fillingDataGridUsingDataTable(pocIntervala, krajIntervala);
-
         }
 
         private void dataGridAppointments_MouseDoubleClick(object sender, MouseButtonEventArgs e)
@@ -87,7 +85,7 @@ namespace Project.Hospital.View.Secretary
 
                 DateTime vreme = DateTime.Parse((string)dataRow.Row.ItemArray[1]);
 
-                Appointment newAppointment = appointmentController.createAppointment(vreme, doctor.lks, patient.Lbo, doctor.roomName);
+                Appointment newAppointment = appointmentController.CreateAppointment(vreme, doctor.lks, patient.Lbo, doctor.roomName);
                 if (newAppointment != null)
                 {
                     var page = new RasporedPage();

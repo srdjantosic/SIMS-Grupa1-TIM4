@@ -10,16 +10,16 @@ namespace Project.Hospital.Repository
     public class ManagerRepository
     {
         public ManagerRepository() { }
-        public List<Manager> getAll()
+        public List<Manager> GetAll()
         {
             List<Manager> managers = new List<Manager>();
             Serializer<Manager> serializer = new Serializer<Manager>();
             managers = serializer.fromCSV("manager.txt");
             return managers;
         }
-        public Manager getByEmailAndPassword(String email, String password)
+        public Manager GetByEmailAndPassword(String email, String password)
         {
-            return getAll().SingleOrDefault(manager => manager.Email == email && manager.Password == password);
+            return GetAll().SingleOrDefault(manager => manager.Email == email && manager.Password == password);
         }
 
     }

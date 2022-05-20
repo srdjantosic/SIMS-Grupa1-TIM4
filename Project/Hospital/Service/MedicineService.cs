@@ -19,22 +19,42 @@ namespace Project.Hospital.Service
             this.medicineRepository = medicineRepository;
         }
 
-        // ZAVRSI OVO TOSICU - ovaj posa jedino ti mozes da zavrsis
-        //public Medicine createMedicine(string name, string manufacturer, DateTime expiringDate, string components, string instructionsForUse) { }
-
-        public Boolean updateMedicineStatus(string name)
+        //TODO
+        public Boolean Verify(string name)
         {
-            return medicineRepository.updateMedicineStatus(name);
+            return medicineRepository.Verify(name);
         }
 
-        public List<Medicine> showMedicines()
+        //TODO
+        public Boolean SetDecliningReason(string name, string reason)
         {
-            return medicineRepository.showMedicines();
+            return medicineRepository.SetDecliningReason(name, reason);
         }
 
-        public Medicine getMedicine(string name)
+
+        public List<Medicine> ShowMedicines()
         {
-            return medicineRepository.getMedicine(name);
+            return medicineRepository.ShowMedicines();
+        }
+
+        //TODO
+        public List<Medicine> ShowUnverifiedMedicines()
+        {
+            List<Medicine> medicines = new List<Medicine>();
+
+            foreach(Medicine medicine in ShowMedicines())
+            {
+                if(medicine.isActive == false)
+                {
+                    medicines.Add(medicine);
+                }
+            }
+            return medicines;
+        }
+
+        public Medicine GetMedicine(string name)
+        {
+            return medicineRepository.GetMedicine(name);
         }
     }
 }

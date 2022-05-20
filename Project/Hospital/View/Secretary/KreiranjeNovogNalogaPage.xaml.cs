@@ -4,7 +4,9 @@ using Project.Hospital.Repository;
 using Project.Hospital.Service;
 using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Linq;
+using System.Net.Mail;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
@@ -16,6 +18,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using System.Text.RegularExpressions;
 
 namespace Project.Hospital.View.Secretary
 {
@@ -33,12 +36,9 @@ namespace Project.Hospital.View.Secretary
             this.patientRepository = new PatientRepository();
             this.patientService = new PatientService(patientRepository);
             this.patientController = new PatientController(patientService);
-        }
 
-        private void nazad(object sender, RoutedEventArgs e)
-        {
-            PacijentiPage page = new PacijentiPage();
-            NavigationService.Navigate(page);
+            imeBox.Focus();
+            
         }
 
         private void odustani(object sender, RoutedEventArgs e)
@@ -59,18 +59,85 @@ namespace Project.Hospital.View.Secretary
             string drzava = drzavaBox.Text;
             string mesto = mestoBox.Text;
             string adresa = adresaBox.Text;
+            Gender.Genders gender = Gender.Genders.No_Gender;
 
-            Patient patient = patientController.CreatePatient(ime, prezime, Gender.Genders.No_Gender, email, telefon, jmbg, lbo, DateTime.Parse(datum), drzava, mesto, adresa);
-
-            if (patient != null)
+            if(ime.Length == 0)
             {
-                PacijentiPage page = new PacijentiPage();
-                NavigationService.Navigate(page);
+                imeBox.Focus();
             }
             else
             {
-                MessageBox.Show("Greska prilikom kreiranja!");
+                if(prezime.Length == 0)
+                {
+                    prezimeBox.Focus();
+                }
+                else
+                {
+                    if(jmbg.Length == 0 || jmbg.Length != 13)
+                    {
+                        jmbgBox.Focus();
+                    }
+                    else
+                    {
+                        if(lbo.Length == 0 || lbo.Length != 11)
+                        {
+                            lboBox.Focus();
+                        }
+                        else
+                        {
+                            if ((bool)rb1.IsChecked)
+                            {
+                                gender = Gender.Genders.Female;
+                            }
+                            else
+                            {
+                                gender = Gender.Genders.Male;
+                            }
+
+                            Patient patient = patientController.CreatePatient(ime, prezime, gender, email, telefon, jmbg, lbo, DateTime.Parse(datum), drzava, mesto, adresa);
+
+                            if (patient != null)
+                            {
+                                PacijentiPage page = new PacijentiPage();
+                                NavigationService.Navigate(page);
+                            }
+                            else
+                            {
+                                MessageBox.Show("Greska prilikom kreiranja!");
+                            }
+                        }
+                    }
+                }
+            }
+     
+        }
+        
+        private void Back_CanExecute(object sender, CanExecuteRoutedEventArgs e)
+        {
+            e.CanExecute = true;
+        }
+        private void Back_Executed(object sender, ExecutedRoutedEventArgs e)
+        {
+            PacijentiPage page = new PacijentiPage();
+            NavigationService.Navigate(page);
+        }
+
+        private void rb1_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.Key == Key.Enter)
+            {
+                rb1.IsChecked = true;
             }
         }
+
+        private void rb2_KeyDown(object sender, KeyEventArgs e)
+        {
+            if(e.Key == Key.Enter)
+            {
+                rb2.IsChecked = true;
+            }
+        }
+
     }
+
 }

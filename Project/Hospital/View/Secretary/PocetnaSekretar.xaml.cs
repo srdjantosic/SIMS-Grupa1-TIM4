@@ -10,7 +10,9 @@ using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
+using System.Windows.Navigation;
 using System.Windows.Shapes;
+
 
 namespace Project.Hospital.View.Secretary
 {
@@ -22,6 +24,7 @@ namespace Project.Hospital.View.Secretary
         public PocetnaSekretar()
         {
             InitializeComponent();
+
         }
 
         private void pacijenti(object sender, RoutedEventArgs e)
@@ -44,6 +47,31 @@ namespace Project.Hospital.View.Secretary
             var main = new MainWindow();
             main.Show();
             this.Close();
+        }
+
+        private void WrapPanel_PreviewKeyDown(object sender, KeyEventArgs e)
+        {
+            switch(e.Key)
+            {
+                case Key.Down:
+                    this.MoveFocus(new TraversalRequest(FocusNavigationDirection.Down));
+                    break;
+                case Key.Up:
+                    this.MoveFocus(new TraversalRequest(FocusNavigationDirection.Up));
+                    break;
+                default:
+                    break;
+            }
+        }
+
+        private void oprema(object sender, RoutedEventArgs e)
+        {
+            Prozor.Content = new OpremaPage();
+        }
+
+        private void hitanSlucaj(object sender, RoutedEventArgs e)
+        {
+            Prozor.Content = new HitanSlucaj();
         }
     }
 }

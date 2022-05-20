@@ -14,20 +14,16 @@
         <WrapPanel Grid.Column="0" Orientation="Vertical">
             <Label FontSize="20" FontWeight="Normal" HorizontalAlignment="Stretch" Margin="20,18,0,0">Schedule</Label>
             <Button Height="40" Margin="0,30,0,0">SCHEDULE</Button>
-            <Button Height="40">MEDICINES</Button>
-            <Button Height="40" FontSize="9">CREATE REQUEST FOR FREE DAYS</Button>
+            <Button Height="40" Click="btnMedicines">MEDICINES</Button>
+            <Button Height="40" FontSize="9" Click="btnCreateRequestForFreeDays">CREATE REQUEST FOR FREE DAYS</Button>
             <Button Height="40" FontSize="9">SHOW REQUESTS FOR FREE DAYS</Button>
             <Button Height="40" FontSize="9" Click="createPersonalTerm">CREATE PERSONAL TERM</Button>
             <Button Height="40" FontSize="9">CREATE NONPERSONAL TERM</Button>
             <Button Height="40">HELP</Button>
-            <Button Height="40" Click="logOut">LOG OUT</Button>
+            <Button Height="40" Click="btnLogOut">LOG OUT</Button>
         </WrapPanel>
 
-        <ComboBox Grid.Column="1" Width="140" Height="20" Margin="250,0,0,330">
-            <ComboBoxItem IsSelected="True" >Choose filter</ComboBoxItem>
-            <ComboBoxItem>Past appointments</ComboBoxItem>
-            <ComboBoxItem>Future appointments</ComboBoxItem>
-        </ComboBox>
+        <Button Grid.Column="1" Width="100" Height="20" Margin="500,0,0,350" Click="btnNotifications">Notifications</Button>
 
         <DataGrid Grid.Column="1" x:Name="dgSchedule" ItemsSource="{Binding appointments}" IsReadOnly="True" SelectionMode="Single" AutoGenerateColumns="False" 
                   HorizontalAlignment="Left" VerticalAlignment="Top" Margin="180,90,0,0">
@@ -36,6 +32,7 @@
                 <DataGridTextColumn Header="LBO" Binding="{Binding lbo}"/>
             </DataGrid.Columns>
         </DataGrid>
+        
         <Button Height="30" Width="40" Grid.Column="1" Margin="570,320,0,0" Click="detailsSchedule">Next</Button>
     </Grid>
 </Window>

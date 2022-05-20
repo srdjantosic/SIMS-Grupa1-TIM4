@@ -14,7 +14,7 @@ using Project.Hospital.View.Manager;
 using Project.Hospital.Repository;
 using Project.Hospital.Service;
 using Project.Hospital.Controller;
-using Project.Hospital.Model;
+using System;
 
 namespace Project
 {
@@ -42,42 +42,25 @@ namespace Project
             this.managerService = new ManagerService(managerRepository);
             this.managerController = new ManagerController(managerService);
         }
-
-        private void prijaviSe(object sender, RoutedEventArgs e)
+        private void Button_Click_Doctor(object sender, RoutedEventArgs e)
         {
-            string Email = email.Text;
-            string Password = password.Password.ToString();
+            var pocetna = new LogIn();
+            pocetna.Show();
+            this.Close();
+        }
 
-            if (doctorController.getDoctorByEmailAndPassword(Email, Password) != null)
-            {
-                var pocetna = new Schedule(doctorController.getDoctorByEmailAndPassword(Email, Password).lks);
-                pocetna.Show();
-                this.Close();
-            }
-            else
-            {
-                if(secretaryController.getByEmailAndPassword(Email, Password) != null) 
-                {
-                    var pocetna = new PocetnaSekretar();
-                    pocetna.Show();
-                    this.Close();
-                }
-                else
-                {
-                    if(managerController.getByEmailAndPassword(Email, Password) != null)
-                    {
-                        var pocetna = new Pocetna();
-                        pocetna.Show();
-                        this.Close();
-                    }
-                    else
-                    {
-                        var logIn = new MainWindow();
-                        logIn.Show();
-                        this.Close();
-                    }
-                }
-            }
+        private void Button_Click_Manager(object sender, RoutedEventArgs e)
+        {
+            var pocetna = new Pocetna();
+            pocetna.Show();
+            this.Close();
+        }
+
+        private void Button_Click(object sender, RoutedEventArgs e)
+        {
+            var pocetna = new PocetnaSekretar();
+            pocetna.Show();
+            this.Close();
         }
     }
 }

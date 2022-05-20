@@ -1,0 +1,58 @@
+﻿<Page x:Class="Project.Hospital.View.Secretary.HitanSlucaj"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:local="clr-namespace:Project.Hospital.View.Secretary"
+      mc:Ignorable="d" 
+      d:DesignHeight="768" d:DesignWidth="824"
+      Title="HitanSlucaj">
+
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"></RowDefinition>
+            <RowDefinition Height="Auto"></RowDefinition>
+            <RowDefinition Height="Auto"></RowDefinition>
+            <RowDefinition></RowDefinition>
+        </Grid.RowDefinitions>
+        <TextBlock Grid.Row="0" Height="70" FontSize="32" Padding="30,15">Ubacivanje hitnog slucaja u raspored</TextBlock>
+        <GroupBox Grid.Row="1" Name="patientInput" Margin="20,30" Header="Podaci o pacijentu" Height="100" Width="700" Visibility="Visible">
+            <Grid Height="80" Name="patientInputGrid">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition></ColumnDefinition>
+                    <ColumnDefinition></ColumnDefinition>
+                </Grid.ColumnDefinitions>
+                <DockPanel Grid.Column="0">
+                    <Label DockPanel.Dock="Top" Margin="10,10" Height="30" Width="300">LBO* :</Label>
+                    <TextBox Margin="10,0,10,10" Name="tbLbo" Width="300"></TextBox>
+                </DockPanel>
+                <Button Grid.Column="1" Height="50" Width="150" Click="potvrdi">Potvrdi</Button>
+            </Grid>
+        </GroupBox>
+        <GroupBox Grid.Row="1" Name="patientData" Margin="20,30" Header="Podaci o pacijentu" Height="100" Width="700" Visibility="Hidden">
+            <Grid Height="80" Name="patientDataGrid">
+                <Grid.RowDefinitions>
+                    <RowDefinition></RowDefinition>
+                    <RowDefinition></RowDefinition>
+                    <RowDefinition></RowDefinition>
+                </Grid.RowDefinitions>
+                <TextBlock Grid.Row="0" Width="500" Height="20" Name="patientLbo" Margin="33,4,111,3" ></TextBlock>
+                <TextBlock Grid.Row="1" Width="500" Height="20" Name="patientJmbg" Margin="33,4,111,3" ></TextBlock>
+                <TextBlock Grid.Row="2" Width="500" Height="20" Name="patinentName" Margin="33,4,111,3" ></TextBlock>
+            </Grid>
+        </GroupBox>
+        <GroupBox Grid.Row="2" Height="100" Width="700" Header="Odabir oblasti" Margin="20, 30" Name="gbOblast" Visibility="Hidden">
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition></ColumnDefinition>
+                    <ColumnDefinition></ColumnDefinition>
+                </Grid.ColumnDefinitions>
+                <TextBox Grid.Column="0" Height="20" Width="300" Name="tbOblast"></TextBox>
+                <Button Grid.Column="1" Height="50" Width="150" Click="potvrdiOblast">Potvrdi</Button>
+            </Grid>
+        </GroupBox>
+        <DataGrid Grid.Row="3" x:Name="dataGridAppointments" HorizontalAlignment="Left"
+                      VerticalAlignment="Center" Height="300" Width="700" IsReadOnly="True" Loaded="dataGridAppointments_Loaded" Margin="45,0,0,0" Visibility="Hidden" MouseDoubleClick="dataGridAppointments_MouseDoubleClick" >
+        </DataGrid>
+    </Grid>
+</Page>

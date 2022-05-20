@@ -42,12 +42,12 @@ namespace Project.Hospital.Service
 
                     equipmentRepository.UpdateEquipment(Id, Name, Equipment.EquipmentTypes.Permanent, oldQ - Quantity, OldRoomId);
 
-                    equipmentRepository.CreateEquipment(Name, Equipment.EquipmentTypes.Permanent, Quantity, newRoomID);
+                    equipmentRepository.CreateEquipment(" ", Name, Equipment.EquipmentTypes.Permanent, Quantity, newRoomID);
                 }
             }
 
         }
-        public void changeEquipment(String Id, String OldRoomId, String Name, int Quantity, DateTime dateTime, String newRoomID) {
+        public void ChangeEquipment(String Id, String OldRoomId, String Name, int Quantity, DateTime dateTime, String newRoomID) {
 
             Equipment e = this.equipmentRepository.GetEquipment(Id);
             if (dateTime.Date.Equals(DateTime.Now.Date))
@@ -80,7 +80,7 @@ namespace Project.Hospital.Service
             }
             else
             {
-                equipmentToMoveRepository.changeEquipment(Id, OldRoomId, Name, Quantity, dateTime, newRoomID);
+                equipmentToMoveRepository.ChangeEquipment(Id, OldRoomId, Name, Quantity, dateTime, newRoomID);
             }
 
 

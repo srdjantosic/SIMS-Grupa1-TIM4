@@ -2,97 +2,112 @@
       xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
       xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
-      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+      xmlns:cmd="clr-namespace:Project.Hospital.View.Secretary.Commands"
       xmlns:local="clr-namespace:Project.Hospital.View.Secretary"
       mc:Ignorable="d" 
       d:DesignHeight="768" d:DesignWidth="824"
       Title="KartonPacijentaPage">
 
+    <Page.CommandBindings>
+        <CommandBinding Command="cmd:RoutedCommand.Back" CanExecute="Back_CanExecute" Executed="Back_Executed"></CommandBinding>
+        <CommandBinding Command="cmd:RoutedCommand.Left" CanExecute="Left_CanExecute" Executed="Left_Executed"></CommandBinding>
+        <CommandBinding Command="cmd:RoutedCommand.Right" CanExecute="Right_CanExecute" Executed="Right_Executed"></CommandBinding>
+    </Page.CommandBindings>
+    
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto"></RowDefinition>
             <RowDefinition Height="Auto"></RowDefinition>
-            <RowDefinition Height="Auto"></RowDefinition>
+            <RowDefinition></RowDefinition>
         </Grid.RowDefinitions>
-        <DockPanel Grid.Row="0" Height="100" Width="824">
-            <Button DockPanel.Dock="Left" Width="80" Margin="20,20,20,40" FontSize="16" Click="nazad">Nazad</Button>
+        <DockPanel Grid.Row="0">
+            <Button DockPanel.Dock="Left" Width="80" Margin="20,20,20,40" FontSize="16" Content="Nazad" Command="cmd:RoutedCommand.Back"></Button>
             <TextBlock DockPanel.Dock="Right" FontSize="32" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0, 30, 400 , 0">Karton pacijenta</TextBlock>
         </DockPanel>
-        <Grid Grid.Row="1" Height="300">
-            <Grid.RowDefinitions>
-                <RowDefinition></RowDefinition>
-                <RowDefinition></RowDefinition>
-                <RowDefinition></RowDefinition>
-                <RowDefinition></RowDefinition>
-                <RowDefinition></RowDefinition>
-                <RowDefinition></RowDefinition>
-            </Grid.RowDefinitions>
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition></ColumnDefinition>
-                <ColumnDefinition></ColumnDefinition>
-            </Grid.ColumnDefinitions>
-            <WrapPanel Grid.Column="0" Grid.Row="0" Orientation="Horizontal">
-                <Label>JMBG :</Label>
-                <TextBlock Name="tbJmbg" Width="200" HorizontalAlignment="Center" VerticalAlignment="Center"></TextBlock>
-            </WrapPanel>
-            <WrapPanel Grid.Column="1" Grid.Row="0">
-                <Label>LBO :</Label>
-                <TextBlock Name="tbLbo" Width="200" VerticalAlignment="Center" HorizontalAlignment="Center"></TextBlock>
-            </WrapPanel>
-            <WrapPanel Grid.Column="0" Grid.Row="1">
-                <Label>IME:</Label>
-                <TextBlock Name="tbIme" Width="200" VerticalAlignment="Center" HorizontalAlignment="Center"></TextBlock>
-            </WrapPanel>
-            <WrapPanel Grid.Column="1" Grid.Row="1">
-                <Label>DRZAVA :</Label>
-                <TextBlock Name="tbDrzava" Width="200" VerticalAlignment="Center" HorizontalAlignment="Center"></TextBlock>
-            </WrapPanel>
-            <WrapPanel Grid.Column="0" Grid.Row="2">
-                <Label>PREZIME:</Label>
-                <TextBlock Name="tbPrezime" Width="200" VerticalAlignment="Center" HorizontalAlignment="Center" ></TextBlock>
-            </WrapPanel>
-            <WrapPanel Grid.Column="0" Grid.Row="3">
-                <Label>DATUM RODJENJA :</Label>
-                <TextBlock Name="tbDatumRodjenja" Width="200" VerticalAlignment="Center" HorizontalAlignment="Center"></TextBlock>
-            </WrapPanel>
-            <WrapPanel Grid.Column="0" Grid.Row="4">
-                <Label>POL:</Label>
-                <TextBlock Name="tbPol" Width="200" VerticalAlignment="Center" HorizontalAlignment="Center"></TextBlock>
-            </WrapPanel>
-            <WrapPanel Grid.Column="0" Grid.Row="5">
-                <Label>TELEFON :</Label>
-                <TextBlock Name="tbTelefon" Width="200" VerticalAlignment="Center" HorizontalAlignment="Center"></TextBlock>
-            </WrapPanel>
-            <WrapPanel Grid.Column="1" Grid.Row="2">
-                <Label>MESTO :</Label>
-                <TextBlock Name="tbMesto" Width="200" VerticalAlignment="Center" HorizontalAlignment="Center" ></TextBlock>
-            </WrapPanel>
-            <WrapPanel Grid.Column="1" Grid.Row="3">
-                <Label>ADRESA :</Label>
-                <TextBlock Name="tbAdresa" Width="200" VerticalAlignment="Center" HorizontalAlignment="Center" ></TextBlock>
-            </WrapPanel>
+        <Grid Grid.Row="1" Height="320">
+            <GroupBox Header="Licni podaci" Height="280" Width="750" Margin="0,10,0,0">
+                    <Grid Height="204">
+                        <Grid.RowDefinitions>
+                            <RowDefinition></RowDefinition>
+                            <RowDefinition></RowDefinition>
+                            <RowDefinition></RowDefinition>
+                            <RowDefinition></RowDefinition>
+                            <RowDefinition></RowDefinition>
+                            <RowDefinition></RowDefinition>
+                        </Grid.RowDefinitions>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition></ColumnDefinition>
+                            <ColumnDefinition></ColumnDefinition>
+                        </Grid.ColumnDefinitions>
+                        <WrapPanel Grid.Column="0" Grid.Row="0" Orientation="Horizontal">
+                            <Label Margin="50,0,0,0">JMBG :</Label>
+                            <TextBlock Name="tbJmbg" Width="200" HorizontalAlignment="Center" VerticalAlignment="Center"></TextBlock>
+                        </WrapPanel>
+                        <WrapPanel Grid.Column="1" Grid.Row="0">
+                            <Label>LBO :</Label>
+                            <TextBlock Name="tbLbo" Width="200" VerticalAlignment="Center" HorizontalAlignment="Center"></TextBlock>
+                        </WrapPanel>
+                        <WrapPanel Grid.Column="0" Grid.Row="1">
+                            <Label Margin="50,0,0,0">IME:</Label>
+                            <TextBlock x:Name="tbIme" Width="200" VerticalAlignment="Center" HorizontalAlignment="Left"/>
+                        </WrapPanel>
+                        <WrapPanel Grid.Column="1" Grid.Row="1">
+                            <Label>DRZAVA :</Label>
+                            <TextBlock Name="tbDrzava" Width="200" VerticalAlignment="Center" HorizontalAlignment="Center"></TextBlock>
+                        </WrapPanel>
+                        <WrapPanel Grid.Column="0" Grid.Row="2">
+                            <Label Margin="50,0,0,0">PREZIME:</Label>
+                            <TextBlock Name="tbPrezime" Width="200" VerticalAlignment="Center" HorizontalAlignment="Center" ></TextBlock>
+                        </WrapPanel>
+                        <WrapPanel Grid.Column="0" Grid.Row="3">
+                            <Label Margin="50,0,0,0">DATUM RODJENJA :</Label>
+                            <TextBlock Name="tbDatumRodjenja" Width="200" VerticalAlignment="Center" HorizontalAlignment="Center"></TextBlock>
+                        </WrapPanel>
+                        <WrapPanel Grid.Column="0" Grid.Row="4">
+                            <Label Margin="50,0,0,0">POL:</Label>
+                            <TextBlock Name="tbPol" Width="200" VerticalAlignment="Center" HorizontalAlignment="Center"></TextBlock>
+                        </WrapPanel>
+                        <WrapPanel Grid.Column="0" Grid.Row="5">
+                            <Label Margin="50,0,0,0">TELEFON :</Label>
+                            <TextBlock Name="tbTelefon" Width="200" VerticalAlignment="Center" HorizontalAlignment="Center"></TextBlock>
+                        </WrapPanel>
+                        <WrapPanel Grid.Column="1" Grid.Row="2">
+                            <Label>MESTO :</Label>
+                            <TextBlock Name="tbMesto" Width="200" VerticalAlignment="Center" HorizontalAlignment="Center" ></TextBlock>
+                        </WrapPanel>
+                        <WrapPanel Grid.Column="1" Grid.Row="3">
+                            <Label>ADRESA :</Label>
+                            <TextBlock Name="tbAdresa" Width="200" VerticalAlignment="Center" HorizontalAlignment="Center" ></TextBlock>
+                        </WrapPanel>
+                    </Grid>
+                </GroupBox>
         </Grid>
-        <Grid Grid.Row="2" Height="353">
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="Auto"></ColumnDefinition>
-                <ColumnDefinition Width="Auto"></ColumnDefinition>
-            </Grid.ColumnDefinitions>
-            <DataGrid Grid.Column="0" x:Name="dataGridPatientAllergens" ItemsSource="{Binding Path=Allergens}" AutoGenerateColumns="False" SelectionMode="Single" IsReadOnly="True" HorizontalAlignment="Left"
-                      VerticalAlignment="Top" Height="353" Width="550">
-                <DataGrid.Columns>
-                    <DataGridTextColumn Header="ALERGENI" Binding="{Binding Name}" Width="390"/>
-                    <DataGridTemplateColumn Width="150">
-                        <DataGridTemplateColumn.CellTemplate>
-                            <DataTemplate>
-                                <Button Name="btnObrisi" Content="Obrisi" Click="obrisi"/>
-                            </DataTemplate>
-                        </DataGridTemplateColumn.CellTemplate>
-                    </DataGridTemplateColumn>
-                </DataGrid.Columns>
-            </DataGrid>
-            <Grid Grid.Column="1" Width="275">
-                <Button Width="200" Height="80" FontSize="16" Click="dodavanjeAlergena">Dodavanje alergena</Button>
-            </Grid>
+        <Grid Grid.Row="2">
+            <GroupBox Header="Alergeni" Height="280" Width="750">
+                <Grid Height="253" Width="700">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="500"></ColumnDefinition>
+                        <ColumnDefinition></ColumnDefinition>
+                    </Grid.ColumnDefinitions>
+                    <DataGrid Grid.Column="0" x:Name="dataGridPatientAllergens" ItemsSource="{Binding Path=Allergens}" AutoGenerateColumns="False" SelectionMode="Single" IsReadOnly="True" HorizontalAlignment="Center"
+                      VerticalAlignment="Center" Height="233" Width="450">
+                        <DataGrid.Columns>
+                            <DataGridTextColumn Binding="{Binding Name}" Width="300"/>
+                            <DataGridTemplateColumn Width="140">
+                                <DataGridTemplateColumn.CellTemplate>
+                                    <DataTemplate>
+                                        <Button Name="btnObrisi" Content="Obrisi" Click="obrisi"/>
+                                    </DataTemplate>
+                                </DataGridTemplateColumn.CellTemplate>
+                            </DataGridTemplateColumn>
+                        </DataGrid.Columns>
+                    </DataGrid>
+                    <Grid Grid.Column="1">
+                        <Button Width="180" Height="60" FontSize="16" Click="dodavanjeAlergena" Margin="0,44,0,127" Name="btnDodavanjeAlergena">Dodavanje alergena</Button>
+                    </Grid>
+                </Grid>
+            </GroupBox>
         </Grid>
     </Grid>
 </Page>

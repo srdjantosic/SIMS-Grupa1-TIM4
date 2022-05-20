@@ -14,8 +14,12 @@ namespace Project.Hospital.View.Doctor
         private AppointmentService appointmentService;
         private AppointmentController appointmentController;
 
+
+        string loggedDoctor = "";
         public Schedule(string doctorLks)
         {
+            loggedDoctor = doctorLks;
+
             this.appointmentRepository = new AppointmentRepository();
             this.appointmentService = new AppointmentService(appointmentRepository);
             this.appointmentController = new AppointmentController(appointmentService);
@@ -25,20 +29,23 @@ namespace Project.Hospital.View.Doctor
 
             appointments = new ObservableCollection<Appointment>();
 
-            foreach (Appointment appointment in appointmentController.showAppointmentsByDoctorLks(doctorLks))
+            foreach (Appointment appointment in appointmentController.ShowAppointmentsByDoctorLks(doctorLks))
             {
-                appointments.Add(appointment);
+                if (appointment.isDeleted == false)
+                {
+                    appointments.Add(appointment);
+                }
             }
 
             futureAppointments = new ObservableCollection<Appointment>();
             DateTime dateTime = DateTime.Now;
-            foreach (Appointment appointment in appointmentController.getFutureAppointments(dateTime, doctorLks))
+            foreach (Appointment appointment in appointmentController.GetFutureAppointments(dateTime, doctorLks))
             {
                 futureAppointments.Add(appointment);
             }
 
             pastAppointments = new ObservableCollection<Appointment>();
-            foreach (Appointment appointment in appointmentController.getPastAppointments(dateTime, doctorLks))
+            foreach (Appointment appointment in appointmentController.GetPastAppointments(dateTime, doctorLks))
             {
                 pastAppointments.Add(appointment);
             }
@@ -61,7 +68,19 @@ namespace Project.Hospital.View.Doctor
             get;
             set;
         }
+        private void btnMedicines(object sender, RoutedEventArgs e)
+        {
+            var medicines = new Medicines(loggedDoctor);
+            medicines.Show();
+            this.Close();
+        }
 
+        private void btnCreateRequestForFreeDays(object sender, RoutedEventArgs e)
+        {
+            var createRequestForFreeDays = new CreateRequestForFreeDays(loggedDoctor);
+            createRequestForFreeDays.Show();
+            this.Close();
+        }
         private void createPersonalTerm(object sender, RoutedEventArgs e)
         {
             var createPersonalTerm = new CreatePersonalTerm();
@@ -77,10 +96,17 @@ namespace Project.Hospital.View.Doctor
             this.Close();
         }
 
-        private void logOut(object sender,  RoutedEventArgs e)
+        private void btnLogOut(object sender,  RoutedEventArgs e)
         {
-            var mainWindow = new MainWindow();
-            mainWindow.Show();
+            var logIn = new LogIn();
+            logIn.Show();
+            this.Close();
+        }
+
+        private void btnNotifications(object sender, RoutedEventArgs e)
+        {
+            var notifications = new Notifications(loggedDoctor);
+            notifications.Show();
             this.Close();
         }
     }
