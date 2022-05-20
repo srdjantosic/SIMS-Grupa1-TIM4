@@ -245,7 +245,7 @@ namespace Hospital.Service
                 {
                     if(DateTime.Compare(appointment.dateTime, receptionTime) >= 0 && DateTime.Compare(appointment.dateTime, receptionTime.AddMinutes(45)) <= 0)
                     {
-                        firstAvailableAppointment = GetFirstAvailableAppointment(appointment);
+                        firstAvailableAppointment = FindFirstFreeTerm(appointment);
                         takenAppointments.Add(Tuple.Create(FindDifferenceInDays(appointment, firstAvailableAppointment), appointment, firstAvailableAppointment));
                         
                     }
@@ -259,7 +259,7 @@ namespace Hospital.Service
             return (int)(firstAvailableAppointment.dateTime - takenAppointment.dateTime).TotalDays;
         }
 
-        public Appointment GetFirstAvailableAppointment(Appointment appointment)
+        public Appointment FindFirstFreeTerm(Appointment appointment)
         {
             Patient patient = patientService.GetPatient(appointment.lbo);
             Doctor doctor = doctorService.GetDoctorByLks(appointment.lks);

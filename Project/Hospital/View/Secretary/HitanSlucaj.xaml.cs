@@ -86,6 +86,13 @@ namespace Project.Hospital.View.Secretary
             patient = patientController.GetPatient(lbo);
             if(patient != null)
             {
+                patientInput.Visibility = Visibility.Hidden;
+               
+                patientLbo.Text = "LBO : "+patient.Lbo;
+                patientJmbg.Text = "JMBG :  "+patient.Jmbg;
+                patinentName.Text = "IME I PREZIME : "+patient.FirstName + " " + patient.LastName;
+                patientData.Visibility = Visibility.Visible;
+
                 gbOblast.Visibility = Visibility.Visible;
             }
             else
