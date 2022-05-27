@@ -25,25 +25,25 @@ namespace Project.Hospital.Controller
         }
 
         //TODO
-        public Boolean SetDecliningReason(string name, string reason)
+        public Boolean Decline(string name, string reason)
         {
-            return medicineService.SetDecliningReason(name, reason);
+            return medicineService.Decline(name, reason);
         }
 
-        public List<Medicine> ShowMedicines()
+        public List<Medicine> GetAll()
         {
-            return medicineService.ShowMedicines();
+            return medicineService.GetAll();
         }
 
         //TODO
-        public List<Medicine> ShowUnverifiedMedicines()
+        public List<Medicine> GetAllUnverified()
         {
-            return medicineService.ShowUnverifiedMedicines();
+            return medicineService.GetAllUnverified();
         }
 
-        public Medicine GetMedicine(string name)
+        public Medicine GetByName(string name)
         {
-            return medicineService.GetMedicine(name);
+            return medicineService.GetByName(name);
         }
     }
 }

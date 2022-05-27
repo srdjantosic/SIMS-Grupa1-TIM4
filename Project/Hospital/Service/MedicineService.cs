@@ -22,27 +22,46 @@ namespace Project.Hospital.Service
         //TODO
         public Boolean Verify(string name)
         {
-            return medicineRepository.Verify(name);
+            List<Medicine> medicines = GetAll();
+
+            foreach (Medicine medicine in medicines)
+            {
+                if (medicine.Name.Equals(name))
+                {
+                    medicine.isActive = true;
+                    return medicineRepository.Save(medicines);
+                }
+            }
+            return false;
         }
 
         //TODO
-        public Boolean SetDecliningReason(string name, string reason)
+        public Boolean Decline(string name, string reason)
         {
-            return medicineRepository.SetDecliningReason(name, reason);
+            List<Medicine> medicines = GetAll();
+
+            foreach (Medicine medicine in medicines)
+            {
+                if (medicine.Name.Equals(name))
+                {
+                    medicine.ReasonForDecline = reason;
+                    return medicineRepository.Save(medicines);
+                }
+            }
+            return false;
         }
 
-
-        public List<Medicine> ShowMedicines()
+        public List<Medicine> GetAll()
         {
-            return medicineRepository.ShowMedicines();
+            return medicineRepository.GetAll();
         }
 
         //TODO
-        public List<Medicine> ShowUnverifiedMedicines()
+        public List<Medicine> GetAllUnverified()
         {
             List<Medicine> medicines = new List<Medicine>();
 
-            foreach(Medicine medicine in ShowMedicines())
+            foreach(Medicine medicine in GetAll())
             {
                 if(medicine.isActive == false)
                 {
@@ -52,9 +71,9 @@ namespace Project.Hospital.Service
             return medicines;
         }
 
-        public Medicine GetMedicine(string name)
+        public Medicine GetByName(string name)
         {
-            return medicineRepository.GetMedicine(name);
+            return medicineRepository.GetByName(name);
         }
     }
 }

@@ -42,25 +42,33 @@ namespace Project
             this.managerService = new ManagerService(managerRepository);
             this.managerController = new ManagerController(managerService);
         }
-        private void Button_Click_Doctor(object sender, RoutedEventArgs e)
+
+        private void btnLogIn(object sender, RoutedEventArgs e)
         {
-            var pocetna = new LogIn();
-            pocetna.Show();
-            this.Close();
+            string Email = emailBox.Text;
+            string Password = passwordBox.Password.ToString();
+
+            if (doctorController.GetDoctorByEmailAndPassword(Email, Password) != null)
+            {
+                var schedule = new Schedule(doctorController.GetDoctorByEmailAndPassword(Email, Password).lks);
+                schedule.Show();
+                this.Close();
+            } else if (secretaryController.GetByEmailAndPassword(Email, Password) != null)
+            {
+                var pocetnaSekretar = new PocetnaSekretar();
+                pocetnaSekretar.Show();
+                this.Close();
+            } else if (managerController.GetByEmailAndPassword(Email, Password) != null) 
+            {
+                var pocetna = new Pocetna();
+                pocetna.Show();
+                this.Close();
+            }
+
+
         }
 
-        private void Button_Click_Manager(object sender, RoutedEventArgs e)
-        {
-            var pocetna = new Pocetna();
-            pocetna.Show();
-            this.Close();
-        }
 
-        private void Button_Click(object sender, RoutedEventArgs e)
-        {
-            var pocetna = new PocetnaSekretar();
-            pocetna.Show();
-            this.Close();
-        }
+
     }
 }
