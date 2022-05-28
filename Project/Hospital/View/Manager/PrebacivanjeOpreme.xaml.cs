@@ -40,7 +40,7 @@ namespace Project.Hospital.View.Manager
             this.OldRoomId = oldRoomId;
             this.Id = id;
             InitializeComponent();
-            List<Equipment> equipments = equipmentRepository.ShowEquipment();
+            List<Equipment> equipments = equipmentRepository.GetEquipment();
             List<string> equipmentsnew = new List<string>();
             foreach (Equipment equipment in equipments)
             {

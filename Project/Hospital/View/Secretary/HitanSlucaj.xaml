@@ -16,7 +16,7 @@
             <RowDefinition></RowDefinition>
         </Grid.RowDefinitions>
         <TextBlock Grid.Row="0" Height="70" FontSize="32" Padding="30,15">Ubacivanje hitnog slucaja u raspored</TextBlock>
-        <GroupBox Grid.Row="1" Name="patientInput" Margin="20,30" Header="Podaci o pacijentu" Height="100" Width="700" Visibility="Visible">
+        <GroupBox Grid.Row="1" Name="patientInput" Header="Podaci o pacijentu" Height="100" Width="700" Visibility="Visible">
             <Grid Height="80" Name="patientInputGrid">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition></ColumnDefinition>
@@ -41,7 +41,7 @@
                 <TextBlock Grid.Row="2" Width="500" Height="20" Name="patinentName" Margin="33,4,111,3" ></TextBlock>
             </Grid>
         </GroupBox>
-        <GroupBox Grid.Row="2" Height="100" Width="700" Header="Odabir oblasti" Margin="20, 30" Name="gbOblast" Visibility="Hidden">
+        <GroupBox Grid.Row="2" Height="100" Width="700" Header="Odabir oblasti" Margin="15" Name="gbOblast" Visibility="Hidden">
             <Grid>
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition></ColumnDefinition>
@@ -51,8 +51,12 @@
                 <Button Grid.Column="1" Height="50" Width="150" Click="potvrdiOblast">Potvrdi</Button>
             </Grid>
         </GroupBox>
-        <DataGrid Grid.Row="3" x:Name="dataGridAppointments" HorizontalAlignment="Left"
-                      VerticalAlignment="Center" Height="300" Width="700" IsReadOnly="True" Loaded="dataGridAppointments_Loaded" Margin="45,0,0,0" Visibility="Hidden" MouseDoubleClick="dataGridAppointments_MouseDoubleClick" >
-        </DataGrid>
+        <Grid Grid.Row="3" Width="650" Height="350" Name="gridAppointments" Visibility="Hidden">
+            <Grid.RowDefinitions>
+                <RowDefinition></RowDefinition>
+                <RowDefinition></RowDefinition>
+                <RowDefinition></RowDefinition>
+            </Grid.RowDefinitions>
+        </Grid>
     </Grid>
 </Page>

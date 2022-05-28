@@ -12,7 +12,7 @@ namespace Project.Hospital.Repository
     {
         private const string NOT_FOUND_ERROR = "Equipments with {0}:{1} can not be found!";
         public EquipmentRepository() { }
-        public List<Equipment> ShowEquipment()
+        public List<Equipment> GetEquipment()
         {
            
             Serializer<Equipment> equipmentSerializer = new Serializer<Equipment>();
@@ -29,7 +29,7 @@ namespace Project.Hospital.Repository
         public Boolean DeleteEquipment(String name)
         {
             List<Equipment> equipments = new List<Equipment>();
-            equipments = ShowEquipment();
+            equipments = GetEquipment();
 
             foreach (Equipment equipment in equipments)
             {
@@ -57,7 +57,7 @@ namespace Project.Hospital.Repository
         public Boolean UpdateEquipment(String Id, String Name, Equipment.EquipmentTypes equipmentType, int Quantity, String RoomId)
         {
             //List<Equipment> equipments = new List<Equipment>();
-            List < Equipment >  equipments = ShowEquipment();
+            List < Equipment >  equipments = GetEquipment();
             foreach (Equipment equipment in equipments)
             {
                 if (equipment.Id.Equals(Id))
@@ -77,7 +77,7 @@ namespace Project.Hospital.Repository
         }
         public Equipment GetEquipment(String id)
         {
-            return ShowEquipment().SingleOrDefault(equipment => equipment.Id == id);
+            return GetEquipment().SingleOrDefault(equipment => equipment.Id == id);
 
         }
     }

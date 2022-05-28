@@ -6,19 +6,19 @@ using System.Threading.Tasks;
 
 namespace Project.Hospital.Model
 {
-    public class RequestForSupplyEquipment : Serializable
+    public class SpendableEquipmentRequest : Serializable
     {
         public String EquipmentName { get; set; }
         public String EquipmentId { get; set; }
-        public int QuantityToProcured { get; set; }
+        public int Quantity { get; set; }
         public DateTime CreateDate { get; set; }
 
-        public RequestForSupplyEquipment() { }
-        public RequestForSupplyEquipment(String equipmentName, String equipmentId, int quantityToProcured, DateTime createDate)
+        public SpendableEquipmentRequest() { }
+        public SpendableEquipmentRequest(String equipmentName, String equipmentId, int quantity, DateTime createDate)
         {
             this.EquipmentName = equipmentName;
             this.EquipmentId = equipmentId;
-            this.QuantityToProcured = quantityToProcured;
+            this.Quantity = quantity;
             this.CreateDate = createDate;
         }
         public void fromCSV(string[] values)
@@ -26,7 +26,7 @@ namespace Project.Hospital.Model
 
             EquipmentId = values[0];
             EquipmentName = values[1];
-            QuantityToProcured = int.Parse(values[2]);
+            Quantity = int.Parse(values[2]);
             CreateDate = DateTime.Parse(values[3]);
 
         }
@@ -36,7 +36,7 @@ namespace Project.Hospital.Model
             {
                 EquipmentId,
                 EquipmentName,
-                QuantityToProcured.ToString(),
+                Quantity.ToString(),
                 CreateDate.ToString()
 
             };

@@ -25,17 +25,17 @@ namespace Project.Hospital.View.Secretary
         private EquipmentRepository equipmentRepository;
         private EquipmentService equipmentService;
         private EquipmentController equipmentController;
-        private RequestForSupplyEquipmentRepository requestForSupplyEquipmentRepository;
-        private RequestForSupplyEquipmentService requestForSupplyEquipmentService;
+        private SpendableEquipmentRequestRepository spendableEquipmentRequestRepository;
+        private SpendableEquipmentRequestService spendableEquipmentRequestService;
         public ObservableCollection<Equipment> Equipment { get; set; }
         public OpremaPage()
         {
             InitializeComponent();
 
-            this.requestForSupplyEquipmentRepository = new RequestForSupplyEquipmentRepository();
-            this.requestForSupplyEquipmentService = new RequestForSupplyEquipmentService(requestForSupplyEquipmentRepository);
+            this.spendableEquipmentRequestRepository = new SpendableEquipmentRequestRepository();
+            this.spendableEquipmentRequestService = new SpendableEquipmentRequestService(spendableEquipmentRequestRepository);
             this.equipmentRepository = new EquipmentRepository();
-            this.equipmentService = new EquipmentService(equipmentRepository, requestForSupplyEquipmentService);
+            this.equipmentService = new EquipmentService(equipmentRepository, spendableEquipmentRequestService);
             this.equipmentController = new EquipmentController(equipmentService);
 
             this.DataContext = this;

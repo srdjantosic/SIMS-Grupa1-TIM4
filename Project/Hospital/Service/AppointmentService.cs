@@ -219,7 +219,7 @@ namespace Hospital.Service
             return true;
         }
 
-        public Appointment GetFirstAvailableAppointment(Patient patient, String area, DateTime receptionTime)
+        public Appointment ScheduleEmergencyAppointment(Patient patient, String area, DateTime receptionTime)
         {
             List<Appointment> allAvailableAppointments = new List<Appointment>();
 
@@ -243,15 +243,23 @@ namespace Hospital.Service
                 List<Appointment> appointments = GetAppointmentsByLks(doctor.lks);
                 foreach (Appointment appointment in appointments)
                 {
-                    if(DateTime.Compare(appointment.dateTime, receptionTime) >= 0 && DateTime.Compare(appointment.dateTime, receptionTime.AddMinutes(45)) <= 0)
+                    if (!appointment.isDeleted)
                     {
-                        firstAvailableAppointment = FindFirstFreeTerm(appointment);
-                        takenAppointments.Add(Tuple.Create(FindDifferenceInDays(appointment, firstAvailableAppointment), appointment, firstAvailableAppointment));
-                        
+                        if (isAppointmentWithinNext45Minutes(appointment, receptionTime))
+                        {
+                            firstAvailableAppointment = FindFirstFreeTerm(appointment);
+                            takenAppointments.Add(Tuple.Create(FindDifferenceInDays(appointment, firstAvailableAppointment), appointment, firstAvailableAppointment));
+
+                        }
                     }
                 }
             }
             return takenAppointments.OrderByDescending(t => t.Item1).ToList();
+        }
+
+       public bool isAppointmentWithinNext45Minutes(Appointment appointment, DateTime receptionTime)
+        {
+            return (DateTime.Compare(appointment.dateTime, receptionTime) >= 0 && DateTime.Compare(appointment.dateTime, receptionTime.AddMinutes(45)) <= 0);
         }
 
         public int FindDifferenceInDays(Appointment takenAppointment, Appointment firstAvailableAppointment)

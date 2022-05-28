@@ -82,9 +82,9 @@ namespace Project.Hospital.Controller
         {
             return appointmentService.IsNewDateTimeAvailable(appointment, newDateTime);
         }
-        public Appointment GetFirstAvailableAppointment(Patient patient, String area, DateTime receptionTime)
+        public Appointment ScheduleEmergencyAppointment(Patient patient, String area, DateTime receptionTime)
         {
-            return appointmentService.GetFirstAvailableAppointment(patient, area, receptionTime);
+            return appointmentService.ScheduleEmergencyAppointment(patient, area, receptionTime);
         }
         public List<Tuple<int, Appointment, Appointment>> GetTakenAppointments(String area, DateTime receptionTime)
         {

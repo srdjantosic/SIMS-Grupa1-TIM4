@@ -41,8 +41,7 @@ namespace Project.Hospital.View.Secretary
         private NotificationController notificationController;
 
         private Patient patient;
-        private DataTable dt;
-        List<Tuple<int, Appointment, Appointment>> Appointments;
+        List<Tuple<int, Appointment, Appointment>> Appointments = new List<Tuple<int, Appointment, Appointment>>();
         public HitanSlucaj()
         {
             InitializeComponent();
@@ -60,26 +59,7 @@ namespace Project.Hospital.View.Secretary
             this.notificationService = new NotificationService(notificationRepository);
             this.notificationController = new NotificationController(notificationService);
         }
-        public void fillingDataGridUsingDataTable()
-        {
-            dt = new DataTable();
-            DataColumn id = new DataColumn("ID", typeof(int));
-            DataColumn datumVreme = new DataColumn("DATUM I VREME", typeof(string));
-            DataColumn pacijent = new DataColumn("PACIJENT", typeof(string));
-            DataColumn lekar = new DataColumn("LEKAR", typeof(string));
-
-            dt.Columns.Add(id);
-            dt.Columns.Add(datumVreme);
-            dt.Columns.Add(pacijent);
-            dt.Columns.Add(lekar);
-
-            dataGridAppointments.ItemsSource = dt.DefaultView;
-        }
-        private void dataGridAppointments_Loaded(object sender, RoutedEventArgs e)
-        {
-            this.fillingDataGridUsingDataTable();
-        }
-
+        
         private void potvrdi(object sender, RoutedEventArgs e)
         {
             string lbo = tbLbo.Text;
@@ -105,8 +85,9 @@ namespace Project.Hospital.View.Secretary
         private void potvrdiOblast(object sender, RoutedEventArgs e)
         {
             string oblast = tbOblast.Text;
-            DateTime vremePrijema = DateTime.Now;
-            Appointment appointment = appointmentController.GetFirstAvailableAppointment(patient, oblast, vremePrijema);
+
+            DateTime vremePrijema = DateTime.Parse("26-05-2022 13:00:00");
+            Appointment appointment = appointmentController.ScheduleEmergencyAppointment(patient, oblast, vremePrijema);
 
             if(appointment != null)
             {
@@ -118,19 +99,70 @@ namespace Project.Hospital.View.Secretary
                 if(appointmentController.GetTakenAppointments(oblast, vremePrijema) != null)
                 {
                     Appointments = appointmentController.GetTakenAppointments(oblast, vremePrijema);
-                    foreach (var item in Appointments)
+                   
+                    for(int i = 0; i<Appointments.Count; i++)
                     {
-                        DataRow row = dt.NewRow();
-                        row[0] = item.Item2.id;
-                        row[1] = item.Item2.dateTime.ToShortDateString() + " " + item.Item2.dateTime.ToLongTimeString();
-                        Patient patient = patientController.GetPatient(item.Item2.lbo);
-                        row[2] = patient.FirstName + " " + patient.LastName;
-                        Model.Doctor doctor = doctorController.GetDoctorByLks(item.Item2.lks);
-                        row[3] = doctor.firstName + " " + doctor.lastName;
+                        
+                        Border border = new Border();
+                        border.BorderBrush = Brushes.Black;
+                        border.BorderThickness = new Thickness(2, 2, 2, 2);
+                        border.Background = Brushes.LightGray;
+                        border.Padding = new Thickness(1);
+                        border.CornerRadius = new CornerRadius(15);
+                        border.Width = 600;
+                        border.Height = 80;
 
-                        dt.Rows.Add(row);
+                        Grid grid = new Grid();
+                        ColumnDefinition col0 = new ColumnDefinition();
+                        ColumnDefinition col1 = new ColumnDefinition();
+                        ColumnDefinition col2 = new ColumnDefinition();
+                        col0.Width = new GridLength(20);
+                        col2.Width = new GridLength(180);
+
+                        grid.ColumnDefinitions.Add(col0);
+                        grid.ColumnDefinitions.Add(col1);
+                        grid.ColumnDefinitions.Add(col2);
+
+                        TextBlock tbId = new TextBlock();
+                        tbId.VerticalAlignment = VerticalAlignment.Center;
+                        tbId.Inlines.Add(Appointments[i].Item2.id.ToString());
+                        Grid.SetColumn(tbId, 0);
+
+                        TextBlock textBlock = new TextBlock();
+                        textBlock.FontSize = 14;
+                        textBlock.Height = 60;
+                        textBlock.Width = 300;
+                        textBlock.HorizontalAlignment = HorizontalAlignment.Center;
+                        textBlock.VerticalAlignment = VerticalAlignment.Center;
+                       
+                        textBlock.Inlines.Add("Datum i vreme : "+Appointments[i].Item2.dateTime.ToShortDateString() + " " + Appointments[i].Item2.dateTime.ToLongTimeString());
+                        textBlock.Inlines.Add(new LineBreak());
+                        Patient patient = patientController.GetPatient(Appointments[i].Item2.lbo);
+                        textBlock.Inlines.Add("Pacijent : " + patient.FirstName + " " + patient.LastName);
+                        textBlock.Inlines.Add(new LineBreak());
+                        Model.Doctor doctor = doctorController.GetDoctorByLks(Appointments[i].Item2.lks);
+                        textBlock.Inlines.Add("Doktor : " + doctor.firstName + " " + doctor.lastName);
+                        Grid.SetColumn(textBlock, 1);
+
+                        Button btn = new Button();
+                        btn.Content = "Pomeri pregled";
+                        btn.DataContext = Appointments[i].Item2.id.ToString();
+                        btn.Height = 40;
+                        btn.Width = 100;
+                        btn.Click += (sender, e) => { moveAppointment(int.Parse((string)btn.DataContext)); };
+                        Grid.SetColumn(btn, 2);
+
+                        grid.Children.Add(tbId);
+                        grid.Children.Add(textBlock);
+                        grid.Children.Add(btn);
+
+                        border.Child = grid;
+                        Grid.SetRow(border, i);
+
+                        gridAppointments.Children.Add(border);
                     }
-                    this.dataGridAppointments.Visibility = Visibility.Visible;
+
+                    this.gridAppointments.Visibility = Visibility.Visible;
                 }
                 else
                 {
@@ -140,47 +172,41 @@ namespace Project.Hospital.View.Secretary
             }
 
         }
-
-        private void dataGridAppointments_MouseDoubleClick(object sender, MouseButtonEventArgs e)
-        {
-            if (dataGridAppointments.SelectedItem != null)
+       
+        private void moveAppointment(int appointmentId)
+        {           
+            foreach (var item in Appointments)
             {
-                DataRowView dataRow = (DataRowView)dataGridAppointments.SelectedItem;
-                int appointmentId = (int)dataRow.Row.ItemArray[0];
-
-                Appointment appointment = appointmentController.GetAppintment(appointmentId);
-
-                foreach (var item in Appointments)
+                if (item.Item2.id.Equals(appointmentId))
                 {
-                    if (item.Item2.id.Equals(appointment.id))
+                    DateTime oslobodjenoVreme = item.Item2.dateTime;
+
+                    if (appointmentController.UpdateAppointment(item.Item3.dateTime, appointmentId))
                     {
-                        DateTime oslobodjenoVreme = item.Item2.dateTime;
-                        
-                        if (appointmentController.UpdateAppointment(item.Item3.dateTime, appointment.id))
+                        Appointment pomerenPregled = appointmentController.GetAppintment(appointmentId);
+                        if (appointmentController.CreateAppointment(oslobodjenoVreme, item.Item3.lks, item.Item3.lbo, " ") != null)
                         {
-                            Appointment pomerenPregled = appointmentController.GetAppintment(appointment.id);
-                            if(appointmentController.CreateAppointment(oslobodjenoVreme, item.Item3.lks, item.Item3.lbo, " ") != null)
-                            {
-                                MessageBox.Show("Hitan slucaj je ubacen u raspored");
+                            MessageBox.Show("Hitan slucaj je ubacen u raspored");
 
-                                Notification obavestenje = new Notification(pomerenPregled.lks, DateTime.Now, "Vas termin je pomeren za novi datum " + pomerenPregled.dateTime.ToString(), pomerenPregled.lbo);
-                                notificationController.Create(obavestenje);
+                            Notification obavestenje = new Notification(pomerenPregled.lks, DateTime.Now, "Vas termin je pomeren za novi datum " + pomerenPregled.dateTime.ToString(), pomerenPregled.lbo);
+                            notificationController.Create(obavestenje);
 
-                                var page = new RasporedPage();
-                                NavigationService.Navigate(page);
-                            }
-                            else
-                            {
-                                MessageBox.Show("!!");
-                            }
+                            var page = new RasporedPage();
+                            NavigationService.Navigate(page);
                         }
                         else
                         {
-                            MessageBox.Show("!");
+                            MessageBox.Show("!!");
                         }
+                    }
+                    else
+                    {
+                        MessageBox.Show("!");
                     }
                 }
             }
+
         }
+        
     }
 }

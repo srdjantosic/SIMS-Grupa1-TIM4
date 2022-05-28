@@ -15,9 +15,9 @@ namespace Project.Hospital.Controller
         {
             this.equipmentService = equipmentService;
         }
-        public List<Equipment> ShowEquipment()
+        public List<Equipment> GetEquipment()
         {
-            return equipmentService.ShowEquipment();
+            return equipmentService.GetEquipment();
         }
         public List<Equipment> GetAllSpendableEquipment()
         {

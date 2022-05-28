@@ -15,7 +15,7 @@ namespace Project.Hospital.Service
         private EquipmentRepository equipmentRepository;
         private EquipmentToMoveRepository equipmentToMoveRepository;
         private EquipmentToMoveService equipmentToMoveService;
-        private RequestForSupplyEquipmentService requestForSupplyEquipmentService;
+        private SpendableEquipmentRequestService spendableEquipmentRequestService;
         public EquipmentService(EquipmentRepository equipmentRepository,EquipmentToMoveRepository equipmentToMoveRepository, EquipmentToMoveService equipmentToMoveService)
         {
             this.equipmentRepository = equipmentRepository;
@@ -23,13 +23,13 @@ namespace Project.Hospital.Service
             this.equipmentToMoveService = equipmentToMoveService;
         }
 
-        public EquipmentService(EquipmentRepository equipmentRepository, RequestForSupplyEquipmentService requestForSupplyEquipmentService)
+        public EquipmentService(EquipmentRepository equipmentRepository, SpendableEquipmentRequestService spendableEquipmentRequestService)
         {
             this.equipmentRepository = equipmentRepository;
-            this.requestForSupplyEquipmentService = requestForSupplyEquipmentService;
+            this.spendableEquipmentRequestService = spendableEquipmentRequestService;
         }
 
-        public List<Equipment> ShowEquipment()
+        public List<Equipment> GetEquipment()
         {
             
             List<EquipmentToMove> equipmentsToMove = equipmentToMoveRepository.ShowEquipment();
@@ -44,7 +44,7 @@ namespace Project.Hospital.Service
                     }
                 }
             }
-            return equipmentRepository.ShowEquipment(); 
+            return equipmentRepository.GetEquipment(); 
 
         }
 
@@ -53,7 +53,7 @@ namespace Project.Hospital.Service
             UpdateRequestedEquipment();
 
             List<Equipment> spendableEquipment = new List<Equipment>();
-            foreach(Equipment equipment in equipmentRepository.ShowEquipment())
+            foreach(Equipment equipment in equipmentRepository.GetEquipment())
             {
                 if(equipment.EquipmentType == Equipment.EquipmentTypes.Spendable)
                 {
@@ -64,20 +64,20 @@ namespace Project.Hospital.Service
         }
         public void UpdateRequestedEquipment()
         {
-            foreach(RequestForSupplyEquipment request in requestForSupplyEquipmentService.GetAllRequests())
+            foreach(SpendableEquipmentRequest request in spendableEquipmentRequestService.GetAllRequests())
             {
-                if(request.CreateDate.AddDays(ProcurementDeadline).ToShortDateString() == DateTime.Now.ToShortDateString())
+                if(DateTime.Compare(request.CreateDate.AddDays(ProcurementDeadline).Date, DateTime.Now.Date) <= 0)
                 {
                     Equipment equipment = GetEquipment(request.EquipmentId);
                     if(equipment != null)
                     {
-                        UpdateEquipment(equipment.Name, equipment.Id, equipment.EquipmentType, equipment.Quantity + request.QuantityToProcured, equipment.RoomId);
-                        requestForSupplyEquipmentService.DeleteRequest(request.EquipmentName);
+                        UpdateEquipment(equipment.Name, equipment.Id, equipment.EquipmentType, equipment.Quantity + request.Quantity, equipment.RoomId);
+                        spendableEquipmentRequestService.DeleteRequest(request.EquipmentName);
                     }
                     else
                     {
-                        CreateEquipment(request.EquipmentId, request.EquipmentName, request.QuantityToProcured);
-                        requestForSupplyEquipmentService.DeleteRequest(request.EquipmentName);
+                        CreateEquipment(request.EquipmentId, request.EquipmentName, request.Quantity);
+                        spendableEquipmentRequestService.DeleteRequest(request.EquipmentName);
                     }
                 }
             }

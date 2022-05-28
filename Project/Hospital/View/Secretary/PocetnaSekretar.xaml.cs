@@ -37,11 +37,6 @@ namespace Project.Hospital.View.Secretary
             Prozor.Content = new RasporedPage();
         }
 
-        private void pocetna(object sender, RoutedEventArgs e)
-        {
-            Prozor.Content = new PocetnaPage();
-        }
-
         private void odjaviSe(object sender, RoutedEventArgs e)
         {
             var main = new MainWindow();

@@ -59,7 +59,7 @@ namespace Project.Hospital.View.Manager
             this.DataContext = this;
             Equipments = new ObservableCollection<Equipment>();
         
-            foreach (Equipment equipment in equipmentController.ShowEquipment())
+            foreach (Equipment equipment in equipmentController.GetEquipment())
             {
                 Equipments.Add( equipment );
             }

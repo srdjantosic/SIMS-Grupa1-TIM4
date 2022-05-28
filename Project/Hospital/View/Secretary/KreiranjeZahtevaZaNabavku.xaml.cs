@@ -20,9 +20,9 @@ namespace Project.Hospital.View.Secretary
 {
     public partial class KreiranjeZahtevaZaNabavku : Window
     {
-        private RequestForSupplyEquipmentRepository requestForSupplyEquipmentRepository;
-        private RequestForSupplyEquipmentService requestForSupplyEquipmentService;
-        private RequestForSupplyEquipmnetController requestForSupplyEquipmnetController;
+        private SpendableEquipmentRequestRepository requestForSupplyEquipmentRepository;
+        private SpendableEquipmentRequestService requestForSupplyEquipmentService;
+        private SpendableEquipmentRequestController requestForSupplyEquipmnetController;
 
         private EquipmentRepository equipmentRepository;
         private EquipmentService equipmentService;
@@ -30,9 +30,9 @@ namespace Project.Hospital.View.Secretary
         {
             InitializeComponent();
 
-            this.requestForSupplyEquipmentRepository = new RequestForSupplyEquipmentRepository();
-            this.requestForSupplyEquipmentService = new RequestForSupplyEquipmentService(requestForSupplyEquipmentRepository);
-            this.requestForSupplyEquipmnetController = new RequestForSupplyEquipmnetController(requestForSupplyEquipmentService);
+            this.requestForSupplyEquipmentRepository = new SpendableEquipmentRequestRepository();
+            this.requestForSupplyEquipmentService = new SpendableEquipmentRequestService(requestForSupplyEquipmentRepository);
+            this.requestForSupplyEquipmnetController = new SpendableEquipmentRequestController(requestForSupplyEquipmentService);
 
             this.equipmentRepository = new EquipmentRepository();
             this.equipmentService = new EquipmentService(equipmentRepository, requestForSupplyEquipmentService);
