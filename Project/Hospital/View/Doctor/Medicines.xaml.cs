@@ -41,7 +41,7 @@ namespace Project.Hospital.View.Doctor
 
             medicines = new ObservableCollection<Medicine>();
 
-            foreach(Medicine medicine in medicineController.ShowUnverifiedMedicines())
+            foreach(Medicine medicine in medicineController.GetAllUnverified())
             {
                 medicines.Add(medicine);
             }

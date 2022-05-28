@@ -39,7 +39,7 @@ namespace Project.Hospital.View.Doctor
             InitializeComponent();
             this.DataContext = this;
 
-            Medicine medicineToShow = medicineController.GetMedicine(medicine.Name);
+            Medicine medicineToShow = medicineController.GetByName(medicine.Name);
 
             tbMedicineContain.Text = medicineToShow.Components;
             tbInstrucions.Text = medicineToShow.InstructionsForUse;
