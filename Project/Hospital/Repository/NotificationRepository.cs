@@ -15,9 +15,8 @@ namespace Project.Hospital.Repository
         public Notification Create(Notification newNotification)
         {
             Serializer<Notification> notificationSerializer = new Serializer<Notification>();
-            Notification notification = new Notification(newNotification.Lks, newNotification.CreationDate, newNotification.Message, newNotification.Lbo);
-            notificationSerializer.oneToCSV(fileName, notification);
-            return notification;
+            notificationSerializer.oneToCSV(fileName, newNotification);
+            return newNotification;
         }
 
         public List<Notification> GetAll()

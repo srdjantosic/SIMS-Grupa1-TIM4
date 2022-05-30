@@ -65,23 +65,18 @@ namespace Project.Hospital.View.Doctor
             DataColumn doctor = new DataColumn("Doctor", typeof(string));
             DataColumn dateTime = new DataColumn("Date and Time", typeof(string));
             DataColumn message = new DataColumn("Message", typeof(string));
-            DataColumn patient = new DataColumn("Patient", typeof(string));
-
-
+            
             dt.Columns.Add(doctor);
             dt.Columns.Add(dateTime);
             dt.Columns.Add(message);
-            dt.Columns.Add(patient);
 
-            foreach (Notification notification in notificationController.GetAllByLks(loggedDoctor))
+            foreach (Notification notification in notificationController.GetAllByReceiver(loggedDoctor))
             {
                 DataRow row = dt.NewRow();
-                Model.Doctor foundDoctor = doctorController.GetDoctorByLks(notification.Lks);
+                Model.Doctor foundDoctor = doctorController.GetDoctorByLks(notification.Receiver);
                 row[0] = foundDoctor.firstName + " " + foundDoctor.lastName;
                 row[1] = notification.CreationDate.ToShortDateString() + " " + notification.CreationDate.ToLongTimeString();
                 row[2] = notification.Message;
-                Patient foundPatient = patientController.GetPatient(notification.Lbo);
-                row[3] = foundPatient.FirstName + " " + foundPatient.LastName;
 
                 dt.Rows.Add(row);
             }

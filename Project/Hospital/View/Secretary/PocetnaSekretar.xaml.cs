@@ -68,5 +68,10 @@ namespace Project.Hospital.View.Secretary
         {
             Prozor.Content = new HitanSlucaj();
         }
+
+        private void zahtevi(object sender, RoutedEventArgs e)
+        {
+            Prozor.Content = new ZahteviZaSlobodneDanePage();
+        }
     }
 }

@@ -39,8 +39,8 @@
             </Grid>
             <Button DockPanel.Dock="Right" Name="btnKreiranjeNovogNaloga" FontSize="18" Height="80" Margin="30" Click="kreiranjeNovogNaloga">Kreiranje novog naloga</Button>
         </DockPanel>
-        <DataGrid Grid.Row="1" x:Name="dataGridPatients" HorizontalAlignment="Left"
-                      VerticalAlignment="Top" Width="790" Height="500" Loaded="dataGridPatients_Loaded" Margin="10,0,0,0" IsReadOnly="True">
+        <DataGrid Grid.Row="1" x:Name="dataGridPatients" HorizontalAlignment="Left" RowHeight="40" AlternatingRowBackground="LightGray"
+                      VerticalAlignment="Top" Width="790" Height="550" Loaded="dataGridPatients_Loaded" Margin="10,0,0,0" IsReadOnly="True">
 
         </DataGrid>
     </Grid>

@@ -22,5 +22,14 @@ namespace Project.Hospital.Controller
             return requestForFreeDaysService.CreateRequest(newRequestForFreeDays);
         }
 
+        public List<RequestForFreeDays> GetRequestsOnHold()
+        {
+            return requestForFreeDaysService.GetRequestsOnHold();
+        }
+
+        public Boolean ChangeStatus(RequestForFreeDays requestForChange, RequestForFreeDaysType.RequestForFreeDaysTypes status)
+        {
+            return requestForFreeDaysService.ChangeStatus(requestForChange, status);
+        }
     }
 }

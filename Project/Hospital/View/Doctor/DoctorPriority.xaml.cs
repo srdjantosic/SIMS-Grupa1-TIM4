@@ -102,13 +102,11 @@ namespace Project.Hospital.View.Doctor
                 if (newAppointment != null)
                 {
 
-                    Notification newNotification = new Notification();
-                    newNotification.Lks = doctor.lks;
-                    newNotification.CreationDate = DateTime.Now;
-                    newNotification.Message = "You have new appointment";
-                    newNotification.Lbo = patient.Lbo;
+                    Notification newNotificationForDoctor = new Notification(doctor.lks, DateTime.Now, "You have new appointment");
+                    Notification newNotificationForPatient = new Notification(patient.Lbo, DateTime.Now, "You have new appointment");
 
-                    notificationController.Create(newNotification);
+                    notificationController.Create(newNotificationForDoctor);
+                    notificationController.Create(newNotificationForPatient);
                     var schedule = new Schedule(loggedDoctor);
                     schedule.Show();
                     this.Close();

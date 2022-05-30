@@ -29,12 +29,12 @@ namespace Project.Hospital.Service
             return notificationRepository.GetAll();
         }
 
-        public List<Notification> GetAllByLks(string lks)
+        public List<Notification> GetAllByReceiver(string lks)
         {
             List<Notification> notifications = new List<Notification>();
             foreach(Notification notification in GetAll())
             {
-                if (notification.Lks.Equals(lks))
+                if (notification.Receiver.Equals(lks))
                 {
                     notifications.Add(notification);
                 }

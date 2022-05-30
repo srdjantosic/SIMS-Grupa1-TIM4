@@ -86,12 +86,14 @@ namespace Project.Hospital.View.Secretary
         {
             string oblast = tbOblast.Text;
 
-            DateTime vremePrijema = DateTime.Parse("26-05-2022 13:00:00");
+            DateTime vremePrijema = DateTime.Now;
             Appointment appointment = appointmentController.ScheduleEmergencyAppointment(patient, oblast, vremePrijema);
 
             if(appointment != null)
             {
                 appointmentController.CreateAppointment(appointment.dateTime, appointment.lks, appointment.lbo, appointment.roomName);
+                Notification notificationForDoctor = new Notification(appointment.lks, DateTime.Now, "Hitan pregled zakazan za " + appointment.dateTime.ToString());
+                notificationController.Create(notificationForDoctor);
                 MessageBox.Show("Hitan slucaj je ubacen u raspored");
             }
             else
@@ -188,8 +190,10 @@ namespace Project.Hospital.View.Secretary
                         {
                             MessageBox.Show("Hitan slucaj je ubacen u raspored");
 
-                            Notification obavestenje = new Notification(pomerenPregled.lks, DateTime.Now, "Vas termin je pomeren za novi datum " + pomerenPregled.dateTime.ToString(), pomerenPregled.lbo);
-                            notificationController.Create(obavestenje);
+                            Notification notificationForDoctor = new Notification(pomerenPregled.lks, DateTime.Now, "Vas termin je pomeren za novi datum " + pomerenPregled.dateTime.ToString());
+                            Notification notificationForPatient = new Notification(pomerenPregled.lbo, DateTime.Now, "Vas termin je pomeren za novi datum " + pomerenPregled.dateTime.ToString());
+                            notificationController.Create(notificationForDoctor);
+                            notificationController.Create(notificationForPatient);
 
                             var page = new RasporedPage();
                             NavigationService.Navigate(page);

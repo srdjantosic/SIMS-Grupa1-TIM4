@@ -21,9 +21,6 @@ using Hospital.Service;
 
 namespace Project.Hospital.View.Secretary
 {
-    /// <summary>
-    /// Interaction logic for ZakazivanjePregledaPage.xaml
-    /// </summary>
     public partial class ZakazivanjePregledaPage : Page
     {
         private PatientRepository patientRepository;
@@ -60,31 +57,28 @@ namespace Project.Hospital.View.Secretary
         private void zakazi(object sender, RoutedEventArgs e)
         {
             string lbo = tbLbo.Text;
-            string imeLekara = tbImeLekara.Text;
-            string prezimeLekara = tbPrezimeLekara.Text;
+            string doctorFirstName = tbDoctorFirstName.Text;
+            string doctorLastName = tbDoctorLastName.Text;
 
             Patient patient = patientController.GetPatient(lbo);
-            Model.Doctor doctor = doctorController.GetDoctorByName(imeLekara, prezimeLekara);
+            Model.Doctor doctor = doctorController.GetDoctorByName(doctorFirstName, doctorLastName);
 
-            string pocetak = dpPocDat.Text + " " + tbPocVre.Text;
-            string kraj = dpKrajDat.Text + " " + tbKrajVre.Text;
-            DateTime pocIntervala = DateTime.Parse(pocetak); 
-            DateTime krajIntervala = DateTime.Parse(kraj);
+            DateTime start = DateTime.Parse(dpStartDate.Text + " " + tbStartTime.Text); 
+            DateTime end = DateTime.Parse(dpEndDate.Text + " " + tbEndTime.Text);
 
-            List<Appointment> availableAppointments = appointmentController.GetAvailableAppointments(doctor, patient, pocIntervala, krajIntervala);
-
+            List<Appointment> availableAppointments = appointmentController.GetAvailableAppointments(doctor, patient, start, end);
 
             if(availableAppointments.Count==0)
             {
-                string prioritet = cbPrioritet.Text;
-                if (prioritet == "Lekar")
+                string priority = cbPriority.Text;
+                if (priority == "Lekar")
                 {
-                    var page1 = new PrioritetLekarPage(doctor, patient, pocIntervala, krajIntervala);
+                    var page1 = new PrioritetLekarPage(doctor, patient, start, end);
                     NavigationService.Navigate(page1);
                 }
                 else
                 {
-                    var page2 = new PrioritetVremePage(patient, pocIntervala, krajIntervala);
+                    var page2 = new PrioritetVremePage(patient, start, end);
                     NavigationService.Navigate(page2);
                 }
             }

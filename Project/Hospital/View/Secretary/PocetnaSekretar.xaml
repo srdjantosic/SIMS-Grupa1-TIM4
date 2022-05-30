@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Project.Hospital.View.Secretary"
         mc:Ignorable="d"
-        Title="ZDRAVO KORPORACIJA" Height="768" Width="1024">
+        Title="ZDRAVO KORPORACIJA" Height="925" Width="1024">
     <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="Auto"></ColumnDefinition>
@@ -18,9 +18,9 @@
             <Button Height="60" FontSize="16" Click="raspored">Raspored</Button>
             <Button Height="60" FontSize="16" Click="oprema">Oprema</Button>
             <Button Height="60" FontSize="16">Sastanci</Button>
-            <Button Height="60" FontSize="16">Zahtevi za slobodne dane</Button>
+            <Button Height="60" FontSize="16" Click="zahtevi">Zahtevi za slobodne dane</Button>
             <Button Height="60" FontSize="16" Click="odjaviSe">Odjavi se</Button>
         </WrapPanel>
-        <Frame x:Name="Prozor" Grid.Column="1" Width="824"></Frame>
+        <Frame x:Name="Prozor" Grid.Column="1" Width="824" Height="900"></Frame>
     </Grid>
 </Window>

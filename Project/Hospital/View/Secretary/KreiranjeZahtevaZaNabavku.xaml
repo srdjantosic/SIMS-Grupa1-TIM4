@@ -15,7 +15,7 @@
             <RowDefinition></RowDefinition>
             <RowDefinition></RowDefinition>
         </Grid.RowDefinitions>
-        <TextBlock Grid.Row="0" FontSize="22" FontWeight="Bold" Padding="50, 50">Kreiranje zahteva za nabavku</TextBlock>
+        <TextBlock Grid.Row="0" FontSize="22" FontWeight="Bold" Padding="50, 40">Kreiranje zahteva za nabavku</TextBlock>
         <DockPanel Grid.Row="1">
             <Label DockPanel.Dock="Top" FontSize="18" Width="250" HorizontalAlignment="Center" Margin="0,15,0,0">Sifra opreme :</Label>
             <TextBox HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Height="25" Width="250" FontSize="16" Name="sifraOpreme"/>

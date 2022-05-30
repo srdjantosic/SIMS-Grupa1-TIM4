@@ -27,7 +27,7 @@ namespace Project.Hospital.View.Secretary
         private EquipmentController equipmentController;
         private SpendableEquipmentRequestRepository spendableEquipmentRequestRepository;
         private SpendableEquipmentRequestService spendableEquipmentRequestService;
-        public ObservableCollection<Equipment> Equipment { get; set; }
+        private List<Equipment> equipment = new List<Equipment>();
         public OpremaPage()
         {
             InitializeComponent();
@@ -38,11 +38,59 @@ namespace Project.Hospital.View.Secretary
             this.equipmentService = new EquipmentService(equipmentRepository, spendableEquipmentRequestService);
             this.equipmentController = new EquipmentController(equipmentService);
 
-            this.DataContext = this;
-            Equipment = new ObservableCollection<Equipment>();
-            foreach(Equipment equipment in equipmentController.GetAllSpendableEquipment())
+            equipment = equipmentController.GetAllSpendableEquipment();
+
+            for(int i = 0; i<equipment.Count; i += 2)
             {
-                Equipment.Add(new Equipment { Id = equipment.Id, Name = equipment.Name, Quantity = equipment.Quantity });
+                RowDefinition row = new RowDefinition();
+                gridEquipment.RowDefinitions.Add(row);
+
+                for (int j = 0; j<2; j++)
+                {
+                    if (i+j<equipment.Count)
+                    {
+                        Border border = new Border();
+                        border.BorderBrush = Brushes.Black;
+                        border.Background = Brushes.White;
+                        border.BorderThickness = new Thickness(2, 2, 2, 2);
+                        border.Padding = new Thickness(1);
+                        border.CornerRadius = new CornerRadius(15);
+                        border.Width = 300;
+                        border.Height = 100;
+
+                        TextBlock textBlock = new TextBlock();
+                        textBlock.FontSize = 14;
+                        textBlock.Height = 70;
+                        textBlock.Width = 250;
+                        textBlock.HorizontalAlignment = HorizontalAlignment.Center;
+                        textBlock.VerticalAlignment = VerticalAlignment.Center;
+
+                        textBlock.Inlines.Add("Sifra opreme : " + equipment[i + j].Id);
+                        textBlock.Inlines.Add(new LineBreak());
+                        textBlock.Inlines.Add("Naziv opreme : " + equipment[i + j].Name);
+                        textBlock.Inlines.Add(new LineBreak());
+                        textBlock.Inlines.Add("Kolicina : " + equipment[i + j].Quantity);
+                        textBlock.Inlines.Add(new LineBreak());
+                        ProgressBar progressBar = new ProgressBar();
+                        progressBar.Value = equipment[i + j].Quantity;
+                        progressBar.Height = 10;
+                        progressBar.Width = 200;
+
+                        if (progressBar.Value < 50)
+                        {
+                            progressBar.Foreground = Brushes.Red;
+                        }
+
+                        textBlock.Inlines.Add(progressBar);
+
+                        border.Child = textBlock;
+                        Grid.SetColumn(border, j);
+                        Grid.SetRow(border, i/2);
+
+                        gridEquipment.Children.Add(border);
+                    }
+                }
+            
             }
         }
 

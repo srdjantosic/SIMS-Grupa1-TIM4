@@ -22,9 +22,9 @@ namespace Project.Hospital.Controller
             return notificationService.Create(newNotification);
         }
 
-        public List<Notification> GetAllByLks(string lks)
+        public List<Notification> GetAllByReceiver(string lks)
         {
-            return notificationService.GetAllByLks(lks);
+            return notificationService.GetAllByReceiver(lks);
         }
 
     }

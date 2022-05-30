@@ -20,11 +20,27 @@ namespace Project.Hospital.Repository
             return requestForFreeDays;
         }
 
-        public List<RequestForFreeDays> ShowRequests()
+        public List<RequestForFreeDays> GetAll()
         {
             Serializer<RequestForFreeDays> requestForFreeDaysSerializer = new Serializer<RequestForFreeDays>();
             List<RequestForFreeDays> requestsForFreeDays = requestForFreeDaysSerializer.fromCSV(fileName);
             return requestsForFreeDays;
+        }
+
+        public Boolean UpdateRequest(RequestForFreeDays requestForChange, RequestForFreeDaysType.RequestForFreeDaysTypes status)
+        {
+            List<RequestForFreeDays> requests = GetAll();
+            foreach(RequestForFreeDays request in requests)
+            {
+                if(request.Lks == requestForChange.Lks && request.Start == requestForChange.Start && request.End == requestForChange.End)
+                {
+                    request.isActive = status;
+                    Serializer<RequestForFreeDays> requestSerializer = new Serializer<RequestForFreeDays>();
+                    requestSerializer.toCSV(fileName, requests);
+                    return true;
+                }
+            }
+            return false;
         }
 
     }
