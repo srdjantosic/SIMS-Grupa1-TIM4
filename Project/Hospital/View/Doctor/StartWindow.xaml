@@ -1,0 +1,26 @@
+﻿<Window x:Class="Project.Hospital.View.Doctor.StartWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:Project.Hospital.View.Doctor"
+        mc:Ignorable="d"
+        Title="Hospital" Height="500" Width="800">
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width = "140"/>
+            <ColumnDefinition Width = "650"/>
+        </Grid.ColumnDefinitions>
+        <WrapPanel Grid.Column="0" Orientation="Vertical">
+            <Button Height="40" Margin="0,80,0,0" Click="btnSchedule">SCHEDULE</Button>
+            <Button Height="40" Click="btnMedicines">MEDICINES</Button>
+            <Button Height="40" FontSize="9" Click="btnCreateFreeDaysRequest">CREATE REQUEST FOR FREE DAYS</Button>
+            <Button Height="40" FontSize="9">SHOW REQUESTS FOR FREE DAYS</Button>
+            <Button Height="40" FontSize="9" Click="btnCreatePersonalTerm">CREATE PERSONAL TERM</Button>
+            <Button Height="40" FontSize="9">CREATE NONPERSONAL TERM</Button>
+            <Button Height="40">HELP</Button>
+            <Button Height="40" Click="btnLogOut">LOG OUT</Button>
+        </WrapPanel>
+        <Frame x:Name="mainWindow" Grid.Column="1" Width="650"></Frame>
+    </Grid>
+</Window>

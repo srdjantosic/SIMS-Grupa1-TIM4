@@ -23,11 +23,14 @@
         <Label Grid.Row="2" HorizontalContentAlignment="Left" VerticalAlignment="Center" HorizontalAlignment="Left" FontSize="20" Margin="140,0,0,0">Email:</Label>
 
         <TextBox Grid.Row="2" HorizontalContentAlignment="Left" Width="300" Height="30" CaretBrush="Black" BorderBrush="#FF020612" FontSize="20"  Name="emailBox"/>
-
+        
         <Label Grid.Row="3" HorizontalContentAlignment="Left" VerticalAlignment="Center" HorizontalAlignment="Left" FontSize="20" Margin="140,0,0,0">Password:</Label>
 
         <PasswordBox Grid.Row="3" HorizontalContentAlignment="Left" Width="300" Height="30" CaretBrush="Black" BorderBrush="#FF020612"  Name="passwordBox" FontSize="20"/>
 
         <Button Grid.Row="4" Width="300" Height="30" Click="btnLogIn">Log In</Button>
+
+        <Label Grid.Row="4" HorizontalContentAlignment="Left" VerticalAlignment="Center" HorizontalAlignment="Center" FontSize="15" Margin="0,50,0,0" Name="emailMsg" Foreground="Red"></Label>
+        
     </Grid>
 </Window>

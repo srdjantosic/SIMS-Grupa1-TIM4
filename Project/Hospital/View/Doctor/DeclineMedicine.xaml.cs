@@ -14,13 +14,13 @@ using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
+using System.Windows.Navigation;
 using System.Windows.Shapes;
 
 namespace Project.Hospital.View.Doctor
 {
-    public partial class DeclineMedicine : Window
+    public partial class DeclineMedicine : Page
     {
-
         MedicineRepository medicineRepository;
         MedicineService medicineService;
         MedicineController medicineController;
@@ -40,6 +40,11 @@ namespace Project.Hospital.View.Doctor
             InitializeComponent();
             this.DataContext = this;
 
+            Medicine medicineToShow = medicineController.GetByName(medicine.Name);
+
+            tbMedicineContain.Text = medicineToShow.Components;
+            tbInstrucions.Text = medicineToShow.InstructionsForUse;
+
             tbSet.Text = medicineController.GetByName(medicine.Name).ReasonForDecline;
         }
 
@@ -57,20 +62,18 @@ namespace Project.Hospital.View.Doctor
                     {
                         medicineController.Decline(currentMedicine.Name, tbSet.Text);
                         var medicines = new Medicines(loggedDoctor);
-                        medicines.Show();
-                        this.Close();
+                        NavigationService.Navigate(medicines);
                     }
                     break;
                 case MessageBoxResult.No:
                     break;
             }
         }
+
         private void btnCancel(object sender, RoutedEventArgs e)
         {
             var medicineDetails = new MedicineDetails(loggedDoctor, currentMedicine);
-            medicineDetails.Show();
-            this.Close();
+            NavigationService.Navigate(medicineDetails);
         }
-
     }
 }

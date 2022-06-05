@@ -15,11 +15,12 @@ using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
+using System.Windows.Navigation;
 using System.Windows.Shapes;
 
 namespace Project.Hospital.View.Doctor
 {
-    public partial class MoreDetailsSchedule : Window
+    public partial class MoreDetailsSchedule : Page
     {
 
         private PatientRepository patientRepository;
@@ -42,7 +43,6 @@ namespace Project.Hospital.View.Doctor
         Boolean isAlreadyCreated = false;
         Prescription prescription = new Prescription();
         Report report = new Report();
-
         public MoreDetailsSchedule(Appointment appointment)
         {
             currentAppointment = appointment;
@@ -133,10 +133,10 @@ namespace Project.Hospital.View.Doctor
         private void setMedicalChart(object sender, RoutedEventArgs e)
         {
 
-            Boolean areDoctorWantToSetMedicalChart = false;
+            Boolean areDoctorWantToSetMedicalChart = true; //promeniti na false
             Boolean isAnyFiendEmpty = false;
 
-            MessageBoxResult result = MessageBox.Show("Do you want to set medical chart?", "Alert", MessageBoxButton.YesNo);
+            /*MessageBoxResult result = MessageBox.Show("Do you want to set medical chart?", "Alert", MessageBoxButton.YesNo);
             switch (result)
             {
                 case MessageBoxResult.Yes:
@@ -144,23 +144,31 @@ namespace Project.Hospital.View.Doctor
                     break;
                 case MessageBoxResult.No:
                     break;
-            }
+            }*/
 
-            if((tbDiagnosis.Text.Equals("") || tbComment.Text.Equals("") || tbMedicines.Text.Equals("") || tbPeriodInDays.Text.Equals("")) && areDoctorWantToSetMedicalChart == true)
+            Console.WriteLine("USAO");
+
+            if ((tbDiagnosis.Text.Equals("") || tbComment.Text.Equals("") || tbMedicines.Text.Equals("") || tbPeriodInDays.Text.Equals("")) && areDoctorWantToSetMedicalChart == true)
             {
                 isAnyFiendEmpty = true;
-                MessageBox.Show("You must fill every field!", "ERROR");
+                //MessageBox.Show("You must fill every field!", "ERROR");
+                setMsg.Content = "You must feel every field!";
+                Console.WriteLine("USAO 1");
+                
             }
 
 
             if (IsTextAllowed(tbPeriodInDays.Text) == false && areDoctorWantToSetMedicalChart == true && isAnyFiendEmpty == false)
             {
-                MessageBox.Show("Period in days must be numeric!", "ERROR");
+                //MessageBox.Show("Period in days must be numeric!", "ERROR");
+                lblNumber.Content = "Must be a number!";
+                Console.WriteLine("USAO 2");
             }
             else if (IsTextAllowed(tbPeriodInDays.Text) == true && areDoctorWantToSetMedicalChart == true && isAnyFiendEmpty == false)
             {
+                Console.WriteLine("USAO 3");
 
-                if (isAlreadyCreated == false)
+                /*if (isAlreadyCreated == false)
                 {
                     Prescription newPrescription = new Prescription();
                     newPrescription.Id = prescriptionController.ShowPrescriptions().Count;
@@ -204,39 +212,8 @@ namespace Project.Hospital.View.Doctor
                 }
 
                 var schedule = new Schedule(currentAppointment.lks);
-                schedule.Show();
-                this.Close();
+                NavigationService.Navigate(schedule);*/
             }
         }
-
-        private void btnSchedule(object sender, RoutedEventArgs e)
-        {
-            var schedule = new Schedule(currentAppointment.lks);
-            schedule.Show();
-            this.Close();
-        }
-
-        private void btnMedicines(object sender, RoutedEventArgs e)
-        {
-            var medicines = new Medicines(currentAppointment.lks);
-            medicines.Show();
-            this.Close();
-        }
-
-        private void btnCreateRequestForFreeDays(object sender, RoutedEventArgs e)
-        {
-            var createRequestForFreeDays = new CreateRequestForFreeDays(currentAppointment.lks);
-            createRequestForFreeDays.Show();
-            this.Close();
-        }
-
-        private void btnLogOut(object sender, RoutedEventArgs e)
-        {
-            var logIn = new LogIn();
-            logIn.Show();
-            this.Close();
-        }
-
-
     }
 }

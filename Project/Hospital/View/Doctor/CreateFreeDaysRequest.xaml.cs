@@ -16,11 +16,12 @@ using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
+using System.Windows.Navigation;
 using System.Windows.Shapes;
 
 namespace Project.Hospital.View.Doctor
 {
-    public partial class CreateRequestForFreeDays : Window
+    public partial class CreateFreeDaysRequest : Page
     {
         private RequestForFreeDaysRepository requestForFreeDaysRepository;
         private RequestForFreeDaysService requestForFreeDaysService;
@@ -33,11 +34,11 @@ namespace Project.Hospital.View.Doctor
         private AppointmentRepository appointmentRepository;
         private AppointmentService appointmentService;
         private AppointmentController appointmentController;
- 
+
         string loggedDoctor = "";
-        public CreateRequestForFreeDays(string doctroLks)
+        public CreateFreeDaysRequest(string lks)
         {
-            loggedDoctor = doctroLks;
+            loggedDoctor = lks;
 
             this.doctorRepository = new DoctorRepository();
             this.doctorService = new DoctorService(doctorRepository);
@@ -55,6 +56,7 @@ namespace Project.Hospital.View.Doctor
             InitializeComponent();
             this.DataContext = this;
         }
+
         private void btnSendRequest(object sender, RoutedEventArgs e)
         {
 
@@ -97,42 +99,16 @@ namespace Project.Hospital.View.Doctor
                 requestForFreeDaysToCreate.isEmergency = false;
             }
 
-            if(requestForFreeDaysController.CreateRequest(requestForFreeDaysToCreate) == null)
+            if (requestForFreeDaysController.CreateRequest(requestForFreeDaysToCreate) == null)
             {
                 MessageBox.Show("More than one doctor in same medicine area is on holiday or you are busy in that period!", "Alert");
                 return;
             }
 
             MessageBox.Show("Request is successfully created!", "Alert");
-            
-            var createRequestForFreeDays = new CreateRequestForFreeDays(loggedDoctor);
-            createRequestForFreeDays.Show();
-            this.Close();
+
+            var createtFreeDaysReques = new CreateFreeDaysRequest(loggedDoctor);
+            NavigationService.Navigate(createtFreeDaysReques);
         }
-
-        private void btnSchedule(object sender, RoutedEventArgs e)
-        {
-            var schedule = new Schedule(loggedDoctor);
-            schedule.Show();
-            this.Close();
-        }
-
-        private void btnMedicine(object sender, RoutedEventArgs e)
-        {
-            var medicine = new Medicines(loggedDoctor);
-            medicine.Show();
-            this.Close();
-        }
-
-        private void btnLogOut(object sender, RoutedEventArgs e)
-        {
-            var logIn = new LogIn();
-            logIn.Show();
-            this.Close();
-        }
-
-
     }
-
-
 }

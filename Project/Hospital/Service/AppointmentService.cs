@@ -58,10 +58,10 @@ namespace Hospital.Service
         }
 
         //TODO
-        public Boolean UpdateDateTimeAndRoomName(int id, DateTime dateTime, string roomName)
+        public Appointment UpdateDateTimeAndRoomName(int id, DateTime dateTime, string roomName)
         {
             if (appointmentRepository.GetAppointment(id).isDeleted == true)
-                return false;
+                return null;
             else
                 return appointmentRepository.UpdateDateTimeAndRoomName(id, dateTime, roomName);
         }
