@@ -3,36 +3,41 @@
       xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:cmd="clr-namespace:Project.Hospital.View.Secretary.Commands"
       xmlns:local="clr-namespace:Project.Hospital.View.Secretary"
       mc:Ignorable="d" 
       d:DesignHeight="768" d:DesignWidth="824"
       Title="PrioritetVremePage">
 
+    <Page.CommandBindings>
+        <CommandBinding Command="cmd:RoutedCommand.Select" CanExecute="Select_CanExecute" Executed="Select_Executed"></CommandBinding>
+    </Page.CommandBindings>
+    
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto"></RowDefinition>
+            <RowDefinition Height="200"></RowDefinition>
             <RowDefinition Height="Auto"></RowDefinition>
-            <RowDefinition Height="Auto"></RowDefinition>
-            <RowDefinition></RowDefinition>
         </Grid.RowDefinitions>
-        <TextBlock Grid.Row="0" Height="60" FontWeight="Bold" FontSize="32" HorizontalAlignment="Left"  Margin="100,20,0,0">Zakazivanje pregleda</TextBlock>
-        <Grid Grid.Row="1" Height="150">
-            <Grid.RowDefinitions>
-                <RowDefinition></RowDefinition>
-                <RowDefinition></RowDefinition>
-            </Grid.RowDefinitions>
-            <WrapPanel Grid.Row="0" Orientation="Horizontal">
-                <Label>PACIJENT:</Label>
-                <TextBlock Name="tbPacijent" Width="200" HorizontalAlignment="Center" VerticalAlignment="Center"></TextBlock>
-            </WrapPanel>
-            <WrapPanel Grid.Row="1" Orientation="Horizontal">
-                <Label>DATUM I VREME:</Label>
-                <TextBlock Name="tbDatum" Width="300" HorizontalAlignment="Center" VerticalAlignment="Center"></TextBlock>
-            </WrapPanel>
-        </Grid>
-        <WrapPanel Grid.Row="2" Height="100"></WrapPanel>
-        <DataGrid Grid.Row="3" x:Name="dataGridAppointments" HorizontalAlignment="Left"
-                      VerticalAlignment="Top" Width="824" Height="450" Loaded="dataGridAppointments_Loaded" MouseDoubleClick="dataGridAppointments_MouseDoubleClick">
+        <TextBlock Grid.Row="0" Height="70" FontWeight="Bold" FontSize="32" Padding="70,15">Zakazivanje pregleda</TextBlock>
+        <GroupBox Grid.Row="1" Header="Podaci o pregledu" Width="676" Margin="20">
+            <Grid Height="100">
+                <Grid.RowDefinitions>
+                    <RowDefinition></RowDefinition>
+                    <RowDefinition></RowDefinition>
+                </Grid.RowDefinitions>
+                <WrapPanel Grid.Row="0" Orientation="Horizontal">
+                    <Label FontSize="14" Width="100" HorizontalContentAlignment="Right">PACIJENT:</Label>
+                    <TextBlock Name="tbPacijent" FontSize="14" Width="200" HorizontalAlignment="Center" VerticalAlignment="Center"></TextBlock>
+                </WrapPanel>
+                <WrapPanel Grid.Row="1" Orientation="Horizontal">
+                    <Label FontSize="14" Width="142" HorizontalContentAlignment="Right">DATUM I VREME:</Label>
+                    <TextBlock Name="tbDatum" FontSize="14" Width="300" HorizontalAlignment="Center" VerticalAlignment="Center"></TextBlock>
+                </WrapPanel>
+            </Grid>
+        </GroupBox>
+        <DataGrid Grid.Row="2" x:Name="dataGridAppointments" HorizontalAlignment="Center" RowHeight="50" AlternatingRowBackground="LightGray"
+                      VerticalAlignment="Top" Width="676" Height="480" Loaded="dataGridAppointments_Loaded">
         </DataGrid>
     </Grid>
 </Page>

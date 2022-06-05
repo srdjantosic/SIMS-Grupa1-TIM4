@@ -23,9 +23,6 @@ using System.Windows.Shapes;
 
 namespace Project.Hospital.View.Secretary
 {
-    /// <summary>
-    /// Interaction logic for RasporedPage.xaml
-    /// </summary>
     public partial class RasporedPage : Page
     {
         private AppointmentRepository appointmentRepository;
@@ -53,6 +50,7 @@ namespace Project.Hospital.View.Secretary
                 
         }
 
+        /*
         public void fillingDataGridUsingDataTable()
         {
             DataTable dt = new DataTable();
@@ -84,13 +82,13 @@ namespace Project.Hospital.View.Secretary
 
             dataGridAppointments.ItemsSource = dt.DefaultView;
         }
-
+        */
         private void zakazivanjePregleda(object sender, RoutedEventArgs e)
         {
             var page = new ZakazivanjePregledaPage();
             NavigationService.Navigate(page);
         }
-
+        /*
         private void dataGridAppointments_Loaded(object sender, RoutedEventArgs e)
         {
             this.fillingDataGridUsingDataTable();
@@ -103,10 +101,11 @@ namespace Project.Hospital.View.Secretary
                 DataRowView dataRow = (DataRowView)dataGridAppointments.SelectedItem;
                 int appointment = (int)dataRow.Row.ItemArray[0];
 
-                var page = new DetaljiOPregleduPage(appointmentController.GetAppintment(appointment));
-                NavigationService.Navigate(page);
+                var window = new DetaljiOPregledu(appointmentController.GetAppintment(appointment));
+                window.ShowDialog();
             }
         }
+        */
     }
 
 }

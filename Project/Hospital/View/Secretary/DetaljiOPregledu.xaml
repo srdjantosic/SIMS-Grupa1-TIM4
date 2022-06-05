@@ -1,0 +1,60 @@
+﻿<Window x:Class="Project.Hospital.View.Secretary.DetaljiOPregledu"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:Project.Hospital.View.Secretary"
+        mc:Ignorable="d"
+        Title="DetaljiOPregledu" Height="550" Width="450">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"></RowDefinition>
+            <RowDefinition Height="Auto"></RowDefinition>
+            <RowDefinition></RowDefinition>
+        </Grid.RowDefinitions>
+        <TextBlock Grid.Row="0" Height="80" FontSize="28" Padding="20">Detalji o pregledu</TextBlock>
+        <Grid Grid.Row="1" Height="300">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition></ColumnDefinition>
+                <ColumnDefinition Width="Auto"></ColumnDefinition>
+                <ColumnDefinition></ColumnDefinition>
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"></RowDefinition>
+                <RowDefinition Height="Auto"></RowDefinition>
+                <RowDefinition Height="Auto"></RowDefinition>
+                <RowDefinition></RowDefinition>
+            </Grid.RowDefinitions>
+            <WrapPanel Grid.Column="1" Grid.Row="0" Height="60" Width="350" Orientation="Horizontal">
+                <Label>PACIJENT:</Label>
+                <TextBlock Name="tbPacijent" Width="200" HorizontalAlignment="Center" VerticalAlignment="Center"></TextBlock>
+            </WrapPanel>
+            <WrapPanel Grid.Column="1" Grid.Row="1" Height="60" Width="350" Orientation="Horizontal">
+                <Label>LEKAR:</Label>
+                <TextBlock Name="tbLekar" Width="200" HorizontalAlignment="Center" VerticalAlignment="Center"></TextBlock>
+            </WrapPanel>
+            <WrapPanel Grid.Column="1" Grid.Row="3" Name="vpDateTime" Height="60" Orientation="Horizontal" Visibility="Visible">
+                <Label>DATUM I VREME:</Label>
+                <TextBlock Name="tbDatumIVreme" Width="250" HorizontalAlignment="Center" VerticalAlignment="Center"></TextBlock>
+            </WrapPanel>
+            <WrapPanel Grid.Column="1" Grid.Row="2" Height="60" Orientation="Horizontal">
+                <Label>PROSTORIJA:</Label>
+                <TextBlock Name="tbProstorija" Width="200" HorizontalAlignment="Center" VerticalAlignment="Center"></TextBlock>
+            </WrapPanel>
+            <GroupBox Grid.Column="1" Grid.Row="3" Name="gbUpdate" Header="Izmena datuma i vremena" Visibility="Hidden">
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition></RowDefinition>
+                        <RowDefinition></RowDefinition>
+                    </Grid.RowDefinitions>
+                    <DatePicker Name="dpDatum" Width="140" VerticalAlignment="Center" Margin="46,0,152,0"/>
+                    <TextBox Grid.Row="1" Name="tbVreme" Height="20" Width="140" Margin="46,3,152,3"></TextBox>
+                </Grid>
+            </GroupBox>
+        </Grid>
+        <Button Grid.Column="1" Name="btn1" HorizontalAlignment="Left" Margin="80,0,0,0" Grid.Row="6" VerticalAlignment="Top" Width="100" Height="40" FontSize="16" Click="obrisi" Visibility="Visible">Otkazi</Button>
+        <Button Grid.Column="1" Name="btn2" HorizontalAlignment="Left" Margin="250,0,0,0" Grid.Row="6" VerticalAlignment="Top" Width="100" Height="40" FontSize="16" Click="izmeni" Visibility="Visible">Izmeni</Button>
+        <Button Grid.Column="1" Name="btn3" HorizontalAlignment="Left" Margin="80,0,0,0" Grid.Row="6" VerticalAlignment="Center" Width="100" Height="40" FontSize="16" Click="odustani" Visibility="Hidden">Odustani</Button>
+        <Button Grid.Column="1" Name="btn4" HorizontalAlignment="Left" Margin="250,0,0,0" Grid.Row="6" VerticalAlignment="Center" Width="100" Height="40" FontSize="16" Click="potvrdi" Visibility="Hidden">Potvrdi</Button>
+    </Grid>
+</Window>

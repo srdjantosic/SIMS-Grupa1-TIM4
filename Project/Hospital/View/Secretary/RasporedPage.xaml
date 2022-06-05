@@ -3,6 +3,7 @@
       xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:syncfusion="http://schemas.syncfusion.com/wpf"
       xmlns:local="clr-namespace:Project.Hospital.View.Secretary"
       mc:Ignorable="d" 
       d:DesignHeight="768" d:DesignWidth="824"
@@ -17,7 +18,15 @@
             <TextBlock DockPanel.Dock="Left" Width="550" FontSize="32" Padding="20">Raspored</TextBlock>
             <Button DockPanel.Dock="Right" FontSize="18" Height="80" Margin="30" Click="zakazivanjePregleda">Zakazivanje pregleda</Button>
         </DockPanel>
-        <DataGrid Grid.Row="1" x:Name="dataGridAppointments" IsReadOnly="True" HorizontalAlignment="Left"
-                      VerticalAlignment="Top" Width="750" Height="550" Margin="25,0,0,0" Loaded="dataGridAppointments_Loaded" MouseDoubleClick="dataGridAppointments_MouseDoubleClick"/>
+        <Grid Grid.Row="1">
+            <syncfusion:SfScheduler x:Name="Schedule" ViewType="Week" FirstDayOfWeek="Monday" Margin="20">
+                <syncfusion:SfScheduler.DaysViewSettings>
+                    <syncfusion:DaysViewSettings 
+                        StartHour="8"
+                        EndHour="16"
+                        TimeIntervalSize="60"/>
+                </syncfusion:SfScheduler.DaysViewSettings>
+            </syncfusion:SfScheduler>
+        </Grid>
     </Grid>
 </Page>

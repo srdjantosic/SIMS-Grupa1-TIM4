@@ -34,7 +34,7 @@
                 <DataGridTemplateColumn Width="90">
                     <DataGridTemplateColumn.CellTemplate>
                         <DataTemplate>
-                            <Button Content="Detalji" Margin="2" Click="details"/>
+                            <Button Content="Detalji" Margin="2"/>
                         </DataTemplate>
                     </DataGridTemplateColumn.CellTemplate>
                 </DataGridTemplateColumn>
