@@ -23,9 +23,6 @@ using Project.Hospital.Service;
 
 namespace Project.Hospital.View.Secretary
 {
-    /// <summary>
-    /// Interaction logic for PrioritetVremePage.xaml
-    /// </summary>
     public partial class PrioritetVremePage : Page
     {
         private AppointmentRepository appointmentRepository;
@@ -38,9 +35,9 @@ namespace Project.Hospital.View.Secretary
         private DoctorService doctorService;
         private DoctorController doctorController;
         private Patient patient;
-        private DateTime pocIntervala;
-        private DateTime krajIntervala;
-        public PrioritetVremePage(Patient patient, DateTime pocIntervala, DateTime krajIntervala)
+        private DateTime start;
+        private DateTime end;
+        public PrioritetVremePage(Patient patient, DateTime start, DateTime end)
         {
             InitializeComponent();
 
@@ -57,39 +54,40 @@ namespace Project.Hospital.View.Secretary
             this.patientController = new PatientController(patientService);
 
             this.patient = patient;
-            this.pocIntervala = pocIntervala;
-            this.krajIntervala = krajIntervala;
+            this.start = start;
+            this.end = end;
 
             tbPacijent.Text = patient.FirstName + " " + patient.LastName + " (" + patient.Jmbg + ") ";
-            tbDatum.Text = pocIntervala.ToShortDateString() + " " + pocIntervala.ToLongTimeString() + " - " + krajIntervala.ToShortDateString() + " " + krajIntervala.ToLongTimeString();
+            tbDatum.Text = start.ToShortDateString() + " " + start.ToLongTimeString() + " - " + end.ToShortDateString() + " " + end.ToLongTimeString();
+
+            this.dataGridAppointments.Focus();
 
         }
         public void fillingDataGridUsingDataTable()
         {
             DataTable dt = new DataTable();
-            DataColumn id = new DataColumn("ID", typeof(int));
             DataColumn datumVreme = new DataColumn("DATUM I VREME", typeof(string));
             DataColumn lekar = new DataColumn("LEKAR", typeof(string));
 
-            dt.Columns.Add(id);
             dt.Columns.Add(datumVreme);
             dt.Columns.Add(lekar);
 
-            foreach (Appointment appointment in appointmentController.GetAvailableAppointmentsForAllDoctors(patient, pocIntervala, krajIntervala))
+            foreach (Appointment appointment in appointmentController.GetAvailableAppointmentsForAllDoctors(patient, start, end))
             {
                 if (!appointment.isDeleted)
                 {
                     DataRow row = dt.NewRow();
-                    row[0] = appointment.id;
-                    row[1] = appointment.dateTime.ToShortDateString() + " " + appointment.dateTime.ToLongTimeString();
+                    row[0] = appointment.dateTime.ToShortDateString() + " " + appointment.dateTime.ToLongTimeString();
                     Model.Doctor doctor = doctorController.GetDoctorByLks(appointment.lks);
-                    row[2] = doctor.firstName + " " + doctor.lastName;
+                    row[1] = doctor.firstName + " " + doctor.lastName;
 
                     dt.Rows.Add(row);
                 }
             }
 
             dataGridAppointments.ItemsSource = dt.DefaultView;
+            this.dataGridAppointments.Columns[0].Width = 300;
+            this.dataGridAppointments.Columns[1].Width = 370;
         }
      
         private void dataGridAppointments_Loaded(object sender, RoutedEventArgs e)
@@ -97,14 +95,18 @@ namespace Project.Hospital.View.Secretary
             this.fillingDataGridUsingDataTable();
         }
 
-        private void dataGridAppointments_MouseDoubleClick(object sender, MouseButtonEventArgs e)
+        private void Select_CanExecute(object sender, CanExecuteRoutedEventArgs e)
+        {
+            e.CanExecute = true;
+        }
+
+        private void Select_Executed(object sender, ExecutedRoutedEventArgs e)
         {
             if (dataGridAppointments.SelectedItem != null)
             {
                 DataRowView dataRow = (DataRowView)dataGridAppointments.SelectedItem;
-                DateTime vreme = DateTime.Parse((string)dataRow.Row.ItemArray[1]);
-                string[] lekar = ((string)dataRow.Row.ItemArray[2]).Split(" ");
-
+                DateTime vreme = DateTime.Parse((string)dataRow.Row.ItemArray[0]);
+                string[] lekar = ((string)dataRow.Row.ItemArray[1]).Split(" ");
                 Model.Doctor doctor = doctorController.GetDoctorByName(lekar[0], lekar[1]);
 
                 Appointment appointment = appointmentController.CreateAppointment(vreme, doctor.lks, patient.Lbo, doctor.roomName);

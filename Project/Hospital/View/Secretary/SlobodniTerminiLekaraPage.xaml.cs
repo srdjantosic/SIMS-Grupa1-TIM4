@@ -43,6 +43,8 @@ namespace Project.Hospital.View.Secretary
             this.availableAppointments = availableAppointments;
             this.doctor = doctor;
             this.patient = patient;
+
+            dataGridAppointments.Focus();
         }
 
         public void fillingDataGridUsingDataTable()
@@ -72,6 +74,10 @@ namespace Project.Hospital.View.Secretary
             }
 
             dataGridAppointments.ItemsSource = dt.DefaultView;
+            this.dataGridAppointments.Columns[0].Width = 22;
+            this.dataGridAppointments.Columns[1].Width = 225;
+            this.dataGridAppointments.Columns[2].Width = 253;
+            this.dataGridAppointments.Columns[3].Width = 254;
         }
 
         private void dataGridAppointments_Loaded(object sender, RoutedEventArgs e)
@@ -79,14 +85,17 @@ namespace Project.Hospital.View.Secretary
             this.fillingDataGridUsingDataTable();
         }
 
-        private void dataGridAppointments_MouseDoubleClick(object sender, MouseButtonEventArgs e)
+        private void Select_CanExecute(object sender, CanExecuteRoutedEventArgs e)
+        {
+            e.CanExecute = true;
+        }
+
+        private void Select_Executed(object sender, ExecutedRoutedEventArgs e)
         {
             if (dataGridAppointments.SelectedItem != null)
             {
                 DataRowView dataRow = (DataRowView)dataGridAppointments.SelectedItem;
-                
                 DateTime vreme = DateTime.Parse((string)dataRow.Row.ItemArray[1]);
-                
                 Appointment newAppointment = appointmentController.CreateAppointment(vreme, doctor.lks, patient.Lbo, doctor.roomName);
                 if (newAppointment != null)
                 {

@@ -5,7 +5,9 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Project.Hospital.View.Secretary"
         mc:Ignorable="d"
-        Title="ZDRAVO KORPORACIJA" Height="925" Width="1024">
+        Title="ZDRAVO KORPORACIJA" Height="925" Width="1024"
+        WindowStartupLocation="CenterScreen">
+            
     <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="Auto"></ColumnDefinition>

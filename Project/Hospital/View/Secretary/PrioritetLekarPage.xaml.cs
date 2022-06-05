@@ -21,9 +21,6 @@ using System.Data;
 
 namespace Project.Hospital.View.Secretary
 {
-    /// <summary>
-    /// Interaction logic for PrioritetLekarPage.xaml
-    /// </summary>
     public partial class PrioritetLekarPage : Page
     {
         private AppointmentRepository appointmentRepository;
@@ -31,9 +28,9 @@ namespace Project.Hospital.View.Secretary
         private AppointmentController appointmentController;
         private Model.Doctor doctor;
         private Patient patient;
-        private DateTime pocIntervala;
-        private DateTime krajIntervala;
-        public PrioritetLekarPage(Model.Doctor doctor, Patient patient, DateTime pocIntervala, DateTime krajIntervala)
+        private DateTime start;
+        private DateTime end;
+        public PrioritetLekarPage(Model.Doctor doctor, Patient patient, DateTime start, DateTime end)
         {
             InitializeComponent();
 
@@ -42,11 +39,13 @@ namespace Project.Hospital.View.Secretary
             this.appointmentController = new AppointmentController(appointmentService);
             this.doctor = doctor;
             this.patient = patient;
-            this.pocIntervala = pocIntervala.AddDays(1);
-            this.krajIntervala = krajIntervala.AddDays(10);
+            this.start = start.AddDays(1);
+            this.end = end.AddDays(10);
 
             tbPacijent.Text = patient.FirstName + " " + patient.LastName + " (" + patient.Jmbg + ") ";
             tbLekar.Text = doctor.firstName + " " + doctor.lastName + " (" + doctor.medicineArea + ") ";
+
+            this.dataGridAppointments.Focus();
         }
         public void fillingDataGridUsingDataTable(DateTime pocIntervala, DateTime krajIntervala)
         {
@@ -70,21 +69,26 @@ namespace Project.Hospital.View.Secretary
             }
 
             dataGridAppointments.ItemsSource = dt.DefaultView;
+
+            this.dataGridAppointments.Columns[0].Width = 25;
+            this.dataGridAppointments.Columns[1].Width = 640;
         }
 
         private void dataGridAppointments_Loaded(object sender, RoutedEventArgs e)
         {
-            this.fillingDataGridUsingDataTable(pocIntervala, krajIntervala);
+            this.fillingDataGridUsingDataTable(start, end);
+        }
+        private void Select_CanExecute(object sender, CanExecuteRoutedEventArgs e)
+        {
+            e.CanExecute = true;
         }
 
-        private void dataGridAppointments_MouseDoubleClick(object sender, MouseButtonEventArgs e)
+        private void Select_Executed(object sender, ExecutedRoutedEventArgs e)
         {
             if (dataGridAppointments.SelectedItem != null)
             {
                 DataRowView dataRow = (DataRowView)dataGridAppointments.SelectedItem;
-
                 DateTime vreme = DateTime.Parse((string)dataRow.Row.ItemArray[1]);
-
                 Appointment newAppointment = appointmentController.CreateAppointment(vreme, doctor.lks, patient.Lbo, doctor.roomName);
                 if (newAppointment != null)
                 {

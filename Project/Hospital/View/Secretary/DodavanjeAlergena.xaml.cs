@@ -18,9 +18,6 @@ using System.Windows.Shapes;
 
 namespace Project.Hospital.View.Secretary
 {
-    /// <summary>
-    /// Interaction logic for DodavanjeAlergena.xaml
-    /// </summary>
     public partial class DodavanjeAlergena : Window
     {
         private AllergenService allergenService;
@@ -40,7 +37,7 @@ namespace Project.Hospital.View.Secretary
             this.patient = patient;
             nazivAlergenaBox.Focus();
         }
-
+        
         private void odustani(object sender, RoutedEventArgs e)
         {
             this.Close();

@@ -22,9 +22,6 @@ using System.Text.RegularExpressions;
 
 namespace Project.Hospital.View.Secretary
 {
-    /// <summary>
-    /// Interaction logic for KreiranjeNovogNalogaPage.xaml
-    /// </summary>
     public partial class KreiranjeNovogNalogaPage : Page
     {
         private PatientRepository patientRepository;
@@ -40,7 +37,6 @@ namespace Project.Hospital.View.Secretary
             imeBox.Focus();
             
         }
-
         private void odustani(object sender, RoutedEventArgs e)
         {
             PacijentiPage page = new PacijentiPage();
@@ -137,7 +133,6 @@ namespace Project.Hospital.View.Secretary
                 rb2.IsChecked = true;
             }
         }
-
     }
 
 }

@@ -18,7 +18,6 @@
             <RowDefinition></RowDefinition>
         </Grid.RowDefinitions>
         <DockPanel Grid.Row="0" Height="100" Width="824">
-            <Button DockPanel.Dock="Left" Width="80" Margin="20,20,20,40" FontSize="16" Command="cmd:RoutedCommand.Back">Nazad</Button>
             <TextBlock DockPanel.Dock="Right" FontSize="32" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0, 30, 350, 0">Kreiranje novog naloga</TextBlock>
         </DockPanel>
         <Grid Grid.Row="1" KeyboardNavigation.TabNavigation="Cycle">

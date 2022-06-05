@@ -1,4 +1,4 @@
-﻿<Project Sdk="Microsoft.NET.Sdk">
+<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
     <OutputType>Exe</OutputType>
@@ -13,5 +13,10 @@
     <Folder Include="Hospital\View\Manager\" />
 
   </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Syncfusion.SfChart.WPF" Version="20.1.0.58" />
+      <PackageReference Include="Syncfusion.SfScheduler.WPF" Version="20.1.0.58"/>
+</ItemGroup>
 
 </Project>
