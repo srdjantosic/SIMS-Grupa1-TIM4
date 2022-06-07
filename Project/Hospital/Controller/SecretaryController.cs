@@ -19,6 +19,10 @@ namespace Project.Hospital.Controller
         {
             return secretaryService.GetByEmailAndPassword(email, password);
         }
+        public List<Secretary> GetAll()
+        {
+            return secretaryService.GetAll();
+        }
 
     }
 }

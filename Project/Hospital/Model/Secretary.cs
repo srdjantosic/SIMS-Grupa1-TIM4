@@ -4,6 +4,7 @@ namespace Project.Hospital.Model
 {
     public class Secretary : Serializable
     {
+        public String Designation { get; set; }
         public String FirstName { get; set; }
         public String LastName { get; set; }
         public String Email { get; set; }
@@ -13,8 +14,9 @@ namespace Project.Hospital.Model
 
         public Secretary() { }
 
-        public Secretary(String firstName, String lastName, String email, String phone, String password)
+        public Secretary(String designation, String firstName, String lastName, String email, String phone, String password)
         {
+            this.Designation = designation;
             this.FirstName = firstName;
             this.LastName = lastName;
             this.Email = email;
@@ -29,6 +31,7 @@ namespace Project.Hospital.Model
             Email = values[2];
             PhoneNumber = values[3];
             Password = values[4];
+            Designation = values[5];
         }
 
         public string[] toCSV()
@@ -39,7 +42,8 @@ namespace Project.Hospital.Model
                 LastName,
                 Email,
                 PhoneNumber,
-                Password
+                Password,
+                Designation
             };
             return csvValues;
         }

@@ -22,7 +22,7 @@ namespace Hospital.Repository
         public Boolean UpdateRoom(String name, String newName, RoomType.RoomTypes newType)
         {
             List<Room> rooms = new List<Room>();
-            rooms = ShowRooms();
+            rooms = GetRooms();
             foreach (Room room in rooms)
             {
                 if (room.Name.Equals(name))
@@ -40,7 +40,7 @@ namespace Hospital.Repository
         }
 
 
-        public List<Room> ShowRooms()
+        public List<Room> GetRooms()
         {
             List<Room> rooms = new List<Room>();
             Serializer<Room> roomSerializer = new Serializer<Room>();
@@ -51,7 +51,7 @@ namespace Hospital.Repository
         public Boolean DeleteRoom(String name)
         {
             List<Room> rooms = new List<Room>();
-            rooms = ShowRooms();
+            rooms = GetRooms();
 
             foreach (Room room in rooms)
             {
@@ -73,16 +73,13 @@ namespace Hospital.Repository
             }
 
             return false;
-
-
         }
-
         public Room GetRoom(String name)
         {
             try
             {
                 {
-                    return ShowRooms().SingleOrDefault(room => room.Name == name);
+                    return GetRooms().SingleOrDefault(room => room.Name == name);
                 }
             }
             catch (ArgumentException)

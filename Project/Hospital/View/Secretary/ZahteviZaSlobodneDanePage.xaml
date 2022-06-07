@@ -18,7 +18,7 @@
           RowHeight="50"                 
           ItemsSource="{Binding Path=Requests}"
           IsReadOnly="True"
-          AutoGenerateColumns="False" AlternatingRowBackground="LightGray">
+          AutoGenerateColumns="False" AlternatingRowBackground="WhiteSmoke">
             <DataGrid.Columns>
                 <DataGridTextColumn Header="Podnosilac zahteva" Binding="{Binding Path=Lks}" Width="130"/>
                 <DataGridTextColumn Header="Razlog" Binding="{Binding Path=Reason}" Width="150"/>
@@ -34,7 +34,7 @@
                 <DataGridTemplateColumn Width="90">
                     <DataGridTemplateColumn.CellTemplate>
                         <DataTemplate>
-                            <Button Content="Detalji" Margin="2"/>
+                            <Button Content="Detalji" Margin="2" Click="details"/>
                         </DataTemplate>
                     </DataGridTemplateColumn.CellTemplate>
                 </DataGridTemplateColumn>

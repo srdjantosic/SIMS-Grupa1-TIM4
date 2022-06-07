@@ -55,7 +55,7 @@ namespace Project.Hospital.View.Manager
             this.DataContext = this;
             Rooms = new ObservableCollection<Room>();
 
-            foreach (Room room in roomController.ShowRooms())
+            foreach (Room room in roomController.GetRooms())
             {
                 Rooms.Add(room);
             }

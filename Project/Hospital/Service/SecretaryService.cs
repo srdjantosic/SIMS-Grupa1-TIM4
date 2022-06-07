@@ -21,5 +21,9 @@ namespace Project.Hospital.Service
         {
             return secretaryRepository.GetByEmailAndPassword(email, password);
         }
+        public List<Secretary> GetAll()
+        {
+            return secretaryRepository.GetAll();
+        }
     }
 }

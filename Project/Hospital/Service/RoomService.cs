@@ -15,8 +15,6 @@ namespace Hospital.Service
             this.roomRepository = roomRepository;
         }
 
-
-
         public Room CreateRoom(String newName, RoomType.RoomTypes newType)
         {
             if (newName.Length == 0)
@@ -42,9 +40,9 @@ namespace Hospital.Service
 
         }
 
-        public List<Room> ShowRooms()
+        public List<Room> GetRooms()
         {
-            return roomRepository.ShowRooms();
+            return roomRepository.GetRooms();
         }
 
         public Boolean DeleteRoom(String name)
@@ -91,6 +89,19 @@ namespace Hospital.Service
             
             
 
+        }
+
+        public List<Room> GetMeetingRooms()
+        {
+            List<Room> meetingRooms = new List<Room>();
+            foreach(Room room in GetRooms())
+            {
+                if(room.Type == RoomType.RoomTypes.MeetingRoom)
+                {
+                    meetingRooms.Add(room);
+                }
+            }
+            return meetingRooms;
         }
     }
 }

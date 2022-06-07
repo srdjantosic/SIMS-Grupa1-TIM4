@@ -12,8 +12,6 @@ namespace Project.Hospital.Controller
     {
         private RoomService roomService;
 
-
-
         public RoomController(RoomService roomService)
         {
             this.roomService = roomService;
@@ -36,9 +34,9 @@ namespace Project.Hospital.Controller
             return roomService.UpdateRoom(name, newName, newType);
         }
 
-        public List<Room> ShowRooms()
+        public List<Room> GetRooms()
         {
-            return roomService.ShowRooms();
+            return roomService.GetRooms();
         }
 
         public Boolean DeleteRoom(String name)
@@ -53,6 +51,11 @@ namespace Project.Hospital.Controller
         }
         public void RenovateRoom(String Name, DateTime start, DateTime end, int days) {
             roomService.RenovateRoom(Name, start, end, days);
+        }
+
+        public List<Room> GetMeetingRooms()
+        {
+            return roomService.GetMeetingRooms();
         }
 
     }

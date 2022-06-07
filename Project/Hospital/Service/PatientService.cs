@@ -7,7 +7,6 @@ namespace Project.Hospital.Service
 {
     public class PatientService
     {
-
         private PatientRepository patientRepository;
 
         private PrescriptionService prescriptionService;

@@ -14,6 +14,7 @@ namespace Project.Hospital.Model
         public string Reason { get; set; }
         public Boolean isEmergency { get; set; }
         public RequestForFreeDaysType.RequestForFreeDaysTypes isActive { get; set; } = RequestForFreeDaysType.RequestForFreeDaysTypes.OnHold;
+        public String DeclineReason { get; set; } = "/";
 
         public RequestForFreeDays() { }
 
@@ -34,6 +35,7 @@ namespace Project.Hospital.Model
             Reason = values[3];
             isEmergency = Boolean.Parse(values[4]);
             isActive = (RequestForFreeDaysType.RequestForFreeDaysTypes)Enum.Parse(typeof(RequestForFreeDaysType.RequestForFreeDaysTypes), values[5]);
+            DeclineReason = values[6];
 
         }
 
@@ -47,6 +49,7 @@ namespace Project.Hospital.Model
                 Reason,
                 isEmergency.ToString(),
                 isActive.ToString(),
+                DeclineReason
             };
             return csvValues;
         }

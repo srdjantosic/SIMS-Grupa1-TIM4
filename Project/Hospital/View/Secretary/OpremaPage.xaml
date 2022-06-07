@@ -20,7 +20,13 @@
                     <RowDefinition></RowDefinition>
                 </Grid.RowDefinitions>
                 <TextBlock Grid.Row="0" FontSize="38" Padding="30,20">Potrosna oprema</TextBlock>
-                <TextBox Grid.Row="1" Name="txtSearch" Height="25" Width="400" Margin="25,32,125,32" VerticalContentAlignment="Center"></TextBox>
+                <TextBox Grid.Row="1" Name="txtSearch" Height="25" Width="400" Margin="25,32,125,32" VerticalContentAlignment="Center">
+                    <TextBox.Resources>
+                        <Style TargetType="{x:Type Border}">
+                            <Setter Property="CornerRadius" Value="10"/>
+                        </Style>
+                    </TextBox.Resources>
+                </TextBox>
             </Grid>
             <Button DockPanel.Dock="Right" Name="btnKreiranjeZahteva" FontSize="16" Height="80" Margin="30" Click="kreiranjeZahteva">Kreiranje zahteva za nabavku</Button>
         </DockPanel>
