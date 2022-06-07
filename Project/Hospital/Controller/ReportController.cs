@@ -19,24 +19,24 @@ namespace Project.Hospital.Controller
             this.reportService = reportService; 
         }
 
-        public Report CreateReport(string diagnosis, string comment)
+        public Report Create(string diagnosis, string comment)
         {
-            return reportService.CreateReport(diagnosis, comment);
+            return reportService.Create(diagnosis, comment);
         }
 
-        public Boolean UpdateReport(int id, string diagnosis, string comment)
+        public Boolean Update(int id, string diagnosis, string comment)
         {
-            return reportService.UpdateReport(id, diagnosis, comment);
+            return reportService.Update(id, diagnosis, comment);
         }
 
-        public List<Report> ShowReports()
+        public List<Report> GetAll()
         {
-            return reportService.ShowReports();
+            return reportService.GetAll();
         }
 
-        public Report GetReport(int id)
+        public Report GetById(int id)
         {
-            return reportService.GetReport(id);
+            return reportService.GetById(id);
         }
 
     }

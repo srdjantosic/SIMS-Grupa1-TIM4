@@ -52,7 +52,7 @@ namespace Project.Hospital.Service
             if (newPrescription == null) {
                 return false;
             }
-            Report newReport = reportService.CreateReport(report.Diagnosis, report.Comment);
+            Report newReport = reportService.Create(report.Diagnosis, report.Comment);
             if (newReport == null) { 
                 return false;
             }
@@ -71,7 +71,7 @@ namespace Project.Hospital.Service
             if(isPrescriptionUpdated == false){
                 return false;
             }
-            Boolean isReportUpdated = reportService.UpdateReport(reportToUpdate.Id, reportToUpdate.Diagnosis, reportToUpdate.Comment);
+            Boolean isReportUpdated = reportService.Update(reportToUpdate.Id, reportToUpdate.Diagnosis, reportToUpdate.Comment);
             if (isReportUpdated == false)
             {
                 return false;

@@ -1,5 +1,6 @@
 ﻿using Project.Hospital.Model;
 using Project.Hospital.Repository;
+using Project.Hospital.Repository.IRepository;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -10,35 +11,42 @@ namespace Project.Hospital.Service
 {
     public class ReportService
     {
-        private ReportRepository reportRepository;
+        private IReportRepository iReportRepo;
         private const string NOT_FOUND_ERROR = "Report with {0}:{1} can not be found!";
 
-        public ReportService(ReportRepository reportRepository)
+        public ReportService(IReportRepository iReportRepo)
         {
-            this.reportRepository = reportRepository;
+            this.iReportRepo = iReportRepo;
         }
 
-        public Report CreateReport(string diagnosis, string comment)
+        public Report Create(string diagnosis, string comment)
         {
-            return reportRepository.CreateReport(diagnosis, comment);
+            return iReportRepo.Create(diagnosis, comment);
         }
 
-        public Boolean UpdateReport(int id, string diagnosis, string comment)
+        public Boolean Update(int id, string diagnosis, string comment)
         {
-            return reportRepository.UpdateReport(id, diagnosis, comment);
-        }
+            List<Report> reports = GetAll();
 
-        public List<Report> ShowReports()
+            foreach (Report report in reports)
+            {
+                if (report.Id == id)
+                {
+                    report.Diagnosis = diagnosis;
+                    report.Comment = comment;
+                    return iReportRepo.Save(reports);
+                }
+            }
+            return false;
+        }
+        public List<Report> GetAll()
         {
-            return reportRepository.ShowReports();
+            return iReportRepo.GetAll();
         }
-
-        public Report GetReport(int id)
+        public Report GetById(int id)
         {
-            return reportRepository.GetReport(id);
+            return iReportRepo.GetById(id);
         }
-
-
 
     }
 }

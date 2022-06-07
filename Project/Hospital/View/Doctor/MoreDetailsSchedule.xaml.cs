@@ -94,7 +94,7 @@ namespace Project.Hospital.View.Doctor
                 }
             }
 
-            report = reportController.GetReport(foundReport);
+            report = reportController.GetById(foundReport);
             prescription = prescriptionController.GetPrescription(foundPrescription);
 
             if (report != null && prescription != null)
@@ -189,7 +189,7 @@ namespace Project.Hospital.View.Doctor
                     newPrescription.setMedicines(medicinesToSend);
 
                     Report newReport = new Report();
-                    newReport.Id = reportController.ShowReports().Count;
+                    newReport.Id = reportController.GetAll().Count;
                     newReport.Diagnosis = tbDiagnosis.Text;
                     newReport.Comment = tbComment.Text;
                     Boolean isCreated = patientController.CreateReportAndPrescription(currentAppointment.lbo, newPrescription, newReport);

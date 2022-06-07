@@ -1,5 +1,6 @@
 ﻿using Project.Hospital.Exception;
 using Project.Hospital.Model;
+using Project.Hospital.Repository.IRepository;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -8,48 +9,38 @@ using System.Threading.Tasks;
 
 namespace Project.Hospital.Repository
 {
-    public class ReportRepository
+    public class ReportRepository : IReportRepository
     {
         private const string NOT_FOUND_ERROR = "Report with {0}:{1} can not be found!";
         private const string fileName = "report.txt";
 
-        public Report CreateReport(string diagnosis, string comment)
+        public Report Create(string diagnosis, string comment)
         {
             Serializer<Report> reportSerializer = new Serializer<Report>();
-            Report report = new Report(ShowReports().Count, diagnosis, comment);
+            Report report = new Report(GetAll().Count, diagnosis, comment);
             reportSerializer.oneToCSV(fileName, report);
             return report;
         }
-        public Boolean UpdateReport(int id, string diagnosis, string comment)
-        {
-            List<Report> reports = ShowReports();
 
-            foreach (Report report in reports)
-            {
-                if (report.Id == id)
-                {
-                    report.Diagnosis = diagnosis;
-                    report.Comment = comment;
-                    Serializer<Report> reportSerializer = new Serializer<Report>();
-                    reportSerializer.toCSV(fileName, reports);
-                    return true;
-                }
-            }
-            return false;
+        public Boolean Save(List<Report> reports)
+        {
+            Serializer<Report> reportSerializer = new Serializer<Report>();
+            reportSerializer.toCSV(fileName, reports);
+            return true;
         }
-        public List<Report> ShowReports()
+        public List<Report> GetAll()
         {
             Serializer<Report> reportSerializer = new Serializer<Report>();
             List<Report> reports = reportSerializer.fromCSV(fileName);
             return reports;
         }
 
-        public Report GetReport(int id)
+        public Report GetById(int id)
         {
             try
             {
                 {
-                    return ShowReports().SingleOrDefault(report => report.Id == id);
+                    return GetAll().SingleOrDefault(report => report.Id == id);
                 }
             }
             catch (ArgumentException)
