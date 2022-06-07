@@ -48,5 +48,10 @@
         </Grid>
 
         <Button Grid.Row="3" Width="80" Height="30" Margin="450,0,0,0" Click="btnSendRequest">Send Request</Button>
+        
+        <Label Grid.Row="3" Name="lblFreeDaysRequest" Margin="60,30,0,0" Foreground="Red" FontWeight="Bold" FontSize="12" Width="150"></Label>
+        <Label Grid.Row="3" Name="lblTwoDays" Margin="0,30,0,0" Foreground="Red" FontWeight="Bold" FontSize="12" Width="280"></Label>
+        <Label Grid.Row="3" Name="lblTwoDoctors" Margin="0,30,130,0" Foreground="Red" FontWeight="Bold" FontSize="12" Width="520"></Label>
+        <Label Grid.Row="3" Name="lblDates" Margin="60,30,0,0" Foreground="Red" FontWeight="Bold" FontSize="12" Width="200"></Label>
     </Grid>
 </Page>

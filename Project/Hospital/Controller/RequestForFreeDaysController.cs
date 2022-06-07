@@ -27,6 +27,11 @@ namespace Project.Hospital.Controller
             return requestForFreeDaysService.GetRequestsOnHold();
         }
 
+        public List<RequestForFreeDays> GetAllByLks(string lks)
+        {
+            return requestForFreeDaysService.GetAllByLks(lks);
+        }
+
         public Boolean ChangeStatus(RequestForFreeDays requestForChange, RequestForFreeDaysType.RequestForFreeDaysTypes status)
         {
             return requestForFreeDaysService.ChangeStatus(requestForChange, status);

@@ -37,7 +37,10 @@ namespace Project.Hospital.View.Doctor
         {
             mainWindow.Content = new CreateFreeDaysRequest(loggedDoctor);
         }
-
+        private void btnShowFreeDaysRequest(object sender, RoutedEventArgs e)
+        {
+            mainWindow.Content = new ShowFreeDaysRequests(loggedDoctor);
+        }
         private void btnCreatePersonalTerm(object sender, RoutedEventArgs e)
         {
             mainWindow.Content = new CreatePersonalTerm(loggedDoctor);
@@ -49,5 +52,7 @@ namespace Project.Hospital.View.Doctor
             logIn.Show();
             this.Close();
         }
+
+
     }
 }

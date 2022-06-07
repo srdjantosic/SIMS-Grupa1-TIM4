@@ -125,50 +125,56 @@ namespace Project.Hospital.View.Doctor
         //private static readonly Regex _regex = new Regex("[^0-9.-]+"); //regex that matches disallowed text
 
         private static readonly Regex _regex = new Regex("[0-9]+"); //regex that matches disallowed text
+
+        private static readonly Regex regex = new Regex("^[0-9a-zA-Z]+(,[0-9a-zA-Z]+)*$"); //za lekove
         private static bool IsTextAllowed(string text)
         {
-            return !_regex.IsMatch(text);
+            return _regex.IsMatch(text);
+        }
+
+        private static bool IsMedicineAllowed(string text)
+        {
+            return regex.IsMatch(text);
         }
 
         private void setMedicalChart(object sender, RoutedEventArgs e)
         {
 
-            Boolean areDoctorWantToSetMedicalChart = true; //promeniti na false
-            Boolean isAnyFiendEmpty = false;
-
-            /*MessageBoxResult result = MessageBox.Show("Do you want to set medical chart?", "Alert", MessageBoxButton.YesNo);
-            switch (result)
+            if ((tbDiagnosis.Text.Equals("") || tbComment.Text.Equals("") || tbMedicines.Text.Equals("") || tbPeriodInDays.Text.Equals("")))
             {
-                case MessageBoxResult.Yes:
-                    areDoctorWantToSetMedicalChart = true;
-                    break;
-                case MessageBoxResult.No:
-                    break;
-            }*/
-
-            Console.WriteLine("USAO");
-
-            if ((tbDiagnosis.Text.Equals("") || tbComment.Text.Equals("") || tbMedicines.Text.Equals("") || tbPeriodInDays.Text.Equals("")) && areDoctorWantToSetMedicalChart == true)
-            {
-                isAnyFiendEmpty = true;
-                //MessageBox.Show("You must fill every field!", "ERROR");
-                setMsg.Content = "You must feel every field!";
-                Console.WriteLine("USAO 1");
-                
+                setMsg.Content = "You must fill every field!";
+                lblMedicine.Content = "";
+                lblNumber.Content =  "";
+                lblWrongMedicine.Content = "";
+                return;
+                //tbDiagnosis.BorderBrush = Brushes.Red;
             }
 
-
-            if (IsTextAllowed(tbPeriodInDays.Text) == false && areDoctorWantToSetMedicalChart == true && isAnyFiendEmpty == false)
+            if (IsMedicineAllowed(tbMedicines.Text) == false)
             {
-                //MessageBox.Show("Period in days must be numeric!", "ERROR");
-                lblNumber.Content = "Must be a number!";
-                Console.WriteLine("USAO 2");
+                lblMedicine.Content = "Medicin format example: Name,Name";
+                setMsg.Content = "";
+                lblNumber.Content = "";
+                lblWrongMedicine.Content = "";
+                return;
             }
-            else if (IsTextAllowed(tbPeriodInDays.Text) == true && areDoctorWantToSetMedicalChart == true && isAnyFiendEmpty == false)
-            {
-                Console.WriteLine("USAO 3");
 
-                /*if (isAlreadyCreated == false)
+            if (IsTextAllowed(tbPeriodInDays.Text) == false)
+            {
+                lblNumber.Content = "Period in days must be a number!";
+                setMsg.Content = "";
+                lblMedicine.Content = "";
+                lblWrongMedicine.Content = "";
+                return;
+            }
+            else if (IsTextAllowed(tbPeriodInDays.Text) == true)
+            {
+                setMsg.Content = "";
+                lblMedicine.Content = "";
+                lblNumber.Content = "";
+                lblWrongMedicine.Content = "";
+
+                if (isAlreadyCreated == false)
                 {
                     Prescription newPrescription = new Prescription();
                     newPrescription.Id = prescriptionController.ShowPrescriptions().Count;
@@ -186,7 +192,13 @@ namespace Project.Hospital.View.Doctor
                     newReport.Id = reportController.ShowReports().Count;
                     newReport.Diagnosis = tbDiagnosis.Text;
                     newReport.Comment = tbComment.Text;
-                    patientController.CreateReportAndPrescription(currentAppointment.lbo, newPrescription, newReport);
+                    Boolean isCreated = patientController.CreateReportAndPrescription(currentAppointment.lbo, newPrescription, newReport);
+                    if(isCreated == false)
+                    {
+                        lblWrongMedicine.Content = "Wrong medicine!";
+                        return;
+                    }
+
                 }
                 else
                 {
@@ -208,11 +220,16 @@ namespace Project.Hospital.View.Doctor
                     reportToUpdate.Id = report.Id;
                     reportToUpdate.Diagnosis = tbDiagnosis.Text;
                     reportToUpdate.Comment = tbComment.Text;
-                    patientController.UpdateReportAndPrescription(currentAppointment.lbo, prescriptionToUpdate, reportToUpdate);
+                    Boolean isUpdated =  patientController.UpdateReportAndPrescription(currentAppointment.lbo, prescriptionToUpdate, reportToUpdate);
+                    if(isUpdated == false)
+                    {
+                        lblWrongMedicine.Content = "Wrong medicine!";
+                        return;
+                    }
                 }
 
                 var schedule = new Schedule(currentAppointment.lks);
-                NavigationService.Navigate(schedule);*/
+                NavigationService.Navigate(schedule);
             }
         }
     }

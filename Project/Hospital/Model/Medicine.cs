@@ -14,7 +14,7 @@ namespace Project.Hospital.Model
         public string Components { get; set; }
         public string InstructionsForUse { get; set; }
         public Boolean isActive { get; set; } = false;
-        public string ReasonForDecline { get; set; } = " ";
+        public string ReasonForDecline { get; set; } = "";
 
         public Medicine () { }
 

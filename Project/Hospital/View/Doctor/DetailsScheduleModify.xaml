@@ -13,7 +13,7 @@
             <RowDefinition/>
         </Grid.RowDefinitions>
 
-        <GroupBox Grid.Row="0" Header="Modify appointment" Width="560" Height="210" BorderBrush="Black" Padding="10,10,0,0">
+        <GroupBox Grid.Row="0" Header="Modify appointment" Width="550" Height="200" BorderBrush="Black" Padding="10,0,0,0">
             <Grid>
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition/>
@@ -21,11 +21,11 @@
                 </Grid.ColumnDefinitions>
 
                 <Grid.RowDefinitions>
-                    <RowDefinition/>
-                    <RowDefinition/>
-                    <RowDefinition/>
-                    <RowDefinition/>
-                    <RowDefinition/>
+                    <RowDefinition Height="30"/>
+                    <RowDefinition Height="30"/>
+                    <RowDefinition Height="40"/>
+                    <RowDefinition Height="40"/>
+                    <RowDefinition Height="40"/>
                 </Grid.RowDefinitions>
 
                 <TextBlock Grid.Column="0" Grid.Row="0">Old date and Time:</TextBlock>
@@ -65,9 +65,8 @@
                     <ComboBoxItem>A5</ComboBoxItem>
                 </ComboBox>
 
-                <Button Grid.Column="1" Grid.Row="4"  Width="50" Height="20" Margin="70,0,0,5" Click="btnCancel">Cancel</Button>
-
-                <Button Grid.Column="1" Grid.Row="4"  Width="50" Height="20" Margin="200,0,0,5" Click="btnSet">Set</Button>
+                <Button Grid.Column="1" Grid.Row="4" Width="50" Height="20" Margin="70,10,0,0" Click="btnCancel">Cancel</Button>
+                <Button Grid.Column="1" Grid.Row="4" Width="50" Height="20" Margin="200,10,0,0" Click="btnSet">Set</Button>
 
             </Grid>
         </GroupBox>
@@ -79,7 +78,6 @@
             </Grid.ColumnDefinitions>
 
 
-
             <DataGrid Grid.Column="0" x:Name="dataGridMedicalChard" HorizontalAlignment="Left" VerticalAlignment="Top" Loaded="dataGridMedicalChard_Loaded"/>
 
             <Button Grid.Column="1" Width="80" Height="20" Margin="170,130,0,0" Click="btnSetDiagnosis">Set diagnosis</Button>
@@ -88,7 +86,7 @@
 
         </Grid>
 
-        <Label Margin="452,193,0,0" Foreground="Red" FontWeight="Bold" Name="lblMsg"></Label>
+        <Label Margin="100,180,0,0" Foreground="Red" FontWeight="Bold" Name="lblMsg" Width="150"></Label>
 
     </Grid>
 </Page>

@@ -15,7 +15,7 @@
             <Button Height="40" Margin="0,80,0,0" Click="btnSchedule">SCHEDULE</Button>
             <Button Height="40" Click="btnMedicines">MEDICINES</Button>
             <Button Height="40" FontSize="9" Click="btnCreateFreeDaysRequest">CREATE REQUEST FOR FREE DAYS</Button>
-            <Button Height="40" FontSize="9">SHOW REQUESTS FOR FREE DAYS</Button>
+            <Button Height="40" FontSize="9" Click="btnShowFreeDaysRequest">SHOW REQUESTS FOR FREE DAYS</Button>
             <Button Height="40" FontSize="9" Click="btnCreatePersonalTerm">CREATE PERSONAL TERM</Button>
             <Button Height="40" FontSize="9">CREATE NONPERSONAL TERM</Button>
             <Button Height="40">HELP</Button>

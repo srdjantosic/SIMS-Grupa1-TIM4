@@ -50,28 +50,23 @@ namespace Project.Hospital.View.Doctor
 
         private void btnSet(object sender, RoutedEventArgs e)
         {
-            MessageBoxResult result = MessageBox.Show("Do you want to set reason?", "Alert", MessageBoxButton.YesNo);
-            switch (result)
+
+            if (tbSet.Text.Equals(""))
             {
-                case MessageBoxResult.Yes:
-                    if (tbSet.Text.Equals(""))
-                    {
-                        MessageBox.Show("You must set reason.", "Alert");
-                    }
-                    else
-                    {
-                        medicineController.Decline(currentMedicine.Name, tbSet.Text);
-                        var medicines = new Medicines(loggedDoctor);
-                        NavigationService.Navigate(medicines);
-                    }
-                    break;
-                case MessageBoxResult.No:
-                    break;
+                lblDeclineMedicine.Content = "You must set declining reason!";
+            }
+            else
+            {
+                lblDeclineMedicine.Content = "";
+                medicineController.Decline(currentMedicine.Name, tbSet.Text);
+                var medicines = new Medicines(loggedDoctor);
+                NavigationService.Navigate(medicines);
             }
         }
 
         private void btnCancel(object sender, RoutedEventArgs e)
         {
+            lblDeclineMedicine.Content = "";
             var medicineDetails = new MedicineDetails(loggedDoctor, currentMedicine);
             NavigationService.Navigate(medicineDetails);
         }

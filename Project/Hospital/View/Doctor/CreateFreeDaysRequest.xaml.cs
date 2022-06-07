@@ -62,14 +62,20 @@ namespace Project.Hospital.View.Doctor
 
             if (dpStartDate.Text.Equals("") || dpEndDate.Text.Equals("") || tbReason.Text.Equals(""))
             {
-                MessageBox.Show("You must fill every field!", "ERROR");
+                lblFreeDaysRequest.Content = "You must fill every field!";
+                lblDates.Content = "";
+                lblTwoDays.Content = "";
+                lblTwoDoctors.Content = "";
                 return;
 
             }
 
             if (DateTime.Compare(DateTime.Parse(dpStartDate.Text), DateTime.Parse(dpEndDate.Text)) > 0)
             {
-                MessageBox.Show("End date must be after start date!", "Alert");
+                lblDates.Content = "End date must be after start date!";
+                lblFreeDaysRequest.Content = "";
+                lblTwoDays.Content = "";
+                lblTwoDoctors.Content = "";
                 return;
             }
 
@@ -80,7 +86,10 @@ namespace Project.Hospital.View.Doctor
 
                 if (DateTime.Compare(DateTime.Now.Date.AddDays(1), DateTime.Parse(dpStartDate.Text).Date) >= 0)
                 {
-                    MessageBox.Show("Your request must be two or more days before!", "Alert");
+                    lblTwoDays.Content = "Your request must be two or more days before!";
+                    lblFreeDaysRequest.Content = "";
+                    lblDates.Content = "";
+                    lblTwoDoctors.Content = "";
                     return;
                 }
             }
@@ -101,11 +110,12 @@ namespace Project.Hospital.View.Doctor
 
             if (requestForFreeDaysController.CreateRequest(requestForFreeDaysToCreate) == null)
             {
-                MessageBox.Show("More than one doctor in same medicine area is on holiday or you are busy in that period!", "Alert");
+                lblTwoDoctors.Content = "More than one doctor in same medicine area is on holiday or you are busy in that period!";
+                lblFreeDaysRequest.Content = "";
+                lblTwoDays.Content = "";
+                lblDates.Content = "";
                 return;
             }
-
-            MessageBox.Show("Request is successfully created!", "Alert");
 
             var createtFreeDaysReques = new CreateFreeDaysRequest(loggedDoctor);
             NavigationService.Navigate(createtFreeDaysReques);

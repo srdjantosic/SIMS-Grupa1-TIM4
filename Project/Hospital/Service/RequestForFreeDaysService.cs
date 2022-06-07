@@ -33,6 +33,21 @@ namespace Project.Hospital.Service
             return requestForFreeDaysRepository.GetAll();
         }
 
+        //TODO
+        public List<RequestForFreeDays> GetAllByLks(string lks)
+        {
+            List<RequestForFreeDays> doctorsRequests = new List<RequestForFreeDays>();
+
+            foreach (RequestForFreeDays request in GetAll())
+            {
+                if (request.Lks.Equals(lks))
+                {
+                    doctorsRequests.Add(request);
+                }
+            }
+            return doctorsRequests;
+        }
+
         public RequestForFreeDays CreateRequest(RequestForFreeDays newRequestForFreeDays)
         {
             if(newRequestForFreeDays.isEmergency == true)

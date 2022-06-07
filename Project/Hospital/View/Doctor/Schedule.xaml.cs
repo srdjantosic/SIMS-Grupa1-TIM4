@@ -2,6 +2,8 @@
 using Hospital.Service;
 using Project.Hospital.Controller;
 using Project.Hospital.Model;
+using Project.Hospital.Repository;
+using Project.Hospital.Service;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -25,6 +27,11 @@ namespace Project.Hospital.View.Doctor
         private AppointmentRepository appointmentRepository;
         private AppointmentService appointmentService;
         private AppointmentController appointmentController;
+        private PatientRepository patientRepository;
+        private PatientService patientService;
+        private PatientController patientController; 
+
+        public ObservableCollection<Event> Events { get; set; }
 
         string loggedDoctor = "";
         public Schedule(string lks)
@@ -34,6 +41,9 @@ namespace Project.Hospital.View.Doctor
             this.appointmentRepository = new AppointmentRepository();
             this.appointmentService = new AppointmentService(appointmentRepository);
             this.appointmentController = new AppointmentController(appointmentService);
+            this.patientRepository = new PatientRepository();
+            this.patientService = new PatientService(patientRepository);
+            this.patientController = new PatientController(patientService);
 
             InitializeComponent();
             this.DataContext = this;
@@ -48,18 +58,44 @@ namespace Project.Hospital.View.Doctor
                 }
             }
 
-            futureAppointments = new ObservableCollection<Appointment>();
-            DateTime dateTime = DateTime.Now;
-            foreach (Appointment appointment in appointmentController.GetFutureAppointments(dateTime, loggedDoctor))
+            //futureAppointments = new ObservableCollection<Appointment>();
+            //DateTime dateTime = DateTime.Now;
+            //foreach (Appointment appointment in appointmentController.GetFutureAppointments(dateTime, loggedDoctor))
+            //{
+            //    futureAppointments.Add(appointment);
+            //}
+
+            //pastAppointments = new ObservableCollection<Appointment>();
+            //foreach (Appointment appointment in appointmentController.GetPastAppointments(dateTime, loggedDoctor))
+            //{
+            //    pastAppointments.Add(appointment);
+            //}
+
+            Events = new ObservableCollection<Event>();
+            foreach (Appointment appointment2 in appointmentController.GetAppointmentsByLks(loggedDoctor))
             {
-                futureAppointments.Add(appointment);
+                Patient patient = patientController.GetPatient(appointment2.lbo);
+                string eventName = "Pacijent: " + patient.FirstName;
+                Event Event = new Event(appointment2.id, eventName, appointment2.dateTime, appointment2.dateTime.AddMinutes(45));
+                Events.Add(Event);
+            }
+            //shSchedule.ItemsSource = Events; OVO
+        }
+
+        public class Event
+        {
+            public int Id { get; set; }
+            public string EventName { get; set; }
+            public DateTime From { get; set; }
+            public DateTime To { get; set; }
+            public Event(int id, string eventName, DateTime from, DateTime to)
+            {
+                this.Id = id;
+                this.EventName = eventName;
+                this.From = from;
+                this.To = to;
             }
 
-            pastAppointments = new ObservableCollection<Appointment>();
-            foreach (Appointment appointment in appointmentController.GetPastAppointments(dateTime, loggedDoctor))
-            {
-                pastAppointments.Add(appointment);
-            }
         }
 
         public ObservableCollection<Appointment> appointments
@@ -68,17 +104,17 @@ namespace Project.Hospital.View.Doctor
             set;
         }
 
-        public ObservableCollection<Appointment> futureAppointments
-        {
-            get;
-            set;
-        }
+        //public ObservableCollection<Appointment> futureAppointments
+        //{
+        //    get;
+        //    set;
+        //}
 
-        public ObservableCollection<Appointment> pastAppointments
-        {
-            get;
-            set;
-        }
+        //public ObservableCollection<Appointment> pastAppointments
+        //{
+        //    get;
+        //    set;
+        //}
 
         private void btnNotifications(object sender, RoutedEventArgs e)
         {

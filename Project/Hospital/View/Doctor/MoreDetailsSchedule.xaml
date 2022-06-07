@@ -8,53 +8,56 @@
       d:DesignHeight="450" d:DesignWidth="650"
       Title="MoreDetailsSchedule">
     <Grid>
-        <Grid>
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition Width = "325"/>
-                <ColumnDefinition Width = "325"/>
-            </Grid.ColumnDefinitions>
-            <Grid.RowDefinitions>
-                <RowDefinition Height="225"/>
-                <RowDefinition Height="225"/>
-            </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width = "325"/>
+            <ColumnDefinition Width = "325"/>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="210"/>
+            <RowDefinition Height="190"/>
+            <RowDefinition Height="50"/>
+        </Grid.RowDefinitions>
 
-            <GroupBox Grid.Column="0" Grid.Row="0" Header="Diagnosis" Width="300" Height="160" BorderBrush="Black">
-                <TextBox Name="tbDiagnosis" ></TextBox>
-            </GroupBox>
+        <GroupBox Grid.Column="0" Grid.Row="0" Header="Diagnosis" Width="300" Height="160" BorderBrush="Black">
+            <TextBox Name="tbDiagnosis" ></TextBox>
+        </GroupBox>
 
-            <GroupBox Grid.Column="1" Grid.Row="0" Header="Comment"  Width="300" Height="160" BorderBrush="Black">
-                <TextBox Name="tbComment" ></TextBox>
-            </GroupBox>
+        <GroupBox Grid.Column="1" Grid.Row="0" Header="Comment"  Width="300" Height="160" BorderBrush="Black">
+            <TextBox Name="tbComment" ></TextBox>
+        </GroupBox>
+        
+        <Button Grid.Column="1" Grid.Row="0" Width="50" Height="20" Margin="200,0,0,180">Print</Button>
 
-            <GroupBox Grid.Column="0" Grid.Row="1" Header="Prescription"  Width="300" Height="160" BorderBrush="Black" Margin="0,0,0,50">
-                <Grid>
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition/>
-                        <ColumnDefinition/>
-                    </Grid.ColumnDefinitions>
-                    <Grid.RowDefinitions>
-                        <RowDefinition/>
-                        <RowDefinition/>
-                    </Grid.RowDefinitions>
+        <GroupBox Grid.Column="0" Grid.Row="1" Header="Prescription"  Width="300" Height="160" BorderBrush="Black">
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition/>
+                    <ColumnDefinition/>
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition/>
+                    <RowDefinition/>
+                </Grid.RowDefinitions>
 
-                    <TextBlock Grid.Column="0" Grid.Row="0" Height="20" Margin="20,0,0,0">Period in days:</TextBlock>
-                    <TextBox Name="tbPeriodInDays" Grid.Column="1" Grid.Row="0" Width="50" Height="20"></TextBox>
-                    <Label Name="lblNumber" Grid.Column="1" Grid.Row="0" Margin="30,40,0,0" Foreground="Red" FontWeight="Bold" FontSize="9"></Label>
+                <TextBlock Grid.Column="0" Grid.Row="0" Height="20" Margin="5,0,0,0">Period in days:</TextBlock>
+                <TextBox Name="tbPeriodInDays" Grid.Column="1" Grid.Row="0" Width="50" Height="20"></TextBox>
 
-                    <TextBlock Grid.Column="0" Grid.Row="1" Margin="20,0,0,0">Medicines:</TextBlock>
-                    <TextBox Name="tbMedicines"  Grid.Column="1" Grid.Row="1" Width="130" Height="50"></TextBox>
+                <TextBlock Grid.Column="0" Grid.Row="1" Margin="5,0,0,0">Medicines:</TextBlock>
+                <TextBox Name="tbMedicines"  Grid.Column="1" Grid.Row="1" Width="130" Height="50"></TextBox>
 
-                </Grid>
-            </GroupBox>
+            </Grid>
+        </GroupBox>
 
-            <Button Grid.Column="1" Grid.Row="1" Width="50" Height="20" Click="setMedicalChart" Margin="170,150,0,0">Set</Button>
-            <Label  Grid.Column="1" Grid.Row="1" Margin="190,195,0,0" Foreground="Red" FontWeight="Bold" FontSize="9" Name="setMsg"></Label>
+        <!--<Button Grid.Column="1" Grid.Row="1" Width="50" Height="21" Click="setMedicalChart" Margin="170,150,0,0">Set</Button>-->
 
-            <Button Grid.Column="1" Grid.Row="0" Width="50" Height="20" Margin="200,0,0,180">Print</Button>
-
-        </Grid>
-
-        <Label Name="lblFormat"  Margin="165,373,0,0" Foreground="Red" FontWeight="Bold" FontSize="9">Format example: Name,Name</Label>
+        <Button Grid.Column="1" Grid.Row="2" Width="50" Height="20" Click="setMedicalChart" Margin="200,0,0,30">Set</Button>
+        
+        <Label  Grid.Column="1" Grid.Row="1" Margin="0,140,0,0" Foreground="Red" FontWeight="Bold" FontSize="12" Name="setMsg" Width="150"></Label>
+        <Label Grid.Column="1" Grid.Row="1" Name="lblNumber" Margin="0,140,0,0" Foreground="Red" FontWeight="Bold" FontSize="12" Width="200"></Label>
+        <Label Grid.Column="1" Grid.Row="1" Name="lblMedicine"  Margin="0,140,0,0" Foreground="Red" FontWeight="Bold" FontSize="12" Width="240"></Label>
+        <Label Grid.Column="1" Grid.Row="1" Name="lblWrongMedicine"  Margin="0,140,0,0" Foreground="Red" FontWeight="Bold" FontSize="12" Width="110"></Label>
 
     </Grid>
+
+    
 </Page>

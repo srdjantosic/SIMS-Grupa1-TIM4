@@ -1,0 +1,34 @@
+﻿<Page x:Class="Project.Hospital.View.Doctor.ShowFreeDaysRequests"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:local="clr-namespace:Project.Hospital.View.Doctor"
+      mc:Ignorable="d" 
+      d:DesignHeight="450" d:DesignWidth="650"
+      Title="ShowFreeDaysRequests">
+    <Grid>
+        <Label FontSize="22">Free days requests</Label>
+
+        <DataGrid Grid.Row="1" Height="300" Width="600" VerticalContentAlignment="Center" ItemsSource="{Binding Path=Requests}" IsReadOnly="True" AutoGenerateColumns="False" AlternatingRowBackground="LightGray" x:Name="dgRequest">
+            <DataGrid.Columns>
+                <!--<DataGridTextColumn Header="Podnosilac zahteva" Binding="{Binding Path=Lks}"/>-->
+                <!--<DataGridTextColumn Header="Razlog" Binding="{Binding Path=Reason}"/>-->
+                <DataGridTextColumn Header="Start" Binding="{Binding Path=Start}"/>
+                <DataGridTextColumn Header="End" Binding="{Binding Path=End}"/>
+                <DataGridTextColumn Header="Emergency status" Binding="{Binding Path=isEmergency}"/>
+                <DataGridTextColumn Header="Activation status" Binding="{Binding Path=isActive}"/>
+                <DataGridTemplateColumn Width="90">
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate>
+                            <Button Content="Details" Margin="2" Click="btnDetails"/>
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                </DataGridTemplateColumn>
+            </DataGrid.Columns>
+        </DataGrid>
+
+        <!--<Button Grid.Column="1" Width="50" Height="30" Margin="550,300,0,0" Click="btnMedicineDetails">Details</Button>-->
+
+    </Grid>
+</Page>

@@ -75,6 +75,7 @@ namespace Project.Hospital.View.Doctor
 
             InitializeComponent();
             this.DataContext = this;
+            lblMsg.Content = "";
 
             foreach (Patient patient in patientController.ShowPatients())
             {
@@ -146,7 +147,7 @@ namespace Project.Hospital.View.Doctor
             var detailsSchedule = new DetailsSchedule(updatedAppointment);
             NavigationService.Navigate(detailsSchedule);*/
 
-            lblMsg.Content = "You must feel every field!";
+            lblMsg.Content = "You must fill every field!";
         }
 
         private void btnCancel(object sender, RoutedEventArgs e)
