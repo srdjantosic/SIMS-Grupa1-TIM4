@@ -22,7 +22,7 @@ using System.Windows.Shapes;
 
 namespace Project.Hospital.View.Doctor
 {
-    public partial class DetailsSchedule : Page
+    public partial class DetailsScheduleModify : Page
     {
         private PatientRepository patientRepository;
         private PatientService patientService;
@@ -45,7 +45,7 @@ namespace Project.Hospital.View.Doctor
         private AppointmentController appointmentController;
 
         Appointment currentAppointment = new Appointment();
-        public DetailsSchedule(Appointment appointment)
+        public DetailsScheduleModify(Appointment appointment)
         {
             currentAppointment = appointment;
 
@@ -75,6 +75,7 @@ namespace Project.Hospital.View.Doctor
 
             InitializeComponent();
             this.DataContext = this;
+            lblMsg.Content = "";
 
             foreach (Patient patient in patientController.ShowPatients())
             {
@@ -82,23 +83,10 @@ namespace Project.Hospital.View.Doctor
                 {
                     DateTimeBox.Text = appointment.dateTime.ToString();
                     RoomNameBox.Text = appointment.roomName;
-                    FirstNameBox.Text = patient.FirstName;
-                    LastNameBox.Text = patient.LastName;
-                    GenderBox.Text = patient._Gender.ToString();
-                    EmailBox.Text = patient.Email;
-                    PhoneNumberBox.Text = patient.PhoneNumber;
-                    JmbgBox.Text = patient.Jmbg;
-                    LboBox.Text = patient.Lbo;
-                    BirthdayBox.Text = patient.Birthday.ToString();
-                    CountryBox.Text = patient.Country;
-                    CityBox.Text = patient.City;
-                    AdressBox.Text = patient.Adress;
-
                     break;
                 }
             }
         }
-
         public void fillingDataGridUsingDataTable()
         {
             DataTable dt = new DataTable();
@@ -134,48 +122,38 @@ namespace Project.Hospital.View.Doctor
             dataGridMedicalChard.ItemsSource = dt.DefaultView;
         }
 
-
         private void dataGridMedicalChard_Loaded(object sender, RoutedEventArgs e)
         {
             this.fillingDataGridUsingDataTable();
         }
-        /*
-private void updatePatientsMedicalChard(object sender, RoutedEventArgs e)
-{
-   Boolean isUpdated = patientController.updatePatientsMedicalChard(LboBox.Text, double.Parse(temperatureBox.Text), int.Parse(heartRateBox.Text)
-       , bloodPressureBox.Text, int.Parse(weightBox.Text), int.Parse(heightBox.Text));
 
-   if (isUpdated == true)
-   {
-       var moreDetailsSchedule = new MoreDetailsSchedule(currentAppointment);
-       moreDetailsSchedule.Show();
-       this.Close();
-   }
-   else
-   {
-       MessageBox.Show("Error with updating medical chard!");
-   }
-}*/
-
-        private void btnModify(object sender, RoutedEventArgs e)
+        private void btnSet(object sender, RoutedEventArgs e)
         {
-            var deteilsScheduleModify = new DetailsScheduleModify(currentAppointment);
-            NavigationService.Navigate(deteilsScheduleModify);
+            /*DateTime newDateTime = currentAppointment.dateTime;
+            string newRoom = currentAppointment.roomName;
+
+            if (NewDateTimeBox.Text != "" && NewTimeComboBox.Text != "Time")
+            {
+                string NewDateTime = NewDateTimeBox.Text + " " + NewTimeComboBox.Text;
+                newDateTime = DateTime.Parse(NewDateTime);
+            }
+
+            if (NewRoomComboBox.Text != "Room")
+            {
+                newRoom = NewRoomComboBox.Text;
+            }
+            
+            Appointment updatedAppointment = appointmentController.UpdateDateTimeAndRoomName(currentAppointment.id, newDateTime, newRoom);
+            var detailsSchedule = new DetailsSchedule(updatedAppointment);
+            NavigationService.Navigate(detailsSchedule);*/
+
+            lblMsg.Content = "You must fill every field!";
         }
 
-        private void btnDelete(object sender, RoutedEventArgs e)
+        private void btnCancel(object sender, RoutedEventArgs e)
         {
-            MessageBoxResult result = MessageBox.Show("Do you want to delete appointment?", "Alert", MessageBoxButton.YesNo);
-            switch (result)
-            {
-                case MessageBoxResult.Yes:
-                    appointmentController.DeleteAppointment(currentAppointment.id);
-                    var schedule = new Schedule(currentAppointment.lks);
-                    NavigationService.Navigate(schedule);
-                    break;
-                case MessageBoxResult.No:
-                    break;
-            }
+            var detailsSchedule = new DetailsSchedule(currentAppointment);
+            NavigationService.Navigate(detailsSchedule);
         }
 
         private void btnSetDiagnosis(object sender, RoutedEventArgs e)

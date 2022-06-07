@@ -14,13 +14,13 @@ using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
+using System.Windows.Navigation;
 using System.Windows.Shapes;
 
 namespace Project.Hospital.View.Doctor
 {
-    public partial class DeclineMedicine : Window
+    public partial class DeclineMedicine : Page
     {
-
         MedicineRepository medicineRepository;
         MedicineService medicineService;
         MedicineController medicineController;
@@ -40,37 +40,35 @@ namespace Project.Hospital.View.Doctor
             InitializeComponent();
             this.DataContext = this;
 
+            Medicine medicineToShow = medicineController.GetByName(medicine.Name);
+
+            tbMedicineContain.Text = medicineToShow.Components;
+            tbInstrucions.Text = medicineToShow.InstructionsForUse;
+
             tbSet.Text = medicineController.GetByName(medicine.Name).ReasonForDecline;
         }
 
         private void btnSet(object sender, RoutedEventArgs e)
         {
-            MessageBoxResult result = MessageBox.Show("Do you want to set reason?", "Alert", MessageBoxButton.YesNo);
-            switch (result)
+
+            if (tbSet.Text.Equals(""))
             {
-                case MessageBoxResult.Yes:
-                    if (tbSet.Text.Equals(""))
-                    {
-                        MessageBox.Show("You must set reason.", "Alert");
-                    }
-                    else
-                    {
-                        medicineController.Decline(currentMedicine.Name, tbSet.Text);
-                        var medicines = new Medicines(loggedDoctor);
-                        medicines.Show();
-                        this.Close();
-                    }
-                    break;
-                case MessageBoxResult.No:
-                    break;
+                lblDeclineMedicine.Content = "You must set declining reason!";
+            }
+            else
+            {
+                lblDeclineMedicine.Content = "";
+                medicineController.Decline(currentMedicine.Name, tbSet.Text);
+                var medicines = new Medicines(loggedDoctor);
+                NavigationService.Navigate(medicines);
             }
         }
+
         private void btnCancel(object sender, RoutedEventArgs e)
         {
+            lblDeclineMedicine.Content = "";
             var medicineDetails = new MedicineDetails(loggedDoctor, currentMedicine);
-            medicineDetails.Show();
-            this.Close();
+            NavigationService.Navigate(medicineDetails);
         }
-
     }
 }

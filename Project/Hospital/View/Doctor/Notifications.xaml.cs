@@ -15,11 +15,12 @@ using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
+using System.Windows.Navigation;
 using System.Windows.Shapes;
 
 namespace Project.Hospital.View.Doctor
 {
-    public partial class Notifications : Window
+    public partial class Notifications : Page
     {
 
         private NotificationRepository notificationRepository;
@@ -34,11 +35,10 @@ namespace Project.Hospital.View.Doctor
         private PatientService patientService;
         private PatientController patientController;
 
-
         private string loggedDoctor = "";
-        public Notifications(string loggedDoctor)
+        public Notifications(string lks)
         {
-            this.loggedDoctor = loggedDoctor;
+            this.loggedDoctor = lks;
 
             this.notificationRepository = new NotificationRepository();
             this.notificationService = new NotificationService(notificationRepository);
@@ -54,10 +54,7 @@ namespace Project.Hospital.View.Doctor
 
             InitializeComponent();
             this.DataContext = this;
-
         }
-
-
 
         public void fillingDataGridUsingDataTable()
         {
@@ -65,7 +62,8 @@ namespace Project.Hospital.View.Doctor
             DataColumn doctor = new DataColumn("Doctor", typeof(string));
             DataColumn dateTime = new DataColumn("Date and Time", typeof(string));
             DataColumn message = new DataColumn("Message", typeof(string));
-            
+
+
             dt.Columns.Add(doctor);
             dt.Columns.Add(dateTime);
             dt.Columns.Add(message);
@@ -87,36 +85,6 @@ namespace Project.Hospital.View.Doctor
         private void dataGridNotifications_Loaded(object sender, RoutedEventArgs e)
         {
             this.fillingDataGridUsingDataTable();
-        }
-
-        private void btnSchedule(object sender, RoutedEventArgs e)
-        {
-            var schedule = new Schedule(loggedDoctor);
-            schedule.Show();
-            this.Close();
-
-        }
-
-        private void btnMedicine(object sender, RoutedEventArgs e)
-        {
-            var medicines = new Medicines(loggedDoctor);
-            medicines.Show();
-            this.Close();
-
-        }
-
-        private void btnCreateRequestForFreeDays(object sender, RoutedEventArgs e)
-        {
-            var createRequestForFreeDays = new CreateRequestForFreeDays(loggedDoctor);
-            createRequestForFreeDays.Show();
-            this.Close();
-        }
-
-        private void btnLogOut(object sender, RoutedEventArgs e)
-        {
-            var logIn = new LogIn();
-            logIn.Show();
-            this.Close();
         }
     }
 }

@@ -29,7 +29,7 @@ namespace Project.Hospital.Controller
         }
 
         //TODO
-        public Boolean UpdateDateTimeAndRoomName(int id, DateTime dateTime, string roomName)
+        public Appointment UpdateDateTimeAndRoomName(int id, DateTime dateTime, string roomName)
         {
             return appointmentService.UpdateDateTimeAndRoomName(id, dateTime, roomName);
         }

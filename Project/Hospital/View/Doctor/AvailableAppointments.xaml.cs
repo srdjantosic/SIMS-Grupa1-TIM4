@@ -6,7 +6,6 @@ using Project.Hospital.Repository;
 using Project.Hospital.Service;
 using System;
 using System.Collections.Generic;
-using System.Collections.ObjectModel;
 using System.Data;
 using System.Linq;
 using System.Text;
@@ -18,11 +17,12 @@ using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
+using System.Windows.Navigation;
 using System.Windows.Shapes;
 
 namespace Project.Hospital.View.Doctor
 {
-    public partial class AvailableAppointments : Window
+    public partial class AvailableAppointments : Page
     {
         private AppointmentRepository appointmentRepository;
         private AppointmentService appointmentService;
@@ -36,10 +36,9 @@ namespace Project.Hospital.View.Doctor
         private Model.Doctor doctor;
         private Patient patient;
         private string loggedDoctor = "";
-
-        public AvailableAppointments(List<Appointment> availableAppointments, Model.Doctor doctor, Patient patient, string loggedDoctor)
+        public AvailableAppointments(List<Appointment> availableAppointments, Model.Doctor doctor, Patient patient, string lks)
         {
-            this.loggedDoctor = loggedDoctor;
+            this.loggedDoctor = lks;
 
             InitializeComponent();
             this.appointmentRepository = new AppointmentRepository();
@@ -54,7 +53,6 @@ namespace Project.Hospital.View.Doctor
             this.doctor = doctor;
             this.patient = patient;
         }
-
         public void fillingDataGridUsingDataTable()
         {
             DataTable dt = new DataTable();
@@ -83,7 +81,6 @@ namespace Project.Hospital.View.Doctor
 
             dataGridAppointments.ItemsSource = dt.DefaultView;
         }
-
         private void dataGridAppointments_Loaded(object sender, RoutedEventArgs e)
         {
             this.fillingDataGridUsingDataTable();
@@ -100,46 +97,16 @@ namespace Project.Hospital.View.Doctor
                 Appointment newAppointment = appointmentController.CreateAppointment(vreme, doctor.lks, patient.Lbo, doctor.roomName);
                 if (newAppointment != null)
                 {
-                    Notification newNotificationForDoctor = new Notification(doctor.lks, DateTime.Now, "You have new appointment");
-                    Notification newNotificationForPatient = new Notification(patient.Lbo, DateTime.Now, "You have new appointment");
+                    Notification newNotification = new Notification();
+                    newNotification.Receiver = doctor.lks;
+                    newNotification.CreationDate = DateTime.Now;
+                    newNotification.Message = "You have new appointment";
 
-                    notificationController.Create(newNotificationForDoctor);
-                    notificationController.Create(newNotificationForPatient);
+                    notificationController.Create(newNotification);
                     var schedule = new Schedule(loggedDoctor);
-                    schedule.Show();
-                    this.Close();
+                    NavigationService.Navigate(schedule);
                 }
             }
-        }
-
-        private void btnSchedule(object sender, RoutedEventArgs e)
-        {
-            var schedule = new Schedule(loggedDoctor);
-            schedule.Show();
-            this.Close();
-
-        }
-
-        private void btnMedicine(object sender, RoutedEventArgs e)
-        {
-            var medicines = new Medicines(loggedDoctor);
-            medicines.Show();
-            this.Close();
-
-        }
-
-        private void btnCreateRequestForFreeDays(object sender, RoutedEventArgs e)
-        {
-            var createRequestForFreeDays = new CreateRequestForFreeDays(loggedDoctor);
-            createRequestForFreeDays.Show();
-            this.Close();
-        }
-
-        private void btnLogOut(object sender, RoutedEventArgs e)
-        {
-            var logIn = new LogIn();
-            logIn.Show();
-            this.Close();
         }
     }
 }

@@ -14,22 +14,22 @@ using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
+using System.Windows.Navigation;
 using System.Windows.Shapes;
 
 namespace Project.Hospital.View.Doctor
 {
-    public partial class MedicineDetails : Window
+    public partial class MedicineDetails : Page
     {
-
         private MedicineRepository medicineRepository;
         private MedicineService medicineService;
         private MedicineController medicineController;
 
         string loggedDoctor = "";
         Medicine currentMedicine = new Medicine();
-        public MedicineDetails(string doctorLks, Medicine medicine)
+        public MedicineDetails(string lks, Medicine medicine)
         {
-            loggedDoctor = doctorLks;
+            loggedDoctor = lks;
             currentMedicine = medicine;
 
             this.medicineRepository = new MedicineRepository();
@@ -43,7 +43,6 @@ namespace Project.Hospital.View.Doctor
 
             tbMedicineContain.Text = medicineToShow.Components;
             tbInstrucions.Text = medicineToShow.InstructionsForUse;
-
         }
 
         private void btnAccept(object sender, RoutedEventArgs e)
@@ -54,8 +53,7 @@ namespace Project.Hospital.View.Doctor
                 case MessageBoxResult.Yes:
                     medicineController.Verify(currentMedicine.Name);
                     var medicines = new Medicines(loggedDoctor);
-                    medicines.Show();
-                    this.Close();
+                    NavigationService.Navigate(medicines);
                     break;
                 case MessageBoxResult.No:
                     break;
@@ -65,36 +63,7 @@ namespace Project.Hospital.View.Doctor
         private void btnDecline(object sender, RoutedEventArgs e)
         {
             var declineMedicine = new DeclineMedicine(loggedDoctor, currentMedicine);
-            declineMedicine.Show();
-            this.Close();
+            NavigationService.Navigate(declineMedicine);
         }
-
-        private void btnSchedule(object sender, RoutedEventArgs e)
-        {
-            var schedule = new Schedule(loggedDoctor);
-            schedule.Show();
-            this.Close();
-        }
-
-        private void btnMedicine(object sender, RoutedEventArgs e)
-        {
-            var medicine = new Medicines(loggedDoctor);
-            medicine.Show();
-            this.Close();
-        }
-        private void btnCreateRequestForFreeDays(object sender, RoutedEventArgs e)
-        {
-            var createRequestForFreeDays = new CreateRequestForFreeDays(loggedDoctor);
-            createRequestForFreeDays.Show();
-            this.Close();
-        }
-
-        private void btnLogOut(object sender, RoutedEventArgs e)
-        {
-            var logIn = new LogIn();
-            logIn.Show();
-            this.Close();
-        }
-
     }
 }

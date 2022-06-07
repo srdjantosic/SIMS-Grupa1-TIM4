@@ -2,34 +2,55 @@
 using Hospital.Service;
 using Project.Hospital.Controller;
 using Project.Hospital.Model;
+using Project.Hospital.Repository;
+using Project.Hospital.Service;
 using System;
+using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
 using System.Windows;
+using System.Windows.Controls;
+using System.Windows.Data;
+using System.Windows.Documents;
+using System.Windows.Input;
+using System.Windows.Media;
+using System.Windows.Media.Imaging;
+using System.Windows.Navigation;
+using System.Windows.Shapes;
 
 namespace Project.Hospital.View.Doctor
 {
-    public partial class Schedule : Window
+    public partial class Schedule : Page
     {
         private AppointmentRepository appointmentRepository;
         private AppointmentService appointmentService;
         private AppointmentController appointmentController;
+        private PatientRepository patientRepository;
+        private PatientService patientService;
+        private PatientController patientController; 
 
+        public ObservableCollection<Event> Events { get; set; }
 
         string loggedDoctor = "";
-        public Schedule(string doctorLks)
+        public Schedule(string lks)
         {
-            loggedDoctor = doctorLks;
+            loggedDoctor = lks;
 
             this.appointmentRepository = new AppointmentRepository();
             this.appointmentService = new AppointmentService(appointmentRepository);
             this.appointmentController = new AppointmentController(appointmentService);
+            this.patientRepository = new PatientRepository();
+            this.patientService = new PatientService(patientRepository);
+            this.patientController = new PatientController(patientService);
 
             InitializeComponent();
             this.DataContext = this;
 
             appointments = new ObservableCollection<Appointment>();
 
-            foreach (Appointment appointment in appointmentController.ShowAppointmentsByDoctorLks(doctorLks))
+            foreach (Appointment appointment in appointmentController.ShowAppointmentsByDoctorLks(loggedDoctor))
             {
                 if (appointment.isDeleted == false)
                 {
@@ -37,18 +58,44 @@ namespace Project.Hospital.View.Doctor
                 }
             }
 
-            futureAppointments = new ObservableCollection<Appointment>();
-            DateTime dateTime = DateTime.Now;
-            foreach (Appointment appointment in appointmentController.GetFutureAppointments(dateTime, doctorLks))
+            //futureAppointments = new ObservableCollection<Appointment>();
+            //DateTime dateTime = DateTime.Now;
+            //foreach (Appointment appointment in appointmentController.GetFutureAppointments(dateTime, loggedDoctor))
+            //{
+            //    futureAppointments.Add(appointment);
+            //}
+
+            //pastAppointments = new ObservableCollection<Appointment>();
+            //foreach (Appointment appointment in appointmentController.GetPastAppointments(dateTime, loggedDoctor))
+            //{
+            //    pastAppointments.Add(appointment);
+            //}
+
+            Events = new ObservableCollection<Event>();
+            foreach (Appointment appointment2 in appointmentController.GetAppointmentsByLks(loggedDoctor))
             {
-                futureAppointments.Add(appointment);
+                Patient patient = patientController.GetPatient(appointment2.lbo);
+                string eventName = "Pacijent: " + patient.FirstName;
+                Event Event = new Event(appointment2.id, eventName, appointment2.dateTime, appointment2.dateTime.AddMinutes(45));
+                Events.Add(Event);
+            }
+            //shSchedule.ItemsSource = Events; OVO
+        }
+
+        public class Event
+        {
+            public int Id { get; set; }
+            public string EventName { get; set; }
+            public DateTime From { get; set; }
+            public DateTime To { get; set; }
+            public Event(int id, string eventName, DateTime from, DateTime to)
+            {
+                this.Id = id;
+                this.EventName = eventName;
+                this.From = from;
+                this.To = to;
             }
 
-            pastAppointments = new ObservableCollection<Appointment>();
-            foreach (Appointment appointment in appointmentController.GetPastAppointments(dateTime, doctorLks))
-            {
-                pastAppointments.Add(appointment);
-            }
         }
 
         public ObservableCollection<Appointment> appointments
@@ -57,57 +104,29 @@ namespace Project.Hospital.View.Doctor
             set;
         }
 
-        public ObservableCollection<Appointment> futureAppointments
-        {
-            get;
-            set;
-        }
+        //public ObservableCollection<Appointment> futureAppointments
+        //{
+        //    get;
+        //    set;
+        //}
 
-        public ObservableCollection<Appointment> pastAppointments
-        {
-            get;
-            set;
-        }
-        private void btnMedicines(object sender, RoutedEventArgs e)
-        {
-            var medicines = new Medicines(loggedDoctor);
-            medicines.Show();
-            this.Close();
-        }
-
-        private void btnCreateRequestForFreeDays(object sender, RoutedEventArgs e)
-        {
-            var createRequestForFreeDays = new CreateRequestForFreeDays(loggedDoctor);
-            createRequestForFreeDays.Show();
-            this.Close();
-        }
-        private void createPersonalTerm(object sender, RoutedEventArgs e)
-        {
-            var createPersonalTerm = new CreatePersonalTerm();
-            createPersonalTerm.Show();
-            this.Close();
-        }
-
-        private void detailsSchedule(object sender, RoutedEventArgs e)
-        {
-            Appointment appointment = (Appointment)dgSchedule.SelectedItems[0];
-            var detailsSchedule = new DetailsSchedule(appointment);
-            detailsSchedule.Show();
-            this.Close();
-        }
-
-        private void btnLogOut(object sender,  RoutedEventArgs e)
-        {
-            var logIn = new LogIn();
-            logIn.Show();
-            this.Close();
-        }
+        //public ObservableCollection<Appointment> pastAppointments
+        //{
+        //    get;
+        //    set;
+        //}
 
         private void btnNotifications(object sender, RoutedEventArgs e)
         {
             var notifications = new Notifications(loggedDoctor);
-            notifications.Show();
-            this.Close();
+            NavigationService.Navigate(notifications);
+        }
+
+        private void btnDetailsSchedule(object sender, RoutedEventArgs e)
+        {
+            Appointment appointment = (Appointment)dgSchedule.SelectedItems[0];
+            var detailsSchedule = new DetailsSchedule(appointment);
+            NavigationService.Navigate(detailsSchedule);
         }
     }
 }

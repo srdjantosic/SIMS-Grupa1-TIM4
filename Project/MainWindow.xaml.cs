@@ -50,25 +50,26 @@ namespace Project
 
             if (doctorController.GetDoctorByEmailAndPassword(Email, Password) != null)
             {
-                var schedule = new Schedule(doctorController.GetDoctorByEmailAndPassword(Email, Password).lks);
-                schedule.Show();
+                var startWindow = new StartWindow(doctorController.GetDoctorByEmailAndPassword(Email, Password).lks);
+                emailMsg.Content = "";
+                startWindow.Show();
                 this.Close();
             } else if (secretaryController.GetByEmailAndPassword(Email, Password) != null)
             {
                 var pocetnaSekretar = new PocetnaSekretar();
+                emailMsg.Content = "";
                 pocetnaSekretar.Show();
                 this.Close();
             } else if (managerController.GetByEmailAndPassword(Email, Password) != null) 
             {
                 var pocetna = new Pocetna();
+                emailMsg.Content = "";
                 pocetna.Show();
                 this.Close();
             }
 
-
+            emailMsg.Content = "Invalid username or password!";
         }
-
-
 
     }
 }

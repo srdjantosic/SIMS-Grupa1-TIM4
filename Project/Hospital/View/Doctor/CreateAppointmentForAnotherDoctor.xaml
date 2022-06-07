@@ -1,95 +1,94 @@
-﻿<Window x:Class="Project.Hospital.View.Doctor.CreateAppointmentForAnotherDoctor"
-        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:local="clr-namespace:Project.Hospital.View.Doctor"
-        mc:Ignorable="d"
-        Title="CreateAppointmentForAnotherDoctor" Height="500" Width="800">
+﻿<Page x:Class="Project.Hospital.View.Doctor.CreateAppointmentForAnotherDoctor"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:local="clr-namespace:Project.Hospital.View.Doctor"
+      mc:Ignorable="d" 
+      d:DesignHeight="450" d:DesignWidth="650"
+      Title="CreateAppointmentForAnotherDoctor">
     <Grid>
-
         <Grid.RowDefinitions>
-            <RowDefinition Height="60"/>
-            <RowDefinition Height="430"/>
+            <RowDefinition Height="50"/>
+            <RowDefinition Height="80"/>
+            <RowDefinition Height="200"/>
+            <RowDefinition Height="80"/>
         </Grid.RowDefinitions>
-        
-        <Label Grid.Row="0" FontSize="20" FontWeight="Normal" HorizontalAlignment="Stretch" Margin="0,18,0,0">Create appointment for another doctor</Label>
+
+        <Label FontSize="22" Grid.Row="0">Create appointment for another doctor</Label>
 
         <Grid Grid.Row="1">
-
             <Grid.ColumnDefinitions>
-                <ColumnDefinition Width = "Auto"/>
-                <ColumnDefinition Width = "Auto"/>
+                <ColumnDefinition Width="160"/>
+                <ColumnDefinition Width="120"/>
+                <ColumnDefinition Width="110"/>
+                <ColumnDefinition Width="130"/>
+                <ColumnDefinition Width="110"/>
             </Grid.ColumnDefinitions>
 
-            <Grid Grid.Column="0">
-                <WrapPanel Grid.Row="1" Orientation="Vertical" Width="138" HorizontalAlignment="Left" Margin="0,20,0,0">
-                    <Button Height="40" Margin="0,30,0,0" Click="btnSchedule">SCHEDULE</Button>
-                    <Button Height="40" Click="btnMedicine">MEDICINES</Button>
-                    <Button Height="40" FontSize="9" Click="btnCreateRequestForFreeDays">CREATE REQUEST FOR FREE DAYS</Button>
-                    <Button Height="40" FontSize="9">SHOW REQUESTS FOR FREE DAYS</Button>
-                    <Button Height="40" FontSize="9">CREATE PERSONAL TERM</Button>
-                    <Button Height="40" FontSize="9">CREATE NONPERSONAL TERM</Button>
-                    <Button Height="40">HELP</Button>
-                    <Button Height="40" Click="btnLogOut">LOG OUT</Button>
-                </WrapPanel>
-            </Grid>
+            <Label Grid.Column="0" Margin="20,35,0,0">Choose dates and times:</Label>
 
-            <Grid  Grid.Column="1">
-                <Grid.RowDefinitions>
-                    <RowDefinition Height="120"/>
-                    <RowDefinition Height="200"/>
-                    <RowDefinition/>
-                    <RowDefinition/>
-                </Grid.RowDefinitions>
+            <DatePicker Grid.Column="1" Margin="10,20,0,0" Width="110" Height="25" Name="dpStartDate"></DatePicker>
+            <ComboBox Grid.Column="2" Name="boxStartTime" Margin="20,20,0,0" Height="20" Width="90">
+                <ComboBoxItem IsSelected="True">Start time</ComboBoxItem>
+                <ComboBoxItem>08:00</ComboBoxItem>
+                <ComboBoxItem>08:45</ComboBoxItem>
+                <ComboBoxItem>09:30</ComboBoxItem>
+                <ComboBoxItem>10:15</ComboBoxItem>
+                <ComboBoxItem>11:00</ComboBoxItem>
+                <ComboBoxItem>11:45</ComboBoxItem>
+                <ComboBoxItem>12:30</ComboBoxItem>
+                <ComboBoxItem>13:15</ComboBoxItem>
+                <ComboBoxItem>14:00</ComboBoxItem>
+                <ComboBoxItem>14:45</ComboBoxItem>
+                <ComboBoxItem>15:30</ComboBoxItem>
+            </ComboBox>
 
-                <Grid Grid.Row="0">
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition/>
-                        <ColumnDefinition/>
-                        <ColumnDefinition/>
-                        <ColumnDefinition/>
-                        <ColumnDefinition/>
-                    </Grid.ColumnDefinitions>
-
-                    <Label Grid.Column="0" Margin="20,60,0,0">Choose date and time:</Label>
-
-                    <DatePicker Grid.Column="1" Margin="10,30,0,0" Width="110" Height="25" Name="dpStartDate"></DatePicker>
-                    <TextBox Grid.Column="2" Height="20" Width="100" Margin="20,30,0,0" Name="boxStartTime"></TextBox>
-
-                    <DatePicker Grid.Column="3" Margin="20,30,0,0" Width="110" Height="25" Name="dpEndDate"></DatePicker>
-                    <TextBox Grid.Column="4" Height="20" Width="100" Margin="20,30,0,0" Name="boxEndTime"></TextBox>
-
-                </Grid>
-
-                <Grid Grid.Row="1">
-                    <Grid.RowDefinitions>
-                        <RowDefinition Height="30"/>
-                        <RowDefinition/>
-                    </Grid.RowDefinitions>
-
-                    <Label Grid.Row="0" Margin="20,0,0,0">Doctors:</Label>
-
-                    <DataGrid Grid.Row="1" x:Name="dgCAForAnotherDoctor" ItemsSource="{Binding doctors}" IsReadOnly="True" SelectionMode="Single" AutoGenerateColumns="False" 
-                            HorizontalAlignment="Left" VerticalAlignment="Top" Margin="20,0,0,0">
-                        <DataGrid.Columns>
-                            <DataGridTextColumn Header="First name" Binding="{Binding firstName}"/>
-                            <DataGridTextColumn Header="Last name" Binding="{Binding lastName}"/>
-                            <DataGridTextColumn Header="Email" Binding="{Binding email}"/>
-                            <DataGridTextColumn Header="LKS" Binding="{Binding lks}"/>
-                            <DataGridTextColumn Header="Medicine area" Binding="{Binding medicineArea}"/>
-                        </DataGrid.Columns>
-                    </DataGrid>
-
-                </Grid>
-
-                <Grid Grid.Row="2">
-                    <TextBox Width="100" Height="20" Name="boxPriority"></TextBox>
-                    <Button Width="50" Height="20" Margin="300,0,0,0" Click="btnSet">Set</Button>
-                </Grid>
-
-            </Grid>
+            <DatePicker Grid.Column="3" Margin="20,20,0,0" Width="110" Height="25" Name="dpEndDate"></DatePicker>
+            <ComboBox Grid.Column="4" Name="boxEndTime" Margin="20,20,0,0" Height="20" Width="90">
+                <ComboBoxItem IsSelected="True">End time</ComboBoxItem>
+                <ComboBoxItem>08:00</ComboBoxItem>
+                <ComboBoxItem>08:45</ComboBoxItem>
+                <ComboBoxItem>09:30</ComboBoxItem>
+                <ComboBoxItem>10:15</ComboBoxItem>
+                <ComboBoxItem>11:00</ComboBoxItem>
+                <ComboBoxItem>11:45</ComboBoxItem>
+                <ComboBoxItem>12:30</ComboBoxItem>
+                <ComboBoxItem>13:15</ComboBoxItem>
+                <ComboBoxItem>14:00</ComboBoxItem>
+                <ComboBoxItem>14:45</ComboBoxItem>
+                <ComboBoxItem>15:30</ComboBoxItem>
+            </ComboBox>
 
         </Grid>
+
+        <Grid Grid.Row="2">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="30"/>
+                <RowDefinition/>
+            </Grid.RowDefinitions>
+
+            <Label Grid.Row="0" Margin="20,0,0,0" FontSize="15">Doctors:</Label>
+
+            <DataGrid Grid.Row="1" x:Name="dgCAForAnotherDoctor" ItemsSource="{Binding doctors}" IsReadOnly="True" SelectionMode="Single" AutoGenerateColumns="False" 
+                            HorizontalAlignment="Left" VerticalAlignment="Top" Margin="25,0,0,0">
+                <DataGrid.Columns>
+                    <DataGridTextColumn Header="First name" Binding="{Binding firstName}"/>
+                    <DataGridTextColumn Header="Last name" Binding="{Binding lastName}"/>
+                    <DataGridTextColumn Header="Email" Binding="{Binding email}"/>
+                    <DataGridTextColumn Header="LKS" Binding="{Binding lks}"/>
+                    <DataGridTextColumn Header="Medicine area" Binding="{Binding medicineArea}"/>
+                </DataGrid.Columns>
+            </DataGrid>
+
+        </Grid>
+
+        <ComboBox Grid.Row="3" Name="boxPriority" Height="25" Width="120" Margin="320,0,0,20">
+            <ComboBoxItem IsSelected="True">Choose priority</ComboBoxItem>
+            <ComboBoxItem>Time</ComboBoxItem>
+            <ComboBoxItem>Doctor</ComboBoxItem>
+        </ComboBox>
+
+        <Button Grid.Row="3" Width="50" Height="20" Margin="550,30,0,0" Click="btnSet">Set</Button>
     </Grid>
-</Window>
+</Page>

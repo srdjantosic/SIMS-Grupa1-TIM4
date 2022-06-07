@@ -17,13 +17,13 @@ using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
+using System.Windows.Navigation;
 using System.Windows.Shapes;
 
 namespace Project.Hospital.View.Doctor
 {
-    public partial class DoctorPriority : Window
+    public partial class DoctorPriority : Page
     {
-
         private AppointmentRepository appointmentRepository;
         private AppointmentService appointmentService;
         private AppointmentController appointmentController;
@@ -38,9 +38,9 @@ namespace Project.Hospital.View.Doctor
         private DateTime startPeriod;
         private DateTime endPeriod;
         private string loggedDoctor = "";
-        public DoctorPriority(Model.Doctor doctor, Patient patient, DateTime startPeriod, DateTime endPeriod, string loggedDoctor)
+        public DoctorPriority(Model.Doctor doctor, Patient patient, DateTime startPeriod, DateTime endPeriod, string lks)
         {
-            this.loggedDoctor = loggedDoctor;
+            this.loggedDoctor = lks;
 
             InitializeComponent();
 
@@ -84,7 +84,6 @@ namespace Project.Hospital.View.Doctor
 
             dataGridAppointments.ItemsSource = dt.DefaultView;
         }
-
         private void dataGridAppointments_Loaded(object sender, RoutedEventArgs e)
         {
             this.fillingDataGridUsingDataTable(startPeriod, endPeriod);
@@ -102,46 +101,16 @@ namespace Project.Hospital.View.Doctor
                 if (newAppointment != null)
                 {
 
-                    Notification newNotificationForDoctor = new Notification(doctor.lks, DateTime.Now, "You have new appointment");
-                    Notification newNotificationForPatient = new Notification(patient.Lbo, DateTime.Now, "You have new appointment");
+                    Notification newNotification = new Notification();
+                    newNotification.Receiver = doctor.lks;
+                    newNotification.CreationDate = DateTime.Now;
+                    newNotification.Message = "You have new appointment";
 
-                    notificationController.Create(newNotificationForDoctor);
-                    notificationController.Create(newNotificationForPatient);
+                    notificationController.Create(newNotification);
                     var schedule = new Schedule(loggedDoctor);
-                    schedule.Show();
-                    this.Close();
+                    NavigationService.Navigate(schedule);
                 }
             }
-        }
-
-        private void btnSchedule(object sender, RoutedEventArgs e)
-        {
-            var schedule = new Schedule(loggedDoctor);
-            schedule.Show();
-            this.Close();
-
-        }
-
-        private void btnMedicine(object sender, RoutedEventArgs e)
-        {
-            var medicines = new Medicines(loggedDoctor);
-            medicines.Show();
-            this.Close();
-
-        }
-
-        private void btnCreateRequestForFreeDays(object sender, RoutedEventArgs e)
-        {
-            var createRequestForFreeDays = new CreateRequestForFreeDays(loggedDoctor);
-            createRequestForFreeDays.Show();
-            this.Close();
-        }
-
-        private void btnLogOut(object sender, RoutedEventArgs e)
-        {
-            var logIn = new LogIn();
-            logIn.Show();
-            this.Close();
         }
     }
 }

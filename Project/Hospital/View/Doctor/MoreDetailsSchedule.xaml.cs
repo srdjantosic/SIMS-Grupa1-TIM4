@@ -15,11 +15,12 @@ using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
+using System.Windows.Navigation;
 using System.Windows.Shapes;
 
 namespace Project.Hospital.View.Doctor
 {
-    public partial class MoreDetailsSchedule : Window
+    public partial class MoreDetailsSchedule : Page
     {
 
         private PatientRepository patientRepository;
@@ -42,7 +43,6 @@ namespace Project.Hospital.View.Doctor
         Boolean isAlreadyCreated = false;
         Prescription prescription = new Prescription();
         Report report = new Report();
-
         public MoreDetailsSchedule(Appointment appointment)
         {
             currentAppointment = appointment;
@@ -94,7 +94,7 @@ namespace Project.Hospital.View.Doctor
                 }
             }
 
-            report = reportController.GetReport(foundReport);
+            report = reportController.GetById(foundReport);
             prescription = prescriptionController.GetPrescription(foundPrescription);
 
             if (report != null && prescription != null)
@@ -125,40 +125,54 @@ namespace Project.Hospital.View.Doctor
         //private static readonly Regex _regex = new Regex("[^0-9.-]+"); //regex that matches disallowed text
 
         private static readonly Regex _regex = new Regex("[0-9]+"); //regex that matches disallowed text
+
+        private static readonly Regex regex = new Regex("^[0-9a-zA-Z]+(,[0-9a-zA-Z]+)*$"); //za lekove
         private static bool IsTextAllowed(string text)
         {
-            return !_regex.IsMatch(text);
+            return _regex.IsMatch(text);
+        }
+
+        private static bool IsMedicineAllowed(string text)
+        {
+            return regex.IsMatch(text);
         }
 
         private void setMedicalChart(object sender, RoutedEventArgs e)
         {
 
-            Boolean areDoctorWantToSetMedicalChart = false;
-            Boolean isAnyFiendEmpty = false;
-
-            MessageBoxResult result = MessageBox.Show("Do you want to set medical chart?", "Alert", MessageBoxButton.YesNo);
-            switch (result)
+            if ((tbDiagnosis.Text.Equals("") || tbComment.Text.Equals("") || tbMedicines.Text.Equals("") || tbPeriodInDays.Text.Equals("")))
             {
-                case MessageBoxResult.Yes:
-                    areDoctorWantToSetMedicalChart = true;
-                    break;
-                case MessageBoxResult.No:
-                    break;
+                setMsg.Content = "You must fill every field!";
+                lblMedicine.Content = "";
+                lblNumber.Content =  "";
+                lblWrongMedicine.Content = "";
+                return;
+                //tbDiagnosis.BorderBrush = Brushes.Red;
             }
 
-            if((tbDiagnosis.Text.Equals("") || tbComment.Text.Equals("") || tbMedicines.Text.Equals("") || tbPeriodInDays.Text.Equals("")) && areDoctorWantToSetMedicalChart == true)
+            if (IsMedicineAllowed(tbMedicines.Text) == false)
             {
-                isAnyFiendEmpty = true;
-                MessageBox.Show("You must fill every field!", "ERROR");
+                lblMedicine.Content = "Medicin format example: Name,Name";
+                setMsg.Content = "";
+                lblNumber.Content = "";
+                lblWrongMedicine.Content = "";
+                return;
             }
 
-
-            if (IsTextAllowed(tbPeriodInDays.Text) == false && areDoctorWantToSetMedicalChart == true && isAnyFiendEmpty == false)
+            if (IsTextAllowed(tbPeriodInDays.Text) == false)
             {
-                MessageBox.Show("Period in days must be numeric!", "ERROR");
+                lblNumber.Content = "Period in days must be a number!";
+                setMsg.Content = "";
+                lblMedicine.Content = "";
+                lblWrongMedicine.Content = "";
+                return;
             }
-            else if (IsTextAllowed(tbPeriodInDays.Text) == true && areDoctorWantToSetMedicalChart == true && isAnyFiendEmpty == false)
+            else if (IsTextAllowed(tbPeriodInDays.Text) == true)
             {
+                setMsg.Content = "";
+                lblMedicine.Content = "";
+                lblNumber.Content = "";
+                lblWrongMedicine.Content = "";
 
                 if (isAlreadyCreated == false)
                 {
@@ -175,10 +189,16 @@ namespace Project.Hospital.View.Doctor
                     newPrescription.setMedicines(medicinesToSend);
 
                     Report newReport = new Report();
-                    newReport.Id = reportController.ShowReports().Count;
+                    newReport.Id = reportController.GetAll().Count;
                     newReport.Diagnosis = tbDiagnosis.Text;
                     newReport.Comment = tbComment.Text;
-                    patientController.CreateReportAndPrescription(currentAppointment.lbo, newPrescription, newReport);
+                    Boolean isCreated = patientController.CreateReportAndPrescription(currentAppointment.lbo, newPrescription, newReport);
+                    if(isCreated == false)
+                    {
+                        lblWrongMedicine.Content = "Wrong medicine!";
+                        return;
+                    }
+
                 }
                 else
                 {
@@ -200,43 +220,17 @@ namespace Project.Hospital.View.Doctor
                     reportToUpdate.Id = report.Id;
                     reportToUpdate.Diagnosis = tbDiagnosis.Text;
                     reportToUpdate.Comment = tbComment.Text;
-                    patientController.UpdateReportAndPrescription(currentAppointment.lbo, prescriptionToUpdate, reportToUpdate);
+                    Boolean isUpdated =  patientController.UpdateReportAndPrescription(currentAppointment.lbo, prescriptionToUpdate, reportToUpdate);
+                    if(isUpdated == false)
+                    {
+                        lblWrongMedicine.Content = "Wrong medicine!";
+                        return;
+                    }
                 }
 
                 var schedule = new Schedule(currentAppointment.lks);
-                schedule.Show();
-                this.Close();
+                NavigationService.Navigate(schedule);
             }
         }
-
-        private void btnSchedule(object sender, RoutedEventArgs e)
-        {
-            var schedule = new Schedule(currentAppointment.lks);
-            schedule.Show();
-            this.Close();
-        }
-
-        private void btnMedicines(object sender, RoutedEventArgs e)
-        {
-            var medicines = new Medicines(currentAppointment.lks);
-            medicines.Show();
-            this.Close();
-        }
-
-        private void btnCreateRequestForFreeDays(object sender, RoutedEventArgs e)
-        {
-            var createRequestForFreeDays = new CreateRequestForFreeDays(currentAppointment.lks);
-            createRequestForFreeDays.Show();
-            this.Close();
-        }
-
-        private void btnLogOut(object sender, RoutedEventArgs e)
-        {
-            var logIn = new LogIn();
-            logIn.Show();
-            this.Close();
-        }
-
-
     }
 }

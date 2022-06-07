@@ -38,7 +38,7 @@ namespace Hospital.Repository
         }
 
         //TODO
-        public Boolean UpdateDateTimeAndRoomName(int id, DateTime dateTime, string roomName)
+        public Appointment UpdateDateTimeAndRoomName(int id, DateTime dateTime, string roomName)
         {
             List<Appointment> appointments = ShowAppointments();
 
@@ -50,11 +50,10 @@ namespace Hospital.Repository
                     appointment.roomName = roomName;
                     Serializer<Appointment> appointmentSerializer = new Serializer<Appointment>();
                     appointmentSerializer.toCSV(fileName, appointments);
-                    return true;
+                    return appointment;
                 }
             }
-            return false;
-
+            return null;
         }
 
         public List<Appointment> ShowAppointments()

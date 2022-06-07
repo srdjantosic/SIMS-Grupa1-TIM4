@@ -1,4 +1,7 @@
-﻿using Project.Hospital.Controller;
+﻿using Hospital.Repository;
+using Hospital.Service;
+using Project.Hospital.Controller;
+using Project.Hospital.Model;
 using Project.Hospital.Repository;
 using Project.Hospital.Service;
 using System;
@@ -8,22 +11,19 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
-using Project.Hospital.Model;
 using System.Windows.Controls;
 using System.Windows.Data;
 using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
+using System.Windows.Navigation;
 using System.Windows.Shapes;
-using Hospital.Repository;
-using Hospital.Service;
 
 namespace Project.Hospital.View.Doctor
 {
-    public partial class CreateAppointmentForAnotherDoctor : Window
+    public partial class CreateAppointmentForAnotherDoctor : Page
     {
-
         private DoctorRepository doctorRepository;
         private DoctorService doctorService;
         private DoctorController doctorController;
@@ -39,7 +39,6 @@ namespace Project.Hospital.View.Doctor
 
         string loggedDoctor = "";
         string choosenPatient = "";
-
         public CreateAppointmentForAnotherDoctor(string lks, string lbo)
         {
             loggedDoctor = lks;
@@ -68,45 +67,15 @@ namespace Project.Hospital.View.Doctor
                 doctors?.Add(doctor);
             }
         }
+
         public ObservableCollection<Model.Doctor> doctors
         {
             get;
             set;
         }
 
-        private void btnSchedule(object sender, RoutedEventArgs e)
-        {
-            var schedule = new Schedule(loggedDoctor);
-            schedule.Show();
-            this.Close();
-
-        }
-
-        private void btnMedicine(object sender, RoutedEventArgs e)
-        {
-            var medicines = new Medicines(loggedDoctor);
-            medicines.Show();
-            this.Close();
-
-        }
-
-        private void btnCreateRequestForFreeDays(object sender, RoutedEventArgs e)
-        {
-            var createRequestForFreeDays = new CreateRequestForFreeDays(loggedDoctor);
-            createRequestForFreeDays.Show();
-            this.Close();
-        }
-
-        private void btnLogOut(object sender, RoutedEventArgs e)
-        {
-            var logIn = new LogIn();
-            logIn.Show();
-            this.Close();
-        }
-
         private void btnSet(object sender, RoutedEventArgs e)
         {
-
             Model.Doctor selectedDoctor = (Model.Doctor)dgCAForAnotherDoctor.SelectedItems[0];
             Patient patient = patientController.GetPatient(choosenPatient);
 
@@ -118,32 +87,28 @@ namespace Project.Hospital.View.Doctor
             List<Appointment> availableAppointments = appointmentController.GetAvailableAppointments(selectedDoctor, patient, startPeriod, endPeriod);
 
 
-            if(availableAppointments.Count == 0)
+            if (availableAppointments.Count == 0)
             {
                 string priority = boxPriority.Text;
-                if(priority == "Doctor")
+                if (priority == "Doctor")
                 {
                     MessageBox.Show("Doctor is priority");
                     var doctorPriority = new DoctorPriority(selectedDoctor, patient, startPeriod, endPeriod, loggedDoctor);
-                    doctorPriority.Show();
-                    this.Close();
+                    NavigationService.Navigate(doctorPriority);
                 }
                 else
                 {
                     MessageBox.Show("Time is priority");
                     var timePriority = new TimePriority(patient, startPeriod, endPeriod, loggedDoctor);
-                    timePriority.Show();
-                    this.Close();
+                    NavigationService.Navigate(timePriority);
                 }
             }
             else
             {
                 var availableAppointmentsPage = new AvailableAppointments(availableAppointments, selectedDoctor, patient, loggedDoctor);
-                availableAppointmentsPage.Show();
-                this.Close();
+                NavigationService.Navigate(availableAppointmentsPage);
             }
         }
-
 
     }
 }
