@@ -44,9 +44,9 @@ namespace Project.Hospital.Controller
             return appointmentService.Delete(id);
         }
 
-        public Appointment GetById(int id)
+        public Appointment GetOne(int id)
         {
-            return appointmentService.GetById(id);
+            return appointmentService.GetOne(id);
         }
 
         public List<Appointment> GetAllFutureByLks(DateTime dateTime, string lks)

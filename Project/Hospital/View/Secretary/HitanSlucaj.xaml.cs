@@ -191,7 +191,7 @@ namespace Project.Hospital.View.Secretary
 
                     if (appointmentController.UpdateTime(item.Item3.dateTime, appointmentId))
                     {
-                        Appointment pomerenPregled = appointmentController.GetById(appointmentId);
+                        Appointment pomerenPregled = appointmentController.GetOne(appointmentId);
 
                         Appointment newAppointment = new Appointment();
                         newAppointment.dateTime = oslobodjenoVreme;

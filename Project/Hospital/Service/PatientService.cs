@@ -25,6 +25,7 @@ namespace Project.Hospital.Service
             this.reportService=reportService;
         }
 
+        //TODO
         public Patient Create(String firstName, String lastName, Gender.Genders gender, String email, String phoneNumber, String jmbg, String lbo, DateTime birthday, String country, String city, String adress)
         { 
             return iPatientRepo.Create(firstName, lastName, gender, email, phoneNumber, jmbg, lbo, birthday, country, city, adress);

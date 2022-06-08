@@ -33,7 +33,7 @@ namespace Hospital.Repository
             List<Appointment> appointments = appointmentSerializer.fromCSV(fileName);
             return appointments;
         }
-        public Appointment GetById(int id)
+        public Appointment GetOne(int id)
         {
             try
             {

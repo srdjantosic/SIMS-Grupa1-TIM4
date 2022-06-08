@@ -8,35 +8,35 @@ using System.Threading.Tasks;
 
 namespace Project.Hospital.Controller
 {
-    public class RequestForFreeDaysController
+    public class FreeDaysRequestController
     {
-        private RequestForFreeDaysService requestForFreeDaysService;
+        private Service.FreeDaysRequestService requestForFreeDaysService;
 
-        public RequestForFreeDaysController(RequestForFreeDaysService requestForFreeDaysService)
+        public FreeDaysRequestController(FreeDaysRequestService requestForFreeDaysService)
         {
             this.requestForFreeDaysService = requestForFreeDaysService;
         }
 
-        public RequestForFreeDays CreateRequest(RequestForFreeDays newRequestForFreeDays)
+        public FreeDaysRequest CreateRequest(FreeDaysRequest newRequestForFreeDays)
         {
             return requestForFreeDaysService.CreateRequest(newRequestForFreeDays);
         }
 
-        public List<RequestForFreeDays> GetRequestsOnHold()
+        public List<FreeDaysRequest> GetRequestsOnHold()
         {
             return requestForFreeDaysService.GetRequestsOnHold();
         }
 
-        public Boolean AcceptRequest(RequestForFreeDays requestForChange)
+        public Boolean AcceptRequest(FreeDaysRequest requestForChange)
         {
             return requestForFreeDaysService.AcceptRequest(requestForChange);
         }
-        public Boolean DeclineRequest(RequestForFreeDays requestForChange, String explanation)
+        public Boolean DeclineRequest(FreeDaysRequest requestForChange, String explanation)
         {
             return requestForFreeDaysService.DeclineRequest(requestForChange, explanation);
         }
 
-        public List<RequestForFreeDays> GetAllByLks(string lks)
+        public List<FreeDaysRequest> GetAllByLks(string lks)
         {
             return requestForFreeDaysService.GetAllByLks(lks);
         }

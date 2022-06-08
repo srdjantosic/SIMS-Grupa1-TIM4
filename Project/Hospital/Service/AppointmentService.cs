@@ -58,7 +58,7 @@ namespace Hospital.Service
 
         public Boolean UpdateTime(DateTime dateTime, int id)
         {
-            if (iAppointmentRepo.GetById(id).isDeleted == true)
+            if (iAppointmentRepo.GetOne(id).isDeleted == true)
                 return false;
 
             List<Appointment> appointments = GetAll();
@@ -78,7 +78,7 @@ namespace Hospital.Service
         //TODO
         public Appointment UpdateTimeAndRoom(int id, DateTime dateTime, string roomName)
         {
-            if (iAppointmentRepo.GetById(id).isDeleted == true)
+            if (iAppointmentRepo.GetOne(id).isDeleted == true)
                 return null;
 
             List<Appointment> appointments = GetAll();
@@ -115,7 +115,7 @@ namespace Hospital.Service
         public Boolean Delete(int id)
         {
             List<Appointment> appointments = GetAll();
-            Appointment appointmentToDelete = GetById(id);
+            Appointment appointmentToDelete = GetOne(id);
 
             if (appointmentToDelete != null && appointmentToDelete.isDeleted == false)
             {
@@ -128,9 +128,9 @@ namespace Hospital.Service
             return false;
         }
 
-        public Appointment GetById(int id)
+        public Appointment GetOne(int id)
         {
-            return iAppointmentRepo.GetById(id);
+            return iAppointmentRepo.GetOne(id);
         }
 
         public List<Appointment> GetAllFutureByLks(DateTime dateTime, string lks)

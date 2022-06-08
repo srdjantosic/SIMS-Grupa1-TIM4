@@ -19,7 +19,7 @@ namespace Project.Hospital.View.Doctor
 {
     public partial class ShowFreeDaysRequestsDetails : Page
     {
-        public ShowFreeDaysRequestsDetails(RequestForFreeDays request , string lks)
+        public ShowFreeDaysRequestsDetails(FreeDaysRequest request , string lks)
         {
             InitializeComponent();
             this.DataContext = new ShowFreeDaysRequestsDetailsViewModel(request, lks);

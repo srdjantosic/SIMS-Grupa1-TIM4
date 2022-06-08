@@ -28,7 +28,7 @@ namespace Project.Hospital.Service
             {
                 if (medicine.Name.Equals(name))
                 {
-                    medicine.isActive = true;
+                    medicine.isActive = AcceptanceStatus.Status.Accept;
                     return medicineRepository.Save(medicines);
                 }
             }
@@ -45,6 +45,7 @@ namespace Project.Hospital.Service
                 if (medicine.Name.Equals(name))
                 {
                     medicine.ReasonForDecline = reason;
+                    medicine.isActive = AcceptanceStatus.Status.Decline;
                     return medicineRepository.Save(medicines);
                 }
             }
@@ -63,7 +64,7 @@ namespace Project.Hospital.Service
 
             foreach(Medicine medicine in GetAll())
             {
-                if(medicine.isActive == false)
+                if(medicine.isActive == AcceptanceStatus.Status.OnHold)
                 {
                     medicines.Add(medicine);
                 }

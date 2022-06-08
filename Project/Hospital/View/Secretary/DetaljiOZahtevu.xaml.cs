@@ -20,18 +20,18 @@ namespace Project.Hospital.View.Secretary
 {
     public partial class DetaljiOZahtevu : Window
     {
-        private RequestForFreeDays requestForFreeDays;
+        private Model.FreeDaysRequest requestForFreeDays;
         private Model.Doctor doctor;
         private DoctorRepository doctorRepository;
         private DoctorService doctorService;
         private DoctorController doctorController;
-        private RequestForFreeDaysRepository requestForFreeDaysRepository;
-        private RequestForFreeDaysService requestForFreeDaysService;
-        private RequestForFreeDaysController requestForFreeDaysController;
+        private Repository.FreeDaysRequestRepository requestForFreeDaysRepository;
+        private Service.FreeDaysRequestService requestForFreeDaysService;
+        private FreeDaysRequestController requestForFreeDaysController;
         private NotificationRepository notificationRepository;
         private NotificationService notificationService;
         private NotificationController notificationController;
-        public DetaljiOZahtevu(RequestForFreeDays request)
+        public DetaljiOZahtevu(Model.FreeDaysRequest request)
         {
             InitializeComponent();
             this.requestForFreeDays = request;
@@ -39,9 +39,9 @@ namespace Project.Hospital.View.Secretary
             this.doctorRepository = new DoctorRepository();
             this.doctorService = new DoctorService(doctorRepository);
             this.doctorController = new DoctorController(doctorService);
-            this.requestForFreeDaysRepository = new RequestForFreeDaysRepository();
-            this.requestForFreeDaysService = new RequestForFreeDaysService(requestForFreeDaysRepository);
-            this.requestForFreeDaysController = new RequestForFreeDaysController(requestForFreeDaysService);
+            this.requestForFreeDaysRepository = new Repository.FreeDaysRequestRepository();
+            this.requestForFreeDaysService = new Service.FreeDaysRequestService(requestForFreeDaysRepository);
+            this.requestForFreeDaysController = new FreeDaysRequestController(requestForFreeDaysService);
             this.notificationRepository = new NotificationRepository();
             this.notificationService = new NotificationService(notificationRepository);
             this.notificationController = new NotificationController(notificationService);

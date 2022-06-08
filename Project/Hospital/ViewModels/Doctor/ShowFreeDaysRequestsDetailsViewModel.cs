@@ -13,17 +13,17 @@ namespace Project.Hospital.ViewModels.Doctor
 {
     public class ShowFreeDaysRequestsDetailsViewModel : ViewModel
     {
-        public RequestForFreeDaysRepository FreeDaysRequestRepository { get; set; }
-        public RequestForFreeDaysService FreeDaysRequestService { get; set; }
-        public RequestForFreeDaysController FreeDaysRequestController { get; set; }
+        public Repository.FreeDaysRequestRepository FreeDaysRequestRepository { get; set; }
+        public Service.FreeDaysRequestService FreeDaysRequestService { get; set; }
+        public FreeDaysRequestController FreeDaysRequestController { get; set; }
 
         //public RequestForFreeDays request { get; set; }
 
-        public ShowFreeDaysRequestsDetailsViewModel(RequestForFreeDays sentRequest, string lks)
+        public ShowFreeDaysRequestsDetailsViewModel(Model.FreeDaysRequest sentRequest, string lks)
         {
-            FreeDaysRequestRepository = new RequestForFreeDaysRepository();
-            FreeDaysRequestService = new RequestForFreeDaysService(FreeDaysRequestRepository);
-            FreeDaysRequestController = new RequestForFreeDaysController(FreeDaysRequestService);
+            FreeDaysRequestRepository = new Repository.FreeDaysRequestRepository();
+            FreeDaysRequestService = new Service.FreeDaysRequestService(FreeDaysRequestRepository);
+            FreeDaysRequestController = new FreeDaysRequestController(FreeDaysRequestService);
 
             //request = sentRequest;
         }

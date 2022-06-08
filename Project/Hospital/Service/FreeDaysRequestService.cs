@@ -9,36 +9,36 @@ using System.Threading.Tasks;
 
 namespace Project.Hospital.Service
 {
-    public class RequestForFreeDaysService
+    public class FreeDaysRequestService
     {
-        private RequestForFreeDaysRepository requestForFreeDaysRepository;
+        private Repository.FreeDaysRequestRepository requestForFreeDaysRepository;
         private DoctorService doctorService;
         private AppointmentService appointmentService;
         private const string NOT_FOUND_ERROR = "Request with {0}:{1} can not be found!";
 
-        public RequestForFreeDaysService(RequestForFreeDaysRepository requestForFreeDaysRepository, DoctorService doctorService, AppointmentService appointmentService)
+        public FreeDaysRequestService(Repository.FreeDaysRequestRepository requestForFreeDaysRepository, DoctorService doctorService, AppointmentService appointmentService)
         {
             this.requestForFreeDaysRepository = requestForFreeDaysRepository;
             this.doctorService = doctorService;
             this.appointmentService = appointmentService;
         }
 
-        public RequestForFreeDaysService(RequestForFreeDaysRepository requestForFreeDaysRepository)
+        public FreeDaysRequestService(Repository.FreeDaysRequestRepository requestForFreeDaysRepository)
         {
             this.requestForFreeDaysRepository = requestForFreeDaysRepository;
         }
 
-        public List<RequestForFreeDays> GetAll()
+        public List<Model.FreeDaysRequest> GetAll()
         {
             return requestForFreeDaysRepository.GetAll();
         }
 
         //TODO
-        public List<RequestForFreeDays> GetAllByLks(string lks)
+        public List<FreeDaysRequest> GetAllByLks(string lks)
         {
-            List<RequestForFreeDays> doctorsRequests = new List<RequestForFreeDays>();
+            List<FreeDaysRequest> doctorsRequests = new List<FreeDaysRequest>();
 
-            foreach (RequestForFreeDays request in GetAll())
+            foreach (Model.FreeDaysRequest request in GetAll())
             {
                 if (request.Lks.Equals(lks))
                 {
@@ -48,7 +48,7 @@ namespace Project.Hospital.Service
             return doctorsRequests;
         }
 
-        public RequestForFreeDays CreateRequest(RequestForFreeDays newRequestForFreeDays)
+        public FreeDaysRequest CreateRequest(FreeDaysRequest newRequestForFreeDays)
         {
             if(newRequestForFreeDays.isEmergency == true)
             {
@@ -63,7 +63,7 @@ namespace Project.Hospital.Service
             return requestForFreeDaysRepository.CreateRequest(newRequestForFreeDays);
         }
 
-        public Boolean isDoctorBusyInRequestPeriod(RequestForFreeDays requestForFreeDays)
+        public Boolean isDoctorBusyInRequestPeriod(FreeDaysRequest requestForFreeDays)
         {
             foreach(Appointment appointment in appointmentService.GetAllByLks(requestForFreeDays.Lks))
             {
@@ -79,7 +79,7 @@ namespace Project.Hospital.Service
         {
             int numberOfDoctors = 0;
 
-            foreach (RequestForFreeDays requestForFreeDays in GetAll())
+            foreach (Model.FreeDaysRequest requestForFreeDays in GetAll())
             {
                 if (isMedicineAreasEquals(medicineArea, doctorService.GetDoctorByLks(requestForFreeDays.Lks).medicineArea) && isRequestAcceptedOrOnHold(requestForFreeDays))
                     numberOfDoctors++;
@@ -96,38 +96,38 @@ namespace Project.Hospital.Service
             return false;
         }
 
-        public Boolean isRequestAcceptedOrOnHold(RequestForFreeDays requestForFreeDays)
+        public Boolean isRequestAcceptedOrOnHold(Model.FreeDaysRequest requestForFreeDays)
         {
-            if(requestForFreeDays.isActive == RequestForFreeDaysType.RequestForFreeDaysTypes.Accept || requestForFreeDays.isActive == RequestForFreeDaysType.RequestForFreeDaysTypes.OnHold)
+            if(requestForFreeDays.isActive == AcceptanceStatus.Status.Accept || requestForFreeDays.isActive == AcceptanceStatus.Status.OnHold)
             {
                 return true;
             }
             return false;
         }
 
-        public List<RequestForFreeDays> GetRequestsOnHold()
+        public List<Model.FreeDaysRequest> GetRequestsOnHold()
         {
-            List<RequestForFreeDays> requestsOnHold = new List<RequestForFreeDays>();
-            foreach(RequestForFreeDays request in GetAll())
+            List<Model.FreeDaysRequest> requestsOnHold = new List<Model.FreeDaysRequest>();
+            foreach(Model.FreeDaysRequest request in GetAll())
             {
-                if(request.isActive == RequestForFreeDaysType.RequestForFreeDaysTypes.OnHold)
+                if(request.isActive == AcceptanceStatus.Status.OnHold)
                 {
                     requestsOnHold.Add(request);
                 }
             }
             return requestsOnHold;
         }
-        public Boolean UpdateRequest(RequestForFreeDays requestForChange, RequestForFreeDaysType.RequestForFreeDaysTypes status, String declineReason = "/")
+        public Boolean UpdateRequest(Model.FreeDaysRequest requestForChange, AcceptanceStatus.Status status, String declineReason = "/")
         {
             return requestForFreeDaysRepository.UpdateRequest(requestForChange, status, declineReason);
         }
-        public Boolean AcceptRequest(RequestForFreeDays requestForChange)
+        public Boolean AcceptRequest(Model.FreeDaysRequest requestForChange)
         {
-            return UpdateRequest(requestForChange, RequestForFreeDaysType.RequestForFreeDaysTypes.Accept);
+            return UpdateRequest(requestForChange, AcceptanceStatus.Status.Accept);
         }
-        public Boolean DeclineRequest(RequestForFreeDays requestForChange, String explanation)
+        public Boolean DeclineRequest(Model.FreeDaysRequest requestForChange, String explanation)
         {
-            return UpdateRequest(requestForChange, RequestForFreeDaysType.RequestForFreeDaysTypes.Decline, explanation);
+            return UpdateRequest(requestForChange, AcceptanceStatus.Status.Decline, explanation);
         }
     }
 }

@@ -20,20 +20,20 @@ namespace Project.Hospital.View.Secretary
 {
     public partial class Obrazlozenje : Window
     {
-        private RequestForFreeDays request;
-        private RequestForFreeDaysRepository requestForFreeDaysRepository;
-        private RequestForFreeDaysService requestForFreeDaysService;
-        private RequestForFreeDaysController requestForFreeDaysController;
+        private Model.FreeDaysRequest request;
+        private Repository.FreeDaysRequestRepository requestForFreeDaysRepository;
+        private Service.FreeDaysRequestService requestForFreeDaysService;
+        private FreeDaysRequestController requestForFreeDaysController;
         private NotificationRepository notificationRepository;
         private NotificationService notificationService;
         private NotificationController notificationController;
-        public Obrazlozenje(RequestForFreeDays requestForFreeDays)
+        public Obrazlozenje(Model.FreeDaysRequest requestForFreeDays)
         {
             InitializeComponent();
             this.request = requestForFreeDays;
-            this.requestForFreeDaysRepository = new RequestForFreeDaysRepository();
-            this.requestForFreeDaysService = new RequestForFreeDaysService(requestForFreeDaysRepository);
-            this.requestForFreeDaysController = new RequestForFreeDaysController(requestForFreeDaysService);
+            this.requestForFreeDaysRepository = new Repository.FreeDaysRequestRepository();
+            this.requestForFreeDaysService = new Service.FreeDaysRequestService(requestForFreeDaysRepository);
+            this.requestForFreeDaysController = new FreeDaysRequestController(requestForFreeDaysService);
             this.notificationRepository = new NotificationRepository();
             this.notificationService = new NotificationService(notificationRepository);
             this.notificationController = new NotificationController(notificationService);

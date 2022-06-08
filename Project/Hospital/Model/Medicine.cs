@@ -13,7 +13,7 @@ namespace Project.Hospital.Model
         public DateTime ExpiringDate { get; set; }
         public string Components { get; set; }
         public string InstructionsForUse { get; set; }
-        public Boolean isActive { get; set; } = false;
+        public AcceptanceStatus.Status isActive { get; set; } = AcceptanceStatus.Status.OnHold;
         public string ReasonForDecline { get; set; } = "";
 
         public Medicine () { }
@@ -34,7 +34,7 @@ namespace Project.Hospital.Model
             ExpiringDate = DateTime.Parse(values[2]);
             Components = values[3];
             InstructionsForUse = values[4];
-            isActive = Boolean.Parse(values[5]);
+            isActive = (AcceptanceStatus.Status)Enum.Parse(typeof(AcceptanceStatus.Status), values[5]);
             ReasonForDecline = values[6];
         }
 

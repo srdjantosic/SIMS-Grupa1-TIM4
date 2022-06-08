@@ -29,7 +29,7 @@ namespace Project.Hospital.View.Doctor
 
         private void btnDetails(object sender, RoutedEventArgs e)
         {
-            RequestForFreeDays request = (RequestForFreeDays)dgRequest.SelectedItems[0];
+            FreeDaysRequest request = (FreeDaysRequest)dgRequest.SelectedItems[0];
             var details = new ShowFreeDaysRequestsDetails(request, doctorLks);
             NavigationService.Navigate(details);
         }

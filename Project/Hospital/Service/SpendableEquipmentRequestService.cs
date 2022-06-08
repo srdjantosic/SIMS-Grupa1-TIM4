@@ -31,7 +31,6 @@ namespace Project.Hospital.Service
         }
         public SpendableEquipmentRequest Create(String equipmentId, String equipmentName, int quantity)
         {
-            
             if(GetOne(equipmentId) == null)
             {
                 DateTime createdDate = DateTime.Now;

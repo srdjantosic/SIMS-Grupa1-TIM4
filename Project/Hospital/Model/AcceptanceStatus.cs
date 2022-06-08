@@ -6,9 +6,9 @@ using System.Threading.Tasks;
 
 namespace Project.Hospital.Model
 {
-    public class RequestForFreeDaysType
+    public class AcceptanceStatus
     {
-        public enum RequestForFreeDaysTypes
+        public enum Status
         {
             Accept,
             OnHold,

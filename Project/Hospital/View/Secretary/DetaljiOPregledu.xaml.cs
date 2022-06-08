@@ -105,7 +105,7 @@ namespace Project.Hospital.View.Secretary
                 {
                     if (appointmentController.UpdateTime(newDateTime, Appointment.Id))
                     {
-                        Appointment = appointmentController.GetById(Appointment.Id);
+                        Appointment = appointmentController.GetOne(Appointment.Id);
                         tbDatumIVreme.Text = Appointment.dateTime.ToLongDateString() + " " + Appointment.dateTime.ToLongTimeString();
                         odustani(sender, e);
                         

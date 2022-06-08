@@ -6,19 +6,19 @@ using System.Threading.Tasks;
 
 namespace Project.Hospital.Model
 {
-    public class RequestForFreeDays : Serializable
+    public class FreeDaysRequest : Serializable
     {
         public string Lks { get; set; }
         public DateTime Start { get; set; }
         public DateTime End { get; set; }
         public string Reason { get; set; }
         public Boolean isEmergency { get; set; }
-        public RequestForFreeDaysType.RequestForFreeDaysTypes isActive { get; set; } = RequestForFreeDaysType.RequestForFreeDaysTypes.OnHold;
+        public AcceptanceStatus.Status isActive { get; set; } = AcceptanceStatus.Status.OnHold;
         public String DeclineReason { get; set; } = "/";
 
-        public RequestForFreeDays() { }
+        public FreeDaysRequest() { }
 
-        public RequestForFreeDays(string lks, DateTime start, DateTime end, string reason, Boolean isEmergency)
+        public FreeDaysRequest(string lks, DateTime start, DateTime end, string reason, Boolean isEmergency)
         {
             this.Lks = lks;
             this.Start = start;
@@ -34,7 +34,7 @@ namespace Project.Hospital.Model
             End = DateTime.Parse(values[2]);
             Reason = values[3];
             isEmergency = Boolean.Parse(values[4]);
-            isActive = (RequestForFreeDaysType.RequestForFreeDaysTypes)Enum.Parse(typeof(RequestForFreeDaysType.RequestForFreeDaysTypes), values[5]);
+            isActive = (AcceptanceStatus.Status)Enum.Parse(typeof(AcceptanceStatus.Status), values[5]);
             DeclineReason = values[6];
 
         }

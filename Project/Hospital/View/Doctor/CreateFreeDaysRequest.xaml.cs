@@ -23,9 +23,9 @@ namespace Project.Hospital.View.Doctor
 {
     public partial class CreateFreeDaysRequest : Page
     {
-        private RequestForFreeDaysRepository requestForFreeDaysRepository;
-        private RequestForFreeDaysService requestForFreeDaysService;
-        private RequestForFreeDaysController requestForFreeDaysController;
+        private Repository.FreeDaysRequestRepository requestForFreeDaysRepository;
+        private Service.FreeDaysRequestService requestForFreeDaysService;
+        private FreeDaysRequestController requestForFreeDaysController;
 
         private DoctorRepository doctorRepository;
         private DoctorService doctorService;
@@ -48,9 +48,9 @@ namespace Project.Hospital.View.Doctor
             this.appointmentService = new AppointmentService(appointmentRepository);
             this.appointmentController = new AppointmentController(appointmentService);
 
-            this.requestForFreeDaysRepository = new RequestForFreeDaysRepository();
-            this.requestForFreeDaysService = new RequestForFreeDaysService(requestForFreeDaysRepository, doctorService, appointmentService);
-            this.requestForFreeDaysController = new RequestForFreeDaysController(requestForFreeDaysService);
+            this.requestForFreeDaysRepository = new Repository.FreeDaysRequestRepository();
+            this.requestForFreeDaysService = new Service.FreeDaysRequestService(requestForFreeDaysRepository, doctorService, appointmentService);
+            this.requestForFreeDaysController = new FreeDaysRequestController(requestForFreeDaysService);
 
 
             InitializeComponent();
@@ -94,7 +94,7 @@ namespace Project.Hospital.View.Doctor
                 }
             }
 
-            RequestForFreeDays requestForFreeDaysToCreate = new RequestForFreeDays();
+            Model.FreeDaysRequest requestForFreeDaysToCreate = new Model.FreeDaysRequest();
             requestForFreeDaysToCreate.Lks = loggedDoctor;
             requestForFreeDaysToCreate.Start = DateTime.Parse(dpStartDate.Text);
             requestForFreeDaysToCreate.End = DateTime.Parse(dpEndDate.Text);

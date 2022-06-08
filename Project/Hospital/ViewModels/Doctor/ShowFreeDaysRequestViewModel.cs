@@ -15,21 +15,21 @@ namespace Project.Hospital.ViewModels.Doctor
 {
     public class ShowFreeDaysRequestViewModel : ViewModel
     {
-        public RequestForFreeDaysRepository FreeDaysRequestRepository { get; set; }
-        public RequestForFreeDaysService FreeDaysRequestService { get; set; }
-        public RequestForFreeDaysController FreeDaysRequestController { get; set; }
-        public ObservableCollection<RequestForFreeDays> Requests { get; set; }
+        public Repository.FreeDaysRequestRepository FreeDaysRequestRepository { get; set; }
+        public Service.FreeDaysRequestService FreeDaysRequestService { get; set; }
+        public FreeDaysRequestController FreeDaysRequestController { get; set; }
+        public ObservableCollection<Model.FreeDaysRequest> Requests { get; set; }
 
         public ShowFreeDaysRequestViewModel(string lks)
         {
-            FreeDaysRequestRepository = new RequestForFreeDaysRepository();
-            FreeDaysRequestService = new RequestForFreeDaysService(FreeDaysRequestRepository);
-            FreeDaysRequestController = new RequestForFreeDaysController(FreeDaysRequestService);
+            FreeDaysRequestRepository = new Repository.FreeDaysRequestRepository();
+            FreeDaysRequestService = new Service.FreeDaysRequestService(FreeDaysRequestRepository);
+            FreeDaysRequestController = new FreeDaysRequestController(FreeDaysRequestService);
 
-            Requests = new ObservableCollection<RequestForFreeDays>();
-            foreach (RequestForFreeDays request in FreeDaysRequestController.GetAllByLks(lks))
+            Requests = new ObservableCollection<Model.FreeDaysRequest>();
+            foreach (Model.FreeDaysRequest request in FreeDaysRequestController.GetAllByLks(lks))
             {
-                Requests.Add(new RequestForFreeDays { Lks = request.Lks, Start = request.Start, End = request.End, Reason = request.Reason, isEmergency = request.isEmergency, isActive = request.isActive });
+                Requests.Add(new Model.FreeDaysRequest { Lks = request.Lks, Start = request.Start, End = request.End, Reason = request.Reason, isEmergency = request.isEmergency, isActive = request.isActive });
             }
         }
     }

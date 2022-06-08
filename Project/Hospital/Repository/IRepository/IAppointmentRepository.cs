@@ -12,6 +12,6 @@ namespace Project.Hospital.Repository.IRepository
         public Appointment Create(Appointment newAppointment);
         public Boolean Save(List<Appointment> appointments);
         public List<Appointment> GetAll();
-        public Appointment GetById(int id);
+        public Appointment GetOne(int id);
     }
 }
