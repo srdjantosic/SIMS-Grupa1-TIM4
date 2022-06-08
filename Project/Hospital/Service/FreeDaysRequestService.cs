@@ -1,6 +1,7 @@
 ﻿using Hospital.Service;
 using Project.Hospital.Model;
 using Project.Hospital.Repository;
+using Project.Hospital.Repository.IRepository;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -11,34 +12,33 @@ namespace Project.Hospital.Service
 {
     public class FreeDaysRequestService
     {
-        private Repository.FreeDaysRequestRepository requestForFreeDaysRepository;
+        private IFreeDaysRequestRepository iFreeDaysRequestRepo;
         private DoctorService doctorService;
         private AppointmentService appointmentService;
         private const string NOT_FOUND_ERROR = "Request with {0}:{1} can not be found!";
 
-        public FreeDaysRequestService(Repository.FreeDaysRequestRepository requestForFreeDaysRepository, DoctorService doctorService, AppointmentService appointmentService)
+        public FreeDaysRequestService(IFreeDaysRequestRepository iFreeDaysRequestRepo, DoctorService doctorService, AppointmentService appointmentService)
         {
-            this.requestForFreeDaysRepository = requestForFreeDaysRepository;
+            this.iFreeDaysRequestRepo = iFreeDaysRequestRepo;
             this.doctorService = doctorService;
             this.appointmentService = appointmentService;
         }
 
-        public FreeDaysRequestService(Repository.FreeDaysRequestRepository requestForFreeDaysRepository)
+        public FreeDaysRequestService(IFreeDaysRequestRepository iFreeDaysRequestRepo)
         {
-            this.requestForFreeDaysRepository = requestForFreeDaysRepository;
+            this.iFreeDaysRequestRepo = iFreeDaysRequestRepo;
         }
 
-        public List<Model.FreeDaysRequest> GetAll()
+        public List<FreeDaysRequest> GetAll()
         {
-            return requestForFreeDaysRepository.GetAll();
+            return iFreeDaysRequestRepo.GetAll();
         }
 
-        //TODO
         public List<FreeDaysRequest> GetAllByLks(string lks)
         {
             List<FreeDaysRequest> doctorsRequests = new List<FreeDaysRequest>();
 
-            foreach (Model.FreeDaysRequest request in GetAll())
+            foreach (FreeDaysRequest request in GetAll())
             {
                 if (request.Lks.Equals(lks))
                 {
@@ -47,27 +47,26 @@ namespace Project.Hospital.Service
             }
             return doctorsRequests;
         }
-
-        public FreeDaysRequest CreateRequest(FreeDaysRequest newRequestForFreeDays)
+        public FreeDaysRequest Create(FreeDaysRequest request)
         {
-            if(newRequestForFreeDays.isEmergency == true)
+            if(request.isEmergency)
             {
-                return requestForFreeDaysRepository.CreateRequest(newRequestForFreeDays);
+                return iFreeDaysRequestRepo.Create(request);
             }
 
-            if (CountDoctorsInSameMedicineArea(doctorService.GetOne(newRequestForFreeDays.Lks).medicineArea) > 1 || isDoctorBusyInRequestPeriod(newRequestForFreeDays))
+            if (CountDoctorsInSameMedicineArea(doctorService.GetOne(request.Lks).medicineArea) > 1 || isDoctorBusyInRequestedPeriod(request))
             {
                 return null;
             }
 
-            return requestForFreeDaysRepository.CreateRequest(newRequestForFreeDays);
+            return iFreeDaysRequestRepo.Create(request);
         }
 
-        public Boolean isDoctorBusyInRequestPeriod(FreeDaysRequest requestForFreeDays)
+        public Boolean isDoctorBusyInRequestedPeriod(FreeDaysRequest request)
         {
-            foreach(Appointment appointment in appointmentService.GetAllByLks(requestForFreeDays.Lks))
+            foreach(Appointment appointment in appointmentService.GetAllByLks(request.Lks))
             {
-                if(DateTime.Compare(appointment.dateTime.Date, requestForFreeDays.Start.Date) >= 0 && DateTime.Compare(appointment.dateTime.Date, requestForFreeDays.End.Date) <= 0)
+                if(DateTime.Compare(appointment.dateTime.Date, request.Start.Date) >= 0 && DateTime.Compare(appointment.dateTime.Date, request.End.Date) <= 0)
                 {
                     return true;
                 }
@@ -79,15 +78,15 @@ namespace Project.Hospital.Service
         {
             int numberOfDoctors = 0;
 
-            foreach (Model.FreeDaysRequest requestForFreeDays in GetAll())
+            foreach (FreeDaysRequest requestForFreeDays in GetAll())
             {
-                if (isMedicineAreasEquals(medicineArea, doctorService.GetOne(requestForFreeDays.Lks).medicineArea) && isRequestAcceptedOrOnHold(requestForFreeDays))
+                if (areMedicineAreasEqual(medicineArea, doctorService.GetOne(requestForFreeDays.Lks).medicineArea) && isRequestAcceptedOrOnHold(requestForFreeDays))
                     numberOfDoctors++;
             }
             return numberOfDoctors;
         }
 
-        public Boolean isMedicineAreasEquals(string medicineArea1, string medicineArea2)
+        public Boolean areMedicineAreasEqual(string medicineArea1, string medicineArea2)
         {
             if (medicineArea1.Equals(medicineArea2))
             {
@@ -96,19 +95,19 @@ namespace Project.Hospital.Service
             return false;
         }
 
-        public Boolean isRequestAcceptedOrOnHold(Model.FreeDaysRequest requestForFreeDays)
+        public Boolean isRequestAcceptedOrOnHold(FreeDaysRequest request)
         {
-            if(requestForFreeDays.isActive == AcceptanceStatus.Status.Accept || requestForFreeDays.isActive == AcceptanceStatus.Status.OnHold)
+            if(request.isActive == AcceptanceStatus.Status.Accept || request.isActive == AcceptanceStatus.Status.OnHold)
             {
                 return true;
             }
             return false;
         }
 
-        public List<Model.FreeDaysRequest> GetRequestsOnHold()
+        public List<FreeDaysRequest> GetAllOnHold()
         {
-            List<Model.FreeDaysRequest> requestsOnHold = new List<Model.FreeDaysRequest>();
-            foreach(Model.FreeDaysRequest request in GetAll())
+            List<FreeDaysRequest> requestsOnHold = new List<FreeDaysRequest>();
+            foreach(FreeDaysRequest request in GetAll())
             {
                 if(request.isActive == AcceptanceStatus.Status.OnHold)
                 {
@@ -117,17 +116,29 @@ namespace Project.Hospital.Service
             }
             return requestsOnHold;
         }
-        public Boolean UpdateRequest(Model.FreeDaysRequest requestForChange, AcceptanceStatus.Status status, String declineReason = "/")
+        public Boolean Update(FreeDaysRequest requestForChange, AcceptanceStatus.Status status, String declineReason = "/")
         {
-            return requestForFreeDaysRepository.UpdateRequest(requestForChange, status, declineReason);
+            List<FreeDaysRequest> requests = GetAll();
+            foreach (FreeDaysRequest request in requests)
+            {
+                if (request.Lks == requestForChange.Lks && request.Start == requestForChange.Start && request.End == requestForChange.End)
+                {
+                    request.isActive = status;
+                    request.DeclineReason = declineReason;
+                    iFreeDaysRequestRepo.Save(requests);
+                    return true;
+                }
+            }
+            return false;
         }
-        public Boolean AcceptRequest(Model.FreeDaysRequest requestForChange)
+
+        public Boolean Accept(FreeDaysRequest requestForChange)
         {
-            return UpdateRequest(requestForChange, AcceptanceStatus.Status.Accept);
+            return Update(requestForChange, AcceptanceStatus.Status.Accept);
         }
-        public Boolean DeclineRequest(Model.FreeDaysRequest requestForChange, String explanation)
+        public Boolean Decline(FreeDaysRequest requestForChange, String explanation)
         {
-            return UpdateRequest(requestForChange, AcceptanceStatus.Status.Decline, explanation);
+            return Update(requestForChange, AcceptanceStatus.Status.Decline, explanation);
         }
     }
 }

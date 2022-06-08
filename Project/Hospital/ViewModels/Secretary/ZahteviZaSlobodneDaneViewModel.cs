@@ -24,7 +24,7 @@ namespace Project.Hospital.ViewModels.Secretary
             FreeDaysRequestController = new FreeDaysRequestController(FreeDaysRequestService);
 
             Requests = new ObservableCollection<Model.FreeDaysRequest>();
-            foreach(Model.FreeDaysRequest request in FreeDaysRequestController.GetRequestsOnHold())
+            foreach(Model.FreeDaysRequest request in FreeDaysRequestController.GetAllOnHold())
             {
                 Requests.Add(new Model.FreeDaysRequest{ Lks = request.Lks, Start = request.Start, End = request.End, Reason = request.Reason, isEmergency = request.isEmergency });
             }

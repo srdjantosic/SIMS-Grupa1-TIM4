@@ -73,25 +73,19 @@ namespace Project.Hospital.Service
         {
             return iMedicineRepo.GetByName(name);
         }
-        public Boolean areMedicinesExist(List<string> medicines)
+        public Boolean areMedicinesExist(List<string> prescribedMedicines)
         {
-            int foundMedicines = 0;
-
-            foreach (Medicine existMedicine in GetAll())
+            List<string> existingMedicines = new List<string>();
+            GetAll().ForEach(medicine => existingMedicines.Add(medicine.Name));
+           
+            foreach (string prescribedMedicine in prescribedMedicines)
             {
-                foreach (string prescribeMedicine in medicines)
-                {
-                    if (existMedicine.Name.Equals(prescribeMedicine))
-                    {
-                        foundMedicines++;
-                        if (foundMedicines == medicines.Count())
-                        {
-                            return true;
-                        }
-                    }
+                if (!existingMedicines.Contains(prescribedMedicine))
+                { 
+                    return false;
                 }
             }
-            return false;
+            return true;
         }
     }
 }

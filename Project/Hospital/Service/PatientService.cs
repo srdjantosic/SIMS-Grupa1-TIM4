@@ -37,17 +37,13 @@ namespace Project.Hospital.Service
             if (newPrescription == null) {
                 return false;
             }
+
             Report newReport = reportService.Create(report.Diagnosis, report.Comment);
             if (newReport == null) { 
                 return false;
             }
-            Boolean isCreated = iPatientRepo.CreateReportAndPrescription(lbo, prescription.Id, report.Id);
-            if (isCreated == false)
-            {
-                return false;
-            }
 
-            return true;
+            return iPatientRepo.CreateReportAndPrescription(lbo, prescription.Id, report.Id);
         }
 
         public Boolean UpdateReportAndPrescription(string lbo, Prescription prescriptionToUpdate, Report reportToUpdate) 
@@ -56,12 +52,8 @@ namespace Project.Hospital.Service
             if(isPrescriptionUpdated == false){
                 return false;
             }
-            Boolean isReportUpdated = reportService.Update(reportToUpdate.Id, reportToUpdate.Diagnosis, reportToUpdate.Comment);
-            if (isReportUpdated == false)
-            {
-                return false;
-            }
-            return true;
+
+            return reportService.Update(reportToUpdate.Id, reportToUpdate.Diagnosis, reportToUpdate.Comment);
         }
         public Boolean Update(String lbo, List<Allergen> allergens)
         {

@@ -20,7 +20,7 @@ namespace Project.Hospital.Controller
             this.prescriptionService = prescriptionService;
         }
 
-        public Prescription CreatePrescription(string lbo, Prescription newPrescription)
+        public Prescription Create(string lbo, Prescription newPrescription)
         {
             Prescription prescriptionToCreate = prescriptionService.Create(lbo, newPrescription);
             if (prescriptionToCreate == null)

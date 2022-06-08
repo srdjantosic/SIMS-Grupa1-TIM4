@@ -48,7 +48,7 @@ namespace Project.Hospital.View.Secretary
         {
             string explanation = tbExplanation.Text;
 
-            if (requestForFreeDaysController.DeclineRequest(request, explanation))
+            if (requestForFreeDaysController.Decline(request, explanation))
             {
                 if (explanation.Length == 0)
                 {

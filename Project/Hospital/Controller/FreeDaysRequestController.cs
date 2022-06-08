@@ -10,35 +10,35 @@ namespace Project.Hospital.Controller
 {
     public class FreeDaysRequestController
     {
-        private Service.FreeDaysRequestService requestForFreeDaysService;
+        private FreeDaysRequestService forDaysServiceRequest;
 
-        public FreeDaysRequestController(FreeDaysRequestService requestForFreeDaysService)
+        public FreeDaysRequestController(FreeDaysRequestService forDaysServiceRequest)
         {
-            this.requestForFreeDaysService = requestForFreeDaysService;
+            this.forDaysServiceRequest = forDaysServiceRequest;
         }
 
-        public FreeDaysRequest CreateRequest(FreeDaysRequest newRequestForFreeDays)
+        public FreeDaysRequest Create(FreeDaysRequest request)
         {
-            return requestForFreeDaysService.CreateRequest(newRequestForFreeDays);
+            return forDaysServiceRequest.Create(request);
         }
 
-        public List<FreeDaysRequest> GetRequestsOnHold()
+        public List<FreeDaysRequest> GetAllOnHold()
         {
-            return requestForFreeDaysService.GetRequestsOnHold();
+            return forDaysServiceRequest.GetAllOnHold();
         }
 
-        public Boolean AcceptRequest(FreeDaysRequest requestForChange)
+        public Boolean Accept(FreeDaysRequest requestForChange)
         {
-            return requestForFreeDaysService.AcceptRequest(requestForChange);
+            return forDaysServiceRequest.Accept(requestForChange);
         }
-        public Boolean DeclineRequest(FreeDaysRequest requestForChange, String explanation)
+        public Boolean Decline(FreeDaysRequest requestForChange, String explanation)
         {
-            return requestForFreeDaysService.DeclineRequest(requestForChange, explanation);
+            return forDaysServiceRequest.Decline(requestForChange, explanation);
         }
 
         public List<FreeDaysRequest> GetAllByLks(string lks)
         {
-            return requestForFreeDaysService.GetAllByLks(lks);
+            return forDaysServiceRequest.GetAllByLks(lks);
         }
     }
 }

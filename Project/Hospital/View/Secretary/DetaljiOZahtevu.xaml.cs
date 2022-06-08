@@ -62,7 +62,7 @@ namespace Project.Hospital.View.Secretary
 
         private void accept(object sender, RoutedEventArgs e)
         {
-            if(requestForFreeDaysController.AcceptRequest(requestForFreeDays))
+            if(requestForFreeDaysController.Accept(requestForFreeDays))
             {
                 Notification newNotification = new Notification(requestForFreeDays.Lks, DateTime.Now, "Vas zahtev je prihvacen!");
                 if (notificationController.Create(newNotification) != null)

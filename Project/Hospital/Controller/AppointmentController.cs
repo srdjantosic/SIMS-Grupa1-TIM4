@@ -49,14 +49,14 @@ namespace Project.Hospital.Controller
             return appointmentService.GetOne(id);
         }
 
-        public List<Appointment> GetAllFutureByLks(DateTime dateTime, string lks)
+        public List<Appointment> GetAllInFutureByLks(DateTime dateTime, string lks)
         {
-            return appointmentService.GetAllFutureByLks(dateTime, lks);
+            return appointmentService.GetAllInFutureByLks(dateTime, lks);
         }
 
-        public List<Appointment> GetAllPastByLks(DateTime dateTime, string lks)
+        public List<Appointment> GetAllInPastByLks(DateTime dateTime, string lks)
         {
-            return appointmentService.GetAllPastByLks(dateTime, lks);
+            return appointmentService.GetAllInPastByLks(dateTime, lks);
         }
 
         public List<Appointment> GetAvailableAppointments(Doctor doctor, Patient patient, DateTime start, DateTime end)
