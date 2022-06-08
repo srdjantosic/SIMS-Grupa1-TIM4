@@ -40,7 +40,7 @@ namespace Project.Hospital.View.Doctor
 
             medicines = new ObservableCollection<Medicine>();
 
-            foreach (Medicine medicine in medicineController.GetAllUnverified())
+            foreach (Medicine medicine in medicineController.GetAllOnHold())
             {
                 medicines.Add(medicine);
             }

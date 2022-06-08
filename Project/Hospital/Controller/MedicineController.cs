@@ -18,13 +18,11 @@ namespace Project.Hospital.Controller
             this.medicineService = medicineService;
         }
 
-        //TODO
         public Boolean Verify(string name)
         {
             return medicineService.Verify(name);
         }
 
-        //TODO
         public Boolean Decline(string name, string reason)
         {
             return medicineService.Decline(name, reason);
@@ -35,10 +33,9 @@ namespace Project.Hospital.Controller
             return medicineService.GetAll();
         }
 
-        //TODO
-        public List<Medicine> GetAllUnverified()
+        public List<Medicine> GetAllOnHold()
         {
-            return medicineService.GetAllUnverified();
+            return medicineService.GetAllOnHold();
         }
 
         public Medicine GetByName(string name)

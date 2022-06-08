@@ -1,5 +1,6 @@
 ﻿using Project.Hospital.Model;
 using Project.Hospital.Repository;
+using Project.Hospital.Repository.IRepository;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -11,15 +12,14 @@ namespace Project.Hospital.Service
     public class MedicineService
     {
 
-        private MedicineRepository medicineRepository;
+        private IMedicineRepository iMedicineRepo;
         private const string NOT_FOUND_ERROR = "Medicine with {0}:{1} can not be found!";
 
-        public MedicineService(MedicineRepository medicineRepository)
+        public MedicineService(IMedicineRepository iMedicineRepo)
         {
-            this.medicineRepository = medicineRepository;
+            this.iMedicineRepo = iMedicineRepo;
         }
 
-        //TODO
         public Boolean Verify(string name)
         {
             List<Medicine> medicines = GetAll();
@@ -29,13 +29,12 @@ namespace Project.Hospital.Service
                 if (medicine.Name.Equals(name))
                 {
                     medicine.isActive = AcceptanceStatus.Status.Accept;
-                    return medicineRepository.Save(medicines);
+                    return iMedicineRepo.Save(medicines);
                 }
             }
             return false;
         }
 
-        //TODO
         public Boolean Decline(string name, string reason)
         {
             List<Medicine> medicines = GetAll();
@@ -46,7 +45,7 @@ namespace Project.Hospital.Service
                 {
                     medicine.ReasonForDecline = reason;
                     medicine.isActive = AcceptanceStatus.Status.Decline;
-                    return medicineRepository.Save(medicines);
+                    return iMedicineRepo.Save(medicines);
                 }
             }
             return false;
@@ -54,11 +53,10 @@ namespace Project.Hospital.Service
 
         public List<Medicine> GetAll()
         {
-            return medicineRepository.GetAll();
+            return iMedicineRepo.GetAll();
         }
 
-        //TODO
-        public List<Medicine> GetAllUnverified()
+        public List<Medicine> GetAllOnHold()
         {
             List<Medicine> medicines = new List<Medicine>();
 
@@ -71,10 +69,9 @@ namespace Project.Hospital.Service
             }
             return medicines;
         }
-
         public Medicine GetByName(string name)
         {
-            return medicineRepository.GetByName(name);
+            return iMedicineRepo.GetByName(name);
         }
     }
 }

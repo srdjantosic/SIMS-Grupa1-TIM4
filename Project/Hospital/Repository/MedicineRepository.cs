@@ -1,5 +1,6 @@
 ﻿using Project.Hospital.Exception;
 using Project.Hospital.Model;
+using Project.Hospital.Repository.IRepository;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -8,14 +9,14 @@ using System.Threading.Tasks;
 
 namespace Project.Hospital.Repository
 {
-    public class MedicineRepository
+    public class MedicineRepository : IMedicineRepository
     {
         private const string NOT_FOUND_ERROR = "Medicine with {0}:{1} can not be found!";
         private const string fileName = "medicine.txt";
-        public Medicine Create(string name, string manufacturer, DateTime expiringDate, string components, string instructionsForUse)
+        public Medicine Create(Medicine newMedicine)
         {
             Serializer<Medicine> medicineSerializer = new Serializer<Medicine>();
-            Medicine medicine = new Medicine(name, manufacturer, expiringDate, components, instructionsForUse);
+            Medicine medicine = new Medicine(newMedicine.Name, newMedicine.Manufacturer, newMedicine.ExpiringDate, newMedicine.Components, newMedicine.InstructionsForUse);
             medicineSerializer.oneToCSV(fileName, medicine);
             return medicine;
         }
