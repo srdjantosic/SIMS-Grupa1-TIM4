@@ -4,49 +4,45 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Project.Hospital.Model;
+using Project.Hospital.Repository.IRepository;
 
 namespace Project.Hospital.Repository
 {
-    public class SpendableEquipmentRequestRepository
+    public class SpendableEquipmentRequestRepository : ISpendableEquipmentRequestRepository
     {
         private const string fileName = "requests.txt";
         public SpendableEquipmentRequestRepository() { }
-        public List<SpendableEquipmentRequest> GetAllRequests()
+        public List<SpendableEquipmentRequest> GetAll()
         {
             Serializer<SpendableEquipmentRequest> requestSerializer = new Serializer<SpendableEquipmentRequest>();
-            List<SpendableEquipmentRequest> requests = requestSerializer.fromCSV(fileName);
-            return requests;
+            return requestSerializer.fromCSV(fileName);
         }
-        public SpendableEquipmentRequest CreateRequest(String equipmentName, String equipmentId, int quantity, DateTime createDate)
+        public SpendableEquipmentRequest Create(String equipmentName, String equipmentId, int quantity, DateTime createDate)
         {
             Serializer<SpendableEquipmentRequest> requestSerializer = new Serializer<SpendableEquipmentRequest>();
             SpendableEquipmentRequest request = new SpendableEquipmentRequest(equipmentName, equipmentId, quantity, createDate);
             requestSerializer.oneToCSV(fileName, request);
             return request;
         }
-        public SpendableEquipmentRequest GetRequestById(String equipmentId)
+        public SpendableEquipmentRequest GetOne(String equipmentId)
         {
-            return GetAllRequests().SingleOrDefault(request => request.EquipmentId == equipmentId);
+            return GetAll().SingleOrDefault(request => request.EquipmentId == equipmentId);
         }
 
-        public Boolean DeleteRequest(String equipmentName)
+        public Boolean Delete(String equipmentName)
         {
-            List<SpendableEquipmentRequest> requests = GetAllRequests();
-
-            foreach(SpendableEquipmentRequest request in requests)
+            List<SpendableEquipmentRequest> requests = GetAll();
+            SpendableEquipmentRequest request = requests.SingleOrDefault(request => request.EquipmentName == equipmentName);
+            if(request != null && requests.Remove(request))
             {
-                if(request.EquipmentName == equipmentName)
-                {
-                    if (requests.Remove(request))
-                    {
-                        Serializer<SpendableEquipmentRequest> requestSerializer = new Serializer<SpendableEquipmentRequest>();
-                        requestSerializer.toCSV(fileName, requests);
-                        return true;
-                    }
-                    return false;
-                }
+                Serializer<SpendableEquipmentRequest> requestSerializer = new Serializer<SpendableEquipmentRequest>();
+                requestSerializer.toCSV(fileName, requests);
+                return true;
             }
-            return false;
+            else
+            {
+                return false;
+            }
         }
     }
 }

@@ -3,105 +3,88 @@ using Project.Hospital.Exception;
 using Project.Hospital.Model;
 using System;
 using System.Collections.Generic;
+using Project.Hospital.Repository.IRepository;
 
 namespace Hospital.Service
 {
     public class RoomService
     {
-        private RoomRepository roomRepository;
+        private IRoomRepository iRoomRepo;
         private const string NOT_FOUND_ERROR = "Equipment with {0}:{1} can not be found!";
-        public RoomService(RoomRepository roomRepository)
+        public RoomService(IRoomRepository iRoomRepo)
         {
-            this.roomRepository = roomRepository;
+            this.iRoomRepo = iRoomRepo;
+        }
+        public Room Create(String newName, RoomType.RoomTypes newType)
+        {
+            return iRoomRepo.Create(newName, newType);
         }
 
-        public Room CreateRoom(String newName, RoomType.RoomTypes newType)
+        public Boolean Update(String name, String newName, RoomType.RoomTypes newType)
         {
-            if (newName.Length == 0)
+            List<Room> rooms = GetAll();
+            foreach(Room room in rooms)
             {
-                throw new System.Exception(" ", null);
-            }
-            else
-            {
-                if (GetRoom(newName) == null)
+                if(room.Name == name)
                 {
-                    return roomRepository.CreateRoom(newName, newType);
-                }
-                else
-                {
-                    return null;
+                    room.Name = newName;
+                    room.Type = newType;
+                    iRoomRepo.Save(rooms);
+                    return true;
                 }
             }
+            return false;
         }
 
-        public Boolean UpdateRoom(String name, String newName, RoomType.RoomTypes newType)
+        public List<Room> GetAll()
         {
-            return roomRepository.UpdateRoom(name, newName, newType);
-
+            return iRoomRepo.GetAll();
         }
 
-        public List<Room> GetRooms()
+        public Boolean Delete(String name)
         {
-            return roomRepository.GetRooms();
+            return iRoomRepo.Delete(name);
         }
 
-        public Boolean DeleteRoom(String name)
+        public Room GetOne(String name)
         {
-            return roomRepository.DeleteRoom(name);
+            return iRoomRepo.GetOne(name);
         }
-
-        public Room GetRoom(String name)
-        {
-            return roomRepository.GetRoom(name);
-        }
-
-        public void RenovateRoom(String Name, DateTime start, DateTime end, int days)
-        {
-            
-            List<Appointment> appointments = new List<Appointment>();
-            Serializer<Appointment> appointmentSerializer = new Serializer<Appointment>();
-            appointments = appointmentSerializer.fromCSV("appointments.txt");
-            double i = (end - start).TotalDays;
-
-                foreach (Appointment appointment in appointments) 
-            {
-                if ((appointment.roomName == Name) && ((appointment.dateTime == start) || (appointment.dateTime == start))){ 
-                 throw new NotFoundException(string.Format(NOT_FOUND_ERROR, "Not possible"));
-                }
-
-
-
-                if (start.Date.Equals(DateTime.Now.Date))
-                {
-                    Serializer<Room> roomSerializer = new Serializer<Room>();
-                    Room room = new Room(Name, RoomType.RoomTypes.MeetingRoom);
-                    roomSerializer.oneToCSV("roomToRenovate.txt", room);
-                    roomRepository.DeleteRoom(Name);
-                }
-
-           
-                if (end.Date.Equals(DateTime.Now.Date))
-                {
-                   
-                  }
-
-            }
-            
-            
-
-        }
-
         public List<Room> GetMeetingRooms()
         {
             List<Room> meetingRooms = new List<Room>();
-            foreach(Room room in GetRooms())
+            foreach (Room room in GetAll())
             {
-                if(room.Type == RoomType.RoomTypes.MeetingRoom)
+                if (room.Type == RoomType.RoomTypes.MeetingRoom)
                 {
                     meetingRooms.Add(room);
                 }
             }
             return meetingRooms;
         }
+        /*
+        public void RenovateRoom(String Name, DateTime start, DateTime end, int days)
+        {
+
+            List<Appointment> appointments = appointmentService.ShowAppointments();
+            double i = (end - start).TotalDays;
+
+            foreach (Appointment appointment in appointments)
+            {
+                if ((appointment.roomName == Name) && ((appointment.dateTime == start) || (appointment.dateTime == start)))
+                {
+                    throw new NotFoundException(string.Format(NOT_FOUND_ERROR, "Not possible"));
+                }
+                else
+                {
+                    if (start.Date.Equals(DateTime.Now.Date))
+                    {
+                        iRoomRepo.Delete(Name);
+                    }
+                }
+
+            }
+        }
+        */
     }
 }

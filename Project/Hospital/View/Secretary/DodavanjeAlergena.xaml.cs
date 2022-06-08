@@ -54,7 +54,7 @@ namespace Project.Hospital.View.Secretary
             }
             else
             {
-                Allergen allergen = allergenController.CreateAllergen(patient.Lbo, name);
+                Allergen allergen = allergenController.Create(patient.Lbo, name);
 
                 if (allergen != null)
                 {

@@ -15,17 +15,13 @@ namespace Project.Hospital.Controller
         {
             this.equipmentService = equipmentService;
         }
-        public List<Equipment> GetEquipment()
+        public List<Equipment> GetAll()
         {
-            return equipmentService.GetEquipment();
+            return equipmentService.GetAll();
         }
         public List<Equipment> GetAllSpendableEquipment()
         {
             return equipmentService.GetAllSpendableEquipment();
-        }
-        public Boolean UpdateEquipment(String name, String id, Equipment.EquipmentTypes equipmentType, int quantity, String roomId)
-        {
-            return equipmentService.UpdateEquipment(name, id, equipmentType, quantity, roomId);
         }
     }
 }

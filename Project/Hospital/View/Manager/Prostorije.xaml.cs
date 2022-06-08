@@ -55,7 +55,7 @@ namespace Project.Hospital.View.Manager
             this.DataContext = this;
             Rooms = new ObservableCollection<Room>();
 
-            foreach (Room room in roomController.GetRooms())
+            foreach (Room room in roomController.GetAll())
             {
                 Rooms.Add(room);
             }
@@ -77,7 +77,7 @@ namespace Project.Hospital.View.Manager
             int days = Convert.ToInt32(day);
             DateTime start = DateTime.Parse(datpoc);
             DateTime end = DateTime.Parse(datkraj);
-            roomController.RenovateRoom(Name,start,end,days);
+            //roomController.RenovateRoom(Name,start,end,days);
             var page = new Prostorije();
             NavigationService.Navigate(page);
 

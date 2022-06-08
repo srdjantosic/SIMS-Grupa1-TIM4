@@ -5,79 +5,50 @@ using System.Text;
 using System.Threading.Tasks;
 using Project.Hospital.Exception;
 using Project.Hospital.Model;
+using Project.Hospital.Repository.IRepository;
 
 namespace Project.Hospital.Repository
 {
-    public class EquipmentRepository
+    public class EquipmentRepository : IEquipmentRepository
     {
         private const string NOT_FOUND_ERROR = "Equipments with {0}:{1} can not be found!";
+        private const string fileName = "equipment.txt";
         public EquipmentRepository() { }
-        public List<Equipment> GetEquipment()
+        public List<Equipment> GetAll()
         {
-           
             Serializer<Equipment> equipmentSerializer = new Serializer<Equipment>();
-            List<Equipment>  equipments = equipmentSerializer.fromCSV("equipments.txt");
-            return equipments;
+            return equipmentSerializer.fromCSV(fileName);
         }
-        public Equipment CreateEquipment(String Id, String Name, Equipment.EquipmentTypes equipmentType, int Quantity, String RoomId)
+        public Equipment Create(String id, String name, Equipment.EquipmentTypes equipmentType, int quantity, String roomId)
         {
             Serializer<Equipment> equipmentSerializer = new Serializer<Equipment>();
-            Equipment equipment = new Equipment(Id, Name, equipmentType,Quantity,RoomId);
-            equipmentSerializer.oneToCSV("equipments.txt", equipment);
+            Equipment equipment = new Equipment(id, name, equipmentType, quantity, roomId);
+            equipmentSerializer.oneToCSV(fileName, equipment);
             return equipment;
         }
-        public Boolean DeleteEquipment(String name)
+        public Boolean Delete(String name)
         {
-            List<Equipment> equipments = new List<Equipment>();
-            equipments = GetEquipment();
-
-            foreach (Equipment equipment in equipments)
+            List<Equipment> allEquipment = GetAll();
+            Equipment equipment = allEquipment.SingleOrDefault(equipment => equipment.Name == name);
+            if (equipment == null || allEquipment.Remove(equipment))
             {
-                if (equipment.Name == name)
-                {
-                    if (equipments.Remove(equipment))
-                    {
-                        Serializer<Equipment> equipmentSerializer = new Serializer<Equipment>();
-                        equipmentSerializer.toCSV("equipments.txt", equipments);
-                        return true;
-                    }
-                    else
-                    {
-
-                        return false;
-
-                    }
-                }
+                Serializer<Equipment> equipmentSerializer = new Serializer<Equipment>();
+                equipmentSerializer.toCSV(fileName, allEquipment);
+                return true;
             }
-
-            return false;
-
-
-        }
-        public Boolean UpdateEquipment(String Id, String Name, Equipment.EquipmentTypes equipmentType, int Quantity, String RoomId)
-        {
-            //List<Equipment> equipments = new List<Equipment>();
-            List < Equipment >  equipments = GetEquipment();
-            foreach (Equipment equipment in equipments)
+            else
             {
-                if (equipment.Id.Equals(Id))
-                {
-                    equipment.Name = Name;
-                    equipment.EquipmentType = equipmentType;
-                    equipment.RoomId = RoomId;
-                    equipment.Quantity = Quantity;
-                    Serializer<Equipment> roomSerializer = new Serializer<Equipment>();
-                    roomSerializer.toCSV("equipments.txt", equipments);
-                    return true;
-                }
-
+                return false;
             }
-            return false;
-
         }
-        public Equipment GetEquipment(String id)
+        public void Save(List<Equipment> equipments)
         {
-            return GetEquipment().SingleOrDefault(equipment => equipment.Id == id);
+            Serializer<Equipment> roomSerializer = new Serializer<Equipment>();
+            roomSerializer.toCSV(fileName, equipments);
+        }
+        public Equipment GetOne(String id)
+        {
+            return GetAll().SingleOrDefault(equipment => equipment.Id == id);
 
         }
     }

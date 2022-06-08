@@ -63,7 +63,7 @@ namespace Project.Hospital.View.Secretary
         private void potvrdi(object sender, RoutedEventArgs e)
         {
             string lbo = tbLbo.Text;
-            patient = patientController.GetPatient(lbo);
+            patient = patientController.GetOne(lbo);
             if(patient != null)
             {
                 patientInput.Visibility = Visibility.Hidden;
@@ -139,7 +139,7 @@ namespace Project.Hospital.View.Secretary
                        
                         textBlock.Inlines.Add("Datum i vreme : "+Appointments[i].Item2.dateTime.ToShortDateString() + " " + Appointments[i].Item2.dateTime.ToLongTimeString());
                         textBlock.Inlines.Add(new LineBreak());
-                        Patient patient = patientController.GetPatient(Appointments[i].Item2.lbo);
+                        Patient patient = patientController.GetOne(Appointments[i].Item2.lbo);
                         textBlock.Inlines.Add("Pacijent : " + patient.FirstName + " " + patient.LastName);
                         textBlock.Inlines.Add(new LineBreak());
                         Model.Doctor doctor = doctorController.GetDoctorByLks(Appointments[i].Item2.lks);

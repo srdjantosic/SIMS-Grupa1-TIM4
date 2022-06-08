@@ -16,17 +16,21 @@ namespace Project.Hospital.Controller
         {
             this.spendableEquipmentRequestService = spendableEquipmentRequestService;
         }
-        public SpendableEquipmentRequest GetRequestById(String equipmentId)
+        public List<SpendableEquipmentRequest> GetAll()
         {
-            return spendableEquipmentRequestService.GetRequestById(equipmentId);
+            return spendableEquipmentRequestService.GetAll();
         }
-        public Boolean DeleteRequest(String equipmentName)
+        public SpendableEquipmentRequest GetOne(String equipmentId)
         {
-            return spendableEquipmentRequestService.DeleteRequest(equipmentName);
+            return spendableEquipmentRequestService.GetOne(equipmentId);
         }
-        public SpendableEquipmentRequest CreateRequest(String equipmentId, String equipmentName, int quantity)
+        public Boolean Delete(String equipmentName)
         {
-            return spendableEquipmentRequestService.CreateRequest(equipmentId, equipmentName, quantity);
+            return spendableEquipmentRequestService.Delete(equipmentName);
+        }
+        public SpendableEquipmentRequest Create(String equipmentId, String equipmentName, int quantity)
+        {
+            return spendableEquipmentRequestService.Create(equipmentId, equipmentName, quantity);
         }
     }
 }

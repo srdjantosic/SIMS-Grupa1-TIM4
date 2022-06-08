@@ -28,7 +28,7 @@ namespace Project.Hospital.ViewModels.Doctor
 
             patients = new ObservableCollection<Patient>();
 
-            foreach (Patient patient in patientController.ShowPatients())
+            foreach (Patient patient in patientController.GetAll())
             {
                 patients.Add(patient);
             }

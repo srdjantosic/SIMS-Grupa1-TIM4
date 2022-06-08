@@ -17,13 +17,13 @@ using System.Collections.ObjectModel;
 using Project.Hospital.Repository;
 using Project.Hospital.Service;
 using Project.Hospital.Controller;
+using Project.Hospital.Repository.IRepository;
 
 namespace Project.Hospital.View.Manager
 {
 
     public partial class PrikazOpreme : Page
     {
-        private EquipmentRepository equipmentRepository;
         private EquipmentService equipmentService;
         private EquipmentController equipmentController;
         private ObservableCollection<Equipment> _equipment;
@@ -49,23 +49,21 @@ namespace Project.Hospital.View.Manager
         }
         public PrikazOpreme()
         {
-           
-            this.equipmentRepository = new EquipmentRepository();
             this.equipmentToMoveRepository = new EquipmentToMoveRepository();
-            this.equipmentToMoveService = new EquipmentToMoveService(equipmentToMoveRepository, equipmentRepository);
-            this.equipmentService = new EquipmentService(equipmentRepository, equipmentToMoveRepository,equipmentToMoveService);
+            //this.equipmentToMoveService = new EquipmentToMoveService(equipmentToMoveRepository, equipmentRepository);
+            //this.equipmentService = new EquipmentService(iEquipmentRepo, equipmentToMoveRepository,equipmentToMoveService);
             this.equipmentController = new EquipmentController(equipmentService);
             InitializeComponent();
             this.DataContext = this;
             Equipments = new ObservableCollection<Equipment>();
         
-            foreach (Equipment equipment in equipmentController.GetEquipment())
-            {
-                Equipments.Add( equipment );
-            }
+            //foreach (Equipment equipment in equipmentController.GetEquipment())
+            //{
+            //    Equipments.Add( equipment );
+            //}
 
         }
-
+        /*
         public void prebaci(object sender, RoutedEventArgs e)
         {
             var page = new PrebacivanjeOpreme(ChoosenEquipment.Name,ChoosenEquipment.RoomId, ChoosenEquipment.Id);
@@ -80,6 +78,7 @@ namespace Project.Hospital.View.Manager
             NavigationService.Navigate(page);
 
         }
+        */
     }
 
 

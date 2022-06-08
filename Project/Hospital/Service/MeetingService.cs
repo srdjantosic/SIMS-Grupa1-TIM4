@@ -5,32 +5,33 @@ using System.Text;
 using System.Threading.Tasks;
 using Project.Hospital.Model;
 using Project.Hospital.Repository;
+using Project.Hospital.Repository.IRepository;
 
 namespace Project.Hospital.Service
 {
     public class MeetingService
     {
-        private MeetingRepository meetingRepository;
+        private IMeetingRepository iMeetingRepo;
         private DoctorService doctorService;
         private NotificationService notificationService;
 
-        public MeetingService(MeetingRepository meetingRepository, DoctorService doctorService, NotificationService notificationService)
+        public MeetingService(IMeetingRepository iMeetingRepo, DoctorService doctorService, NotificationService notificationService)
         {
-            this.meetingRepository = meetingRepository;
+            this.iMeetingRepo = iMeetingRepo;
             this.doctorService = doctorService;
             this.notificationService = notificationService;
         }
         public Meeting Create(Meeting newMeeting)
         {
-            return meetingRepository.Create(newMeeting);
+            return iMeetingRepo.Create(newMeeting);
         }
         public List<Meeting> GetAll()
         {
-            return meetingRepository.GetAll();
+            return iMeetingRepo.GetAll();
         }
         public Meeting GetOne(int id)
         {
-            return meetingRepository.GetOne(id);
+            return iMeetingRepo.GetOne(id);
         }
         public void ScheduleMeeting(Meeting newMeeting)
         {

@@ -77,7 +77,7 @@ namespace Project.Hospital.View.Doctor
             this.DataContext = this;
             lblMsg.Content = "";
 
-            foreach (Patient patient in patientController.ShowPatients())
+            foreach (Patient patient in patientController.GetAll())
             {
                 if (patient.Lbo.Equals(appointment.lbo))
                 {
@@ -94,7 +94,7 @@ namespace Project.Hospital.View.Doctor
 
             dt.Columns.Add(medicalChart);
 
-            foreach (Patient patient in patientController.ShowPatients())
+            foreach (Patient patient in patientController.GetAll())
             {
                 if (patient.Lbo.Equals(currentAppointment.lbo))
                 {

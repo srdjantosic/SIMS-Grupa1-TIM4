@@ -69,7 +69,7 @@ namespace Project.Hospital.View.Doctor
             InitializeComponent();
             this.DataContext = this;
 
-            Patient patient = patientController.GetPatient(appointment.lbo);
+            Patient patient = patientController.GetOne(appointment.lbo);
             int positionOfPrescription = 2;
             int foundPrescription = -1;
             int foundReport = -1;

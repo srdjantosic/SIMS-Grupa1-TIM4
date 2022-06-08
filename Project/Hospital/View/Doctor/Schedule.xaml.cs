@@ -74,7 +74,7 @@ namespace Project.Hospital.View.Doctor
             Events = new ObservableCollection<Event>();
             foreach (Appointment appointment2 in appointmentController.GetAppointmentsByLks(loggedDoctor))
             {
-                Patient patient = patientController.GetPatient(appointment2.lbo);
+                Patient patient = patientController.GetOne(appointment2.lbo);
                 string eventName = "Pacijent: " + patient.FirstName;
                 Event Event = new Event(appointment2.id, eventName, appointment2.dateTime, appointment2.dateTime.AddMinutes(45));
                 Events.Add(Event);

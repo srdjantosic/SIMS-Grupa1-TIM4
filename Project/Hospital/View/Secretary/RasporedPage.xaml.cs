@@ -52,7 +52,7 @@ namespace Project.Hospital.View.Secretary
             foreach(Appointment appointment in appointmentController.ShowAppointments())
             {
                 Model.Doctor doctor = doctorController.GetDoctorByLks(appointment.lks);
-                Patient patient = patientController.GetPatient(appointment.lbo);
+                Patient patient = patientController.GetOne(appointment.lbo);
                 String eventName = "Pregled kod lekara: " + doctor.firstName + " " + doctor.lastName;
                 Event Event = new Event(appointment.id, eventName, appointment.dateTime, appointment.dateTime.AddMinutes(45));
                 Events.Add(Event);

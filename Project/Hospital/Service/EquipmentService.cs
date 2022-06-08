@@ -4,56 +4,32 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Project.Hospital.Repository;
-using Project.Hospital.Model;  
+using Project.Hospital.Model;
+using Project.Hospital.Repository.IRepository;
 
 namespace Project.Hospital.Service
 {
     public class EquipmentService
     {
-        public const double ProcurementDeadline = 3;
-
-        private EquipmentRepository equipmentRepository;
-        private EquipmentToMoveRepository equipmentToMoveRepository;
-        private EquipmentToMoveService equipmentToMoveService;
+        private const double ProcurementDeadline = 3;
+        private IEquipmentRepository iEquipmentRepo;
         private SpendableEquipmentRequestService spendableEquipmentRequestService;
-        public EquipmentService(EquipmentRepository equipmentRepository,EquipmentToMoveRepository equipmentToMoveRepository, EquipmentToMoveService equipmentToMoveService)
+        public EquipmentService(IEquipmentRepository iEquipmentRepo, SpendableEquipmentRequestService spendableEquipmentRequestService)
         {
-            this.equipmentRepository = equipmentRepository;
-            this.equipmentToMoveRepository = equipmentToMoveRepository;
-            this.equipmentToMoveService = equipmentToMoveService;
-        }
-
-        public EquipmentService(EquipmentRepository equipmentRepository, SpendableEquipmentRequestService spendableEquipmentRequestService)
-        {
-            this.equipmentRepository = equipmentRepository;
+            this.iEquipmentRepo = iEquipmentRepo;
             this.spendableEquipmentRequestService = spendableEquipmentRequestService;
         }
-
-        public List<Equipment> GetEquipment()
+        public List<Equipment> GetAll()
         {
-            
-            List<EquipmentToMove> equipmentsToMove = equipmentToMoveRepository.ShowEquipment();
-            if (equipmentsToMove.Count != 0)
-            {
-                foreach (EquipmentToMove e in equipmentsToMove)
-                {
-                    if (e.dateTime.Date.Equals(DateTime.Now.Date))
-                    {
-                        Equipment equipment = equipmentRepository.GetEquipment(e.Id);
-                        equipmentToMoveService.MoveTo(equipment, e.Id, e.RoomId, e.Name, e.Quantity, e.dateTime, e.NewRoomId);
-                    }
-                }
-            }
-            return equipmentRepository.GetEquipment(); 
+            return iEquipmentRepo.GetAll();
 
         }
-
         public List<Equipment> GetAllSpendableEquipment()
         {
             UpdateRequestedEquipment();
 
             List<Equipment> spendableEquipment = new List<Equipment>();
-            foreach(Equipment equipment in equipmentRepository.GetEquipment())
+            foreach(Equipment equipment in GetAll())
             {
                 if(equipment.EquipmentType == Equipment.EquipmentTypes.Spendable)
                 {
@@ -64,37 +40,47 @@ namespace Project.Hospital.Service
         }
         public void UpdateRequestedEquipment()
         {
-            foreach(SpendableEquipmentRequest request in spendableEquipmentRequestService.GetAllRequests())
+            foreach(SpendableEquipmentRequest request in spendableEquipmentRequestService.GetAll())
             {
                 if(DateTime.Compare(request.CreateDate.AddDays(ProcurementDeadline).Date, DateTime.Now.Date) <= 0)
                 {
-                    Equipment equipment = GetEquipment(request.EquipmentId);
+                    Equipment equipment = GetOne(request.EquipmentId);
                     if(equipment != null)
                     {
-                        UpdateEquipment(equipment.Name, equipment.Id, equipment.EquipmentType, equipment.Quantity + request.Quantity, equipment.RoomId);
-                        spendableEquipmentRequestService.DeleteRequest(request.EquipmentName);
+                        Update(equipment.Id, equipment.Quantity + request.Quantity);
+                        spendableEquipmentRequestService.Delete(request.EquipmentName);
                     }
                     else
                     {
-                        CreateEquipment(request.EquipmentId, request.EquipmentName, request.Quantity);
-                        spendableEquipmentRequestService.DeleteRequest(request.EquipmentName);
+                        Create(request.EquipmentId, request.EquipmentName, request.Quantity);
+                        spendableEquipmentRequestService.Delete(request.EquipmentName);
                     }
                 }
             }
         }
 
-        public Boolean UpdateEquipment(String name, String id, Equipment.EquipmentTypes equipmentType, int quantity, String roomId)
+        public Boolean Update(String id, int quantity)
         {
-            return equipmentRepository.UpdateEquipment(id, name, equipmentType, quantity, roomId);
+            List<Equipment> allEquipment = GetAll();
+            foreach(Equipment equipment in allEquipment)
+            {
+                if(equipment.Id == id)
+                {
+                    equipment.Quantity = quantity;
+                    iEquipmentRepo.Save(allEquipment);
+                    return true;
+                }
+            }
+            return false;
         }
 
-        public Equipment CreateEquipment(String id, String name, int quantity)
+        public Equipment Create(String id, String name, int quantity)
         {
-            return equipmentRepository.CreateEquipment(id, name, Equipment.EquipmentTypes.Spendable, quantity, " ");
+            return iEquipmentRepo.Create(id, name, Equipment.EquipmentTypes.Spendable, quantity, "/");
         }
-        public Equipment GetEquipment(String id)
+        public Equipment GetOne(String id)
         {
-            return equipmentRepository.GetEquipment(id);
+            return iEquipmentRepo.GetOne(id);
         }
 
     }

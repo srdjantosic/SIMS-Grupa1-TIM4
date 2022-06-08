@@ -4,10 +4,11 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Project.Hospital.Model;
+using Project.Hospital.Repository.IRepository;
 
 namespace Project.Hospital.Repository
 {
-    public class MeetingRepository
+    public class MeetingRepository :IMeetingRepository
     {
         private const string fileName = "meetings.txt";
         public MeetingRepository() { }

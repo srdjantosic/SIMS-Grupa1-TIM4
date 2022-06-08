@@ -12,14 +12,14 @@ namespace Project.Hospital.Service
     public class EquipmentToMoveService
     {
         private EquipmentToMoveRepository equipmentToMoveRepository;
-        private EquipmentRepository equipmentRepository;
+        private EquipmentService equipmentService;
         private const string NOT_FOUND_ERROR = "Equipment with {0}:{1} can not be found!";
-        public EquipmentToMoveService(EquipmentToMoveRepository equipmentToMoveRepository, EquipmentRepository equipmentRepository)
+        public EquipmentToMoveService(EquipmentToMoveRepository equipmentToMoveRepository, EquipmentService equipmentService)
         {
             this.equipmentToMoveRepository = equipmentToMoveRepository;
-            this.equipmentRepository = equipmentRepository;
+            this.equipmentService = equipmentService;
         }
-
+        /*
         public void MoveTo(Equipment e, String Id, String OldRoomId, String Name, int Quantity, DateTime dateTime, String newRoomID)
         {
             int oldQ = e.Quantity;
@@ -35,7 +35,7 @@ namespace Project.Hospital.Service
                 }
                 else if ((e.Quantity - Quantity) == 0)
                 {
-                    equipmentRepository.UpdateEquipment(Id, Name, Equipment.EquipmentTypes.Permanent, Quantity, newRoomID);
+                    equipmentService.Update(Id, Name, Equipment.EquipmentTypes.Permanent, Quantity, newRoomID);
                 }
                 else
                 {
@@ -47,9 +47,11 @@ namespace Project.Hospital.Service
             }
 
         }
+        */
+        /*
         public void ChangeEquipment(String Id, String OldRoomId, String Name, int Quantity, DateTime dateTime, String newRoomID) {
 
-            Equipment e = this.equipmentRepository.GetEquipment(Id);
+            Equipment e = this.equipmentService.GetOne(Id);
             if (dateTime.Date.Equals(DateTime.Now.Date))
             {
                 MoveTo(e, Id, OldRoomId, Name, Quantity, dateTime, newRoomID);
@@ -85,6 +87,7 @@ namespace Project.Hospital.Service
 
 
         }
+        */
         public List<EquipmentToMove> ShowEquipment()
         {
             return equipmentToMoveRepository.ShowEquipment();

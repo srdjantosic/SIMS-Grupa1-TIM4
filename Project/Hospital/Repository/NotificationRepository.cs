@@ -4,10 +4,11 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Project.Hospital.Repository.IRepository;
 
 namespace Project.Hospital.Repository
 {
-    public class NotificationRepository
+    public class NotificationRepository : INotificationRepository
     {
         private const string NOT_FOUND_ERROR = "Notification with {0}:{1} can not be found!";
         private const string fileName = "notification.txt";
@@ -22,8 +23,7 @@ namespace Project.Hospital.Repository
         public List<Notification> GetAll()
         {
             Serializer<Notification> notificationSerializer = new Serializer<Notification>();
-            List<Notification> notifications = notificationSerializer.fromCSV(fileName);
-            return notifications;
+            return notificationSerializer.fromCSV(fileName);
         }
 
     }

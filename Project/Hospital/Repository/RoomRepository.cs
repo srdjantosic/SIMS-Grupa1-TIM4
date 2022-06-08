@@ -3,92 +3,53 @@ using Project.Hospital.Model;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using Project.Hospital.Repository.IRepository;
 
 namespace Hospital.Repository
 {
-    public class RoomRepository
+    public class RoomRepository : IRoomRepository
     {
         private const string NOT_FOUND_ERROR = "Room with {0}:{1} can not be found!";
+        private const string fileName = "rooms.txt";
         public RoomRepository() { }
 
-        public Room CreateRoom(String newName, RoomType.RoomTypes newType)
+        public Room Create(String newName, RoomType.RoomTypes newType)
         {
             Serializer<Room> roomSerializer = new Serializer<Room>();
             Room room = new Room(newName, newType);
-            roomSerializer.oneToCSV("rooms.txt", room);
+            roomSerializer.oneToCSV(fileName, room);
             return room;
         }
-
-        public Boolean UpdateRoom(String name, String newName, RoomType.RoomTypes newType)
+        public void Save(List<Room> rooms)
         {
-            List<Room> rooms = new List<Room>();
-            rooms = GetRooms();
-            foreach (Room room in rooms)
-            {
-                if (room.Name.Equals(name))
-                {
-                    room.Name = newName;
-                    room.Type = newType;
-                    Serializer<Room> roomSerializer = new Serializer<Room>();
-                    roomSerializer.toCSV("rooms.txt", rooms);
-                    return true;
-                }
-
-            }
-            return false;
-
-        }
-
-
-        public List<Room> GetRooms()
-        {
-            List<Room> rooms = new List<Room>();
             Serializer<Room> roomSerializer = new Serializer<Room>();
-            rooms = roomSerializer.fromCSV("rooms.txt");
-            return rooms;
+            roomSerializer.toCSV(fileName, rooms);
         }
 
-        public Boolean DeleteRoom(String name)
+        public List<Room> GetAll()
         {
-            List<Room> rooms = new List<Room>();
-            rooms = GetRooms();
-
-            foreach (Room room in rooms)
-            {
-                if (room.Name == name)
-                {
-                    if (rooms.Remove(room))
-                    {
-                        Serializer<Room> roomSerializer = new Serializer<Room>();
-                        roomSerializer.toCSV("rooms.txt", rooms);
-                        return true;
-                    }
-                    else
-                    {
-
-                        return false;
-
-                    }
-                }
-            }
-
-            return false;
+            Serializer<Room> roomSerializer = new Serializer<Room>();
+            return roomSerializer.fromCSV(fileName);
         }
-        public Room GetRoom(String name)
+        public Boolean Delete(String name)
         {
-            try
-            {
-                {
-                    return GetRooms().SingleOrDefault(room => room.Name == name);
-                }
-            }
-            catch (ArgumentException)
-            {
-                {
-                    throw new NotFoundException(string.Format(NOT_FOUND_ERROR, "name", name));
-                }
-            }
+            List<Room> rooms = GetAll();
+            Room room = GetOne(name);
 
+            if(room != null && rooms.Remove(room))
+            {
+                Serializer<Room> roomSerializer = new Serializer<Room>();
+                roomSerializer.toCSV(fileName, rooms);
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+        }
+        public Room GetOne(String name)
+        {
+            return GetAll().SingleOrDefault(room => room.Name == name);
         }
     }
 }

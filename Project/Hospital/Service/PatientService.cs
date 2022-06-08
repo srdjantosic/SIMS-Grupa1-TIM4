@@ -2,47 +2,32 @@ using Project.Hospital.Model;
 using Project.Hospital.Repository;
 using System;
 using System.Collections.Generic;
+using Project.Hospital.Repository.IRepository;
 
 namespace Project.Hospital.Service
 {
     public class PatientService
     {
-        private PatientRepository patientRepository;
+        private IPatientRepository iPatientRepo;
 
         private PrescriptionService prescriptionService;
         private ReportService reportService;
         
 
-        public PatientService(PatientRepository patientRepository)
+        public PatientService(IPatientRepository iPatientRepo)
         {
-            this.patientRepository = patientRepository;
+            this.iPatientRepo = iPatientRepo;
         }
-        public PatientService(PatientRepository patientRepository, PrescriptionService prescriptionService, ReportService reportService)
+        public PatientService(IPatientRepository iPatientRepo, PrescriptionService prescriptionService, ReportService reportService)
         {
-            this.patientRepository = patientRepository;
+            this.iPatientRepo = iPatientRepo;
             this.prescriptionService=prescriptionService;
             this.reportService=reportService;
         }
 
-        public Patient CreatePatient(String firstName, String lastName, Gender.Genders gender, String email, String phoneNumber, String jmbg, String lbo, DateTime birthday, String country, String city, String adress)
-        {
-
-            if (firstName.Length == 0 || lastName.Length == 0 || jmbg.Length == 0 || lbo.Length == 0)
-            {
-                return null;
-            }
-            else
-            {
-                if (GetPatient(lbo) == null)
-                {
-                    return patientRepository.CreatePatient(firstName, lastName, gender, email, phoneNumber, jmbg, lbo, birthday, country, city, adress);
-                }
-                else
-                {
-                    return null;
-                }
-            }
-
+        public Patient Create(String firstName, String lastName, Gender.Genders gender, String email, String phoneNumber, String jmbg, String lbo, DateTime birthday, String country, String city, String adress)
+        { 
+            return iPatientRepo.Create(firstName, lastName, gender, email, phoneNumber, jmbg, lbo, birthday, country, city, adress);
         }
 
         public Boolean CreateReportAndPrescription(string lbo, Prescription prescription, Report report)
@@ -55,7 +40,7 @@ namespace Project.Hospital.Service
             if (newReport == null) { 
                 return false;
             }
-            Boolean isCreated = patientRepository.CreateReportAndPrescription(lbo, prescription.Id, report.Id);
+            Boolean isCreated = iPatientRepo.CreateReportAndPrescription(lbo, prescription.Id, report.Id);
             if (isCreated == false)
             {
                 return false;
@@ -77,32 +62,49 @@ namespace Project.Hospital.Service
             }
             return true;
         }
-
-
-        public Boolean UpdatePatient(Patient patient)
+        public Boolean Update(String lbo, List<Allergen> allergens)
         {
-            return patientRepository.UpdatePatient(patient);
+            List<Patient> patients = GetAll();
+            foreach(Patient patient in patients)
+            {
+                if(patient.Lbo == lbo)
+                {
+                    patient.setAllergens(allergens);
+                    iPatientRepo.Save(patients);
+                    return true;
+                }
+            }
+            return false;
         }
-
-        public Boolean UpdatePatientsMedicalChard(String lbo, double temperature, int heartRate, String bloodPressure, int weight, int height)
+        public Boolean UpdateMedicalChard(String lbo, double temperature, int heartRate, String bloodPressure, int weight, int height)
         {
-            return patientRepository.UpdatePatientsMedicalChard(lbo, temperature, heartRate, bloodPressure, weight, height);
+            List<Patient> patients = GetAll();
+            foreach(Patient patient in patients)
+            {
+                if(patient.Lbo == lbo)
+                {
+                    patient.Temperature = temperature;
+                    patient.HeartRate = heartRate;
+                    patient.BloodPressure = bloodPressure;
+                    patient.Weight = weight;
+                    patient.Height = height;
+                    iPatientRepo.Save(patients);
+                    return true;
+                }
+            }
+            return false;
         }
-
-        public List<Patient> ShowPatients()
+        public List<Patient> GetAll()
         {
-            return patientRepository.ShowPatients();
+            return iPatientRepo.GetAll();
         }
-
-
-        public Boolean DeletePatient(String lbo)
+        public Boolean Delete(String lbo)
         {
-            return patientRepository.DeletePatient(lbo);
+            return iPatientRepo.Delete(lbo);
         }
-
-        public Patient GetPatient(String lbo)
+        public Patient GetOne(String lbo)
         {
-            return patientRepository.GetPatient(lbo);
+            return iPatientRepo.GetOne(lbo);
         }
 
     }

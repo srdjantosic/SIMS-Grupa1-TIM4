@@ -269,7 +269,7 @@ namespace Hospital.Service
 
         public Appointment FindFirstFreeTerm(Appointment appointment)
         {
-            Patient patient = patientService.GetPatient(appointment.lbo);
+            Patient patient = patientService.GetOne(appointment.lbo);
             Doctor doctor = doctorService.GetDoctorByLks(appointment.lks);
             DateTime start = DateTime.Parse(appointment.dateTime.AddDays(1).ToShortDateString() + " " + workTime[0]);
             DateTime end = appointment.dateTime.AddDays(10);
