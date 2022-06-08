@@ -91,8 +91,14 @@ namespace Project.Hospital.View.Secretary
 
             if(appointment != null)
             {
-                appointmentController.CreateAppointment(appointment.dateTime, appointment.lks, appointment.lbo, appointment.roomName);
-                Notification notificationForDoctor = new Notification(appointment.lks, DateTime.Now, "Hitan pregled zakazan za " + appointment.dateTime.ToString());
+                Appointment newAppointment = new Appointment();
+                newAppointment.dateTime = appointment.dateTime;
+                newAppointment.Lks = appointment.Lks;
+                newAppointment.Lbo = appointment.Lbo;
+                newAppointment.RoomName = appointment.RoomName;
+
+                appointmentController.Create(newAppointment);
+                Notification notificationForDoctor = new Notification(appointment.Lks, DateTime.Now, "Hitan pregled zakazan za " + appointment.dateTime.ToString());
                 notificationController.Create(notificationForDoctor);
                 MessageBox.Show("Hitan slucaj je ubacen u raspored");
             }
@@ -127,7 +133,7 @@ namespace Project.Hospital.View.Secretary
 
                         TextBlock tbId = new TextBlock();
                         tbId.VerticalAlignment = VerticalAlignment.Center;
-                        tbId.Inlines.Add(Appointments[i].Item2.id.ToString());
+                        tbId.Inlines.Add(Appointments[i].Item2.Id.ToString());
                         Grid.SetColumn(tbId, 0);
 
                         TextBlock textBlock = new TextBlock();
@@ -139,16 +145,16 @@ namespace Project.Hospital.View.Secretary
                        
                         textBlock.Inlines.Add("Datum i vreme : "+Appointments[i].Item2.dateTime.ToShortDateString() + " " + Appointments[i].Item2.dateTime.ToLongTimeString());
                         textBlock.Inlines.Add(new LineBreak());
-                        Patient patient = patientController.GetPatient(Appointments[i].Item2.lbo);
+                        Patient patient = patientController.GetPatient(Appointments[i].Item2.Lbo);
                         textBlock.Inlines.Add("Pacijent : " + patient.FirstName + " " + patient.LastName);
                         textBlock.Inlines.Add(new LineBreak());
-                        Model.Doctor doctor = doctorController.GetDoctorByLks(Appointments[i].Item2.lks);
+                        Model.Doctor doctor = doctorController.GetDoctorByLks(Appointments[i].Item2.Lks);
                         textBlock.Inlines.Add("Doktor : " + doctor.firstName + " " + doctor.lastName);
                         Grid.SetColumn(textBlock, 1);
 
                         Button btn = new Button();
                         btn.Content = "Pomeri pregled";
-                        btn.DataContext = Appointments[i].Item2.id.ToString();
+                        btn.DataContext = Appointments[i].Item2.Id.ToString();
                         btn.Height = 40;
                         btn.Width = 100;
                         btn.Click += (sender, e) => { moveAppointment(int.Parse((string)btn.DataContext)); };
@@ -179,19 +185,26 @@ namespace Project.Hospital.View.Secretary
         {           
             foreach (var item in Appointments)
             {
-                if (item.Item2.id.Equals(appointmentId))
+                if (item.Item2.Id.Equals(appointmentId))
                 {
                     DateTime oslobodjenoVreme = item.Item2.dateTime;
 
-                    if (appointmentController.UpdateAppointment(item.Item3.dateTime, appointmentId))
+                    if (appointmentController.UpdateTime(item.Item3.dateTime, appointmentId))
                     {
-                        Appointment pomerenPregled = appointmentController.GetAppintment(appointmentId);
-                        if (appointmentController.CreateAppointment(oslobodjenoVreme, item.Item3.lks, item.Item3.lbo, " ") != null)
+                        Appointment pomerenPregled = appointmentController.GetById(appointmentId);
+
+                        Appointment newAppointment = new Appointment();
+                        newAppointment.dateTime = oslobodjenoVreme;
+                        newAppointment.Lks = item.Item3.Lks;
+                        newAppointment.Lbo = item.Item3.Lbo;
+                        newAppointment.RoomName = " ";
+
+                        if (appointmentController.Create(newAppointment) != null)
                         {
                             MessageBox.Show("Hitan slucaj je ubacen u raspored");
 
-                            Notification notificationForDoctor = new Notification(pomerenPregled.lks, DateTime.Now, "Vas termin je pomeren za novi datum " + pomerenPregled.dateTime.ToString());
-                            Notification notificationForPatient = new Notification(pomerenPregled.lbo, DateTime.Now, "Vas termin je pomeren za novi datum " + pomerenPregled.dateTime.ToString());
+                            Notification notificationForDoctor = new Notification(pomerenPregled.Lks, DateTime.Now, "Vas termin je pomeren za novi datum " + pomerenPregled.dateTime.ToString());
+                            Notification notificationForPatient = new Notification(pomerenPregled.Lbo, DateTime.Now, "Vas termin je pomeren za novi datum " + pomerenPregled.dateTime.ToString());
                             notificationController.Create(notificationForDoctor);
                             notificationController.Create(notificationForPatient);
 

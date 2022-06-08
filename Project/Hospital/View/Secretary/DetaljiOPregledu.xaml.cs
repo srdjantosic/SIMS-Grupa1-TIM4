@@ -49,25 +49,25 @@ namespace Project.Hospital.View.Secretary
 
             this.Appointment = appointment;
 
-            Patient patient = patientController.GetPatient(appointment.lbo);
+            Patient patient = patientController.GetPatient(appointment.Lbo);
             if (patient != null)
             {
                 tbPacijent.Text = patient.FirstName + " " + patient.LastName;
             }
 
-            Model.Doctor doctor = doctorController.GetDoctorByLks(appointment.lks);
+            Model.Doctor doctor = doctorController.GetDoctorByLks(appointment.Lks);
             if (doctor != null)
             {
                 tbLekar.Text = doctor.firstName + " " + doctor.lastName + " (" + doctor.medicineArea + ") ";
             }
 
 
-            tbProstorija.Text = appointment.roomName;
+            tbProstorija.Text = appointment.RoomName;
             tbDatumIVreme.Text = appointment.dateTime.ToLongDateString() + " " + appointment.dateTime.ToLongTimeString();
         }
         private void obrisi(object sender, RoutedEventArgs e)
         {
-            if (appointmentController.DeleteAppointment(Appointment.id))
+            if (appointmentController.Delete(Appointment.Id))
             {
                 this.Close();
             }
@@ -103,9 +103,9 @@ namespace Project.Hospital.View.Secretary
                 DateTime newDateTime = DateTime.Parse(dateTime);
                 if (appointmentController.IsNewDateTimeAvailable(Appointment, newDateTime))
                 {
-                    if (appointmentController.UpdateAppointment(newDateTime, Appointment.id))
+                    if (appointmentController.UpdateTime(newDateTime, Appointment.Id))
                     {
-                        Appointment = appointmentController.GetAppintment(Appointment.id);
+                        Appointment = appointmentController.GetById(Appointment.Id);
                         tbDatumIVreme.Text = Appointment.dateTime.ToLongDateString() + " " + Appointment.dateTime.ToLongTimeString();
                         odustani(sender, e);
                         

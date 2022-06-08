@@ -4,47 +4,47 @@ namespace Project.Hospital.Model
 {
     public class Appointment : Serializable
     {
-        public int id { get; set; }
-        public String lks { get; set; }
+        public int Id { get; set; }
+        public String Lks { get; set; }
         public DateTime dateTime { get; set; } // Month/Day/Year H[:M:S] [AM|PM] H->8-12 AM|PM
-        public String lbo { get; set; }
+        public String Lbo { get; set; }
 
         public Boolean isDeleted { get; set; } = false;
 
-        public String roomName { get; set; }
+        public String RoomName { get; set; }
 
 
         public Appointment() { }
 
-        public Appointment(int id, string lks, DateTime dateTime, string lbo, String roomName)
+        public Appointment(int Id, string Lks, DateTime dateTime, string Lbo, String RoomName)
         {
-            this.id = id;
-            this.lks = lks;
+            this.Id = Id;
+            this.Lks = Lks;
             this.dateTime = dateTime;
-            this.lbo = lbo;
-            this.roomName = roomName;
+            this.Lbo = Lbo;
+            this.RoomName = RoomName;
         }
 
         public void fromCSV(string[] values)
         {
-            id = int.Parse(values[0]);
-            lks = values[1];
+            Id = int.Parse(values[0]);
+            Lks = values[1];
             dateTime = DateTime.Parse(values[2]);
-            lbo = values[3];
+            Lbo = values[3];
             isDeleted = Boolean.Parse(values[4]);
-            roomName = values[5];
+            RoomName = values[5];
         }
 
         public string[] toCSV()
         {
             string[] csvValues =
             {
-                id.ToString(),
-                lks,
+                Id.ToString(),
+                Lks,
                 dateTime.ToString(),
-                lbo,
+                Lbo,
                 isDeleted.ToString(),
-                roomName
+                RoomName
             };
             return csvValues;
         }

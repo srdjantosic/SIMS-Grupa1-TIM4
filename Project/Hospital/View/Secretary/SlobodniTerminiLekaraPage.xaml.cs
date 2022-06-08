@@ -64,7 +64,7 @@ namespace Project.Hospital.View.Secretary
             {
                 
                 DataRow row = dt.NewRow();
-                row[0] = appointment.id;
+                row[0] = appointment.Id;
                 row[1] = appointment.dateTime.ToShortDateString() + " " + appointment.dateTime.ToLongTimeString();                 
                 row[2] = patient.FirstName + " " + patient.LastName;
                 row[3] = doctor.firstName + " " + doctor.lastName;
@@ -96,8 +96,15 @@ namespace Project.Hospital.View.Secretary
             {
                 DataRowView dataRow = (DataRowView)dataGridAppointments.SelectedItem;
                 DateTime vreme = DateTime.Parse((string)dataRow.Row.ItemArray[1]);
-                Appointment newAppointment = appointmentController.CreateAppointment(vreme, doctor.lks, patient.Lbo, doctor.roomName);
-                if (newAppointment != null)
+
+                Appointment newAppointment = new Appointment();
+                newAppointment.dateTime = vreme;
+                newAppointment.Lks = doctor.lks;
+                newAppointment.Lbo = patient.Lbo;
+                newAppointment.RoomName = doctor.roomName;
+
+                Appointment createdAppointment = appointmentController.Create(newAppointment);
+                if (createdAppointment != null)
                 {
                     var page = new RasporedPage();
                     NavigationService.Navigate(page);

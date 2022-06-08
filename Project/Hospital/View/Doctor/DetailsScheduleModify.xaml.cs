@@ -79,10 +79,10 @@ namespace Project.Hospital.View.Doctor
 
             foreach (Patient patient in patientController.ShowPatients())
             {
-                if (patient.Lbo.Equals(appointment.lbo))
+                if (patient.Lbo.Equals(appointment.Lbo))
                 {
                     DateTimeBox.Text = appointment.dateTime.ToString();
-                    RoomNameBox.Text = appointment.roomName;
+                    RoomNameBox.Text = appointment.RoomName;
                     break;
                 }
             }
@@ -96,7 +96,7 @@ namespace Project.Hospital.View.Doctor
 
             foreach (Patient patient in patientController.ShowPatients())
             {
-                if (patient.Lbo.Equals(currentAppointment.lbo))
+                if (patient.Lbo.Equals(currentAppointment.Lbo))
                 {
                     DataRow rowTemperature = dt.NewRow();
                     rowTemperature[0] = "Temperature: " + patient.Temperature + " (celsius)";
@@ -164,7 +164,7 @@ namespace Project.Hospital.View.Doctor
 
         private void btnCreateAppointment(object sender, RoutedEventArgs e)
         {
-            var createAppointmentForAnotherDoctor = new CreateAppointmentForAnotherDoctor(currentAppointment.lks, currentAppointment.lbo);
+            var createAppointmentForAnotherDoctor = new CreateAppointmentForAnotherDoctor(currentAppointment.Lks, currentAppointment.Lbo);
             NavigationService.Navigate(createAppointmentForAnotherDoctor);
         }
     }

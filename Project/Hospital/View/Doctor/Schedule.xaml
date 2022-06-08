@@ -48,7 +48,7 @@
                   HorizontalAlignment="Left" VerticalAlignment="Top" Margin="180,100,0,0">
             <DataGrid.Columns>
                 <DataGridTextColumn Header="Date and Time" Binding="{Binding dateTime}"/>
-                <DataGridTextColumn Header="LBO" Binding="{Binding lbo}"/>
+                <DataGridTextColumn Header="LBO" Binding="{Binding Lbo}"/>
             </DataGrid.Columns>
         </DataGrid>
 

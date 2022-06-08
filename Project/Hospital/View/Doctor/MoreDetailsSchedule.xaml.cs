@@ -69,7 +69,7 @@ namespace Project.Hospital.View.Doctor
             InitializeComponent();
             this.DataContext = this;
 
-            Patient patient = patientController.GetPatient(appointment.lbo);
+            Patient patient = patientController.GetPatient(appointment.Lbo);
             int positionOfPrescription = 2;
             int foundPrescription = -1;
             int foundReport = -1;
@@ -192,7 +192,7 @@ namespace Project.Hospital.View.Doctor
                     newReport.Id = reportController.GetAll().Count;
                     newReport.Diagnosis = tbDiagnosis.Text;
                     newReport.Comment = tbComment.Text;
-                    Boolean isCreated = patientController.CreateReportAndPrescription(currentAppointment.lbo, newPrescription, newReport);
+                    Boolean isCreated = patientController.CreateReportAndPrescription(currentAppointment.Lbo, newPrescription, newReport);
                     if(isCreated == false)
                     {
                         lblWrongMedicine.Content = "Wrong medicine!";
@@ -220,7 +220,7 @@ namespace Project.Hospital.View.Doctor
                     reportToUpdate.Id = report.Id;
                     reportToUpdate.Diagnosis = tbDiagnosis.Text;
                     reportToUpdate.Comment = tbComment.Text;
-                    Boolean isUpdated =  patientController.UpdateReportAndPrescription(currentAppointment.lbo, prescriptionToUpdate, reportToUpdate);
+                    Boolean isUpdated =  patientController.UpdateReportAndPrescription(currentAppointment.Lbo, prescriptionToUpdate, reportToUpdate);
                     if(isUpdated == false)
                     {
                         lblWrongMedicine.Content = "Wrong medicine!";
@@ -228,7 +228,7 @@ namespace Project.Hospital.View.Doctor
                     }
                 }
 
-                var schedule = new Schedule(currentAppointment.lks);
+                var schedule = new Schedule(currentAppointment.Lks);
                 NavigationService.Navigate(schedule);
             }
         }

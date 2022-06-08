@@ -67,7 +67,7 @@ namespace Hospital.Service
 
                 foreach (Appointment appointment in appointments) 
             {
-                if ((appointment.roomName == Name) && ((appointment.dateTime == start) || (appointment.dateTime == start))){ 
+                if ((appointment.RoomName == Name) && ((appointment.dateTime == start) || (appointment.dateTime == start))){ 
                  throw new NotFoundException(string.Format(NOT_FOUND_ERROR, "Not possible"));
                 }
 

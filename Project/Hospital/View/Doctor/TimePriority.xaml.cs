@@ -93,9 +93,9 @@ namespace Project.Hospital.View.Doctor
                 if (!appointment.isDeleted)
                 {
                     DataRow row = dt.NewRow();
-                    row[0] = appointment.id;
+                    row[0] = appointment.Id;
                     row[1] = appointment.dateTime.ToShortDateString() + " " + appointment.dateTime.ToLongTimeString();
-                    Model.Doctor doctor = doctorController.GetDoctorByLks(appointment.lks);
+                    Model.Doctor doctor = doctorController.GetDoctorByLks(appointment.Lks);
                     row[2] = doctor.firstName + " " + doctor.lastName;
                     row[3] = doctor.email;
                     row[4] = doctor.medicineArea.ToString();
@@ -121,7 +121,13 @@ namespace Project.Hospital.View.Doctor
 
                 Model.Doctor doctor = doctorController.GetDoctorByName(lekar[0], lekar[1]);
 
-                Appointment appointment = appointmentController.CreateAppointment(vreme, doctor.lks, patient.Lbo, doctor.roomName);
+                Appointment newAppointment = new Appointment();
+                newAppointment.dateTime = vreme;
+                newAppointment.Lks = doctor.lks;
+                newAppointment.Lbo = patient.Lbo;
+                newAppointment.RoomName = doctor.roomName;
+
+                Appointment appointment = appointmentController.Create(newAppointment);
                 if (appointment != null)
                 {
                     Notification newNotification = new Notification();

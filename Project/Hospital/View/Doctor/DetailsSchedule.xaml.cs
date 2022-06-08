@@ -78,10 +78,10 @@ namespace Project.Hospital.View.Doctor
 
             foreach (Patient patient in patientController.ShowPatients())
             {
-                if (patient.Lbo.Equals(appointment.lbo))
+                if (patient.Lbo.Equals(appointment.Lbo))
                 {
                     DateTimeBox.Text = appointment.dateTime.ToString();
-                    RoomNameBox.Text = appointment.roomName;
+                    RoomNameBox.Text = appointment.RoomName;
                     FirstNameBox.Text = patient.FirstName;
                     LastNameBox.Text = patient.LastName;
                     GenderBox.Text = patient._Gender.ToString();
@@ -108,7 +108,7 @@ namespace Project.Hospital.View.Doctor
 
             foreach (Patient patient in patientController.ShowPatients())
             {
-                if (patient.Lbo.Equals(currentAppointment.lbo))
+                if (patient.Lbo.Equals(currentAppointment.Lbo))
                 {
                     DataRow rowTemperature = dt.NewRow();
                     rowTemperature[0] = "Temperature: " + patient.Temperature + " (celsius)";
@@ -169,8 +169,8 @@ private void updatePatientsMedicalChard(object sender, RoutedEventArgs e)
             switch (result)
             {
                 case MessageBoxResult.Yes:
-                    appointmentController.DeleteAppointment(currentAppointment.id);
-                    var schedule = new Schedule(currentAppointment.lks);
+                    appointmentController.Delete(currentAppointment.Id);
+                    var schedule = new Schedule(currentAppointment.Lks);
                     NavigationService.Navigate(schedule);
                     break;
                 case MessageBoxResult.No:
@@ -186,7 +186,7 @@ private void updatePatientsMedicalChard(object sender, RoutedEventArgs e)
 
         private void btnCreateAppointment(object sender, RoutedEventArgs e)
         {
-            var createAppointmentForAnotherDoctor = new CreateAppointmentForAnotherDoctor(currentAppointment.lks, currentAppointment.lbo);
+            var createAppointmentForAnotherDoctor = new CreateAppointmentForAnotherDoctor(currentAppointment.Lks, currentAppointment.Lbo);
             NavigationService.Navigate(createAppointmentForAnotherDoctor);
         }
     }

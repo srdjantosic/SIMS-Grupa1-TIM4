@@ -6,105 +6,138 @@ using System.Collections.Generic;
 using Project.Hospital.Service;
 using Project.Hospital.Model;
 using System.Linq;
+using Project.Hospital.Repository.IRepository;
 
 namespace Hospital.Service
 {
     public class AppointmentService
     {
-
-        private AppointmentRepository appointmentRepository;
+        private IAppointmentRepository iAppointmentRepo;
         private DoctorService doctorService;
         private PatientService patientService;
         private const string NOT_FOUND_ERROR = "Appointment with {0}:{1} can not be found!";
         private string[] workTime = {"08:00:00", "08:45:00", "09:30:00", "10:15:00", "11:00:00", "11:45:00", "12:30:00","13:15:00", "14:00:00", "14:45:00", "15:30:00"};
 
-        public AppointmentService(AppointmentRepository appointmentRepository)
+        public AppointmentService(IAppointmentRepository iAppointmentRepo)
         {
-            this.appointmentRepository = appointmentRepository;
+            this.iAppointmentRepo = iAppointmentRepo;
         }
 
-        public AppointmentService(AppointmentRepository appointmentRepository, DoctorService doctorService)
+        public AppointmentService(IAppointmentRepository iAppointmentRepo, DoctorService doctorService)
         {
-            this.appointmentRepository = appointmentRepository;
+            this.iAppointmentRepo = iAppointmentRepo;
             this.doctorService = doctorService;
         }
-        public AppointmentService(AppointmentRepository appointmentRepository, DoctorService doctorService, PatientService patientService)
+        public AppointmentService(IAppointmentRepository iAppointmentRepo, DoctorService doctorService, PatientService patientService)
         {
-            this.appointmentRepository = appointmentRepository;
+            this.iAppointmentRepo = iAppointmentRepo;
             this.doctorService = doctorService;
             this.patientService = patientService;
         }
-        public Appointment CreateAppointment(DateTime dateTime, string lks, string lbo, string roomName)
+        public Appointment Create(Appointment newAppointment)
         {
-            if (lks.Equals("") || lbo.Equals(""))
-                throw new NotFoundException(string.Format(NOT_FOUND_ERROR, "lbo", lbo));
-
-            List<Appointment> appointments = ShowAppointments();
+            List<Appointment> appointments = GetAll();
 
             foreach (Appointment appointment in appointments)
             {
-                if (isAppointmentAlreadyExist(appointment, lks, lbo, dateTime, roomName))
+                if (isAppointmentAlreadyExist(appointment, newAppointment))
                     return null;
             }
-            return appointmentRepository.CreateAppointment(dateTime, lks, lbo, roomName);
+            return iAppointmentRepo.Create(newAppointment);
         }
 
-        public Boolean UpdateAppointment(DateTime dateTime, int id)
+        private Boolean isAppointmentAlreadyExist(Appointment appointment, Appointment newAppointment)
         {
-            if (appointmentRepository.GetAppointment(id).isDeleted == true)
+            if (appointment.Lks.Equals(newAppointment.Lks) && appointment.Lbo.Equals(newAppointment.Lbo) && appointment.dateTime == newAppointment.dateTime 
+                && appointment.RoomName.Equals(newAppointment.RoomName) && appointment.isDeleted == false)
+            {
+                return true;
+            }
+            return false;
+        }
+
+        public Boolean UpdateTime(DateTime dateTime, int id)
+        {
+            if (iAppointmentRepo.GetById(id).isDeleted == true)
                 return false;
-            else
-                return appointmentRepository.UpdateAppointment(dateTime, id);
+
+            List<Appointment> appointments = GetAll();
+
+            foreach (Appointment appointment in appointments)
+            {
+                if (appointment.Id == id)
+                {
+                    appointment.dateTime = dateTime;
+                    iAppointmentRepo.Save(appointments);
+                    return true;
+                }
+            }
+            return false;
         }
 
         //TODO
-        public Appointment UpdateDateTimeAndRoomName(int id, DateTime dateTime, string roomName)
+        public Appointment UpdateTimeAndRoom(int id, DateTime dateTime, string roomName)
         {
-            if (appointmentRepository.GetAppointment(id).isDeleted == true)
+            if (iAppointmentRepo.GetById(id).isDeleted == true)
                 return null;
-            else
-                return appointmentRepository.UpdateDateTimeAndRoomName(id, dateTime, roomName);
+
+            List<Appointment> appointments = GetAll();
+
+            foreach (Appointment appointment in appointments)
+            {
+                if (appointment.Id == id)
+                {
+                    appointment.dateTime = dateTime;
+                    appointment.RoomName = roomName;
+                    iAppointmentRepo.Save(appointments);
+                    return appointment;
+                }
+            }
+            return null;
         }
 
-        public List<Appointment> ShowAppointments()
+        public List<Appointment> GetAll()
         {
-            return appointmentRepository.ShowAppointments();
+            return iAppointmentRepo.GetAll();
         }
 
-        public List<Appointment> ShowAppointmentsByDoctorLks(string lks)
+        public List<Appointment> GetAllByLks(string lks)
         {
             List<Appointment> doctorAppointments = new List<Appointment>();
-            foreach(Appointment appointment in ShowAppointments())
+            foreach(Appointment appointment in GetAll())
             {
-                if (appointment.lks.Equals(lks)) {
+                if (appointment.Lks.Equals(lks)) {
                     doctorAppointments.Add(appointment);
                 }
             }
             return doctorAppointments;
         }
-        public Boolean DeleteAppointment(int id)
+        public Boolean Delete(int id)
         {
-            return appointmentRepository.DeleteAppointment(id);
-        }
+            List<Appointment> appointments = GetAll();
+            Appointment appointmentToDelete = GetById(id);
 
-        public Appointment GetAppointment(int id)
-        {
-            return appointmentRepository.GetAppointment(id);
-        }
+            if (appointmentToDelete != null && appointmentToDelete.isDeleted == false)
+            {
+                appointments.RemoveAt(id);
+                appointmentToDelete.isDeleted = true;
+                appointments.Insert(id, appointmentToDelete);
+                return iAppointmentRepo.Save(appointments);
+            }
 
-        private Boolean isAppointmentAlreadyExist(Appointment appointment, string lks, string lbo, DateTime dateTime, string roomName)
-        {
-            if (appointment.lks.Equals(lks) && appointment.lbo.Equals(lbo) && appointment.dateTime == dateTime && appointment.roomName.Equals(roomName) 
-                && appointment.isDeleted == false)
-                return true;
             return false;
         }
 
-        public List<Appointment> GetFutureAppointments(DateTime dateTime, string lks)
+        public Appointment GetById(int id)
+        {
+            return iAppointmentRepo.GetById(id);
+        }
+
+        public List<Appointment> GetAllFutureByLks(DateTime dateTime, string lks)
         {
             List<Appointment> futureAppointments = new List<Appointment>();
 
-            foreach(Appointment appointment in ShowAppointmentsByDoctorLks(lks))
+            foreach(Appointment appointment in GetAllByLks(lks))
             {
                 if(appointment.dateTime > dateTime)
                 {
@@ -113,11 +146,11 @@ namespace Hospital.Service
             }
             return futureAppointments;
         }
-        public List<Appointment> GetPastAppointments(DateTime dateTime, string lks)
+        public List<Appointment> GetAllPastByLks(DateTime dateTime, string lks)
         {
             List<Appointment> pastAppointments = new List<Appointment>();
 
-            foreach (Appointment appointment in ShowAppointmentsByDoctorLks(lks))
+            foreach (Appointment appointment in GetAllByLks(lks))
             {
                 if (appointment.dateTime < dateTime)
                 {
@@ -125,20 +158,6 @@ namespace Hospital.Service
                 }
             }
             return pastAppointments;
-        }
-
-        public List<Appointment> GetAppointmentsByLks(String lks)
-        {
-            List<Appointment> appointments = new List<Appointment>();
-
-            foreach(Appointment appointment in appointmentRepository.ShowAppointments())
-            {
-                if(appointment.lks == lks)
-                {
-                    appointments.Add(appointment);
-                }
-            }
-            return appointments;
         }
 
         public List<Appointment> GetAvailableAppointments(Doctor doctor, Patient patient, DateTime start, DateTime end)
@@ -175,13 +194,13 @@ namespace Hospital.Service
 
         public bool isAvailable(Doctor doctor, Appointment newAvailableAppointment)
         {
-            List<Appointment> appointments = GetAppointmentsByLks(doctor.lks);
+            List<Appointment> appointments = GetAllByLks(doctor.lks);
 
             foreach (Appointment appointment in appointments)
             {
                 if (!appointment.isDeleted)
                 {
-                    if (newAvailableAppointment.lks.Equals(appointment.lks) && newAvailableAppointment.dateTime == appointment.dateTime)
+                    if (newAvailableAppointment.Lks.Equals(appointment.Lks) && newAvailableAppointment.dateTime == appointment.dateTime)
                     {
                         return false;
                     }
@@ -206,7 +225,7 @@ namespace Hospital.Service
 
         public bool IsNewDateTimeAvailable(Appointment appointment, DateTime newDateTime)
         {
-            foreach(Appointment appoint in GetAppointmentsByLks(appointment.lks))
+            foreach(Appointment appoint in GetAllByLks(appointment.Lks))
             {
                 if(!appoint.isDeleted)
                 {
@@ -240,7 +259,7 @@ namespace Hospital.Service
 
             foreach (Doctor doctor in doctorService.GetDoktorsFromGivenArea(area))
             {
-                List<Appointment> appointments = GetAppointmentsByLks(doctor.lks);
+                List<Appointment> appointments = GetAllByLks(doctor.lks);
                 foreach (Appointment appointment in appointments)
                 {
                     if (!appointment.isDeleted)
@@ -269,8 +288,8 @@ namespace Hospital.Service
 
         public Appointment FindFirstFreeTerm(Appointment appointment)
         {
-            Patient patient = patientService.GetPatient(appointment.lbo);
-            Doctor doctor = doctorService.GetDoctorByLks(appointment.lks);
+            Patient patient = patientService.GetPatient(appointment.Lbo);
+            Doctor doctor = doctorService.GetDoctorByLks(appointment.Lks);
             DateTime start = DateTime.Parse(appointment.dateTime.AddDays(1).ToShortDateString() + " " + workTime[0]);
             DateTime end = appointment.dateTime.AddDays(10);
             List<Appointment> availableAppointments = GetAvailableAppointments(doctor, patient, start, end);

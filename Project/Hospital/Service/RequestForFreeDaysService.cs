@@ -65,7 +65,7 @@ namespace Project.Hospital.Service
 
         public Boolean isDoctorBusyInRequestPeriod(RequestForFreeDays requestForFreeDays)
         {
-            foreach(Appointment appointment in appointmentService.GetAppointmentsByLks(requestForFreeDays.Lks))
+            foreach(Appointment appointment in appointmentService.GetAllByLks(requestForFreeDays.Lks))
             {
                 if(DateTime.Compare(appointment.dateTime.Date, requestForFreeDays.Start.Date) >= 0 && DateTime.Compare(appointment.dateTime.Date, requestForFreeDays.End.Date) <= 0)
                 {
