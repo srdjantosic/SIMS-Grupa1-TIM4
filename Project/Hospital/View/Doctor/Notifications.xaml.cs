@@ -71,7 +71,7 @@ namespace Project.Hospital.View.Doctor
             foreach (Notification notification in notificationController.GetAllByReceiver(loggedDoctor))
             {
                 DataRow row = dt.NewRow();
-                Model.Doctor foundDoctor = doctorController.GetDoctorByLks(notification.Receiver);
+                Model.Doctor foundDoctor = doctorController.GetOne(notification.Receiver);
                 row[0] = foundDoctor.firstName + " " + foundDoctor.lastName;
                 row[1] = notification.CreationDate.ToShortDateString() + " " + notification.CreationDate.ToLongTimeString();
                 row[2] = notification.Message;

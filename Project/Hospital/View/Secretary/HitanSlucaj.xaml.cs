@@ -148,7 +148,7 @@ namespace Project.Hospital.View.Secretary
                         Patient patient = patientController.GetOne(Appointments[i].Item2.Lbo);
                         textBlock.Inlines.Add("Pacijent : " + patient.FirstName + " " + patient.LastName);
                         textBlock.Inlines.Add(new LineBreak());
-                        Model.Doctor doctor = doctorController.GetDoctorByLks(Appointments[i].Item2.Lks);
+                        Model.Doctor doctor = doctorController.GetOne(Appointments[i].Item2.Lks);
                         textBlock.Inlines.Add("Doktor : " + doctor.firstName + " " + doctor.lastName);
                         Grid.SetColumn(textBlock, 1);
 

@@ -55,7 +55,7 @@ namespace Project.Hospital.Service
                 return requestForFreeDaysRepository.CreateRequest(newRequestForFreeDays);
             }
 
-            if (CountDoctorsInSameMedicineArea(doctorService.GetDoctorByLks(newRequestForFreeDays.Lks).medicineArea) > 1 || isDoctorBusyInRequestPeriod(newRequestForFreeDays))
+            if (CountDoctorsInSameMedicineArea(doctorService.GetOne(newRequestForFreeDays.Lks).medicineArea) > 1 || isDoctorBusyInRequestPeriod(newRequestForFreeDays))
             {
                 return null;
             }
@@ -81,7 +81,7 @@ namespace Project.Hospital.Service
 
             foreach (Model.FreeDaysRequest requestForFreeDays in GetAll())
             {
-                if (isMedicineAreasEquals(medicineArea, doctorService.GetDoctorByLks(requestForFreeDays.Lks).medicineArea) && isRequestAcceptedOrOnHold(requestForFreeDays))
+                if (isMedicineAreasEquals(medicineArea, doctorService.GetOne(requestForFreeDays.Lks).medicineArea) && isRequestAcceptedOrOnHold(requestForFreeDays))
                     numberOfDoctors++;
             }
             return numberOfDoctors;

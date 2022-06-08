@@ -4,32 +4,31 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Project.Hospital.Model;
+using Project.Hospital.Repository.IRepository;
 
 namespace Project.Hospital.Repository
 {
-    public class DoctorRepository
+    public class DoctorRepository : IDoctorRepository
     {
-        public DoctorRepository() { }
-
+        private const string NOT_FOUND_ERROR = "Doctor with {0}:{1} can not be found!";
+        private const string fileName = "doctors.txt";
         public List<Doctor> GetAll()
         {
-            List<Doctor> doctors = new List<Doctor>();
             Serializer<Doctor> doctorSerializer = new Serializer<Doctor>();
-            doctors = doctorSerializer.fromCSV("doctors.txt");
-            return doctors;
+            return doctorSerializer.fromCSV(fileName);
         }
 
-        public Doctor GetDoctorByName(String firstName, String lastName)
+        public Doctor GetByFirstNameAndLastName(String firstName, String lastName)
         {
             return GetAll().SingleOrDefault(doctor => doctor.firstName == firstName && doctor.lastName == lastName);
         }
 
-        public Doctor GetDoctorByLks(String lks)
+        public Doctor GetOne(String lks)
         {
             return GetAll().SingleOrDefault(doctor => doctor.lks == lks);
         }
 
-        public Doctor GetDoctorByEmailAndPassword(String email, String password)
+        public Doctor GetByEmailAndPassword(String email, String password)
         {
             return GetAll().SingleOrDefault(doctor => doctor.email == email && doctor.password == password);
         }

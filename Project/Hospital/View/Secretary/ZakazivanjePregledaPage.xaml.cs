@@ -61,7 +61,7 @@ namespace Project.Hospital.View.Secretary
             string doctorLastName = tbDoctorLastName.Text;
 
             Patient patient = patientController.GetOne(lbo);
-            Model.Doctor doctor = doctorController.GetDoctorByName(doctorFirstName, doctorLastName);
+            Model.Doctor doctor = doctorController.GetByFirstNameAndLastName(doctorFirstName, doctorLastName);
 
             DateTime start = DateTime.Parse(dpStartDate.Text + " " + tbStartTime.Text); 
             DateTime end = DateTime.Parse(dpEndDate.Text + " " + tbEndTime.Text);

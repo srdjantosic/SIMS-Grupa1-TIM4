@@ -46,7 +46,7 @@ namespace Project.Hospital.View.Secretary
             this.notificationService = new NotificationService(notificationRepository);
             this.notificationController = new NotificationController(notificationService);
 
-            this.doctor = doctorController.GetDoctorByLks(request.Lks);
+            this.doctor = doctorController.GetOne(request.Lks);
 
             tbDoctor.Text = doctor.firstName + " " + doctor.lastName + " (" + doctor.medicineArea + ")";
             tbDateTime.Text = "Od: " + request.Start.ToShortDateString() + " " + request.Start.ToLongTimeString() + " do: " + request.End.ToShortDateString() + " " + request.End.ToLongTimeString();

@@ -5,39 +5,40 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Project.Hospital.Model;
+using Project.Hospital.Repository.IRepository;
 
 namespace Project.Hospital.Service
 {
     public class DoctorService
     {
-        private DoctorRepository doctorRepository;
+        private IDoctorRepository iDoctorRepo;
 
-        public DoctorService(DoctorRepository doctorRepository)
+        public DoctorService(IDoctorRepository iDoctorRepo)
         {
-            this.doctorRepository = doctorRepository;
+            this.iDoctorRepo = iDoctorRepo;
         }
 
         public List<Doctor> GetAll()
         {
-            return doctorRepository.GetAll();
+            return iDoctorRepo.GetAll();
         }
 
-        public Doctor GetDoctorByName(String firstName, String lastName)
+        public Doctor GetByFirstNameAndLastName(String firstName, String lastName)
         {
-            return doctorRepository.GetDoctorByName(firstName, lastName);
+            return iDoctorRepo.GetByFirstNameAndLastName(firstName, lastName);
         }
 
-        public Doctor GetDoctorByLks(String lks)
+        public Doctor GetOne(String lks)
         {
-            return doctorRepository.GetDoctorByLks(lks);
+            return iDoctorRepo.GetOne(lks);
         }
 
-        public Doctor GetDoctorByEmailAndPassword(String email, String password)
+        public Doctor GetByEmailAndPassword(String email, String password)
         {
-            return doctorRepository.GetDoctorByEmailAndPassword(email, password);
+            return iDoctorRepo.GetByEmailAndPassword(email, password);
         }
 
-        public List<Doctor> GetDoktorsFromGivenArea(String area)
+        public List<Doctor> GetAllFromGivenArea(String area)
         {
             List<Doctor> doctorsByArea = new List<Doctor>();
             foreach(Doctor doctor in GetAll())

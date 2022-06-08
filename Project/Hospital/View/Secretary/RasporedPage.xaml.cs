@@ -51,7 +51,7 @@ namespace Project.Hospital.View.Secretary
             Events = new ObservableCollection<Event>();
             foreach(Appointment appointment in appointmentController.GetAll())
             {
-                Model.Doctor doctor = doctorController.GetDoctorByLks(appointment.Lks);
+                Model.Doctor doctor = doctorController.GetOne(appointment.Lks);
                 Patient patient = patientController.GetOne(appointment.Lbo);
                 String eventName = "Pregled kod lekara: " + doctor.firstName + " " + doctor.lastName;
                 Event Event = new Event(appointment.Id, eventName, appointment.dateTime, appointment.dateTime.AddMinutes(45));

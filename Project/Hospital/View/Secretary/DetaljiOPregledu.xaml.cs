@@ -55,7 +55,7 @@ namespace Project.Hospital.View.Secretary
                 tbPacijent.Text = patient.FirstName + " " + patient.LastName;
             }
 
-            Model.Doctor doctor = doctorController.GetDoctorByLks(appointment.Lks);
+            Model.Doctor doctor = doctorController.GetOne(appointment.Lks);
             if (doctor != null)
             {
                 tbLekar.Text = doctor.firstName + " " + doctor.lastName + " (" + doctor.medicineArea + ") ";

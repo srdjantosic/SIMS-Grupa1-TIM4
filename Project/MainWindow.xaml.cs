@@ -48,9 +48,9 @@ namespace Project
             string Email = emailBox.Text;
             string Password = passwordBox.Password.ToString();
 
-            if (doctorController.GetDoctorByEmailAndPassword(Email, Password) != null)
+            if (doctorController.GetByEmailAndPassword(Email, Password) != null)
             {
-                var startWindow = new StartWindow(doctorController.GetDoctorByEmailAndPassword(Email, Password).lks);
+                var startWindow = new StartWindow(doctorController.GetByEmailAndPassword(Email, Password).lks);
                 emailMsg.Content = "";
                 startWindow.Show();
                 this.Close();

@@ -95,7 +95,7 @@ namespace Project.Hospital.View.Doctor
                     DataRow row = dt.NewRow();
                     row[0] = appointment.Id;
                     row[1] = appointment.dateTime.ToShortDateString() + " " + appointment.dateTime.ToLongTimeString();
-                    Model.Doctor doctor = doctorController.GetDoctorByLks(appointment.Lks);
+                    Model.Doctor doctor = doctorController.GetOne(appointment.Lks);
                     row[2] = doctor.firstName + " " + doctor.lastName;
                     row[3] = doctor.email;
                     row[4] = doctor.medicineArea.ToString();
@@ -119,7 +119,7 @@ namespace Project.Hospital.View.Doctor
                 DateTime vreme = DateTime.Parse((string)dataRow.Row.ItemArray[1]);
                 string[] lekar = ((string)dataRow.Row.ItemArray[2]).Split(" ");
 
-                Model.Doctor doctor = doctorController.GetDoctorByName(lekar[0], lekar[1]);
+                Model.Doctor doctor = doctorController.GetByFirstNameAndLastName(lekar[0], lekar[1]);
 
                 Appointment newAppointment = new Appointment();
                 newAppointment.dateTime = vreme;

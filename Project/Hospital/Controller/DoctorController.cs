@@ -21,19 +21,19 @@ namespace Project.Hospital.Controller
         {
             return doctorService.GetAll();
         }
-        public Doctor GetDoctorByName(String firstName, String lastName)
+        public Doctor GetByFirstNameAndLastName(String firstName, String lastName)
         {
-            return doctorService.GetDoctorByName(firstName, lastName);
+            return doctorService.GetByFirstNameAndLastName(firstName, lastName);
         }
 
-        public Doctor GetDoctorByLks(String lks)
+        public Doctor GetOne(String lks)
         {
-            return doctorService.GetDoctorByLks(lks);
+            return doctorService.GetOne(lks);
         }
 
-        public Doctor GetDoctorByEmailAndPassword(String email, String password)
+        public Doctor GetByEmailAndPassword(String email, String password)
         {
-            return doctorService.GetDoctorByEmailAndPassword(email, password);
+            return doctorService.GetByEmailAndPassword(email, password);
         }
     }
 }

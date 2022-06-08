@@ -242,7 +242,7 @@ namespace Hospital.Service
         {
             List<Appointment> allAvailableAppointments = new List<Appointment>();
 
-            foreach(Doctor doctor in doctorService.GetDoktorsFromGivenArea(area))
+            foreach(Doctor doctor in doctorService.GetAllFromGivenArea(area))
             {
                 foreach(Appointment appointment in GetAvailableAppointments(doctor, patient, receptionTime, receptionTime.AddMinutes(45)))
                 {
@@ -257,7 +257,7 @@ namespace Hospital.Service
             List<Tuple<int, Appointment, Appointment>> takenAppointments = new List<Tuple<int, Appointment, Appointment>>();
             Appointment firstAvailableAppointment;
 
-            foreach (Doctor doctor in doctorService.GetDoktorsFromGivenArea(area))
+            foreach (Doctor doctor in doctorService.GetAllFromGivenArea(area))
             {
                 List<Appointment> appointments = GetAllByLks(doctor.lks);
                 foreach (Appointment appointment in appointments)
@@ -289,7 +289,7 @@ namespace Hospital.Service
         public Appointment FindFirstFreeTerm(Appointment appointment)
         {
             Patient patient = patientService.GetOne(appointment.Lbo);
-            Doctor doctor = doctorService.GetDoctorByLks(appointment.Lks);
+            Doctor doctor = doctorService.GetOne(appointment.Lks);
             DateTime start = DateTime.Parse(appointment.dateTime.AddDays(1).ToShortDateString() + " " + workTime[0]);
             DateTime end = appointment.dateTime.AddDays(10);
             List<Appointment> availableAppointments = GetAvailableAppointments(doctor, patient, start, end);
