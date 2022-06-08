@@ -73,5 +73,10 @@ namespace Project.Hospital.View.Secretary
         {
             Prozor.Content = new ZahteviZaSlobodneDanePage();
         }
+
+        private void sastanci(object sender, RoutedEventArgs e)
+        {
+            Prozor.Content = new ZakazivanjeSastanka();
+        }
     }
 }

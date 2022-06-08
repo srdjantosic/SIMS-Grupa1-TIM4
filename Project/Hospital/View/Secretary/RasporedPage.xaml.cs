@@ -34,7 +34,7 @@ namespace Project.Hospital.View.Secretary
         private DoctorRepository doctorRepository;
         private DoctorService doctorService;
         private DoctorController doctorController;
-
+        public ObservableCollection<Event> Events { get; set; }
         public RasporedPage()
         {
             InitializeComponent();
@@ -47,65 +47,40 @@ namespace Project.Hospital.View.Secretary
             this.doctorRepository = new DoctorRepository();
             this.doctorService = new DoctorService(doctorRepository);
             this.doctorController = new DoctorController(doctorService);
-                
-        }
 
-        /*
-        public void fillingDataGridUsingDataTable()
-        {
-            DataTable dt = new DataTable();
-            DataColumn id = new DataColumn("ID", typeof(int));
-            DataColumn datumVreme = new DataColumn("DATUM I VREME", typeof(string));
-            DataColumn pacijent = new DataColumn("PACIJENT", typeof(string));
-            DataColumn lekar = new DataColumn("LEKAR", typeof(string));
-
-            dt.Columns.Add(id);
-            dt.Columns.Add(datumVreme);
-            dt.Columns.Add(pacijent);
-            dt.Columns.Add(lekar);
-
-            foreach(Appointment appointment in appointmentController.ShowAppointments())
+            Events = new ObservableCollection<Event>();
+            foreach(Appointment appointment in appointmentController.GetAll())
             {
-                if (!appointment.isDeleted)
-                {
-                    DataRow row = dt.NewRow();
-                    row[0] = appointment.id;
-                    row[1] = appointment.dateTime.ToShortDateString() + " " + appointment.dateTime.ToLongTimeString();
-                    Patient patient = patientController.GetPatient(appointment.lbo);
-                    row[2] = patient.FirstName + " " + patient.LastName;
-                    Model.Doctor doctor = doctorController.GetDoctorByLks(appointment.lks);
-                    row[3] = doctor.firstName + " " + doctor.lastName;
-
-                    dt.Rows.Add(row);
-                }
+                Model.Doctor doctor = doctorController.GetDoctorByLks(appointment.Lks);
+                Patient patient = patientController.GetOne(appointment.Lbo);
+                String eventName = "Pregled kod lekara: " + doctor.firstName + " " + doctor.lastName;
+                Event Event = new Event(appointment.Id, eventName, appointment.dateTime, appointment.dateTime.AddMinutes(45));
+                Events.Add(Event);
             }
-
-            dataGridAppointments.ItemsSource = dt.DefaultView;
+            Schedule.ItemsSource = Events;
         }
-        */
         private void zakazivanjePregleda(object sender, RoutedEventArgs e)
         {
             var page = new ZakazivanjePregledaPage();
             NavigationService.Navigate(page);
         }
-        /*
-        private void dataGridAppointments_Loaded(object sender, RoutedEventArgs e)
+
+    }
+
+    public class Event
+    {
+        public int Id { get; set; }
+        public String EventName { get; set; }
+        public DateTime From { get; set; }
+        public DateTime To { get; set; }
+        public Event(int id, String eventName, DateTime from, DateTime to)
         {
-            this.fillingDataGridUsingDataTable();
+            this.Id = id;
+            this.EventName = eventName;
+            this.From = from;
+            this.To = to;
         }
 
-        private void dataGridAppointments_MouseDoubleClick(object sender, MouseButtonEventArgs e)
-        {
-            if(dataGridAppointments.SelectedItem != null)
-            {
-                DataRowView dataRow = (DataRowView)dataGridAppointments.SelectedItem;
-                int appointment = (int)dataRow.Row.ItemArray[0];
-
-                var window = new DetaljiOPregledu(appointmentController.GetAppintment(appointment));
-                window.ShowDialog();
-            }
-        }
-        */
     }
 
 }

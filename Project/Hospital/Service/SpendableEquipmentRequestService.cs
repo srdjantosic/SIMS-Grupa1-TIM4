@@ -5,36 +5,37 @@ using System.Text;
 using System.Threading.Tasks;
 using Project.Hospital.Model;
 using Project.Hospital.Repository;
+using Project.Hospital.Repository.IRepository;
 
 namespace Project.Hospital.Service
 {
     public class SpendableEquipmentRequestService
     {
-        private SpendableEquipmentRequestRepository spendableEquipmentRequestRepository;
+        private ISpendableEquipmentRequestRepository iSpendableEquipmentRequestRepo;
 
-        public SpendableEquipmentRequestService(SpendableEquipmentRequestRepository spendableEquipmentRequestRepository)
+        public SpendableEquipmentRequestService(ISpendableEquipmentRequestRepository iSpendableEquipmentRequestRepo)
         {
-            this.spendableEquipmentRequestRepository = spendableEquipmentRequestRepository;
+            this.iSpendableEquipmentRequestRepo = iSpendableEquipmentRequestRepo;
         }
-        public List<SpendableEquipmentRequest> GetAllRequests()
+        public List<SpendableEquipmentRequest> GetAll()
         {
-            return spendableEquipmentRequestRepository.GetAllRequests();
+            return iSpendableEquipmentRequestRepo.GetAll();
         }
-        public SpendableEquipmentRequest GetRequestById(String equipmentId)
+        public SpendableEquipmentRequest GetOne(String equipmentId)
         {
-            return spendableEquipmentRequestRepository.GetRequestById(equipmentId);
+            return iSpendableEquipmentRequestRepo.GetOne(equipmentId);
         }
-        public Boolean DeleteRequest(String equipmentName)
+        public Boolean Delete(String equipmentName)
         {
-            return spendableEquipmentRequestRepository.DeleteRequest(equipmentName);
+            return iSpendableEquipmentRequestRepo.Delete(equipmentName);
         }
-        public SpendableEquipmentRequest CreateRequest(String equipmentId, String equipmentName, int quantity)
+        public SpendableEquipmentRequest Create(String equipmentId, String equipmentName, int quantity)
         {
             
-            if(GetRequestById(equipmentId) == null)
+            if(GetOne(equipmentId) == null)
             {
                 DateTime createdDate = DateTime.Now;
-                return spendableEquipmentRequestRepository.CreateRequest(equipmentName, equipmentId, quantity, createdDate);
+                return iSpendableEquipmentRequestRepo.Create(equipmentName, equipmentId, quantity, createdDate);
             }
             else
             {

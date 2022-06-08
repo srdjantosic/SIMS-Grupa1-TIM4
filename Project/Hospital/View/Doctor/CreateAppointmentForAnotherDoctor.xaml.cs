@@ -77,7 +77,7 @@ namespace Project.Hospital.View.Doctor
         private void btnSet(object sender, RoutedEventArgs e)
         {
             Model.Doctor selectedDoctor = (Model.Doctor)dgCAForAnotherDoctor.SelectedItems[0];
-            Patient patient = patientController.GetPatient(choosenPatient);
+            Patient patient = patientController.GetOne(choosenPatient);
 
             string start = dpStartDate.Text + " " + boxStartTime.Text;
             string end = dpEndDate.Text + " " + boxEndTime.Text;

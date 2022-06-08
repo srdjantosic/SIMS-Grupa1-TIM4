@@ -53,7 +53,7 @@ namespace Project.Hospital.View.Secretary
             dt.Columns.Add(ime);
             dt.Columns.Add(prezime);
 
-            foreach (Patient patient in patientController.ShowPatients())
+            foreach (Patient patient in patientController.GetAll())
             {
 
                 DataRow row = dt.NewRow();
@@ -93,7 +93,7 @@ namespace Project.Hospital.View.Secretary
             {
                 DataRowView dataRow = (DataRowView)dataGridPatients.SelectedItem;
                 string lbo = (string)dataRow.Row.ItemArray[0];
-                Patient patient = patientController.GetPatient(lbo);
+                Patient patient = patientController.GetOne(lbo);
                 if(patient != null)
                 {
                     var page = new KartonPacijentaPage(patient);
@@ -145,7 +145,7 @@ namespace Project.Hospital.View.Secretary
             {
                 DataRowView dataRow = (DataRowView)dataGridPatients.SelectedItem;
                 string lbo = (string)dataRow.Row.ItemArray[0];
-                Patient patient = patientController.GetPatient(lbo);
+                Patient patient = patientController.GetOne(lbo);
                 if (patient != null)
                 {
                     var page = new KartonPacijentaPage(patient);

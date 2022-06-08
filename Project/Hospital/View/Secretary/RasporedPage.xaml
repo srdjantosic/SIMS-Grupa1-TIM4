@@ -6,7 +6,7 @@
       xmlns:syncfusion="http://schemas.syncfusion.com/wpf"
       xmlns:local="clr-namespace:Project.Hospital.View.Secretary"
       mc:Ignorable="d" 
-      d:DesignHeight="768" d:DesignWidth="824"
+      d:DesignHeight="900" d:DesignWidth="824"
       Title="RasporedPage">
 
     <Grid>
@@ -19,13 +19,20 @@
             <Button DockPanel.Dock="Right" FontSize="18" Height="80" Margin="30" Click="zakazivanjePregleda">Zakazivanje pregleda</Button>
         </DockPanel>
         <Grid Grid.Row="1">
-            <syncfusion:SfScheduler x:Name="Schedule" ViewType="Week" FirstDayOfWeek="Monday" Margin="20">
+            <syncfusion:SfScheduler x:Name="Schedule" Height="600" Margin="20" VerticalAlignment="Top" ViewType="Week" FirstDayOfWeek="Monday" ItemsSource="{Binding Events}">
                 <syncfusion:SfScheduler.DaysViewSettings>
                     <syncfusion:DaysViewSettings 
                         StartHour="8"
                         EndHour="16"
-                        TimeIntervalSize="60"/>
+                        TimeIntervalSize="60"
+                        TimeIntervalHeight="60"/>
                 </syncfusion:SfScheduler.DaysViewSettings>
+                <syncfusion:SfScheduler.AppointmentMapping>
+                    <syncfusion:AppointmentMapping
+                        Subject="EventName"
+                        StartTime="From"
+                        EndTime="To"/>
+                </syncfusion:SfScheduler.AppointmentMapping>
             </syncfusion:SfScheduler>
         </Grid>
     </Grid>

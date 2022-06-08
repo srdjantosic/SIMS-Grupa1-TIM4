@@ -117,11 +117,17 @@ namespace Project.Hospital.Service
             }
             return requestsOnHold;
         }
-
-        public Boolean ChangeStatus(RequestForFreeDays requestForChange, RequestForFreeDaysType.RequestForFreeDaysTypes status)
+        public Boolean UpdateRequest(RequestForFreeDays requestForChange, RequestForFreeDaysType.RequestForFreeDaysTypes status, String declineReason = "/")
         {
-            return requestForFreeDaysRepository.UpdateRequest(requestForChange, status);
+            return requestForFreeDaysRepository.UpdateRequest(requestForChange, status, declineReason);
         }
-
+        public Boolean AcceptRequest(RequestForFreeDays requestForChange)
+        {
+            return UpdateRequest(requestForChange, RequestForFreeDaysType.RequestForFreeDaysTypes.Accept);
+        }
+        public Boolean DeclineRequest(RequestForFreeDays requestForChange, String explanation)
+        {
+            return UpdateRequest(requestForChange, RequestForFreeDaysType.RequestForFreeDaysTypes.Decline, explanation);
+        }
     }
 }

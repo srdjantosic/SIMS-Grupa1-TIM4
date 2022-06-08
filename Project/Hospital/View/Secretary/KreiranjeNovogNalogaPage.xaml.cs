@@ -90,7 +90,7 @@ namespace Project.Hospital.View.Secretary
                                 gender = Gender.Genders.Male;
                             }
 
-                            Patient patient = patientController.CreatePatient(ime, prezime, gender, email, telefon, jmbg, lbo, DateTime.Parse(datum), drzava, mesto, adresa);
+                            Patient patient = patientController.Create(ime, prezime, gender, email, telefon, jmbg, lbo, DateTime.Parse(datum), drzava, mesto, adresa);
 
                             if (patient != null)
                             {

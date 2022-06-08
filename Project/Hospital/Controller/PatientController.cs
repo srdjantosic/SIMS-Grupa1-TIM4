@@ -15,28 +15,19 @@ namespace Project.Hospital.Controller
             this.patientService = patientService;
         }
 
-        public Patient CreatePatient(String firstName, String lastName, Gender.Genders gender, String email, String phoneNumber, String jmbg, String lbo, DateTime birthday, String country, String city, String adress)
+        public Patient Create(String firstName, String lastName, Gender.Genders gender, String email, String phoneNumber, String jmbg, String lbo, DateTime birthday, String country, String city, String adress)
         {
-            Patient patient = patientService.CreatePatient(firstName, lastName, gender, email, phoneNumber, jmbg, lbo, birthday, country, city, adress);
-
-            if (patient != null)
-            {
-                return patient;
-            }
-            else
-            {
-                return null;
-            }
+            return patientService.Create(firstName, lastName, gender, email, phoneNumber, jmbg, lbo, birthday, country, city, adress);
         }
 
-        public Boolean UpdatePatient(String lbo, String firstName, String lastName, Gender.Genders gender, DateTime birthday, String email, String phoneNumber, String country, String city, String adress)
+        public Boolean Update(Patient patient)
         {
-           return patientService.UpdatePatient(GetPatient(lbo));
+           return patientService.Update(patient.Lbo, patient.getAllergens());
         }
 
-        public Boolean UpdatePatientsMedicalChard(String lbo, double temperature, int heartRate, String bloodPressure, int weight, int height)
+        public Boolean UpdateMedicalChard(String lbo, double temperature, int heartRate, String bloodPressure, int weight, int height)
         {
-            return patientService.UpdatePatientsMedicalChard(lbo, temperature, heartRate, bloodPressure, weight, height);
+            return patientService.UpdateMedicalChard(lbo, temperature, heartRate, bloodPressure, weight, height);
         }
 
         public Boolean CreateReportAndPrescription(string lbo, Prescription prescription, Report report)
@@ -49,18 +40,18 @@ namespace Project.Hospital.Controller
             return patientService.UpdateReportAndPrescription(lbo, prescriptionToUpdate, reportToUpdate);
         }
 
-        public List<Patient> ShowPatients()
+        public List<Patient> GetAll()
         {
-            return patientService.ShowPatients();
+            return patientService.GetAll();
         }
-        public Boolean DeletePatient(String lbo)
+        public Boolean Delete(String lbo)
         {
-            return patientService.DeletePatient(lbo);
+            return patientService.Delete(lbo);
         }
 
-        public Patient GetPatient(String lbo)
+        public Patient GetOne(String lbo)
         {
-            return patientService.GetPatient(lbo);
+            return patientService.GetOne(lbo);
         }
 
     }

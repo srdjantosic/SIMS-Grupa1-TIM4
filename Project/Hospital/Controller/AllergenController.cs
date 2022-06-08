@@ -17,9 +17,9 @@ namespace Project.Hospital.Controller
             this.allergenService = allergenService;
         }
 
-        public Allergen CreateAllergen(String lbo, String name)
+        public Allergen Create(String lbo, String name)
         {
-            return allergenService.CreateAllergen(name, lbo);
+            return allergenService.Create(name, lbo);
         }
 
         public List<Allergen> GetPatientAllergens(String lbo)

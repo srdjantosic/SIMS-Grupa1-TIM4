@@ -49,7 +49,7 @@ namespace Project.Hospital.View.Secretary
 
             this.Appointment = appointment;
 
-            Patient patient = patientController.GetPatient(appointment.Lbo);
+            Patient patient = patientController.GetOne(appointment.Lbo);
             if (patient != null)
             {
                 tbPacijent.Text = patient.FirstName + " " + patient.LastName;

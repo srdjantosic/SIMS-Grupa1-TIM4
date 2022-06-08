@@ -15,9 +15,6 @@ using System.Windows.Navigation;
 
 namespace Project.Hospital.View.Manager
 {
-    /// <summary>
-    /// Interaction logic for PrebacivanjeOpreme.xaml
-    /// </summary>
     public partial class PrebacivanjeOpreme : Page, INotifyPropertyChanged
     {
 
@@ -33,14 +30,14 @@ namespace Project.Hospital.View.Manager
         {
             this.equipmentToMoveRepository = new EquipmentToMoveRepository();
             this.equipmentRepository = new EquipmentRepository();
-            this.equipmentToMoveService = new EquipmentToMoveService(equipmentToMoveRepository, equipmentRepository);
+            //this.equipmentToMoveService = new EquipmentToMoveService(equipmentToMoveRepository, equipmentRepository);
             this.equipmentToMoveController = new EquipmentToMoveController(equipmentToMoveService);
 
             this.EqipmentName = name;
             this.OldRoomId = oldRoomId;
             this.Id = id;
             InitializeComponent();
-            List<Equipment> equipments = equipmentRepository.GetEquipment();
+            List<Equipment> equipments = equipmentRepository.GetAll();
             List<string> equipmentsnew = new List<string>();
             foreach (Equipment equipment in equipments)
             {

@@ -17,53 +17,40 @@ namespace Project.Hospital.Service
         {
             this.patientService = patientService;
         }
-
-        public Allergen CreateAllergen(String name, String lbo)
+        public Allergen Create(String name, String lbo)
         {
-            
-            Patient patient = patientService.GetPatient(lbo);
-            foreach(Allergen allergen in patient.getAllergens())
+            List<Allergen> allergens = GetPatientAllergens(lbo);
+            if(allergens.SingleOrDefault(allergen => allergen.Name == name) == null)
             {
-                if(allergen.Name == name)
-                {
-                    throw new System.Exception();
-                }
+                Allergen allergen = new Allergen(name);
+                allergens.Add(allergen);
+                patientService.Update(lbo, allergens);
+                return allergen;
             }
-
-            List<Allergen> allergens = patient.getAllergens();
-            Allergen allergen1 = new Allergen(name);
-            allergens.Add(allergen1);
-            patient.setAllergens(allergens);
-            patientService.UpdatePatient(patient);
-
-            return allergen1;
-            
+            else
+            {
+                return null;
+            }    
         }
-
         public List<Allergen> GetPatientAllergens(String lbo)
         {
-            Patient patient = patientService.GetPatient(lbo);
+            Patient patient = patientService.GetOne(lbo);
             return patient.getAllergens();
         }
 
-        public bool DeletePatientAllergen(String lbo, String name)
+        public Boolean DeletePatientAllergen(String lbo, String name)
         {
-            Patient patient = patientService.GetPatient(lbo);
-            foreach(Allergen allergen in patient.getAllergens())
+            List<Allergen> allergens = GetPatientAllergens(lbo);
+            Allergen allergen = allergens.SingleOrDefault(allergen => allergen.Name == name);
+
+            if(allergen != null && allergens.Remove(allergen))
             {
-                if(allergen.Name == name)
-                {
-                    List<Allergen> allergens = patient.getAllergens();
-                    if (allergens.Remove(allergen))
-                    {
-                        patient.setAllergens(allergens);
-                        patientService.UpdatePatient(patient);
-                        return true;
-                    }
-                    
-                }
+                return patientService.Update(lbo, allergens);
             }
-            return false;
+            else
+            {
+                return false;
+            }
         }
     }
 }

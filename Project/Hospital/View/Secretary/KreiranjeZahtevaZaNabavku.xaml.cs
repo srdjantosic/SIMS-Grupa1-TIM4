@@ -49,7 +49,7 @@ namespace Project.Hospital.View.Secretary
             string naziv = nazivOpreme.Text;
             int kolicina = int.Parse(kolicinaBox.Text);
 
-            if(requestForSupplyEquipmnetController.CreateRequest(id, naziv, kolicina) != null)
+            if(requestForSupplyEquipmnetController.Create(id, naziv, kolicina) != null)
             {
                 this.Close();
             }

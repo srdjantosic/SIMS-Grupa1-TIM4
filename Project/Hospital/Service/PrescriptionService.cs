@@ -60,7 +60,7 @@ namespace Project.Hospital.Service
                 return false;
             }
 
-            Patient patient = patientRepository.GetPatient(lbo);
+            Patient patient = patientRepository.GetOne(lbo);
 
             foreach (string medicin in prescription.getMedicines())
             {

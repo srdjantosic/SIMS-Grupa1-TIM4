@@ -62,10 +62,17 @@ namespace Project.Hospital.View.Secretary
 
         private void accept(object sender, RoutedEventArgs e)
         {
-            if(requestForFreeDaysController.ChangeStatus(requestForFreeDays, RequestForFreeDaysType.RequestForFreeDaysTypes.Accept))
+            if(requestForFreeDaysController.AcceptRequest(requestForFreeDays))
             {
-                Notification newNotification = new Notification(requestForFreeDays.Lks, DateTime.Now, "Vas zahtev je prihvacen!"); 
-                this.Close();
+                Notification newNotification = new Notification(requestForFreeDays.Lks, DateTime.Now, "Vas zahtev je prihvacen!");
+                if (notificationController.Create(newNotification) != null)
+                {
+                    this.Close();
+                }
+                else
+                {
+                    MessageBox.Show("Greska prilikom slanja obavestenja!");
+                }
             }
         }
     }

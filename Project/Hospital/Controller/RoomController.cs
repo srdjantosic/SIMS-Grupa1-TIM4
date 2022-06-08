@@ -1,8 +1,6 @@
 
 using Project.Hospital.Model;
-using Project.Hospital.Model;
 using Hospital.Service;
-using Project.Hospital.Model;
 using System;
 using System.Collections.Generic;
 
@@ -12,48 +10,43 @@ namespace Project.Hospital.Controller
     {
         private RoomService roomService;
 
-
-
         public RoomController(RoomService roomService)
         {
             this.roomService = roomService;
         }
-        public Room CreateRoom(String name, RoomType.RoomTypes type)
+        public Room Create(String name, RoomType.RoomTypes type)
         {
-            Room room = roomService.CreateRoom(name, type);
-            if (room != null)
-            {
-                return room;
-            }
-            else
-            {
-                return null;
-            }
+            return roomService.Create(name, type);
         }
 
-        public Boolean UpdateRoom(String name, String newName, RoomType.RoomTypes newType)
+        public Boolean Update(String name, String newName, RoomType.RoomTypes newType)
         {
-            return roomService.UpdateRoom(name, newName, newType);
+            return roomService.Update(name, newName, newType);
         }
 
-        public List<Room> ShowRooms()
+        public List<Room> GetAll()
         {
-            return roomService.ShowRooms();
+            return roomService.GetAll();
         }
 
-        public Boolean DeleteRoom(String name)
+        public Boolean Delete(String name)
         {
-            return roomService.DeleteRoom(name);
+            return roomService.Delete(name);
         }
 
-        public Room GetRoom(String name)
+        public Room GetOne(String name)
         {
-            return roomService.GetRoom(name);
+            return roomService.GetOne(name);
 
         }
+        public List<Room> GetMeetingRooms()
+        {
+            return roomService.GetMeetingRooms();
+        }
+        /*
         public void RenovateRoom(String Name, DateTime start, DateTime end, int days) {
             roomService.RenovateRoom(Name, start, end, days);
         }
-
+        */
     }
 }

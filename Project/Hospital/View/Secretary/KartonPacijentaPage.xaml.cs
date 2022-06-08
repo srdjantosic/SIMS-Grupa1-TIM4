@@ -60,9 +60,9 @@ namespace Project.Hospital.View.Secretary
             this.DataContext = this;
             Allergens = new ObservableCollection<Allergen>();
 
-            if (patientController.GetPatient(patient.Lbo).getAllergens() != null)
+            if (patientController.GetOne(patient.Lbo).getAllergens() != null)
             {
-                foreach (Allergen allergen in patientController.GetPatient(patient.Lbo).getAllergens())
+                foreach (Allergen allergen in patientController.GetOne(patient.Lbo).getAllergens())
                 {
                     Allergens.Add(new Allergen { Name = allergen.Name });
                 }

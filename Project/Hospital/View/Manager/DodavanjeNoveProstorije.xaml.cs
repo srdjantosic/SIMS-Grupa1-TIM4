@@ -44,7 +44,7 @@ namespace Project.Hospital.View.Manager
             string Type = typeBox.Text;
             RoomType.RoomTypes roomType = (RoomType.RoomTypes)Enum.Parse(typeof(RoomType.RoomTypes), Type);
 
-            Room room = roomController.CreateRoom(Name, roomType);
+            Room room = roomController.Create(Name, roomType);
         }
     }
 }

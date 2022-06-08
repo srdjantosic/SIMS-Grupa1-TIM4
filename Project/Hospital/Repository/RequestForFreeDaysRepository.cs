@@ -27,7 +27,7 @@ namespace Project.Hospital.Repository
             return requestsForFreeDays;
         }
 
-        public Boolean UpdateRequest(RequestForFreeDays requestForChange, RequestForFreeDaysType.RequestForFreeDaysTypes status)
+        public Boolean UpdateRequest(RequestForFreeDays requestForChange, RequestForFreeDaysType.RequestForFreeDaysTypes status, String declineReason)
         {
             List<RequestForFreeDays> requests = GetAll();
             foreach(RequestForFreeDays request in requests)
@@ -35,6 +35,7 @@ namespace Project.Hospital.Repository
                 if(request.Lks == requestForChange.Lks && request.Start == requestForChange.Start && request.End == requestForChange.End)
                 {
                     request.isActive = status;
+                    request.DeclineReason = declineReason;
                     Serializer<RequestForFreeDays> requestSerializer = new Serializer<RequestForFreeDays>();
                     requestSerializer.toCSV(fileName, requests);
                     return true;
