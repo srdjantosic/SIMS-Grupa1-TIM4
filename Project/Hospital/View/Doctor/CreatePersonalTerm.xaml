@@ -64,6 +64,6 @@
             </DataGrid>
         </Grid>
 
-        <Button Grid.Row="3" Width="50" Height="20" Margin="550,30,0,0">Create</Button>
+        <Button Grid.Row="3" Width="50" Height="20" Margin="550,30,0,0" Click="btnCreate">Create</Button>
     </Grid>
 </Page>

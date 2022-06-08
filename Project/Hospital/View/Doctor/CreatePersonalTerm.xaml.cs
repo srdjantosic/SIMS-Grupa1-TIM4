@@ -1,4 +1,6 @@
-﻿using Project.Hospital.Controller;
+﻿using Hospital.Repository;
+using Hospital.Service;
+using Project.Hospital.Controller;
 using Project.Hospital.Model;
 using Project.Hospital.Repository;
 using Project.Hospital.Service;
@@ -23,10 +25,21 @@ namespace Project.Hospital.View.Doctor
 {
     public partial class CreatePersonalTerm : Page
     {
+        string lks = "";
         public CreatePersonalTerm(string lks)
         {
+            this.lks = lks;
+
             InitializeComponent();
             this.DataContext = new CreatePersonalTermViewModel(lks);
+        }
+
+        private void btnCreate(object sender, RoutedEventArgs e)
+        {
+            CreatePersonalTermViewModel cptvm = new CreatePersonalTermViewModel(lks);
+            cptvm.btnCreate(sender, e, dpStartDate.Text, boxStartTime.Text, (Patient)dgShowPatients.SelectedItems[0]);
+            var createPersonalTerm = new CreatePersonalTerm(lks);
+            NavigationService.Navigate(createPersonalTerm);
         }
     }
 }
