@@ -33,7 +33,7 @@ namespace Project.Hospital.Service
 
         public Boolean CreateReportAndPrescription(string lbo, Prescription prescription, Report report)
         {
-            Prescription newPrescription = prescriptionService.CreatePrescription(lbo, prescription);
+            Prescription newPrescription = prescriptionService.Create(lbo, prescription);
             if (newPrescription == null) {
                 return false;
             }
@@ -52,7 +52,7 @@ namespace Project.Hospital.Service
 
         public Boolean UpdateReportAndPrescription(string lbo, Prescription prescriptionToUpdate, Report reportToUpdate) 
         {
-            Boolean isPrescriptionUpdated = prescriptionService.UpdatePrescription(lbo, prescriptionToUpdate);
+            Boolean isPrescriptionUpdated = prescriptionService.Update(lbo, prescriptionToUpdate);
             if(isPrescriptionUpdated == false){
                 return false;
             }

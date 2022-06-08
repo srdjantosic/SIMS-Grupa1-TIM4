@@ -73,5 +73,25 @@ namespace Project.Hospital.Service
         {
             return iMedicineRepo.GetByName(name);
         }
+        public Boolean areMedicinesExist(List<string> medicines)
+        {
+            int foundMedicines = 0;
+
+            foreach (Medicine existMedicine in GetAll())
+            {
+                foreach (string prescribeMedicine in medicines)
+                {
+                    if (existMedicine.Name.Equals(prescribeMedicine))
+                    {
+                        foundMedicines++;
+                        if (foundMedicines == medicines.Count())
+                        {
+                            return true;
+                        }
+                    }
+                }
+            }
+            return false;
+        }
     }
 }

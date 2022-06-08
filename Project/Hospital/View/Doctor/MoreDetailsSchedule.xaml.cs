@@ -54,7 +54,7 @@ namespace Project.Hospital.View.Doctor
             this.patientRepository = new PatientRepository();
 
             this.prescriptionRepository = new PrescriptionRepository();
-            this.prescriptionService = new PrescriptionService(prescriptionRepository, medicineRepository, patientRepository);
+            this.prescriptionService = new PrescriptionService(prescriptionRepository, medicineService, patientRepository);
             this.prescriptionController = new PrescriptionController(prescriptionService);
 
             this.reportRepository = new ReportRepository();
@@ -86,8 +86,8 @@ namespace Project.Hospital.View.Doctor
                     positionOfPrescription++;
                     DateTime startApoointment = appointment.dateTime;
                     DateTime endAppointment = startApoointment.AddHours(1);
-                    if (startApoointment <= prescriptionController.GetPrescription(positionsOfPrescriptions).BeginOfUse &&
-                        endAppointment >= prescriptionController.GetPrescription(positionsOfPrescriptions).BeginOfUse)
+                    if (startApoointment <= prescriptionController.GetOne(positionsOfPrescriptions).BeginOfUse &&
+                        endAppointment >= prescriptionController.GetOne(positionsOfPrescriptions).BeginOfUse)
                     {
                         foundPrescription = positionsOfPrescriptions;
                     }
@@ -95,7 +95,7 @@ namespace Project.Hospital.View.Doctor
             }
 
             report = reportController.GetById(foundReport);
-            prescription = prescriptionController.GetPrescription(foundPrescription);
+            prescription = prescriptionController.GetOne(foundPrescription);
 
             if (report != null && prescription != null)
             {
@@ -177,7 +177,7 @@ namespace Project.Hospital.View.Doctor
                 if (isAlreadyCreated == false)
                 {
                     Prescription newPrescription = new Prescription();
-                    newPrescription.Id = prescriptionController.ShowPrescriptions().Count;
+                    newPrescription.Id = prescriptionController.GetAll().Count;
                     newPrescription.BeginOfUse = DateTime.Now;
                     newPrescription.PeriodInDays = int.Parse(tbPeriodInDays.Text);
                     List<string> medicinesToSend = new List<string>();

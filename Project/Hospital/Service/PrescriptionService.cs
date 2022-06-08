@@ -1,5 +1,6 @@
 ﻿using Project.Hospital.Model;
 using Project.Hospital.Repository;
+using Project.Hospital.Repository.IRepository;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -10,47 +11,45 @@ namespace Project.Hospital.Service
 {
     public class PrescriptionService
     {
-        private PrescriptionRepository prescriptionRepository;
-        private MedicineRepository medicineRepository;
-        private PatientRepository patientRepository;
+        private IPrescriptionRepository IPrescriptionRepo;
+        private MedicineService medicineService;
+        private IPatientRepository IPatientRepo;
 
-        public PrescriptionService(PrescriptionRepository prescriptionRepository, MedicineRepository medicineRepository, PatientRepository patientRepository)
+        public PrescriptionService(IPrescriptionRepository IPrescriptionRepo, MedicineService medicineService, IPatientRepository IPatientRepo)
         {
-            this.prescriptionRepository = prescriptionRepository;
-            this.medicineRepository = medicineRepository;
-            this.patientRepository = patientRepository;
+            this.IPrescriptionRepo = IPrescriptionRepo;
+            this.medicineService = medicineService;
+            this.IPatientRepo = IPatientRepo;
         }
 
-        public Prescription CreatePrescription(string lbo, Prescription newPrescription)
+        public Prescription Create(string lbo, Prescription newPrescription)
         {
             if(isMedicineAlowedToPatient(lbo, newPrescription) == false)
             {
                 return null;
             }
 
-            return prescriptionRepository.CreatePrescription(newPrescription);
+            return IPrescriptionRepo.Create(newPrescription);
         }
 
-        public Boolean UpdatePrescription(string lbo, Prescription prescriptionToUpdate)
+        public Boolean Update(string lbo, Prescription prescriptionToUpdate)
         {
             if(isMedicineAlowedToPatient(lbo, prescriptionToUpdate) == false)
             {
                 return false;
             }
 
-            prescriptionRepository.UpdatePrescription(prescriptionToUpdate);
-
-            return true;
-        }
-
-        public List<Prescription> ShowPrescriptions()
-        {
-            return prescriptionRepository.ShowPrescriptions();
-        }
-
-        public Prescription GetPrescription(int id)
-        {
-            return prescriptionRepository.GetPrescription(id);
+            List<Prescription> prescriptions = GetAll();
+            foreach (Prescription prescription in prescriptions)
+            {
+                if (prescription.Id == prescriptionToUpdate.Id)
+                {
+                    prescription.PeriodInDays = prescriptionToUpdate.PeriodInDays;
+                    prescription.setMedicines(prescriptionToUpdate.getMedicines());
+                    return IPrescriptionRepo.Save(prescriptions);
+                }
+            }
+            return false;
         }
 
         public Boolean isMedicineAlowedToPatient(string lbo, Prescription prescription)
@@ -60,7 +59,12 @@ namespace Project.Hospital.Service
                 return false;
             }
 
-            Patient patient = patientRepository.GetOne(lbo);
+            if(medicineService.areMedicinesExist(prescription.medicines) == false)
+            {
+                return false;
+            }
+
+            Patient patient = IPatientRepo.GetOne(lbo);
 
             foreach (string medicin in prescription.getMedicines())
             {
@@ -74,6 +78,18 @@ namespace Project.Hospital.Service
             }
             return true;
         }
+
+        public List<Prescription> GetAll()
+        {
+            return IPrescriptionRepo.GetAll();
+        }
+
+        public Prescription GetOne(int id)
+        {
+            return IPrescriptionRepo.GetOne(id);
+        }
+
+
 
     }
 }
