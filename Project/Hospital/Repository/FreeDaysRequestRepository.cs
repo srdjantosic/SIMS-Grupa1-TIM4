@@ -1,4 +1,5 @@
 ﻿using Project.Hospital.Model;
+using Project.Hospital.Repository.IRepository;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -7,15 +8,15 @@ using System.Threading.Tasks;
 
 namespace Project.Hospital.Repository
 {
-    public class FreeDaysRequestRepository
+    public class FreeDaysRequestRepository : IFreeDaysRequestRepository
     {
         private const string NOT_FOUND_ERROR = "Request with {0}:{1} can not be found!";
         private const string fileName = "freeDaysRequests.txt";
 
-        public FreeDaysRequest CreateRequest(FreeDaysRequest newRequestForFreeDays)
+        public FreeDaysRequest Create(FreeDaysRequest request)
         {
             Serializer<FreeDaysRequest> requestForFreeDaysSerializer = new Serializer<FreeDaysRequest>();
-            FreeDaysRequest requestForFreeDays = new FreeDaysRequest(newRequestForFreeDays.Lks, newRequestForFreeDays.Start, newRequestForFreeDays.End, newRequestForFreeDays.Reason,  newRequestForFreeDays.isEmergency);
+            FreeDaysRequest requestForFreeDays = new FreeDaysRequest(request.Lks, request.Start, request.End, request.Reason, request.isEmergency);
             requestForFreeDaysSerializer.oneToCSV(fileName, requestForFreeDays);
             return requestForFreeDays;
         }
@@ -27,21 +28,11 @@ namespace Project.Hospital.Repository
             return requestsForFreeDays;
         }
 
-        public Boolean UpdateRequest(FreeDaysRequest requestForChange, AcceptanceStatus.Status status, String declineReason)
+        public Boolean Save(List<FreeDaysRequest> requests)
         {
-            List<FreeDaysRequest> requests = GetAll();
-            foreach(FreeDaysRequest request in requests)
-            {
-                if(request.Lks == requestForChange.Lks && request.Start == requestForChange.Start && request.End == requestForChange.End)
-                {
-                    request.isActive = status;
-                    request.DeclineReason = declineReason;
-                    Serializer<FreeDaysRequest> requestSerializer = new Serializer<FreeDaysRequest>();
-                    requestSerializer.toCSV(fileName, requests);
-                    return true;
-                }
-            }
-            return false;
+            Serializer<FreeDaysRequest> requestSerializer = new Serializer<FreeDaysRequest>();
+            requestSerializer.toCSV(fileName, requests);
+            return true;
         }
 
     }

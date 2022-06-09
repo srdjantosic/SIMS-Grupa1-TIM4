@@ -75,7 +75,6 @@ namespace Hospital.Service
             return false;
         }
 
-        //TODO
         public Appointment UpdateTimeAndRoom(int id, DateTime dateTime, string roomName)
         {
             if (iAppointmentRepo.GetOne(id).isDeleted == true)
@@ -133,7 +132,7 @@ namespace Hospital.Service
             return iAppointmentRepo.GetOne(id);
         }
 
-        public List<Appointment> GetAllFutureByLks(DateTime dateTime, string lks)
+        public List<Appointment> GetAllInFutureByLks(DateTime dateTime, string lks)
         {
             List<Appointment> futureAppointments = new List<Appointment>();
 
@@ -146,7 +145,7 @@ namespace Hospital.Service
             }
             return futureAppointments;
         }
-        public List<Appointment> GetAllPastByLks(DateTime dateTime, string lks)
+        public List<Appointment> GetAllInPastByLks(DateTime dateTime, string lks)
         {
             List<Appointment> pastAppointments = new List<Appointment>();
 

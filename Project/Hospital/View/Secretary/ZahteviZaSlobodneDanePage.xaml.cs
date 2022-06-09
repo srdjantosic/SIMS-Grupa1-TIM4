@@ -40,7 +40,7 @@ namespace Project.Hospital.View.Secretary
 
             this.DataContext = this;
             Requests = new ObservableCollection<Model.FreeDaysRequest>();
-            foreach(Model.FreeDaysRequest request in requestForFreeDaysController.GetRequestsOnHold())
+            foreach(Model.FreeDaysRequest request in requestForFreeDaysController.GetAllOnHold())
             {
                 Requests.Add(new Model.FreeDaysRequest{ Lks = request.Lks, Start = request.Start, End = request.End, Reason = request.Reason, isEmergency = request.isEmergency });
             }

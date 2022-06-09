@@ -1,18 +1,18 @@
 ﻿using Project.Hospital.Exception;
 using Project.Hospital.Model;
+using Project.Hospital.Repository.IRepository;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 
 namespace Project.Hospital.Repository
 {
-    public class PrescriptionRepository
+    public class PrescriptionRepository : IPrescriptionRepository
     {
         private const string NOT_FOUND_ERROR = "Prescription with {0}:{1} can not be found!";
         private const string fileName = "prescription.txt";
         public PrescriptionRepository () { }
-
-        public Prescription CreatePrescription(Prescription newPrescription)
+        public Prescription Create(Prescription newPrescription)
         {
             Serializer<Prescription> prescriptionSerializer = new Serializer<Prescription>();
             Prescription prescription = new Prescription(newPrescription.Id,newPrescription.BeginOfUse, newPrescription.PeriodInDays);
@@ -20,37 +20,24 @@ namespace Project.Hospital.Repository
             prescriptionSerializer.oneToCSV(fileName, prescription);
             return prescription;
         }
-
-        public Boolean UpdatePrescription(Prescription newPrescription)
+        public Boolean Save(List<Prescription> prescriptions)
         {
-            List<Prescription> prescriptions = ShowPrescriptions();
-            foreach(Prescription prescription in prescriptions)
-            {
-                if(prescription.Id == newPrescription.Id)
-                {
-                    prescription.PeriodInDays = newPrescription.PeriodInDays;
-                    prescription.setMedicines(newPrescription.getMedicines());
-                    Serializer<Prescription> prescriptionSerializer = new Serializer<Prescription>();
-                    prescriptionSerializer.toCSV(fileName, prescriptions);
-                    return true;
-                }
-            }
-            return false;
+            Serializer<Prescription> prescriptionSerializer = new Serializer<Prescription>();
+            prescriptionSerializer.toCSV(fileName, prescriptions);
+            return true;
         }
-        public List<Prescription> ShowPrescriptions()
+        public List<Prescription> GetAll()
         {
-            List<Prescription> prescriptions = new List<Prescription>();
             Serializer<Prescription> prescriptiontSerializer = new Serializer<Prescription>();
-            prescriptions = prescriptiontSerializer.fromCSV(fileName);
-            return prescriptions;
+            return prescriptiontSerializer.fromCSV(fileName);
         }
 
-        public Prescription GetPrescription(int id)
+        public Prescription GetOne(int id)
         {
             try
             {
                 {
-                    return ShowPrescriptions().SingleOrDefault(prescription => prescription.Id == id);
+                    return GetAll().SingleOrDefault(prescription => prescription.Id == id);
                 }
             }
             catch (ArgumentException)

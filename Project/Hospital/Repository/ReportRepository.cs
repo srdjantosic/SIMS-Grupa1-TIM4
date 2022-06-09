@@ -50,10 +50,5 @@ namespace Project.Hospital.Repository
                 }
             }
         }
-
-
-
-
-
     }
 }

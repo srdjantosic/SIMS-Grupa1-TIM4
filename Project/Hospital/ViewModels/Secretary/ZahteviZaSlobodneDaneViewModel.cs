@@ -16,17 +16,17 @@ namespace Project.Hospital.ViewModels.Secretary
         public FreeDaysRequestRepository FreeDaysRequestRepository { get; set; }
         public FreeDaysRequestService FreeDaysRequestService { get; set; }
         public FreeDaysRequestController FreeDaysRequestController { get; set; }
-        public ObservableCollection<RequestView> Requests { get; set; }
+        public ObservableCollection<FreeDaysRequest> Requests { get; set; }
         public ZahteviZaSlobodneDaneViewModel()
         {
             FreeDaysRequestRepository = new Repository.FreeDaysRequestRepository();
             FreeDaysRequestService = new Service.FreeDaysRequestService(FreeDaysRequestRepository);
             FreeDaysRequestController = new FreeDaysRequestController(FreeDaysRequestService);
 
-            Requests = new ObservableCollection<RequestView>();
-            foreach(FreeDaysRequest request in FreeDaysRequestController.GetRequestsOnHold())
+            Requests = new ObservableCollection<Model.FreeDaysRequest>();
+            foreach(Model.FreeDaysRequest request in FreeDaysRequestController.GetAllOnHold())
             {
-                //Requests.Add(new RequestView{ Lks = request.Lks, Start = request.Start, End = request.End, Reason = request.Reason, isEmergency = request.isEmergency });
+                Requests.Add(new FreeDaysRequest{ Lks = request.Lks, Start = request.Start, End = request.End, Reason = request.Reason, isEmergency = request.isEmergency });
             }
         }
     }

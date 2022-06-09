@@ -52,7 +52,7 @@ namespace Project
 
 
             this.prescriptionRepository = new PrescriptionRepository();
-            this.prescriptionService = new PrescriptionService(prescriptionRepository, medicineRepository, patientRepository);
+            this.prescriptionService = new PrescriptionService(prescriptionRepository, medicineService, patientRepository);
             this.prescriptionController = new PrescriptionController(prescriptionService);
 
             this.appointmentRepository = new AppointmentRepository();

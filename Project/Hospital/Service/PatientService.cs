@@ -31,10 +31,11 @@ namespace Project.Hospital.Service
 
         public Boolean CreateReportAndPrescription(string lbo, Prescription prescription, Report report)
         {
-            Prescription newPrescription = prescriptionService.CreatePrescription(lbo, prescription);
+            Prescription newPrescription = prescriptionService.Create(lbo, prescription);
             if (newPrescription == null) {
                 return false;
             }
+
             Report newReport = reportService.Create(report.Diagnosis, report.Comment);
             if (newReport == null) { 
                 return false;
@@ -56,16 +57,12 @@ namespace Project.Hospital.Service
 
         public Boolean UpdateReportAndPrescription(string lbo, Prescription prescriptionToUpdate, Report reportToUpdate) 
         {
-            Boolean isPrescriptionUpdated = prescriptionService.UpdatePrescription(lbo, prescriptionToUpdate);
+            Boolean isPrescriptionUpdated = prescriptionService.Update(lbo, prescriptionToUpdate);
             if(isPrescriptionUpdated == false){
                 return false;
             }
-            Boolean isReportUpdated = reportService.Update(reportToUpdate.Id, reportToUpdate.Diagnosis, reportToUpdate.Comment);
-            if (isReportUpdated == false)
-            {
-                return false;
-            }
-            return true;
+
+            return reportService.Update(reportToUpdate.Id, reportToUpdate.Diagnosis, reportToUpdate.Comment);
         }
         public Boolean Update(String lbo, List<Allergen> allergens)
         {
