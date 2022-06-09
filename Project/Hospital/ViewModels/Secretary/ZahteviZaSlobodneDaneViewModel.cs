@@ -13,21 +13,40 @@ namespace Project.Hospital.ViewModels.Secretary
 {
     public class ZahteviZaSlobodneDaneViewModel : ViewModel
     {
-        public Repository.FreeDaysRequestRepository FreeDaysRequestRepository { get; set; }
-        public Service.FreeDaysRequestService FreeDaysRequestService { get; set; }
+        public FreeDaysRequestRepository FreeDaysRequestRepository { get; set; }
+        public FreeDaysRequestService FreeDaysRequestService { get; set; }
         public FreeDaysRequestController FreeDaysRequestController { get; set; }
-        public ObservableCollection<Model.FreeDaysRequest> Requests { get; set; }
+        public ObservableCollection<RequestView> Requests { get; set; }
         public ZahteviZaSlobodneDaneViewModel()
         {
             FreeDaysRequestRepository = new Repository.FreeDaysRequestRepository();
             FreeDaysRequestService = new Service.FreeDaysRequestService(FreeDaysRequestRepository);
             FreeDaysRequestController = new FreeDaysRequestController(FreeDaysRequestService);
 
-            Requests = new ObservableCollection<Model.FreeDaysRequest>();
-            foreach(Model.FreeDaysRequest request in FreeDaysRequestController.GetRequestsOnHold())
+            Requests = new ObservableCollection<RequestView>();
+            foreach(FreeDaysRequest request in FreeDaysRequestController.GetRequestsOnHold())
             {
-                Requests.Add(new Model.FreeDaysRequest{ Lks = request.Lks, Start = request.Start, End = request.End, Reason = request.Reason, isEmergency = request.isEmergency });
+                //Requests.Add(new RequestView{ Lks = request.Lks, Start = request.Start, End = request.End, Reason = request.Reason, isEmergency = request.isEmergency });
             }
+        }
+    }
+    public class RequestView
+    {
+        public String Doctor { get; set; }
+        public String Lks { get; set; }
+        public DateTime Start { get; set; }
+        public DateTime End { get; set; }
+        public String Reason { get; set; }
+        public Boolean isEmergency { get; set; }
+
+        public RequestView(String doctor, String lks, DateTime start, DateTime end, String reason, Boolean isEmergency)
+        {
+            this.Doctor = doctor;
+            this.Lks = lks;
+            this.Start = start;
+            this.End = end;
+            this.Reason = reason;
+            this.isEmergency = isEmergency;
         }
     }
 }

@@ -78,8 +78,13 @@ namespace Project.Hospital.View.Secretary
                 WorkPeople wp = item as WorkPeople;
                 participants.Add(wp.Designation);
             }
-            Meeting meeting = new Meeting(meetingController.GetAll().Count, " ", DateTime.Now, participants); 
+            DateTime dateAndTime = DateTime.Parse(dpDate.Text + " " + tbTime.Text);
+            String room = tbRoom.Text;
+            Meeting meeting = new Meeting(meetingController.GetAll().Count, room, dateAndTime, participants); 
             meetingController.ScheduleMeeting(meeting);
+
+            var page = new ZakazivanjeSastanka();
+            NavigationService.Navigate(page);
         }
     }
     public class WorkPeople

@@ -10,7 +10,7 @@ namespace Project.Hospital.Repository
     public class FreeDaysRequestRepository
     {
         private const string NOT_FOUND_ERROR = "Request with {0}:{1} can not be found!";
-        private const string fileName = "requestsForFreeDays.txt";
+        private const string fileName = "freeDaysRequests.txt";
 
         public FreeDaysRequest CreateRequest(FreeDaysRequest newRequestForFreeDays)
         {

@@ -24,7 +24,7 @@ namespace Project.Hospital.View.Secretary
         public PocetnaSekretar()
         {
             InitializeComponent();
-
+            
         }
 
         private void pacijenti(object sender, RoutedEventArgs e)
