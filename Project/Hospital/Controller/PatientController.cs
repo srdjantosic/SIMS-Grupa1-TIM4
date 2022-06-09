@@ -15,9 +15,9 @@ namespace Project.Hospital.Controller
             this.patientService = patientService;
         }
 
-        public Patient Create(String firstName, String lastName, Gender.Genders gender, String email, String phoneNumber, String jmbg, String lbo, DateTime birthday, String country, String city, String adress)
+        public Patient Create(Patient patient)
         {
-            return patientService.Create(firstName, lastName, gender, email, phoneNumber, jmbg, lbo, birthday, country, city, adress);
+            return patientService.Create(patient);
         }
 
         public Boolean Update(Patient patient)

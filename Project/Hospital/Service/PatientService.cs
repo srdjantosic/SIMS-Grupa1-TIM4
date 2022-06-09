@@ -24,11 +24,9 @@ namespace Project.Hospital.Service
             this.prescriptionService=prescriptionService;
             this.reportService=reportService;
         }
-
-        //TODO
-        public Patient Create(String firstName, String lastName, Gender.Genders gender, String email, String phoneNumber, String jmbg, String lbo, DateTime birthday, String country, String city, String adress)
+        public Patient Create(Patient patient)
         { 
-            return iPatientRepo.Create(firstName, lastName, gender, email, phoneNumber, jmbg, lbo, birthday, country, city, adress);
+            return iPatientRepo.Create(patient);
         }
 
         public Boolean CreateReportAndPrescription(string lbo, Prescription prescription, Report report)
@@ -42,8 +40,19 @@ namespace Project.Hospital.Service
             if (newReport == null) { 
                 return false;
             }
+            List<Patient> patients = GetAll(); 
 
-            return iPatientRepo.CreateReportAndPrescription(lbo, prescription.Id, report.Id);
+            foreach(Patient patient in patients)
+            {
+                if(patient.Lbo == lbo)
+                {
+                    patient.GetReportPrescriptinIds().Add(newPrescription.Id);
+                    patient.GetReportPrescriptinIds().Add(newReport.Id);
+                    iPatientRepo.Save(patients);
+                    return true;
+                }
+            }
+            return false;
         }
 
         public Boolean UpdateReportAndPrescription(string lbo, Prescription prescriptionToUpdate, Report reportToUpdate) 

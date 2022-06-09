@@ -13,33 +13,11 @@ namespace Project.Hospital.Repository
         private const string fileName = "patients.txt";
         public PatientRepository() { }
 
-        public Patient Create(String firstName, String lastName, Gender.Genders gender, String email, String phoneNumber, String jmbg, String lbo, DateTime birthday, String country, String city, String adress)
+        public Patient Create(Patient patient)
         {
             Serializer<Patient> patientSerializer = new Serializer<Patient>();
-            Patient patient = new Patient(firstName, lastName, gender, email, phoneNumber, jmbg, lbo, birthday, country, city, adress);
             patientSerializer.oneToCSV(fileName, patient);
             return patient;
-        }
-
-        //DA LI TREBA U REPORT?
-        public Boolean CreateReportAndPrescription(string lbo, int prescriptionId, int reportId)
-        {
-            List<Patient> patients = GetAll();
-
-            foreach (Patient patient2 in patients)
-            {
-                if (patient2.Lbo == lbo)
-                {
-                    patient2.GetReportPrescriptinIds().Add(prescriptionId);
-                    patient2.GetReportPrescriptinIds().Add(reportId);
-                    Serializer<Patient> patientSerializer = new Serializer<Patient>();
-                    patientSerializer.toCSV(fileName, patients);
-
-                    return true;
-                }
-
-            }
-            throw new NotFoundException(string.Format(NOT_FOUND_ERROR, "lbo", lbo));
         }
         public void Save(List<Patient> patients)
         {

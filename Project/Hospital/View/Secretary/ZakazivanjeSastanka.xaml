@@ -68,16 +68,19 @@
                 <ColumnDefinition></ColumnDefinition>
                 <ColumnDefinition></ColumnDefinition>
                 <ColumnDefinition></ColumnDefinition>
+                <ColumnDefinition></ColumnDefinition>
             </Grid.ColumnDefinitions>
             <Grid.RowDefinitions>
                 <RowDefinition></RowDefinition>
                 <RowDefinition></RowDefinition>
             </Grid.RowDefinitions>
             <Label Grid.Column="0" Grid.Row="0" FontSize="16" Height="30" HorizontalContentAlignment="Center" VerticalAlignment="Bottom">Datum sastanka :</Label>
-            <DatePicker Grid.Column="0" Grid.Row="1" Margin="79,0,10,51"/>
+            <DatePicker Name="dpDate" Grid.Column="0" Grid.Row="1" Margin="41,0,10,51"/>
             <Label Grid.Column="1" Grid.Row="0" FontSize="16" Height="30" HorizontalContentAlignment="Center" VerticalAlignment="Bottom">Vreme sastanka :</Label>
-            <TextBox Grid.Column="1" Grid.Row="1" Height="20" Margin="79,0,10,51"/>
-            <Button Grid.Column="2" Height="50" Width="100" Margin="88,50,87,50" Click="Button_Click" Grid.RowSpan="2">Zakazi</Button>
+            <TextBox Name="tbTime" Grid.Column="1" Grid.Row="1" Height="20" Margin="48,2,10,53"/>
+            <Label Grid.Column="2" Grid.Row="0" FontSize="16" Height="30" HorizontalContentAlignment="Left" VerticalAlignment="Bottom" Margin="42,0,0,0">Prostorija :</Label>
+            <TextBox Name="tbRoom" Grid.Column="2" Grid.Row="1" Height="20" Margin="48,2,10,53"/>
+            <Button Grid.Column="3" Height="50" Width="100"  Click="Button_Click" Grid.RowSpan="2">Zakazi</Button>
         </Grid>
     </Grid>
 </Page>
