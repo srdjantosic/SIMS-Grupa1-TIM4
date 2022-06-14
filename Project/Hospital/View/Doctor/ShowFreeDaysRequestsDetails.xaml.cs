@@ -25,7 +25,7 @@ namespace Project.Hospital.View.Doctor
             this.DataContext = new ShowFreeDaysRequestsDetailsViewModel(request, lks);
 
             tbReason.Text = request.Reason;
-            tbDecliningReason.Text = request.Reason;
+            tbDecliningReason.Text = request.DeclineReason;
         }
     }
 }
