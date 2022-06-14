@@ -3,11 +3,16 @@
       xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:cmd="clr-namespace:Project.Hospital.View.Secretary.Commands"
       xmlns:local="clr-namespace:Project.Hospital.View.Secretary"
       mc:Ignorable="d" 
       d:DesignHeight="900" d:DesignWidth="824"
       Title="ZakazivanjePregledaPage">
 
+    <Page.CommandBindings>
+        <CommandBinding Command="cmd:RoutedCommand.Back" CanExecute="Back_CanExecute" Executed="Back_Executed"></CommandBinding>
+    </Page.CommandBindings>
+    
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto"></RowDefinition>
@@ -89,10 +94,14 @@
                 <ColumnDefinition></ColumnDefinition>
             </Grid.ColumnDefinitions>
             <GroupBox Header="Izbor prioriteta" Height="100" Margin="37,0,0,100">
-                <ComboBox Name="cbPriority" Height="30" Width="250" Margin="0,0,85,0">
-                    <ComboBoxItem>Lekar</ComboBoxItem>
-                    <ComboBoxItem>Datum</ComboBoxItem>
-                </ComboBox>
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition></ColumnDefinition>
+                        <ColumnDefinition></ColumnDefinition>
+                    </Grid.ColumnDefinitions>
+                    <RadioButton Grid.Column="0" Name="rbDoctor" Margin="103,27,10,33" KeyDown="rb1_KeyDown">Lekar</RadioButton>
+                    <RadioButton Grid.Column="1" Name="rbDateAndTime" Margin="30,27,83,33" KeyDown="rb2_KeyDown">Datum i vreme</RadioButton>
+                </Grid>
             </GroupBox>
             <Button Grid.Column="1" Width="100" Height="50" Margin="40,126,184,74" Click="odustani">Odustani</Button>
             <Button Grid.Column="1" Width="100" Height="50" Margin="184,126,40,74" Click="zakazi">Zakazi</Button>

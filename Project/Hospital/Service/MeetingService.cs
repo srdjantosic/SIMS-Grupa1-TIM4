@@ -12,14 +12,18 @@ namespace Project.Hospital.Service
     public class MeetingService
     {
         private IMeetingRepository iMeetingRepo;
-        private DoctorService doctorService;
+        private ParticipantsService participantsService;
         private NotificationService notificationService;
 
-        public MeetingService(IMeetingRepository iMeetingRepo, DoctorService doctorService, NotificationService notificationService)
+        public MeetingService(IMeetingRepository iMeetingRepo, ParticipantsService participantsService, NotificationService notificationService)
         {
             this.iMeetingRepo = iMeetingRepo;
-            this.doctorService = doctorService;
+            this.participantsService = participantsService;
             this.notificationService = notificationService;
+        }
+        public MeetingService(IMeetingRepository iMeetingRepo)
+        {
+            this.iMeetingRepo = iMeetingRepo;
         }
         public Meeting Create(Meeting newMeeting)
         {
@@ -33,16 +37,60 @@ namespace Project.Hospital.Service
         {
             return iMeetingRepo.GetOne(id);
         }
-        public void ScheduleMeeting(Meeting newMeeting)
+        public List<Meeting> GetAllByRoom(String roomName)
         {
-            if (Create(newMeeting) != null)
+            List<Meeting> meetings = new List<Meeting>();
+            foreach(Meeting meeting in GetAll())
             {
-                foreach(string participant in newMeeting.Participants)
+                if(meeting.Room == roomName)
                 {
-                    Notification newNotification = new Notification(participant, DateTime.Now, "Sastanak zakazan za " + newMeeting.MaintenanceTime.ToString());
-                    notificationService.Create(newNotification);
+                    meetings.Add(meeting);
                 }
             }
+            return meetings;
+        }
+        public List<Meeting> GetAllByParticipant(String designation)
+        {
+            List<Meeting> meetings = new List<Meeting>();
+            foreach(Meeting meeting in GetAll())
+            {
+                foreach(String participant in meeting.Participants)
+                {
+                    if(participant == designation)
+                    {
+                        meetings.Add(meeting);
+                    }
+                }
+            }
+            return meetings;
+        }
+        public Boolean isSelectedMeetingTimeFree(String roomName, DateTime dateAndTime)
+        {
+            foreach(Meeting meeting in GetAllByRoom(roomName))
+            {
+                if(meeting.MaintenanceTime.Date == dateAndTime.Date)
+                {
+                    if (meeting.MaintenanceTime > dateAndTime.Add(new TimeSpan(-1, 0, 0)) || dateAndTime.Add(new TimeSpan(1, 0, 0)) > meeting.MaintenanceTime)
+                    {
+                        return false;
+                    }
+                }
+            }
+            return true;
+        }
+        public Meeting ScheduleMeeting(Meeting newMeeting)
+        {
+            if (isSelectedMeetingTimeFree(newMeeting.Room, newMeeting.MaintenanceTime) && participantsService.isParticipantsFree(newMeeting))
+            {
+                Meeting scheduledMeeting = Create(newMeeting);
+                foreach(string participant in newMeeting.Participants)
+                {
+                    Notification newNotification = new Notification(participant, DateTime.Now, "Sastanak zakazan za " + scheduledMeeting.MaintenanceTime.ToString());
+                    notificationService.Create(newNotification);
+                }
+                return scheduledMeeting;
+            }
+            return null;
         }
     }
 }

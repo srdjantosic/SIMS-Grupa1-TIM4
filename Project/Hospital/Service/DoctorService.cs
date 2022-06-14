@@ -1,9 +1,5 @@
-﻿using Project.Hospital.Repository;
-using System;
+﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using Project.Hospital.Model;
 using Project.Hospital.Repository.IRepository;
 
@@ -17,7 +13,6 @@ namespace Project.Hospital.Service
         {
             this.iDoctorRepo = iDoctorRepo;
         }
-
         public List<Doctor> GetAll()
         {
             return iDoctorRepo.GetAll();
@@ -49,7 +44,6 @@ namespace Project.Hospital.Service
                 }
             }
             return doctorsByArea;
-        }
-        
+        } 
     }
 }

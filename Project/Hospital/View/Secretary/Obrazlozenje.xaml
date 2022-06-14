@@ -12,9 +12,9 @@
             <RowDefinition></RowDefinition>
         </Grid.RowDefinitions>
         <GroupBox Grid.Row="0" Header="Razlog odbijanja zahteva" Margin="25,25,25,0">
-            <TextBox Name="tbExplanation" Margin="10" Padding="10"></TextBox>
+            <TextBox Name="tbExplanation" Margin="10" Padding="10" Text="{Binding Explanation, UpdateSourceTrigger=PropertyChanged}"></TextBox>
         </GroupBox>
-        <Button Grid.Row="1" Height="50" Width="100" Margin="70,20,200,20" Click="close">Odustani</Button>
-        <Button Grid.Row="1" Height="50" Width="100" Margin="200,20,70,20" Click="confirm">Potvrdi</Button>
+        <Button Grid.Row="1" Height="50" Width="100" Margin="70,20,200,20" Command="{Binding Quit}">Odustani</Button>
+        <Button Grid.Row="1" Height="50" Width="100" Margin="200,20,70,20" Command="{Binding Confirm}" >Potvrdi</Button>
     </Grid>
 </Window>

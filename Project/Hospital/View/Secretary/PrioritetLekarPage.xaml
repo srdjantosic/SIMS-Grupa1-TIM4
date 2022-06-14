@@ -36,7 +36,7 @@
                 </WrapPanel>
             </Grid>
         </GroupBox>
-        <DataGrid Grid.Row="2" x:Name="dataGridAppointments" HorizontalAlignment="Center" RowHeight="50" AlternatingRowBackground="LightGray"
+        <DataGrid Grid.Row="2" x:Name="dataGridAppointments" HorizontalAlignment="Center" RowHeight="50" AlternatingRowBackground="WhiteSmoke"
                       VerticalAlignment="Center" Width="676" Height="480" Loaded="dataGridAppointments_Loaded">
         </DataGrid>
     </Grid>

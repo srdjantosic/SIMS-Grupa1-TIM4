@@ -8,6 +8,11 @@ using Project.Hospital.Model;
 using Project.Hospital.Repository;
 using Project.Hospital.Service;
 using Project.Hospital.Controller;
+using System.Windows.Input;
+using System.Windows;
+using Project.Hospital.View.Secretary.Commands;
+using System.Windows.Controls;
+using Project.Hospital.View.Secretary;
 
 namespace Project.Hospital.ViewModels.Secretary
 {
@@ -16,32 +21,62 @@ namespace Project.Hospital.ViewModels.Secretary
         public FreeDaysRequestRepository FreeDaysRequestRepository { get; set; }
         public FreeDaysRequestService FreeDaysRequestService { get; set; }
         public FreeDaysRequestController FreeDaysRequestController { get; set; }
-        public ObservableCollection<FreeDaysRequest> Requests { get; set; }
+        public DoctorRepository DoctorRepository { get; set; }
+        public DoctorService DoctorService { get; set; }
+        public DoctorController DoctorController { get; set; }
+        public ObservableCollection<RequestView> Requests { get; set; }
+        private RequestView selectedRequest;
         public ZahteviZaSlobodneDaneViewModel()
         {
-            FreeDaysRequestRepository = new Repository.FreeDaysRequestRepository();
-            FreeDaysRequestService = new Service.FreeDaysRequestService(FreeDaysRequestRepository);
-            FreeDaysRequestController = new FreeDaysRequestController(FreeDaysRequestService);
+            this.FreeDaysRequestRepository = new FreeDaysRequestRepository();
+            this.FreeDaysRequestService = new FreeDaysRequestService(FreeDaysRequestRepository);
+            this.FreeDaysRequestController = new FreeDaysRequestController(FreeDaysRequestService);
+            this.DoctorRepository = new DoctorRepository();
+            this.DoctorService = new DoctorService(DoctorRepository);
+            this.DoctorController = new DoctorController(DoctorService);
 
-            Requests = new ObservableCollection<Model.FreeDaysRequest>();
-            foreach(Model.FreeDaysRequest request in FreeDaysRequestController.GetAllOnHold())
+            Requests = new ObservableCollection<RequestView>();
+            foreach (FreeDaysRequest request in FreeDaysRequestController.GetAllOnHold())
             {
-                Requests.Add(new FreeDaysRequest{ Lks = request.Lks, Start = request.Start, End = request.End, Reason = request.Reason, isEmergency = request.isEmergency });
+                Model.Doctor doctor = DoctorController.GetOne(request.Lks);
+                RequestView requestView = new RequestView(doctor.firstName + " " + doctor.lastName, request.Lks, request.Start.ToLongDateString(), request.End.ToLongDateString(), request.Reason, request.isEmergency);
+                Requests.Add(requestView);
+            }
+
+            viewDetails = new DelegateCommand<string>(
+                (s) => { MessageBox.Show(selectedRequest.DoctorName); },
+                (s) => { return (selectedRequest != null); }
+                );
+        }
+        public RequestView SelectedRequest
+        {
+            get { return selectedRequest; }
+            set
+            {
+                selectedRequest = value;
+                viewDetails.RaiseCanExecuteChanged();
             }
         }
+
+        private readonly DelegateCommand<string> viewDetails;
+        public DelegateCommand<string> ViewDetails
+        {
+            get { return viewDetails; }
+        }
+        
     }
     public class RequestView
     {
-        public String Doctor { get; set; }
+        public String DoctorName { get; set; }
         public String Lks { get; set; }
-        public DateTime Start { get; set; }
-        public DateTime End { get; set; }
+        public String Start { get; set; }
+        public String End { get; set; }
         public String Reason { get; set; }
         public Boolean isEmergency { get; set; }
 
-        public RequestView(String doctor, String lks, DateTime start, DateTime end, String reason, Boolean isEmergency)
+        public RequestView(String doctorName, String lks, String start, String end, String reason, Boolean isEmergency)
         {
-            this.Doctor = doctor;
+            this.DoctorName = doctorName;
             this.Lks = lks;
             this.Start = start;
             this.End = end;

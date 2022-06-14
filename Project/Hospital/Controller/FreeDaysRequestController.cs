@@ -31,7 +31,7 @@ namespace Project.Hospital.Controller
         {
             return forDaysServiceRequest.Accept(requestForChange);
         }
-        public Boolean Decline(FreeDaysRequest requestForChange, String explanation)
+        public Boolean Decline(FreeDaysRequest requestForChange, String explanation = "/")
         {
             return forDaysServiceRequest.Decline(requestForChange, explanation);
         }
