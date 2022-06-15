@@ -12,13 +12,13 @@ namespace Project.Hospital.Service
     public class MeetingService
     {
         private IMeetingRepository iMeetingRepo;
-        private ParticipantsService participantsService;
+        private ScheduleMeetingService scheduleMeetingService;
         private NotificationService notificationService;
 
-        public MeetingService(IMeetingRepository iMeetingRepo, ParticipantsService participantsService, NotificationService notificationService)
+        public MeetingService(IMeetingRepository iMeetingRepo, ScheduleMeetingService scheduleMeetingService, NotificationService notificationService)
         {
             this.iMeetingRepo = iMeetingRepo;
-            this.participantsService = participantsService;
+            this.scheduleMeetingService = scheduleMeetingService;
             this.notificationService = notificationService;
         }
         public MeetingService(IMeetingRepository iMeetingRepo)
@@ -64,23 +64,9 @@ namespace Project.Hospital.Service
             }
             return meetings;
         }
-        public Boolean isSelectedMeetingTimeFree(String roomName, DateTime dateAndTime)
-        {
-            foreach(Meeting meeting in GetAllByRoom(roomName))
-            {
-                if(meeting.MaintenanceTime.Date == dateAndTime.Date)
-                {
-                    if (meeting.MaintenanceTime > dateAndTime.Add(new TimeSpan(-1, 0, 0)) || dateAndTime.Add(new TimeSpan(1, 0, 0)) > meeting.MaintenanceTime)
-                    {
-                        return false;
-                    }
-                }
-            }
-            return true;
-        }
         public Meeting ScheduleMeeting(Meeting newMeeting)
         {
-            if (isSelectedMeetingTimeFree(newMeeting.Room, newMeeting.MaintenanceTime) && participantsService.isParticipantsFree(newMeeting))
+            if (scheduleMeetingService.isRoomFreeInSelectedTime(newMeeting.Room, newMeeting.MaintenanceTime) && scheduleMeetingService.areParticipantsFree(newMeeting))
             {
                 Meeting scheduledMeeting = Create(newMeeting);
                 foreach(string participant in newMeeting.Participants)

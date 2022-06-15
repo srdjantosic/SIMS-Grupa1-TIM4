@@ -32,7 +32,7 @@ namespace Project.Hospital.View.Secretary
         private MeetingController meetingController;
         private DoctorRepository doctorRepository;
         private DoctorService doctorService;
-        private ParticipantsService participantsService;
+        private ScheduleMeetingService participantsService;
         private NotificationRepository notificationRepository;
         private NotificationService notificationService;
         private SecretaryRepository secretaryRepository;
@@ -52,7 +52,7 @@ namespace Project.Hospital.View.Secretary
             this.notificationService = new NotificationService(notificationRepository);
             this.meetingRepository = new MeetingRepository();
             this.meetingService2 = new MeetingService(meetingRepository);
-            this.participantsService = new ParticipantsService(doctorService, appointmentService, meetingService2);
+            this.participantsService = new ScheduleMeetingService(doctorService, appointmentService, meetingService2);
             this.meetingService = new MeetingService(meetingRepository, participantsService, notificationService);
             this.meetingController = new MeetingController(meetingService);
             this.secretaryRepository = new SecretaryRepository();
