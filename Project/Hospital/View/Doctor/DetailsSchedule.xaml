@@ -9,11 +9,25 @@
       Title="DetailsSchedule">
     <Grid>
         <Grid.RowDefinitions>
-                <RowDefinition/>
-                <RowDefinition/>
+                <RowDefinition Height="20"/>
+                <RowDefinition Height="250"/>
+                <RowDefinition Height="180"/>
         </Grid.RowDefinitions>
 
-            <GroupBox Grid.Row="0" Header="Details" Width="550" Height="200" BorderBrush="Black" Padding="10,0,0,0">
+        <ToggleButton x:Name="TogglePopupButton" Height="20" Width="50" HorizontalAlignment="Center" Grid.Row="0" VerticalAlignment="Center" Margin="0,0,500,0">
+            <StackPanel>
+                <Popup Name="myPopup" IsOpen="{Binding IsChecked, ElementName=TogglePopupButton}">
+                    <Border BorderThickness="1">
+                        <TextBlock Name="myPopupText" Background="#FFA9E1F4"  Foreground="Black " TextAlignment="Center" Padding="10" TextWrapping="Wrap" Width="400" Height="80">
+                            	Ukoliko zelite da azurirate pregled kliknite na Modify, a da obrisete pregled kliknite na Delete. Ukoliko zelite da izdate recept i anamnezu kliknite na Set diagnosis. Ukoliko zelida da zakazete pregled kod drugog doktora kliknite Create appointment.
+                        </TextBlock>
+                    </Border>
+                </Popup>
+                <TextBlock Width="50" Height="20"><Run  Text="   Help" /></TextBlock>
+            </StackPanel>
+        </ToggleButton>
+
+        <GroupBox Grid.Row="1" Header="Details" Width="550" Height="200" BorderBrush="Black" Padding="10,0,0,0" Margin="0,0,0,50">
                 <Grid>
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition/>
@@ -73,17 +87,17 @@
                 </Grid>
             </GroupBox>
 
-        <Grid Grid.Row="1"  Width="550" Height="200">
+        <Grid Grid.Row="2">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition/>
                 <ColumnDefinition/>
             </Grid.ColumnDefinitions>
 
-            <DataGrid Grid.Column="0" x:Name="dataGridMedicalChard" HorizontalAlignment="Left" VerticalAlignment="Top" Loaded="dataGridMedicalChard_Loaded"/>
+            <DataGrid Grid.Column="0" x:Name="dataGridMedicalChard" HorizontalAlignment="Left" VerticalAlignment="Top" Loaded="dataGridMedicalChard_Loaded" Margin="50,0,0,0"/>
 
-            <Button Grid.Column="1" Width="80" Height="20" Margin="170,130,0,0" Click="btnSetDiagnosis">Set diagnosis</Button>
+            <Button Grid.Column="1" Width="80" Height="20" Margin="150,130,0,0" Click="btnSetDiagnosis">Set diagnosis</Button>
 
-            <Button Grid.Column="1" Width="120" Height="20" Margin="0,130,60,0" Click="btnCreateAppointment">Create appointment</Button>
+            <Button Grid.Column="1" Width="120" Height="20" Margin="0,130,80,0" Click="btnCreateAppointment">Create appointment</Button>
 
         </Grid>
     </Grid>

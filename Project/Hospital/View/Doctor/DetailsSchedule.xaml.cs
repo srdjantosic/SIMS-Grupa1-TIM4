@@ -165,17 +165,9 @@ private void updatePatientsMedicalChard(object sender, RoutedEventArgs e)
 
         private void btnDelete(object sender, RoutedEventArgs e)
         {
-            MessageBoxResult result = MessageBox.Show("Do you want to delete appointment?", "Alert", MessageBoxButton.YesNo);
-            switch (result)
-            {
-                case MessageBoxResult.Yes:
-                    appointmentController.Delete(currentAppointment.Id);
-                    var schedule = new Schedule(currentAppointment.Lks);
-                    NavigationService.Navigate(schedule);
-                    break;
-                case MessageBoxResult.No:
-                    break;
-            }
+            appointmentController.Delete(currentAppointment.Id);
+            var schedule = new Schedule(currentAppointment.Lks);
+            NavigationService.Navigate(schedule);
         }
 
         private void btnSetDiagnosis(object sender, RoutedEventArgs e)

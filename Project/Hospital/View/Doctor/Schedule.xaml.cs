@@ -34,6 +34,8 @@ namespace Project.Hospital.View.Doctor
         public ObservableCollection<Event> Events { get; set; }
 
         string loggedDoctor = "";
+        int appointmentId = 1;
+        Appointment choosenAppointment = new Appointment();
         public Schedule(string lks)
         {
             loggedDoctor = lks;
@@ -79,7 +81,10 @@ namespace Project.Hospital.View.Doctor
                 Event Event = new Event(appointment2.Id, eventName, appointment2.dateTime, appointment2.dateTime.AddMinutes(45));
                 Events.Add(Event);
             }
-            //shSchedule.ItemsSource = Events; OVO
+
+            choosenAppointment =  appointmentController.GetOne(appointmentId);
+
+            shSchedule.ItemsSource = Events;
         }
 
         public class Event
@@ -124,8 +129,8 @@ namespace Project.Hospital.View.Doctor
 
         private void btnDetailsSchedule(object sender, RoutedEventArgs e)
         {
-            Appointment appointment = (Appointment)dgSchedule.SelectedItems[0];
-            var detailsSchedule = new DetailsSchedule(appointment);
+            //Appointment appointment = (Appointment)dgSchedule.SelectedItems[0];
+            var detailsSchedule = new DetailsSchedule(choosenAppointment);
             NavigationService.Navigate(detailsSchedule);
         }
     }

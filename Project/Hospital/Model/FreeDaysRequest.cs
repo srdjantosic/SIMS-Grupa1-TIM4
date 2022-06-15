@@ -14,7 +14,7 @@ namespace Project.Hospital.Model
         public string Reason { get; set; }
         public Boolean isEmergency { get; set; }
         public AcceptanceStatus.Status isActive { get; set; } = AcceptanceStatus.Status.OnHold;
-        public String DeclineReason { get; set; } = "/";
+        public string DeclineReason { get; set; } = "/";
 
         public FreeDaysRequest() { }
 

@@ -20,7 +20,7 @@
         </Grid.RowDefinitions>
         <TextBlock Grid.Row="0" Height="80" FontSize="32" FontWeight="Bold" Padding="30,20">Slobodni termini izabranog lekara</TextBlock>
         <DataGrid Grid.Row="1" x:Name="dataGridAppointments" HorizontalAlignment="Center"
-                      VerticalAlignment="Top" Loaded="dataGridAppointments_Loaded" Height="750" Width="780" VerticalContentAlignment="Center" RowHeight="50" AlternatingRowBackground="LightGray">
+                      VerticalAlignment="Top" Loaded="dataGridAppointments_Loaded" Height="750" Width="780" VerticalContentAlignment="Center" RowHeight="50" AlternatingRowBackground="WhiteSmoke">
         </DataGrid>
     </Grid>
 </Page>

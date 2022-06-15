@@ -36,8 +36,14 @@ namespace Project.Hospital.View.Doctor
 
         private void btnCreate(object sender, RoutedEventArgs e)
         {
+            if (dpStartDate.Text.Equals("") || boxStartTime.Text.Equals("Time") || cbNewRoom.Text.Equals("Room"))
+            {
+                lblMsg.Content = "You must fill every field!";
+                return;
+            }
+
             CreatePersonalTermViewModel cptvm = new CreatePersonalTermViewModel(lks);
-            cptvm.btnCreate(sender, e, dpStartDate.Text, boxStartTime.Text, (Patient)dgShowPatients.SelectedItems[0]);
+            cptvm.btnCreate(sender, e, dpStartDate.Text, boxStartTime.Text, (Patient)dgShowPatients.SelectedItems[0], cbNewRoom.Text);
             var createPersonalTerm = new CreatePersonalTerm(lks);
             NavigationService.Navigate(createPersonalTerm);
         }

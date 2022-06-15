@@ -9,13 +9,27 @@
       Title="CreateAppointmentForAnotherDoctor">
     <Grid>
         <Grid.RowDefinitions>
-            <RowDefinition Height="50"/>
+            <RowDefinition Height="Auto"/>
             <RowDefinition Height="80"/>
+            <RowDefinition Height="90"/>
             <RowDefinition Height="200"/>
-            <RowDefinition Height="80"/>
+            <RowDefinition Height="30"/>
         </Grid.RowDefinitions>
 
         <Label FontSize="22" Grid.Row="0">Create appointment for another doctor</Label>
+
+        <ToggleButton x:Name="TogglePopupButton" Height="20" Width="50" HorizontalAlignment="Center" VerticalAlignment="Center" Grid.Row="1" Margin="0,0,550,60">
+            <StackPanel>
+                <Popup Name="myPopup" IsOpen="{Binding IsChecked, ElementName=TogglePopupButton}">
+                    <Border BorderThickness="1">
+                        <TextBlock Name="myPopupText" Background="#FFA9E1F4"  Foreground="Black " TextAlignment="Center" Padding="10" TextWrapping="Wrap" Width="400" Height="50">
+                            	Popunite sva polja i izaberite lekara kod kog zelite da zakazete pregled. Prioritet ce se izabrati ukoliko je izabrani lekar zauzet u izabrano vreme.
+                        </TextBlock>
+                    </Border>
+                </Popup>
+                <TextBlock Width="50" Height="20"><Run  Text="   Help" /></TextBlock>
+            </StackPanel>
+        </ToggleButton>
 
         <Grid Grid.Row="1">
             <Grid.ColumnDefinitions>
@@ -26,10 +40,10 @@
                 <ColumnDefinition Width="110"/>
             </Grid.ColumnDefinitions>
 
-            <Label Grid.Column="0" Margin="20,35,0,0">Choose dates and times:</Label>
+            <Label Grid.Column="0" Margin="20,50,0,0">Choose dates and times:</Label>
 
-            <DatePicker Grid.Column="1" Margin="10,20,0,0" Width="110" Height="25" Name="dpStartDate"></DatePicker>
-            <ComboBox Grid.Column="2" Name="boxStartTime" Margin="20,20,0,0" Height="20" Width="90">
+            <DatePicker Grid.Column="1" Margin="10,45,0,0" Width="110" Height="25" Name="dpStartDate"></DatePicker>
+            <ComboBox Grid.Column="2" Name="boxStartTime" Margin="20,45,0,0" Height="20" Width="90">
                 <ComboBoxItem IsSelected="True">Start time</ComboBoxItem>
                 <ComboBoxItem>08:00</ComboBoxItem>
                 <ComboBoxItem>08:45</ComboBoxItem>
@@ -44,8 +58,8 @@
                 <ComboBoxItem>15:30</ComboBoxItem>
             </ComboBox>
 
-            <DatePicker Grid.Column="3" Margin="20,20,0,0" Width="110" Height="25" Name="dpEndDate"></DatePicker>
-            <ComboBox Grid.Column="4" Name="boxEndTime" Margin="20,20,0,0" Height="20" Width="90">
+            <DatePicker Grid.Column="3" Margin="20,45,0,0" Width="110" Height="25" Name="dpEndDate"></DatePicker>
+            <ComboBox Grid.Column="4" Name="boxEndTime" Margin="20,45,0,0" Height="20" Width="90">
                 <ComboBoxItem IsSelected="True">End time</ComboBoxItem>
                 <ComboBoxItem>08:00</ComboBoxItem>
                 <ComboBoxItem>08:45</ComboBoxItem>
@@ -62,15 +76,19 @@
 
         </Grid>
 
-        <Grid Grid.Row="2">
-            <Grid.RowDefinitions>
-                <RowDefinition Height="30"/>
-                <RowDefinition/>
-            </Grid.RowDefinitions>
+        <Label Grid.Row="2" Margin="20,20,0,0">Choose priority:</Label>
 
-            <Label Grid.Row="0" Margin="20,0,0,0" FontSize="15">Doctors:</Label>
+        <ComboBox Grid.Row="2" Name="boxPriority" Height="25" Width="110" Margin="0,0,200,20">
+            <ComboBoxItem IsSelected="True">Priority</ComboBoxItem>
+            <ComboBoxItem>Time</ComboBoxItem>
+            <ComboBoxItem>Doctor</ComboBoxItem>
+        </ComboBox>
 
-            <DataGrid Grid.Row="1" x:Name="dgCAForAnotherDoctor" ItemsSource="{Binding doctors}" IsReadOnly="True" SelectionMode="Single" AutoGenerateColumns="False" 
+        <Label Grid.Row="2" Margin="20,60,0,0" FontSize="15">Doctors:</Label>
+
+        <Grid Grid.Row="3">
+
+            <!--<DataGrid Grid.Row="1" x:Name="dgCAForAnotherDoctor" ItemsSource="{Binding doctors}" IsReadOnly="True" SelectionMode="Single" AutoGenerateColumns="False" 
                             HorizontalAlignment="Left" VerticalAlignment="Top" Margin="25,0,0,0">
                 <DataGrid.Columns>
                     <DataGridTextColumn Header="First name" Binding="{Binding firstName}"/>
@@ -79,16 +97,28 @@
                     <DataGridTextColumn Header="LKS" Binding="{Binding lks}"/>
                     <DataGridTextColumn Header="Medicine area" Binding="{Binding medicineArea}"/>
                 </DataGrid.Columns>
+            </DataGrid>-->
+
+            <DataGrid Height="170" Width="452" Margin="0,0,145,0" VerticalContentAlignment="Center" ItemsSource="{Binding Path=doctors}" IsReadOnly="True" AutoGenerateColumns="False" AlternatingRowBackground="LightGray" x:Name="dgCAForAnotherDoctor" SelectionMode="Single">
+                <DataGrid.Columns>
+                    <DataGridTextColumn Header="First name" Binding="{Binding firstName}"/>
+                    <DataGridTextColumn Header="Last name" Binding="{Binding lastName}"/>
+                    <DataGridTextColumn Header="Email" Binding="{Binding email}"/>
+                    <DataGridTextColumn Header="LKS" Binding="{Binding lks}"/>
+                    <DataGridTextColumn Header="Medicine area" Binding="{Binding medicineArea}"/>
+                    <DataGridTemplateColumn Width="90">
+                        <DataGridTemplateColumn.CellTemplate>
+                            <DataTemplate>
+                                <Button Content="Create" Margin="2" Click="btnSet"/>
+                            </DataTemplate>
+                        </DataGridTemplateColumn.CellTemplate>
+                    </DataGridTemplateColumn>
+                </DataGrid.Columns>
             </DataGrid>
-
         </Grid>
+        
+        <Label Grid.Row="4" Name="lblMsg" Foreground="Red" FontWeight="Bold" Width="170" Height="30" Margin="0,0,50,0" FontSize="14"></Label>
 
-        <ComboBox Grid.Row="3" Name="boxPriority" Height="25" Width="120" Margin="320,0,0,20">
-            <ComboBoxItem IsSelected="True">Choose priority</ComboBoxItem>
-            <ComboBoxItem>Time</ComboBoxItem>
-            <ComboBoxItem>Doctor</ComboBoxItem>
-        </ComboBox>
-
-        <Button Grid.Row="3" Width="50" Height="20" Margin="550,30,0,0" Click="btnSet">Set</Button>
+        <!--<Button Grid.Row="3" Width="50" Height="20" Margin="550,30,0,0" Click="btnSet">Create</Button>-->
     </Grid>
 </Page>

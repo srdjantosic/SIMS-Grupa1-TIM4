@@ -53,7 +53,8 @@
                       VerticalAlignment="Top" Width="600" Height="280" Loaded="dataGridAppointments_Loaded" Margin="20,0,0,0">
                 </DataGrid>
 
-                <Button Grid.Row="2" Width="100" Height="20" Margin="490,0,0,20" Click="btnCreate">Create</Button>
+                <Button Grid.Row="2" Width="70" Height="20" Margin="520,20,0,20" Click="btnCreate">Create</Button>
+                <Label Grid.Row="2" Name="lblMsg" Foreground="Red" FontWeight="Bold" Width="200" Height="30" Margin="0,0,50,0" FontSize="14"></Label>
 
             </Grid>
         </Grid>

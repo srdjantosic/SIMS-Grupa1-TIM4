@@ -31,7 +31,7 @@ namespace Project.Hospital.View.Secretary
         private NotificationRepository notificationRepository;
         private NotificationService notificationService;
         private NotificationController notificationController;
-        public DetaljiOZahtevu(Model.FreeDaysRequest request)
+        public DetaljiOZahtevu(FreeDaysRequest request)
         {
             InitializeComponent();
             this.requestForFreeDays = request;
@@ -74,6 +74,30 @@ namespace Project.Hospital.View.Secretary
                     MessageBox.Show("Greska prilikom slanja obavestenja!");
                 }
             }
+        }
+        private void Back_CanExecute(object sender, CanExecuteRoutedEventArgs e)
+        {
+            e.CanExecute = true;
+        }
+        private void Back_Executed(object sender, ExecutedRoutedEventArgs e)
+        {
+            this.Close();
+        }
+        private void Right_CanExecute(object sender, CanExecuteRoutedEventArgs e)
+        {
+            e.CanExecute = true;
+        }
+        private void Right_Executed(object sender, ExecutedRoutedEventArgs e)
+        {
+            btnAccept.Focus();
+        }
+        private void Left_CanExecute(object sender, CanExecuteRoutedEventArgs e)
+        {
+            e.CanExecute = true;
+        }
+        private void Left_Executed(object sender, ExecutedRoutedEventArgs e)
+        {
+            btnDecline.Focus();
         }
     }
 }

@@ -18,6 +18,7 @@ using Project.Hospital.Service;
 using Project.Hospital.Repository;
 using Hospital.Repository;
 using Hospital.Service;
+using Project.Hospital.ViewModels.Secretary;
 
 namespace Project.Hospital.View.Secretary
 {
@@ -32,11 +33,12 @@ namespace Project.Hospital.View.Secretary
         private AppointmentRepository appointmentRepository;
         private AppointmentService appointmentService;
         private AppointmentController appointmentController;
-
+        
         public ZakazivanjePregledaPage()
         {
             InitializeComponent();
-
+            
+            tbLbo.Focus();
             this.patientRepository = new PatientRepository();
             this.patientService = new PatientService(patientRepository);
             this.patientController = new PatientController(patientService);
@@ -46,8 +48,9 @@ namespace Project.Hospital.View.Secretary
             this.appointmentRepository = new AppointmentRepository();
             this.appointmentService = new AppointmentService(appointmentRepository);
             this.appointmentController = new AppointmentController(appointmentService);
+            
         }
-
+        
         private void odustani(object sender, RoutedEventArgs e)
         {
             var page = new RasporedPage();
@@ -69,10 +72,9 @@ namespace Project.Hospital.View.Secretary
             List<Appointment> availableAppointments = appointmentController.GetAvailableAppointments(doctor, patient, start, end);
 
             if(availableAppointments.Count==0)
-            {
-                string priority = cbPriority.Text;
-                if (priority == "Lekar")
-                {
+            {         
+                if ((bool)rbDoctor.IsChecked)
+                {               
                     var page1 = new PrioritetLekarPage(doctor, patient, start, end);
                     NavigationService.Navigate(page1);
                 }
@@ -87,6 +89,31 @@ namespace Project.Hospital.View.Secretary
                 var page = new SlobodniTerminiLekaraPage(availableAppointments, doctor, patient);
                 NavigationService.Navigate(page);
             }
+        }
+
+        private void rb1_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.Key == Key.Enter)
+            {
+                rbDoctor.IsChecked = true;
+            }
+        }
+
+        private void rb2_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.Key == Key.Enter)
+            {
+                rbDateAndTime.IsChecked = true;
+            }
+        }
+        private void Back_CanExecute(object sender, CanExecuteRoutedEventArgs e)
+        {
+            e.CanExecute = true;
+        }
+        private void Back_Executed(object sender, ExecutedRoutedEventArgs e)
+        {
+            var page = new RasporedPage();
+            NavigationService.Navigate(page);
         }
     }
 }

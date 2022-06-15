@@ -9,25 +9,40 @@
       Title="CreatePersonalTerm">
     <Grid>
         <Grid.RowDefinitions>
+            <RowDefinition Height="130"/>
+            <RowDefinition Height="280"/>
             <RowDefinition Height="50"/>
-            <RowDefinition Height="80"/>
-            <RowDefinition Height="200"/>
-            <RowDefinition Height="80"/>
         </Grid.RowDefinitions>
 
-        <Label FontSize="22" Grid.Row="0">Create appointment</Label>
+        <Label FontSize="22">Create appointment</Label>
 
-        <Grid Grid.Row="1">
+        <ToggleButton x:Name="TogglePopupButton" Height="20" Width="50" HorizontalAlignment="Center" VerticalAlignment="Center"  Margin="0,0,550,10">
+            <StackPanel>
+                <Popup Name="myPopup" IsOpen="{Binding IsChecked, ElementName=TogglePopupButton}">
+                    <Border BorderThickness="1">
+                        <TextBlock Name="myPopupText" Background="#FFA9E1F4"  Foreground="Black " TextAlignment="Center" Padding="10" TextWrapping="Wrap" Width="300" Height="50">
+                            	Popunite sva polja pa zatim izaberite pacijenta kom zakazujete pregled.
+                        </TextBlock>
+                    </Border>
+                </Popup>
+                <TextBlock Width="50" Height="20"><Run  Text="   Help" /></TextBlock>
+            </StackPanel>
+        </ToggleButton>
+
+        <Grid Grid.Row="0">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="160"/>
-                <ColumnDefinition Width="170"/>
-                <ColumnDefinition Width="160"/>
+                <ColumnDefinition Width="130"/>
+                <ColumnDefinition Width="110"/>
+                <ColumnDefinition Width="150"/>
+                <ColumnDefinition Width="80"/>
             </Grid.ColumnDefinitions>
 
-            <Label Grid.Column="0" Margin="20,35,0,0">Choose date and time:</Label>
+            <Label Grid.Column="0" Margin="20,80,0,0">Choose date and time:</Label>
 
-            <DatePicker Grid.Column="1" Margin="10,20,0,0" Width="110" Height="25" Name="dpStartDate"></DatePicker>
-            <ComboBox Grid.Column="2" Name="boxStartTime" Margin="20,20,0,0" Height="20" Width="90">
+            <DatePicker Grid.Column="1" Margin="1,55,0,0" Width="110" Height="25" Name="dpStartDate"></DatePicker>
+            
+            <ComboBox Grid.Column="2" Name="boxStartTime" Margin="0,55,20,0" Height="25" Width="60">
                 <ComboBoxItem IsSelected="True">Time</ComboBoxItem>
                 <ComboBoxItem>08:00</ComboBoxItem>
                 <ComboBoxItem>08:45</ComboBoxItem>
@@ -42,28 +57,48 @@
                 <ComboBoxItem>15:30</ComboBoxItem>
             </ComboBox>
 
+            <Label Grid.Column="3" Margin="60,80,0,0">Choose room:</Label>
+
+            <ComboBox Grid.Column="4" Name="cbNewRoom" Width="60" Height="25" Margin="5,55,0,0">
+                <ComboBoxItem IsSelected="True">Room</ComboBoxItem>
+                <ComboBoxItem>A1</ComboBoxItem>
+                <ComboBoxItem>A2</ComboBoxItem>
+                <ComboBoxItem>A3</ComboBoxItem>
+                <ComboBoxItem>A4</ComboBoxItem>
+                <ComboBoxItem>A5</ComboBoxItem>
+            </ComboBox>
+
         </Grid>
 
-        <Grid Grid.Row="2">
+        <Grid Grid.Row="1">
             <Grid.RowDefinitions>
                 <RowDefinition Height="30"/>
-                <RowDefinition Height="170"/>
+                <RowDefinition Height="320"/>
             </Grid.RowDefinitions>
 
             <Label Grid.Row="0" Margin="20,0,0,0" FontSize="15">Patients:</Label>
 
             <DataGrid Grid.Row="1" x:Name="dgShowPatients" ItemsSource="{Binding patients}" IsReadOnly="True" SelectionMode="Extended"  AutoGenerateColumns="False"
-                  HorizontalAlignment="Left" Height="158" VerticalAlignment="Top" BorderThickness="1,1,1,1" Margin="25,0,0,0">
+                  HorizontalAlignment="Left" Height="240" Width="600" VerticalAlignment="Top" BorderThickness="1,1,1,1" Margin="25,0,0,0">
                 <DataGrid.Columns>
                     <DataGridTextColumn Header="First name" Binding="{Binding FirstName}"/>
                     <DataGridTextColumn Header="Last name" Binding="{Binding LastName}"/>
                     <DataGridTextColumn Header="Gender" Binding="{Binding _Gender}"/>
                     <DataGridTextColumn Header="Email" Binding="{Binding Email}"/>
                     <DataGridTextColumn Header="LBO" Binding="{Binding Lbo}"/>
+                    <DataGridTemplateColumn Width="90">
+                        <DataGridTemplateColumn.CellTemplate>
+                            <DataTemplate>
+                                <Button Content="Create" Margin="2" Click="btnCreate"/>
+                            </DataTemplate>
+                        </DataGridTemplateColumn.CellTemplate>
+                    </DataGridTemplateColumn>
                 </DataGrid.Columns>
             </DataGrid>
         </Grid>
 
-        <Button Grid.Row="3" Width="50" Height="20" Margin="550,30,0,0" Click="btnCreate">Create</Button>
+        <Label Grid.Row="2" Name="lblMsg" Foreground="Red" FontWeight="Bold" Width="170" Height="30" Margin="0,0,0,20" FontSize="14"></Label>
+
+        <!--<Button Grid.Row="2" Width="50" Height="20" Margin="550,30,0,0" Click="btnCreate">Create</Button>-->
     </Grid>
 </Page>

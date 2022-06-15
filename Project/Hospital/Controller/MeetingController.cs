@@ -23,9 +23,9 @@ namespace Project.Hospital.Controller
         {
             return meetingService.GetOne(id);
         }
-        public void ScheduleMeeting(Meeting newMeeting)
+        public Meeting ScheduleMeeting(Meeting newMeeting)
         {
-            meetingService.ScheduleMeeting(newMeeting);
+            return meetingService.ScheduleMeeting(newMeeting);
         }
     }
 }

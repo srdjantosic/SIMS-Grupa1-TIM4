@@ -15,11 +15,13 @@ using Project.Hospital.Model;
 using Project.Hospital.Repository;
 using Project.Hospital.Service;
 using Project.Hospital.Controller;
+using Project.Hospital.ViewModels.Secretary;
 
 namespace Project.Hospital.View.Secretary
 {
     public partial class Obrazlozenje : Window
     {
+        /*
         private Model.FreeDaysRequest request;
         private Repository.FreeDaysRequestRepository requestForFreeDaysRepository;
         private Service.FreeDaysRequestService requestForFreeDaysService;
@@ -27,9 +29,12 @@ namespace Project.Hospital.View.Secretary
         private NotificationRepository notificationRepository;
         private NotificationService notificationService;
         private NotificationController notificationController;
-        public Obrazlozenje(Model.FreeDaysRequest requestForFreeDays)
+        */
+        public Obrazlozenje(Model.FreeDaysRequest freeDaysRequest)
         {
             InitializeComponent();
+            this.DataContext = new ObrazlozenjeViewModel(freeDaysRequest);
+            /*
             this.request = requestForFreeDays;
             this.requestForFreeDaysRepository = new Repository.FreeDaysRequestRepository();
             this.requestForFreeDaysService = new Service.FreeDaysRequestService(requestForFreeDaysRepository);
@@ -37,8 +42,11 @@ namespace Project.Hospital.View.Secretary
             this.notificationRepository = new NotificationRepository();
             this.notificationService = new NotificationService(notificationRepository);
             this.notificationController = new NotificationController(notificationService);
-        }
+            */
 
+            tbExplanation.Focus();
+        }
+        /*
         private void close(object sender, RoutedEventArgs e)
         {
             this.Close();
@@ -74,5 +82,6 @@ namespace Project.Hospital.View.Secretary
             }
             else MessageBox.Show("Greska prilikom promene statusa zahteva!");    
         }
+        */
     }
 }

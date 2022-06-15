@@ -9,38 +9,34 @@
       d:DesignHeight="450" d:DesignWidth="650"
       Title="Schedule">
     <Grid>
-        
-        <!--OD i code behind--><!--
-        
         <Grid.RowDefinitions>
             <RowDefinition Height="50"/>
-            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="350"/>
+            <RowDefinition Height="30"/>
         </Grid.RowDefinitions>
 
         <Label Grid.Row="0" FontSize="22">Schedule</Label>
 
         <Button Grid.Row="0" Width="100" Height="20" Click="btnNotifications" Margin="500,30,0,0">Notifications</Button>
 
-        <syncfusion:SfScheduler  Grid.Row="1" x:Name="shSchedule" ViewType="Week" FirstDayOfWeek="Monday" Margin="20" Height="350" Width="600" ItemsSource="{Binding Event}">
+        <syncfusion:SfScheduler  Grid.Row="1" x:Name="shSchedule" ViewType="Week" FirstDayOfWeek="Monday" Margin="20" Height="310" Width="600" ItemsSource="{Binding Event}">
             <syncfusion:SfScheduler.DaysViewSettings>
                 <syncfusion:DaysViewSettings 
                         StartHour="8"
                         EndHour="16"
                         TimeIntervalSize="60" TimeIntervalHeight="60"/>
             </syncfusion:SfScheduler.DaysViewSettings>
-            
+
             <syncfusion:SfScheduler.AppointmentMapping>
                 <syncfusion:AppointmentMapping
                         Subject="EventName"
                         StartTime="From"
                         EndTime="To"/>
             </syncfusion:SfScheduler.AppointmentMapping>
-           
-        </syncfusion:SfScheduler>
-        
-        --><!--DO-->
 
-        <Label FontSize="22">Schedule</Label>
+        </syncfusion:SfScheduler>
+
+        <!--<Label FontSize="22">Schedule</Label>
 
         <Button Width="100" Height="20" Click="btnNotifications" Margin="500,0,0,350">Notifications</Button>
 
@@ -50,9 +46,9 @@
                 <DataGridTextColumn Header="Date and Time" Binding="{Binding dateTime}"/>
                 <DataGridTextColumn Header="LBO" Binding="{Binding Lbo}"/>
             </DataGrid.Columns>
-        </DataGrid>
+        </DataGrid>-->
 
-        <Button Height="30" Width="40" Margin="570,320,0,0" Click="btnDetailsSchedule">Next</Button>
+        <Button Grid.Row="2" Height="30" Width="40" Margin="560,0,0,0" Click="btnDetailsSchedule">Next</Button>
 
     </Grid>
 </Page>

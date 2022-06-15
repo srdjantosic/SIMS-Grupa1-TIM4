@@ -5,21 +5,16 @@ using Project.Hospital.Model;
 using Project.Hospital.Repository;
 using Project.Hospital.Service;
 using System;
-using System.Collections.Generic;
+using System.Drawing;
+using System.Windows;
 using System.Collections.ObjectModel;
 using System.Data;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
-using System.Windows.Shapes;
+using Syncfusion.Pdf;
+using Syncfusion.Pdf.Grid;
+using Syncfusion.Pdf.Graphics;
+using System.Windows.Input;
 
 namespace Project.Hospital.View.Secretary
 {
@@ -58,11 +53,75 @@ namespace Project.Hospital.View.Secretary
                 Events.Add(Event);
             }
             Schedule.ItemsSource = Events;
+
+            btn1.Focus();
         }
         private void zakazivanjePregleda(object sender, RoutedEventArgs e)
         {
             var page = new ZakazivanjePregledaPage();
             NavigationService.Navigate(page);
+
+            
+        }
+
+        private void Button_Click(object sender, RoutedEventArgs e)
+        {
+            Syncfusion.Pdf.PdfDocument pdfDocument = new PdfDocument();
+            
+            Syncfusion.Pdf.PdfPage pdfPage = pdfDocument.Pages.Add();
+
+            PdfGrid pdfGrid = new PdfGrid();
+
+            DataTable dataTable = new DataTable();
+            dataTable.Columns.Add("PACIJENT");
+            dataTable.Columns.Add("DOKTOR");
+            dataTable.Columns.Add("VREME PREGLEDA");
+            dataTable.Columns.Add("PROSTORIJA");
+
+            foreach(Appointment appointment in appointmentController.GetAll())
+            {
+                if (appointment.dateTime > DateTime.Parse("13-06-2022 08:00:00"))
+                {
+                    Model.Doctor doctor = doctorController.GetOne(appointment.Lks);
+                    Patient patient = patientController.GetOne(appointment.Lbo);
+                    dataTable.Rows.Add(new object[] { patient.FirstName + " " + patient.LastName, doctor.firstName + " " + doctor.lastName + " (" + doctor.medicineArea + ")", appointment.dateTime.ToString(), appointment.RoomName });
+                }
+            }
+            pdfGrid.DataSource = dataTable;
+
+            PdfGridLayoutFormat layoutFormat = new PdfGridLayoutFormat();
+            layoutFormat.Layout = PdfLayoutType.Paginate;
+
+            pdfGrid.ApplyBuiltinStyle(PdfGridBuiltinStyle.GridTable4Accent1);
+
+            PdfLayoutResult result = pdfGrid.Draw(pdfPage, new PointF(10, 10), layoutFormat);
+
+            pdfDocument.Save("C:/Users/User/Desktop/SIMS/SIMS/SIMS-Grupa1-TIM4/Project/Hospital/View/Secretary/Recources/raspored.pdf");
+            pdfDocument.Close();
+
+            var page = new PdfPage();
+            NavigationService.Navigate(page);
+        }
+
+        private void Up_CanExecute(object sender, CanExecuteRoutedEventArgs e)
+        {
+            e.CanExecute = true;
+        }
+
+        private void Up_Executed(object sender, ExecutedRoutedEventArgs e)
+        {
+            btn1.Focus();
+        }
+
+        private void Down_CanExecute(object sender, CanExecuteRoutedEventArgs e)
+        {
+            e.CanExecute = true;
+        }
+
+        private void Down_Executed(object sender, ExecutedRoutedEventArgs e)
+        {
+            btn2.Focus();
+
         }
 
     }

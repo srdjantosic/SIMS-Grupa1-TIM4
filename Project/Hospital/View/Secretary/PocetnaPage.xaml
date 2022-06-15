@@ -1,0 +1,19 @@
+﻿<Page x:Class="Project.Hospital.View.Secretary.PocetnaPage"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:local="clr-namespace:Project.Hospital.View.Secretary"
+      mc:Ignorable="d" 
+      d:DesignHeight="900" d:DesignWidth="824"
+      Title="PocetnaPage">
+
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition></RowDefinition>
+            <RowDefinition Height="700"></RowDefinition>
+        </Grid.RowDefinitions>
+        <TextBlock Grid.Row="0" FontSize="70" Padding="50,60">BOLNICA</TextBlock>
+        <Image Grid.Row="1" Source="C:\Users\User\Desktop\SIMS\SIMS\SIMS-Grupa1-TIM4\Project\Hospital\View\Secretary\Recources\00236-medical-01.png" Width="500" Margin="162,10,162,83"></Image>
+    </Grid>
+</Page>

@@ -3,9 +3,17 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:cmd="clr-namespace:Project.Hospital.View.Secretary.Commands"
         xmlns:local="clr-namespace:Project.Hospital.View.Secretary"
         mc:Ignorable="d"
         Title="DetaljiOZahtevu" Height="550" Width="450">
+
+    <Window.CommandBindings>
+        <CommandBinding Command="cmd:RoutedCommand.Back" CanExecute="Back_CanExecute" Executed="Back_Executed"></CommandBinding>
+        <CommandBinding Command="cmd:RoutedCommand.Left" CanExecute="Left_CanExecute" Executed="Left_Executed"></CommandBinding>
+        <CommandBinding Command="cmd:RoutedCommand.Right" CanExecute="Right_CanExecute" Executed="Right_Executed"></CommandBinding>
+    </Window.CommandBindings>
+    
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto"></RowDefinition>
@@ -25,7 +33,7 @@
         </GroupBox>
         <Label Grid.Row="3" Height="30" Width="110" Margin="25,29,265,29">Zahtev je hitan :</Label>
         <CheckBox Grid.Row="3" Height="15" Width="50" Margin="140,36,210,37" Name="isEmergency" IsEnabled="False"></CheckBox>
-        <Button Grid.Row="4" Height="50" Width="100" Margin="80,19,220,19" Click="decline">Odbij</Button>
-        <Button Grid.Row="4" Height="50" Width="100" Margin="220,19,80,19" Click="accept">Prihvati</Button>
+        <Button Name="btnDecline" Grid.Row="4" Height="50" Width="100" Margin="80,19,220,19" Click="decline">Odbij</Button>
+        <Button Name="btnAccept" Grid.Row="4" Height="50" Width="100" Margin="220,19,80,19" Click="accept">Prihvati</Button>
     </Grid>
 </Window>

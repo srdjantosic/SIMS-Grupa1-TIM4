@@ -25,8 +25,21 @@
         <GroupBox Grid.Column="1" Grid.Row="0" Header="Comment"  Width="300" Height="160" BorderBrush="Black">
             <TextBox Name="tbComment" ></TextBox>
         </GroupBox>
-        
-        <Button Grid.Column="1" Grid.Row="0" Width="50" Height="20" Margin="200,0,0,180">Print</Button>
+
+        <Button Grid.Column="1" Grid.Row="0" Width="50" Height="20" Margin="240,0,0,180" Click="Button_ClickPDF">Print</Button>
+
+        <ToggleButton x:Name="TogglePopupButton" Height="20" Width="50" HorizontalAlignment="Center" Grid.Column="0" Grid.Row="0" VerticalAlignment="Center" Margin="0,0,250,180">
+            <StackPanel>
+                <Popup Name="myPopup" IsOpen="{Binding IsChecked, ElementName=TogglePopupButton}">
+                    <Border BorderThickness="1">
+                        <TextBlock Name="myPopupText" Background="#FFA9E1F4"  Foreground="Black " TextAlignment="Center" Padding="10" TextWrapping="Wrap" Width="400" Height="50">
+                            	Popunite sva polja kako bi ste izdali recept. Ukoliko zelite da istampate anamnezu i recept pritistine dugme Print.
+                        </TextBlock>
+                    </Border>
+                </Popup>
+                <TextBlock Width="50" Height="20"><Run  Text="   Help" /></TextBlock>
+            </StackPanel>
+        </ToggleButton>
 
         <GroupBox Grid.Column="0" Grid.Row="1" Header="Prescription"  Width="300" Height="160" BorderBrush="Black">
             <Grid>
@@ -50,12 +63,12 @@
 
         <!--<Button Grid.Column="1" Grid.Row="1" Width="50" Height="21" Click="setMedicalChart" Margin="170,150,0,0">Set</Button>-->
 
-        <Button Grid.Column="1" Grid.Row="2" Width="50" Height="20" Click="setMedicalChart" Margin="200,0,0,30">Set</Button>
+        <Button Grid.Column="1" Grid.Row="2" Width="50" Height="20" Click="setMedicalChart" Margin="240,0,0,30">Set</Button>
         
-        <Label  Grid.Column="1" Grid.Row="1" Margin="0,140,0,0" Foreground="Red" FontWeight="Bold" FontSize="12" Name="setMsg" Width="150"></Label>
-        <Label Grid.Column="1" Grid.Row="1" Name="lblNumber" Margin="0,140,0,0" Foreground="Red" FontWeight="Bold" FontSize="12" Width="200"></Label>
-        <Label Grid.Column="1" Grid.Row="1" Name="lblMedicine"  Margin="0,140,0,0" Foreground="Red" FontWeight="Bold" FontSize="12" Width="240"></Label>
-        <Label Grid.Column="1" Grid.Row="1" Name="lblWrongMedicine"  Margin="0,140,0,0" Foreground="Red" FontWeight="Bold" FontSize="12" Width="110"></Label>
+        <Label  Grid.Column="1" Grid.Row="1" Margin="0,140,0,0" Foreground="Red" FontWeight="Bold" FontSize="14" Name="setMsg" Width="170"></Label>
+        <Label Grid.Column="1" Grid.Row="1" Name="lblNumber" Margin="0,140,0,0" Foreground="Red" FontWeight="Bold" FontSize="14" Width="230"></Label>
+        <Label Grid.Column="1" Grid.Row="1" Name="lblMedicine"  Margin="0,140,0,0" Foreground="Red" FontWeight="Bold" FontSize="14" Width="270"></Label>
+        <Label Grid.Column="1" Grid.Row="1" Name="lblWrongMedicine"  Margin="0,140,0,0" Foreground="Red" FontWeight="Bold" FontSize="14" Width="130"></Label>
 
     </Grid>
 

@@ -2,8 +2,14 @@
 using Project.Hospital.Model;
 using Project.Hospital.Repository;
 using Project.Hospital.Service;
+using Syncfusion.Pdf;
+using Syncfusion.Pdf.Graphics;
+using Syncfusion.Pdf.Tables;
 using System;
 using System.Collections.Generic;
+using System.Data;
+using System.Drawing;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Text.RegularExpressions;
@@ -17,6 +23,8 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using iTextSharp.text;
+using iTextSharp.text.pdf;
 
 namespace Project.Hospital.View.Doctor
 {
@@ -231,6 +239,41 @@ namespace Project.Hospital.View.Doctor
                 var schedule = new Schedule(currentAppointment.Lks);
                 NavigationService.Navigate(schedule);
             }
+        }
+
+        private void Button_ClickPDF(object sender, RoutedEventArgs e)
+        {
+            Document doc = new Document(iTextSharp.text.PageSize.LETTER, 10, 10, 42, 35);
+            PdfWriter wri = PdfWriter.GetInstance(doc, new FileStream("D:/3godina/SIMS/out.pdf", FileMode.Create));
+            doc.Open();
+            string header = "VASI RECEPTI \n";
+            string text = "";
+            iTextSharp.text.Paragraph p2 = new iTextSharp.text.Paragraph("");
+            iTextSharp.text.Paragraph paragraph = new iTextSharp.text.Paragraph(header);
+            doc.Add(paragraph);
+            foreach(var p in prescriptionController.GetAll())
+            {
+                text += p.ToString() + " \n ";
+                p2 = new iTextSharp.text.Paragraph(text);
+            }
+            doc.Add(p2);
+
+            string header2 = "VASA ANAMNEZA \n";
+            string text2 = "";
+            iTextSharp.text.Paragraph p3 = new iTextSharp.text.Paragraph("");
+            iTextSharp.text.Paragraph paragraph2 = new iTextSharp.text.Paragraph(header2);
+            doc.Add(paragraph2);
+            foreach (var a in reportController.GetAll())
+            {
+                text2 += a.ToString() + " \n ";
+                p3 = new iTextSharp.text.Paragraph(text2);
+            }
+
+            doc.Add(p3);
+            doc.Close();
+
+            var schedule = new Schedule(currentAppointment.Lks);
+            NavigationService.Navigate(schedule);
         }
     }
 }

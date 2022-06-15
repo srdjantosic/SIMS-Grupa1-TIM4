@@ -38,6 +38,8 @@ namespace Project.Hospital.View.Secretary
             this.equipmentService = new EquipmentService(equipmentRepository, spendableEquipmentRequestService);
             this.equipmentController = new EquipmentController(equipmentService);
 
+            btnKreiranjeZahteva.Focus();
+
             equipment = equipmentController.GetAllSpendableEquipment();
 
             for(int i = 0; i<equipment.Count; i += 2)
@@ -69,8 +71,6 @@ namespace Project.Hospital.View.Secretary
                         textBlock.Inlines.Add(new LineBreak());
                         textBlock.Inlines.Add("Naziv opreme : " + equipment[i + j].Name);
                         textBlock.Inlines.Add(new LineBreak());
-                        textBlock.Inlines.Add("Kolicina : " + equipment[i + j].Quantity);
-                        textBlock.Inlines.Add(new LineBreak());
                         ProgressBar progressBar = new ProgressBar();
                         progressBar.Value = equipment[i + j].Quantity;
                         progressBar.Height = 10;
@@ -80,7 +80,8 @@ namespace Project.Hospital.View.Secretary
                         {
                             progressBar.Foreground = Brushes.Red;
                         }
-
+                        textBlock.Inlines.Add("Kolicina : " + equipment[i + j].Quantity+" / "+progressBar.Maximum);
+                        textBlock.Inlines.Add(new LineBreak());
                         textBlock.Inlines.Add(progressBar);
 
                         border.Child = textBlock;

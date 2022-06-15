@@ -16,12 +16,12 @@
 
         <Label Grid.Row="0" FontSize="22">Details</Label>
 
-        <GroupBox Grid.Row="1" Header="Reason for free days request" Width="500" Height="180" BorderBrush="Black">
-            <TextBox Name="tbReason" ></TextBox>
+        <GroupBox Grid.Row="1" Header="Reason for free days request" Width="600" Height="180" BorderBrush="Black">
+            <TextBox Name="tbReason" IsReadOnly="True"></TextBox>
         </GroupBox>
 
-        <GroupBox Grid.Row="2" Header="Declining reason" Width="500" Height="180" BorderBrush="Black">
-            <TextBox Name="tbDecliningReason" ></TextBox>
+        <GroupBox Grid.Row="2" Header="Declining reason" Width="600" Height="180" BorderBrush="Black">
+            <TextBox Name="tbDecliningReason" IsReadOnly="True"></TextBox>
         </GroupBox>
     </Grid>
 </Page>

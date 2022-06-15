@@ -58,6 +58,8 @@ namespace Project.Hospital.View.Secretary
             this.notificationRepository = new NotificationRepository();
             this.notificationService = new NotificationService(notificationRepository);
             this.notificationController = new NotificationController(notificationService);
+
+            tbLbo.Focus();
         }
         
         private void potvrdi(object sender, RoutedEventArgs e)
@@ -74,6 +76,7 @@ namespace Project.Hospital.View.Secretary
                 patientData.Visibility = Visibility.Visible;
 
                 gbOblast.Visibility = Visibility.Visible;
+                tbOblast.Focus();
             }
             else
             {
@@ -224,6 +227,42 @@ namespace Project.Hospital.View.Secretary
             }
 
         }
-        
+        private void Right_CanExecute(object sender, CanExecuteRoutedEventArgs e)
+        {
+            e.CanExecute = true;
+        }
+        private void Right_Executed(object sender, ExecutedRoutedEventArgs e)
+        {
+            if (tbLbo.Focus())
+            {
+                btn1.Focus();
+            }
+            else
+            {
+                if (tbOblast.Focus())
+                {
+                    btn2.Focus();
+                }
+            }
+        }
+        private void Left_CanExecute(object sender, CanExecuteRoutedEventArgs e)
+        {
+            e.CanExecute = true;
+        }
+        private void Left_Executed(object sender, ExecutedRoutedEventArgs e)
+        {
+            if (btn1.Focus())
+            {
+                tbLbo.Focus();
+            }
+            else
+            {
+                if (btn2.Focus())
+                {
+                    tbOblast.Focus();
+                }
+            }
+        }
+
     }
 }

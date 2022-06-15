@@ -66,6 +66,8 @@ namespace Project.Hospital.View.Doctor
             {
                 doctors?.Add(doctor);
             }
+
+            lblMsg.Content = "";
         }
 
         public ObservableCollection<Model.Doctor> doctors
@@ -76,6 +78,12 @@ namespace Project.Hospital.View.Doctor
 
         private void btnSet(object sender, RoutedEventArgs e)
         {
+            if (dpStartDate.Text.Equals("") || boxStartTime.Text.Equals("Start time") || boxPriority.Text.Equals("Priority") || dpEndDate.Text.Equals("") || boxEndTime.Text.Equals("End time"))
+            {
+                lblMsg.Content = "You must fill every field!";
+                return;
+            }
+
             Model.Doctor selectedDoctor = (Model.Doctor)dgCAForAnotherDoctor.SelectedItems[0];
             Patient patient = patientController.GetOne(choosenPatient);
 
@@ -92,13 +100,11 @@ namespace Project.Hospital.View.Doctor
                 string priority = boxPriority.Text;
                 if (priority == "Doctor")
                 {
-                    MessageBox.Show("Doctor is priority");
                     var doctorPriority = new DoctorPriority(selectedDoctor, patient, startPeriod, endPeriod, loggedDoctor);
                     NavigationService.Navigate(doctorPriority);
                 }
                 else
                 {
-                    MessageBox.Show("Time is priority");
                     var timePriority = new TimePriority(patient, startPeriod, endPeriod, loggedDoctor);
                     NavigationService.Navigate(timePriority);
                 }
