@@ -1,4 +1,4 @@
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
     <OutputType>Exe</OutputType>
@@ -17,16 +17,12 @@
   <ItemGroup>
     <PackageReference Include="chilkat-x64" Version="9.5.0.90" />
     <PackageReference Include="iTextSharp" Version="5.5.13.3" />
-    <PackageReference Include="PDFsharp" Version="1.50.5147" />
-    <PackageReference Include="Syncfusion.Pdf.Net.Core" Version="20.1.0.59" />
-    <PackageReference Include="Syncfusion.SfChart.WPF" Version="20.1.0.58" />
-      <PackageReference Include="Syncfusion.SfScheduler.WPF" Version="20.1.0.58" />
     <PackageReference Include="chilkat-x64" Version="9.5.0.90" />
     <PackageReference Include="MvvmLightLibs" Version="5.4.1.1" />
     <PackageReference Include="PDFsharp" Version="1.50.5147" />
     <PackageReference Include="Prism.Core" Version="8.1.97" />
-    <PackageReference Include="Syncfusion.PdfViewer.WPF" Version="20.1.0.59" />
     <PackageReference Include="Syncfusion.SfScheduler.WPF" Version="20.1.0.58" />
+    <PackageReference Include="Syncfusion.PdfViewer.WPF" Version="20.1.0.59" />
 </ItemGroup>
 
 </Project>
