@@ -39,5 +39,9 @@ namespace Project.Hospital.View.Secretary.Commands
         {
             new KeyGesture(Key.Delete, ModifierKeys.Control)
         });
+        public static readonly RoutedUICommand Menu = new RoutedUICommand("menu", "Menu", typeof(RoutedCommand), new InputGestureCollection()
+        {
+            new KeyGesture(Key.M, ModifierKeys.Control)
+        });
     }
 }

@@ -17,18 +17,18 @@
         </Grid.RowDefinitions>
         <TextBlock Grid.Row="0" FontSize="22" FontWeight="Bold" Padding="50, 40">Kreiranje zahteva za nabavku</TextBlock>
         <DockPanel Grid.Row="1">
-            <Label DockPanel.Dock="Top" FontSize="18" Width="250" HorizontalAlignment="Center" Margin="0,15,0,0">Sifra opreme :</Label>
-            <TextBox HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Height="25" Width="250" FontSize="16" Name="sifraOpreme"/>
+            <Label DockPanel.Dock="Top" FontSize="18" Width="250" HorizontalAlignment="Center" Margin="0,15,0,0">Sifra opreme* :</Label>
+            <TextBox HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Height="25" Width="250" FontSize="16" Name="sifraOpreme" Text="{Binding EquipmentId, UpdateSourceTrigger=PropertyChanged}"/>
         </DockPanel>
         <DockPanel Grid.Row="2">
-            <Label DockPanel.Dock="Top" FontSize="18" Width="250" HorizontalAlignment="Center" Margin="0,15,0,0">Naziv opreme :</Label>
-            <TextBox HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Height="25" Width="250" FontSize="16" Name="nazivOpreme"/>
+            <Label DockPanel.Dock="Top" FontSize="18" Width="250" HorizontalAlignment="Center" Margin="0,15,0,0">Naziv opreme* :</Label>
+            <TextBox HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Height="25" Width="250" FontSize="16" Name="nazivOpreme" Text="{Binding EquipmentName, UpdateSourceTrigger=PropertyChanged}"/>
         </DockPanel>
         <DockPanel Grid.Row="3">
-            <Label DockPanel.Dock="Top" FontSize="18" Width="250" HorizontalAlignment="Center" Margin="0,15,0,0">Kolicina :</Label>
-            <TextBox HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Height="25" Width="250" FontSize="16" Name="kolicinaBox"/>
+            <Label DockPanel.Dock="Top" FontSize="18" Width="250" HorizontalAlignment="Center" Margin="0,15,0,0">Kolicina* :</Label>
+            <TextBox HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Height="25" Width="250" FontSize="16" Name="kolicinaBox" Text="{Binding Quantity, UpdateSourceTrigger=PropertyChanged}"/>
         </DockPanel>
-        <Button Grid.Row="4" VerticalAlignment="Bottom" Height="40" FontSize="16" Click="odustani" Margin="103,0,247,0" Name="btnOdustani">Odustani</Button>
-        <Button Grid.Row="4" VerticalAlignment="Bottom" Height="40" FontSize="16" Click="kreiraj" Margin="254,0,96,0" Name="btnKreiraj">Kreiraj</Button>
+        <Button Grid.Row="4" VerticalAlignment="Bottom" Height="40" FontSize="16" Margin="103,0,247,0" Command="{Binding Quit}">Odustani</Button>
+        <Button Grid.Row="4" VerticalAlignment="Bottom" Height="40" FontSize="16" Margin="254,0,96,0" Command="{Binding Confirm}">Kreiraj</Button>
     </Grid>
 </Window>

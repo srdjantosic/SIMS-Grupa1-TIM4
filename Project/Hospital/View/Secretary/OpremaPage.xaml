@@ -19,18 +19,11 @@
                     <RowDefinition></RowDefinition>
                     <RowDefinition></RowDefinition>
                 </Grid.RowDefinitions>
-                <TextBlock Grid.Row="0" FontSize="38" Padding="30,20">Potrosna oprema</TextBlock>
-                <TextBox Grid.Row="1" Name="txtSearch" Height="25" Width="400" Margin="25,32,125,32" VerticalContentAlignment="Center">
-                    <TextBox.Resources>
-                        <Style TargetType="{x:Type Border}">
-                            <Setter Property="CornerRadius" Value="10"/>
-                        </Style>
-                    </TextBox.Resources>
-                </TextBox>
+                <TextBlock Grid.Row="0" FontSize="44" Padding="30,20" Margin="0,44,0,46" Grid.RowSpan="2">Potrosna oprema</TextBlock>
             </Grid>
-            <Button DockPanel.Dock="Right" Name="btnKreiranjeZahteva" FontSize="16" Height="80" Margin="30" Click="kreiranjeZahteva">Kreiranje zahteva za nabavku</Button>
+            <Button DockPanel.Dock="Right" Name="btnKreiranjeZahteva" FontSize="16" Height="80" Margin="0,0,50,0" Click="kreiranjeZahteva" Width="220">Kreiranje zahteva za nabavku</Button>
         </DockPanel>
-        <Grid Grid.Row="1" x:Name="gridEquipment" Height="600" Background="LightGray">
+        <Grid Grid.Row="1" x:Name="gridEquipment" Height="600" VerticalAlignment="Top" Background="LightGray">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition></ColumnDefinition>
                 <ColumnDefinition></ColumnDefinition>

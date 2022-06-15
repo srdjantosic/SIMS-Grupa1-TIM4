@@ -8,13 +8,6 @@
         mc:Ignorable="d"
         Title="DodavanjeAlergena" Height="500" Width="450">
 
-    <Window.CommandBindings>
-        <CommandBinding Command="cmd:RoutedCommand.Down" CanExecute="Down_CanExecute" Executed="Down_Executed"></CommandBinding>
-        <CommandBinding Command="cmd:RoutedCommand.Left" CanExecute="Left_CanExecute" Executed="Left_Executed"></CommandBinding>
-        <CommandBinding Command="cmd:RoutedCommand.Right" CanExecute="Right_CanExecute" Executed="Right_Executed"></CommandBinding>
-        <CommandBinding Command="cmd:RoutedCommand.Up" CanExecute="Up_CanExecute" Executed="Up_Executed"></CommandBinding>
-    </Window.CommandBindings>
-    
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition></RowDefinition>
@@ -24,10 +17,10 @@
  
         <TextBlock Grid.Row="0" FontSize="22" FontWeight="Bold" Padding="60, 100, 0, 0">Dodavanje alergena</TextBlock>
         <DockPanel Grid.Row="1">
-            <Label DockPanel.Dock="Top" FontSize="18" Width="250" HorizontalAlignment="Center" Margin="0,30,0,0">Naziv alergena* :</Label>
-            <TextBox HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Height="25" Width="250" FontSize="16" Name="nazivAlergenaBox" Margin="0,0,0,55" KeyDown="nazivAlergenaBox_KeyDown"/>
+            <Label DockPanel.Dock="Top" FontSize="18" Width="250" HorizontalAlignment="Center" Margin="0,30,0,0">Naziv alergena :</Label>
+            <TextBox HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Height="25" Width="250" FontSize="16" Name="nazivAlergenaBox" Margin="0,0,0,55" Text="{Binding AllergenName, UpdateSourceTrigger=PropertyChanged}"/>
         </DockPanel>
-        <Button Grid.Row="2" VerticalAlignment="Top" Height="40" FontSize="16" Click="odustani" Margin="103,0,247,0" Name="btnOdustani">Odustani</Button>
-        <Button Grid.Row="2" VerticalAlignment="Top" Height="40" FontSize="16" Click="dodaj" Margin="254,0,96,0" Name="btnDodaj">Dodaj</Button>
+        <Button Grid.Row="2" VerticalAlignment="Top" Height="40" FontSize="16" Margin="103,0,247,0" Command="{Binding Quit}">Odustani</Button>
+        <Button Grid.Row="2" VerticalAlignment="Top" Height="40" FontSize="16" Margin="254,0,96,0" Command="{Binding Confirm}">Dodaj</Button>
     </Grid>
 </Window>

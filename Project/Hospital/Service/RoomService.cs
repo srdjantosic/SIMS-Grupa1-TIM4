@@ -4,6 +4,7 @@ using Project.Hospital.Model;
 using System;
 using System.Collections.Generic;
 using Project.Hospital.Repository.IRepository;
+using Project.Hospital.Service;
 
 namespace Hospital.Service
 {

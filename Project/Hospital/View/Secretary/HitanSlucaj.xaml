@@ -3,11 +3,17 @@
       xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:cmd="clr-namespace:Project.Hospital.View.Secretary.Commands"
       xmlns:local="clr-namespace:Project.Hospital.View.Secretary"
       mc:Ignorable="d" 
       d:DesignHeight="768" d:DesignWidth="824"
       Title="HitanSlucaj">
 
+    <Page.CommandBindings>
+        <CommandBinding Command="cmd:RoutedCommand.Left" CanExecute="Left_CanExecute" Executed="Left_Executed"></CommandBinding>
+        <CommandBinding Command="cmd:RoutedCommand.Right" CanExecute="Right_CanExecute" Executed="Right_Executed"></CommandBinding>
+    </Page.CommandBindings>
+    
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto"></RowDefinition>
@@ -23,10 +29,10 @@
                     <ColumnDefinition></ColumnDefinition>
                 </Grid.ColumnDefinitions>
                 <DockPanel Grid.Column="0">
-                    <Label DockPanel.Dock="Top" Margin="10,10" Height="30" Width="300">LBO* :</Label>
+                    <Label DockPanel.Dock="Top" Margin="10,10" Height="30" Width="300">LBO :</Label>
                     <TextBox Margin="10,0,10,10" Name="tbLbo" Width="300"></TextBox>
                 </DockPanel>
-                <Button Grid.Column="1" Height="50" Width="150" Click="potvrdi">Potvrdi</Button>
+                <Button Name="btn1" Grid.Column="1" Height="50" Width="150" Click="potvrdi">Potvrdi</Button>
             </Grid>
         </GroupBox>
         <GroupBox Grid.Row="1" Name="patientData" Margin="20,30" Header="Podaci o pacijentu" Height="100" Width="700" Visibility="Hidden">
@@ -48,7 +54,7 @@
                     <ColumnDefinition></ColumnDefinition>
                 </Grid.ColumnDefinitions>
                 <TextBox Grid.Column="0" Height="20" Width="300" Name="tbOblast"></TextBox>
-                <Button Grid.Column="1" Height="50" Width="150" Click="potvrdiOblast">Potvrdi</Button>
+                <Button Name="btn2" Grid.Column="1" Height="50" Width="150" Click="potvrdiOblast">Potvrdi</Button>
             </Grid>
         </GroupBox>
         <Grid Grid.Row="3" Width="650" Height="350" Name="gridAppointments" Visibility="Hidden">

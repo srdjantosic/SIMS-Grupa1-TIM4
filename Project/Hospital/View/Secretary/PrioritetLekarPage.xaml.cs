@@ -96,8 +96,7 @@ namespace Project.Hospital.View.Secretary
                 newAppointment.Lbo = patient.Lbo;
                 newAppointment.RoomName = doctor.roomName;
 
-
-                                Appointment createdAppointment = appointmentController.Create(newAppointment);
+                Appointment createdAppointment = appointmentController.Create(newAppointment);
                 if (createdAppointment != null)
                 {
                     var page = new RasporedPage();

@@ -1,43 +1,34 @@
-﻿using Project.Hospital.Controller;
-using Project.Hospital.Model;
-using Project.Hospital.Repository;
-using Project.Hospital.Service;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using Project.Hospital.Model;
 using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Shapes;
+using Project.Hospital.ViewModels.Secretary;
 
 namespace Project.Hospital.View.Secretary
 {
     public partial class DodavanjeAlergena : Window
     {
+        /*
         private AllergenService allergenService;
         private AllergenController allergenController;
         private PatientRepository patientRepository;
         private PatientService patientService;
 
         private Patient patient;
+        */
         public DodavanjeAlergena(Patient patient)
         {
+            /*
             this.patientRepository = new PatientRepository();
             this.patientService = new PatientService(patientRepository);
 
             this.allergenService = new AllergenService(patientService);
             this.allergenController = new AllergenController(allergenService);
-            InitializeComponent();
             this.patient = patient;
+            */
+            InitializeComponent();
+            this.DataContext = new DodavanjeAlergenaViewModel(patient);
             nazivAlergenaBox.Focus();
         }
-        
+        /*
         private void odustani(object sender, RoutedEventArgs e)
         {
             this.Close();
@@ -117,5 +108,6 @@ namespace Project.Hospital.View.Secretary
                 btnDodaj.Focus();
             }
         }
+        */
     }
 }

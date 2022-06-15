@@ -24,7 +24,7 @@ namespace Project.Hospital.View.Secretary
         public PocetnaSekretar()
         {
             InitializeComponent();
-            
+            Prozor.Content = new PocetnaPage();
         }
 
         private void pacijenti(object sender, RoutedEventArgs e)
@@ -77,6 +77,20 @@ namespace Project.Hospital.View.Secretary
         private void sastanci(object sender, RoutedEventArgs e)
         {
             Prozor.Content = new ZakazivanjeSastanka();
+        }
+
+        private void pocetna(object sender, RoutedEventArgs e)
+        {
+            Prozor.Content = new PocetnaPage();
+        }
+
+        private void Menu_CanExecute(object sender, CanExecuteRoutedEventArgs e)
+        {
+            e.CanExecute = true;
+        }
+        private void Menu_Executed(object sender, ExecutedRoutedEventArgs e)
+        {
+            tbPacijenti.Focus();
         }
     }
 }

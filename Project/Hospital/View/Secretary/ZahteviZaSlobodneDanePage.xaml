@@ -3,38 +3,38 @@
       xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
-      xmlns:local="clr-namespace:Project.Hospital.View.Secretary"
+      xmlns:local="clr-namespace:Project.Hospital.ViewModels.Secretary"
+      xmlns:viewModel="clr-namespace:Project.Hospital.ViewModels.Secretary"
+      xmlns:vml="clr-namespace:Project.Hospital.ViewModels.Secretary"
+      xmlns:cmd="clr-namespace:Project.Hospital.View.Secretary.Commands"
       mc:Ignorable="d" 
-      d:DesignHeight="900" d:DesignWidth="824"
-      Title="ZahteviZaSlobodneDanePage">
- 
+      d:DesignHeight="900" d:DesignWidth="824">
+
+    <Page.CommandBindings>
+        <CommandBinding Command="cmd:RoutedCommand.Select" CanExecute="Select_CanExecute" Executed="Select_Executed"></CommandBinding>
+    </Page.CommandBindings>
+
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto"></RowDefinition>
             <RowDefinition></RowDefinition>
         </Grid.RowDefinitions>
         <TextBlock Grid.Row="0" Height="80" FontSize="32" Padding="25,30">Zahtevi za slobodne dane</TextBlock>
-        <DataGrid Grid.Row="1" Height="750" Width="780" VerticalContentAlignment="Center"
+        <DataGrid Name="dataGridRequests" Grid.Row="1" Height="750" Width="780" VerticalContentAlignment="Center"
           RowHeight="50"                 
           ItemsSource="{Binding Path=Requests}"
           IsReadOnly="True"
           AutoGenerateColumns="False" AlternatingRowBackground="WhiteSmoke">
             <DataGrid.Columns>
-                <DataGridTextColumn Header="Podnosilac zahteva" Binding="{Binding Path=Lks}" Width="130"/>
-                <DataGridTextColumn Header="Razlog" Binding="{Binding Path=Reason}" Width="150"/>
-                <DataGridTextColumn Header="Pocetak" Binding="{Binding Path=Start}" Width="150"/>
-                <DataGridTextColumn Header="Kraj" Binding="{Binding Path=End}" Width="150"/>
-                <DataGridTemplateColumn Header="Zahtev je hitan" Width="100">
+                <DataGridTextColumn Header="Podnosilac zahteva" Binding="{Binding Path=DoctorName}" Width="120"/>
+                <DataGridTextColumn Header="Lks" Binding="{Binding Path=Lks}" Width="60"/>
+                <DataGridTextColumn Header="Razlog" Binding="{Binding Path=Reason}" Width="180"/>
+                <DataGridTextColumn Header="Pocetak" Binding="{Binding Path=Start}" Width="180"/>
+                <DataGridTextColumn Header="Kraj" Binding="{Binding Path=End}" Width="180"/>
+                <DataGridTemplateColumn Header="HITAN" Width="50">
                     <DataGridTemplateColumn.CellTemplate>
                         <DataTemplate>
                             <CheckBox IsChecked="{Binding isEmergency, UpdateSourceTrigger=PropertyChanged}" IsEnabled="False"/>
-                        </DataTemplate>
-                    </DataGridTemplateColumn.CellTemplate>
-                </DataGridTemplateColumn>
-                <DataGridTemplateColumn Width="90">
-                    <DataGridTemplateColumn.CellTemplate>
-                        <DataTemplate>
-                            <Button Content="Detalji" Margin="2" Click="details"/>
                         </DataTemplate>
                     </DataGridTemplateColumn.CellTemplate>
                 </DataGridTemplateColumn>

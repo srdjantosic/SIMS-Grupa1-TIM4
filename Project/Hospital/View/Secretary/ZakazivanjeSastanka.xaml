@@ -3,11 +3,17 @@
       xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:cmd="clr-namespace:Project.Hospital.View.Secretary.Commands"
       xmlns:local="clr-namespace:Project.Hospital.View.Secretary"
       mc:Ignorable="d" 
       d:DesignHeight="900" d:DesignWidth="824"
       Title="ZakazivanjeSastanka">
 
+    <Page.CommandBindings>
+        <CommandBinding Command="cmd:RoutedCommand.Up" CanExecute="Up_CanExecute" Executed="Up_Executed"></CommandBinding>
+        <CommandBinding Command="cmd:RoutedCommand.Down" CanExecute="Down_CanExecute" Executed="Down_Executed"></CommandBinding>
+    </Page.CommandBindings>
+    
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto"></RowDefinition>
