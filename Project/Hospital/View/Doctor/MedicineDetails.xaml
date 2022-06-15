@@ -16,11 +16,11 @@
             </Grid.RowDefinitions>
 
             <GroupBox Grid.Row="0" Header="What does the medicine contain" Width="550" Height="180" BorderBrush="Black" Padding="10,0,0,0">
-                <TextBox Name="tbMedicineContain" ></TextBox>
+                <TextBox Name="tbMedicineContain" IsReadOnly="True"></TextBox>
             </GroupBox>
 
             <GroupBox Grid.Row="1" Header="Instruction for use" Width="550" Height="180" BorderBrush="Black" Padding="10,0,0,0">
-                <TextBox Name="tbInstrucions" ></TextBox>
+                <TextBox Name="tbInstrucions" IsReadOnly="True"></TextBox>
             </GroupBox>
 
             <Button Grid.Row="2" Width="50" Height="30" Margin="500,0,0,0" Click="btnAccept">Accept</Button>

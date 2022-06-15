@@ -51,5 +51,27 @@ namespace Project.Hospital.Model
             };
             return csvValues;
         }
+
+        public String ToString()
+        {
+            String txt = "";
+            txt += "ID : " + Id + "\n";
+            txt += "BeginOfUse : " + BeginOfUse.ToString() + "\n";
+            txt += "PeriodInDays : " + PeriodInDays + "\n";
+
+            txt += "Medicines : ";
+            int medicineCount = 0;
+            foreach(string medicine in medicines)
+            {
+                txt += medicine;
+                medicineCount++;
+                if (medicineCount < medicines.Count())
+                {
+                    txt += ", ";
+                }
+            }
+            txt += "\n";
+            return txt;
+        }
     }
 }

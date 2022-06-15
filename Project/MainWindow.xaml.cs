@@ -15,10 +15,11 @@ using Project.Hospital.Repository;
 using Project.Hospital.Service;
 using Project.Hospital.Controller;
 using System;
+using System.ComponentModel;
 
 namespace Project
 {
-    public partial class MainWindow : Window
+    public partial class MainWindow : Window, INotifyPropertyChanged
     {
         private DoctorRepository doctorRepository;
         private DoctorService doctorService;
@@ -29,9 +30,12 @@ namespace Project
         private ManagerRepository managerRepository;
         private ManagerService managerService;
         private ManagerController managerController;
+
         public MainWindow()
         {
             InitializeComponent();
+            this.DataContext = this;
+
             this.doctorRepository = new DoctorRepository();
             this.doctorService = new DoctorService(doctorRepository);
             this.doctorController = new DoctorController(doctorService);
@@ -69,7 +73,36 @@ namespace Project
             }
 
             emailMsg.Content = "Invalid username or password!";
+
         }
+
+        public event PropertyChangedEventHandler PropertyChanged;
+
+        protected virtual void OnPropertyChanged(string name)
+        {
+            if (PropertyChanged != null)
+            {
+                PropertyChanged(this, new PropertyChangedEventArgs(name));
+            }
+        }
+
+        /*private string _test1;
+        public string binEmailError
+        {
+            get
+            {
+                return _test1;
+            }
+            set
+            {
+                if (!value.Equals(_test1))
+                {
+                    _test1 = value;
+                    OnPropertyChanged("binEmailError");
+                }
+            }
+        }*/
+
 
     }
 }

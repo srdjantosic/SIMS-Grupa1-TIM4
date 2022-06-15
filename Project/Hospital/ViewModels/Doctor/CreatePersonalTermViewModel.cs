@@ -49,7 +49,7 @@ namespace Project.Hospital.ViewModels.Doctor
             }
 
         }
-        public void btnCreate(object sender, RoutedEventArgs e, string dpStartDate, string boxStartTime, Patient selectedPatient)
+        public void btnCreate(object sender, RoutedEventArgs e, string dpStartDate, string boxStartTime, Patient selectedPatient, string cbNewRoom)
         {
             string start = dpStartDate + " " + boxStartTime;
             DateTime startPeriod = DateTime.Parse(start);
@@ -59,13 +59,13 @@ namespace Project.Hospital.ViewModels.Doctor
             newAppointment.Lks = loggedDoctor;
             newAppointment.dateTime = startPeriod;
             newAppointment.Lbo = selectedPatient.Lbo;
-            newAppointment.RoomName = "A2";
+            newAppointment.RoomName = cbNewRoom;
 
-            if (appointmentController.Create(newAppointment) == null)
+            /*if (appointmentController.Create(newAppointment) == null)
             {
                 MessageBox.Show("Error with creating appointment");
                 return;
-            }
+            }*/
 
         }
     }

@@ -72,6 +72,8 @@ namespace Project.Hospital.View.Doctor
 
             tbPatient.Text = patient.FirstName + " " + patient.LastName + " (" + patient.Jmbg + ") ";
             tbDate.Text = startPeriod.ToShortDateString() + " " + startPeriod.ToLongTimeString() + " - " + endPeriod.ToShortDateString() + " " + endPeriod.ToLongTimeString();
+
+            lblMsg.Content = "";
         }
         public void fillingDataGridUsingDataTable()
         {
@@ -113,6 +115,12 @@ namespace Project.Hospital.View.Doctor
 
         private void btnCreate(object sender, RoutedEventArgs e)
         {
+            if (dataGridAppointments.SelectedItem == null)
+            {
+                lblMsg.Content = "Please choose appointment.";
+                return;
+            }
+
             if (dataGridAppointments.SelectedItem != null)
             {
                 DataRowView dataRow = (DataRowView)dataGridAppointments.SelectedItem;

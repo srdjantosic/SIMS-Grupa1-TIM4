@@ -27,8 +27,8 @@
                     <Label Margin="0,0,570,0" Width="50">Patient:</Label>
                     <TextBlock Name="tbPatient" Width="200" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0,0,310,25"></TextBlock>
 
-                    <Label Margin="290,0,0,0">Interval:</Label>
-                    <TextBlock  Name="tbDate" Width="300" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="350,0,0,25"></TextBlock>
+                    <Label Margin="300,0,0,0">Interval:</Label>
+                    <TextBlock  Name="tbDate" Width="280" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="350,0,0,25"></TextBlock>
                 </Grid>
 
                 <!--<WrapPanel Grid.Row="1" Orientation="Horizontal">
@@ -41,10 +41,11 @@
                         <TextBlock Name="tbDate" Width="300" HorizontalAlignment="Center" VerticalAlignment="Center"></TextBlock>
                    </WrapPanel>-->
                 <DataGrid Grid.Row="1" x:Name="dataGridAppointments" HorizontalAlignment="Left"
-                          VerticalAlignment="Top" Width="600" Height="450" Loaded="dataGridAppointments_Loaded" Margin="20,0,0,0">
+                          VerticalAlignment="Top" Width="600" Height="280" Loaded="dataGridAppointments_Loaded" Margin="20,0,0,0">
                 </DataGrid>
 
-                <Button Grid.Row="2" Width="100" Height="20" Margin="450,0,0,0" Click="btnCreate">Create</Button>
+                <Button Grid.Row="2" Width="70" Height="20" Margin="520,0,0,0" Click="btnCreate">Create</Button>
+                <Label Grid.Row="2" Name="lblMsg" Foreground="Red" FontWeight="Bold" Width="200" Height="30" Margin="0,0,50,0" FontSize="14"></Label>
             </Grid>
         </Grid>
     </Grid>

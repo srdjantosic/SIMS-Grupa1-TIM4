@@ -11,15 +11,30 @@
         
         <Label FontSize="22">Medicines</Label>
         
-        <DataGrid x:Name="dataGridMedicines" ItemsSource="{Binding medicines}" IsReadOnly="True" SelectionMode="Single" AutoGenerateColumns="False" 
+        <!--<DataGrid x:Name="dataGridMedicines" ItemsSource="{Binding medicines}" IsReadOnly="True" SelectionMode="Single" AutoGenerateColumns="False" 
                   HorizontalAlignment="Left" VerticalAlignment="Top" Margin="140,90,0,0">
             <DataGrid.Columns>
                 <DataGridTextColumn Header="Name" Binding="{Binding Name}"/>
                 <DataGridTextColumn Header="Manufacturer" Binding="{Binding Manufacturer}"/>
                 <DataGridTextColumn Header="ExpiringDate" Binding="{Binding ExpiringDate}"/>
             </DataGrid.Columns>
+        </DataGrid>-->
+
+        <DataGrid Grid.Row="1" Height="300" Width="600" Margin="0,0,0,0" VerticalContentAlignment="Center" ItemsSource="{Binding Path=medicines}" IsReadOnly="True" AutoGenerateColumns="False" AlternatingRowBackground="LightGray" x:Name="dataGridMedicines" SelectionMode="Single">
+            <DataGrid.Columns>
+                <DataGridTextColumn Header="Name" Binding="{Binding Name}"/>
+                <DataGridTextColumn Header="Manufacturer" Binding="{Binding Manufacturer}"/>
+                <DataGridTextColumn Header="ExpiringDate" Binding="{Binding ExpiringDate}"/>
+                <DataGridTemplateColumn Width="90">
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate>
+                            <Button Content="Details" Margin="2" Click="btnMedicineDetails"/>
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                </DataGridTemplateColumn>
+            </DataGrid.Columns>
         </DataGrid>
 
-        <Button Grid.Column="1" Width="50" Height="30" Margin="550,300,0,0" Click="btnMedicineDetails">Details</Button>
+        <!--<Button Grid.Column="1" Width="50" Height="30" Margin="550,300,0,0" Click="btnMedicineDetails">Details</Button>-->
     </Grid>
 </Page>

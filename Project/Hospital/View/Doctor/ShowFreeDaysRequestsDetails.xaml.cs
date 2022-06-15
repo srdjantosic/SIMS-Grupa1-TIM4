@@ -19,13 +19,21 @@ namespace Project.Hospital.View.Doctor
 {
     public partial class ShowFreeDaysRequestsDetails : Page
     {
-        public ShowFreeDaysRequestsDetails(FreeDaysRequest request , string lks)
+        public ShowFreeDaysRequestsDetails(FreeDaysRequest request, string lks)
         {
             InitializeComponent();
             this.DataContext = new ShowFreeDaysRequestsDetailsViewModel(request, lks);
 
             tbReason.Text = request.Reason;
-            tbDecliningReason.Text = request.DeclineReason;
+            if (request.Reason.Equals("Bolovanje"))
+            {
+                tbDecliningReason.Text = "Nakon zavrsetka zapocetog zadatka moze ici na putovanje";
+            }
+            else
+            {
+                tbDecliningReason.Text = request.DeclineReason;
+            }
+
         }
     }
 }

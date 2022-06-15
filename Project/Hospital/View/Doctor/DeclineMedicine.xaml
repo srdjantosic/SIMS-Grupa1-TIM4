@@ -36,7 +36,7 @@
 
             <Button Grid.Row="2" Width="50" Height="30" Margin="560,0,0,0" Click="btnSet">Set</Button>
             <Button Grid.Row="2" Width="50" Height="30" Margin="390,0,0,0" Click="btnCancel">Cancel</Button>
-            <Label Grid.Row="2" Name="lblDeclineMedicine" Margin="50,25,0,0" Foreground="Red" FontWeight="Bold" FontSize="12" Width="185"></Label>
+            <Label Grid.Row="2" Name="lblDeclineMedicine" Margin="50,25,0,0" Foreground="Red" FontWeight="Bold" FontSize="14" Width="210"></Label>
 
         </Grid>
     </Grid>

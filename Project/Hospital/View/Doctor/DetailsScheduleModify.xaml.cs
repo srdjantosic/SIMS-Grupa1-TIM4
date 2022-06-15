@@ -129,25 +129,23 @@ namespace Project.Hospital.View.Doctor
 
         private void btnSet(object sender, RoutedEventArgs e)
         {
-            /*DateTime newDateTime = currentAppointment.dateTime;
-            string newRoom = currentAppointment.roomName;
-
-            if (NewDateTimeBox.Text != "" && NewTimeComboBox.Text != "Time")
+            if(NewDateTimeBox.Text == "" || NewTimeComboBox.Text.Equals("Time") || NewRoomComboBox.Text.Equals("Room"))
             {
-                string NewDateTime = NewDateTimeBox.Text + " " + NewTimeComboBox.Text;
-                newDateTime = DateTime.Parse(NewDateTime);
+                lblMsg.Content = "You must fill every field!";
+                return;
             }
 
-            if (NewRoomComboBox.Text != "Room")
-            {
-                newRoom = NewRoomComboBox.Text;
-            }
+            DateTime newDateTime = currentAppointment.dateTime;
+            string newRoom = currentAppointment.RoomName;
+
+            string NewDateTime = NewDateTimeBox.Text + " " + NewTimeComboBox.Text;
+            newDateTime = DateTime.Parse(NewDateTime);
+
+            newRoom = NewRoomComboBox.Text;
             
-            Appointment updatedAppointment = appointmentController.UpdateDateTimeAndRoomName(currentAppointment.id, newDateTime, newRoom);
+            Appointment updatedAppointment = appointmentController.UpdateTimeAndRoom(currentAppointment.Id, newDateTime, newRoom);
             var detailsSchedule = new DetailsSchedule(updatedAppointment);
-            NavigationService.Navigate(detailsSchedule);*/
-
-            lblMsg.Content = "You must fill every field!";
+            NavigationService.Navigate(detailsSchedule);
         }
 
         private void btnCancel(object sender, RoutedEventArgs e)

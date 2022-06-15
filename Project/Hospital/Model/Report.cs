@@ -38,5 +38,14 @@ namespace Project.Hospital.Model
             };
             return csvValues;
         }
+
+        public String ToString()
+        {
+            String txt = "";
+            txt += "ID : " + Id + "\n";
+            txt += "Diagnosis : " + Diagnosis + "\n";
+            txt += "Comment : " + Comment + "\n";
+            return txt;
+        }
     }
 }

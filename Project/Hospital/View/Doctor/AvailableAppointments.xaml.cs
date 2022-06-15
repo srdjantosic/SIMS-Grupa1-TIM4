@@ -52,6 +52,8 @@ namespace Project.Hospital.View.Doctor
             this.availableAppointments = availableAppointments;
             this.doctor = doctor;
             this.patient = patient;
+
+            lblMsg.Content = "";
         }
         public void fillingDataGridUsingDataTable()
         {
@@ -88,6 +90,12 @@ namespace Project.Hospital.View.Doctor
 
         private void btnCreate(object sender, RoutedEventArgs e)
         {
+            if(dataGridAppointments.SelectedItem == null)
+            {
+                lblMsg.Content = "Please choose appointment.";
+                return;
+            }
+
             if (dataGridAppointments.SelectedItem != null)
             {
                 DataRowView dataRow = (DataRowView)dataGridAppointments.SelectedItem;

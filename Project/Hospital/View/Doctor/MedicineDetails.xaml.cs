@@ -47,17 +47,9 @@ namespace Project.Hospital.View.Doctor
 
         private void btnAccept(object sender, RoutedEventArgs e)
         {
-            MessageBoxResult result = MessageBox.Show("Do you want to ACCEPT medicine?", "Alert", MessageBoxButton.YesNo);
-            switch (result)
-            {
-                case MessageBoxResult.Yes:
-                    medicineController.Verify(currentMedicine.Name);
-                    var medicines = new Medicines(loggedDoctor);
-                    NavigationService.Navigate(medicines);
-                    break;
-                case MessageBoxResult.No:
-                    break;
-            }
+            medicineController.Verify(currentMedicine.Name);
+            var medicines = new Medicines(loggedDoctor);
+            NavigationService.Navigate(medicines);
         }
 
         private void btnDecline(object sender, RoutedEventArgs e)

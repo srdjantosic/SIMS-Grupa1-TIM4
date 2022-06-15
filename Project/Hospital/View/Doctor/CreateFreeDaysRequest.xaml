@@ -28,6 +28,19 @@
                 <ColumnDefinition Width="110"/>
             </Grid.ColumnDefinitions>
 
+            <ToggleButton Grid.Column="0" x:Name="TogglePopupButton" Height="20" Width="50" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0,0,20,70">
+                <StackPanel>
+                    <Popup Name="myPopup" IsOpen="{Binding IsChecked, ElementName=TogglePopupButton}">
+                        <Border BorderThickness="1">
+                            <TextBlock Name="myPopupText" Background="#FFA9E1F4"  Foreground="Black " TextAlignment="Center" Padding="10" TextWrapping="Wrap" Width="420" Height="80">
+                            	Potrebno je popunitit sva polja kako bi pokusali da kreirate zahtev. Ukoliko oznacite zahtev kao hitan automatski se kreira. Ukoliko zahtev nije hitan, a postoje bar 2 lekara iste grane medicine koji su podneli zahtev vas zahtev se nece kreirati.
+                            </TextBlock>
+                        </Border>
+                    </Popup>
+                    <TextBlock Width="50" Height="20"><Run  Text="   Help" /></TextBlock>
+                </StackPanel>
+            </ToggleButton>
+
             <Label Grid.Column="0" Margin="20,35,0,0">Choose dates:</Label>
 
             <DatePicker Grid.Column="1" Margin="0,10,0,0" Width="110" Height="25" Name="dpStartDate"></DatePicker>
@@ -42,16 +55,16 @@
         </Grid>
 
         <Grid Grid.Row="2">
-            <GroupBox Header="Reason for free days" Width="570" BorderBrush="Black" Padding="10,0,0,0" HorizontalAlignment="Left" Margin="20,0,0,0">
+            <GroupBox Header="Reason for free days" Width="580" BorderBrush="Black" Padding="10,0,0,0" HorizontalAlignment="Left" Margin="20,0,0,0">
                 <TextBox Name="tbReason" ></TextBox>
             </GroupBox>
         </Grid>
 
-        <Button Grid.Row="3" Width="80" Height="30" Margin="450,0,0,0" Click="btnSendRequest">Send Request</Button>
+        <Button Grid.Row="3" Width="80" Height="30" Margin="470,0,0,0" Click="btnSendRequest">Send Request</Button>
         
-        <Label Grid.Row="3" Name="lblFreeDaysRequest" Margin="60,30,0,0" Foreground="Red" FontWeight="Bold" FontSize="12" Width="150"></Label>
-        <Label Grid.Row="3" Name="lblTwoDays" Margin="0,30,0,0" Foreground="Red" FontWeight="Bold" FontSize="12" Width="280"></Label>
-        <Label Grid.Row="3" Name="lblTwoDoctors" Margin="0,30,130,0" Foreground="Red" FontWeight="Bold" FontSize="12" Width="520"></Label>
-        <Label Grid.Row="3" Name="lblDates" Margin="60,30,0,0" Foreground="Red" FontWeight="Bold" FontSize="12" Width="200"></Label>
+        <Label Grid.Row="3" Name="lblFreeDaysRequest" Margin="60,25,0,0" Foreground="Red" FontWeight="Bold" FontSize="14" Width="200"></Label>
+        <Label Grid.Row="3" Name="lblTwoDays" Margin="0,25,0,0" Foreground="Red" FontWeight="Bold" FontSize="14" Width="320"></Label>
+        <Label Grid.Row="3" Name="lblTwoDoctors" Margin="0,25,120,0" Foreground="Red" FontWeight="Bold" FontSize="12" Width="540"></Label>
+        <Label Grid.Row="3" Name="lblDates" Margin="60,25,0,0" Foreground="Red" FontWeight="Bold" FontSize="14" Width="240"></Label>
     </Grid>
 </Page>
